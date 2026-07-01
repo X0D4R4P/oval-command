@@ -4,6 +4,11 @@ import { prisma } from '@/lib/prisma'
 import { createInitialGame, pickEvent } from '@/lib/game-engine'
 import { dbToGame } from '@/lib/db-helpers'
 import type { CreateGameRequest } from '@/types/game'
+import type { InputJsonValue } from '@prisma/client/runtime/library'
+
+function toJson(value: unknown): InputJsonValue {
+  return value as InputJsonValue
+}
 
 export async function POST(req: NextRequest) {
   const session = await auth()
@@ -34,23 +39,23 @@ export async function POST(req: NextRequest) {
 
   const dbGame = await prisma.game.create({
     data: {
-      userId:           session.user.id,
-      presidentName:    initial.presidentName,
-      party:            initial.party,
-      difficulty:       initial.difficulty,
-      currentMonth:     initial.currentMonth,
-      status:           initial.status,
-      stats:            initial.stats,
-      flags:            initial.flags,
-      activeConflicts:  initial.activeConflicts,
-      activeScandals:   initial.activeScandals,
-      pendingConsequences: initial.pendingConsequences,
-      chainCooldowns:   initial.chainCooldowns,
-      npcRelationships: initial.npcRelationships,
-      usedNpcAbilities: initial.usedNpcAbilities,
-      passedLaws:       initial.passedLaws,
-      usedEvents:       initial.usedEvents,
-      approvalHistory:  initial.approvalHistory,
+      userId:              session.user.id,
+      presidentName:       initial.presidentName,
+      party:               initial.party,
+      difficulty:          initial.difficulty,
+      currentMonth:        initial.currentMonth,
+      status:              initial.status,
+      stats:               toJson(initial.stats),
+      flags:               toJson(initial.flags),
+      activeConflicts:     toJson(initial.activeConflicts),
+      activeScandals:      initial.activeScandals,
+      pendingConsequences: toJson(initial.pendingConsequences),
+      chainCooldowns:      toJson(initial.chainCooldowns),
+      npcRelationships:    toJson(initial.npcRelationships),
+      usedNpcAbilities:    toJson(initial.usedNpcAbilities),
+      passedLaws:          toJson(initial.passedLaws),
+      usedEvents:          toJson(initial.usedEvents),
+      approvalHistory:     toJson(initial.approvalHistory),
     },
   })
 
@@ -73,20 +78,13 @@ export async function GET() {
       id:            true,
       presidentName: true,
       party:         true,
+      difficulty:    true,
       currentMonth:  true,
       status:        true,
       legacyScore:   true,
       stats:         true,
       createdAt:     true,
       updatedAt:     true,
-      // Exclude large JSON fields from list view
-      activeConflicts:  false,
-      activeScandals:   false,
-      npcRelationships: false,
-      flags:            false,
-      passedLaws:       false,
-      usedEvents:       false,
-      approvalHistory:  false,
     },
   })
 

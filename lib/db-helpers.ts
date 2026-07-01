@@ -4,6 +4,7 @@
  * lives in one place to update.
  */
 import type { Game, GameLog, ActionType } from '@/types/game'
+import type { InputJsonValue } from '@prisma/client/runtime/library'
 
 // Prisma row shapes (mirrors schema.prisma — keep in sync)
 interface DbGame {
@@ -86,22 +87,27 @@ export function dbToGameLog(row: DbGameLog): GameLog {
   }
 }
 
+/** Cast a value to Prisma's InputJsonValue for JSON fields */
+function toJson(value: unknown): InputJsonValue {
+  return value as InputJsonValue
+}
+
 /** Extract only the fields that change on every turn update */
 export function gameToDbUpdate(game: Game) {
   return {
-    currentMonth:     game.currentMonth,
-    status:           game.status,
-    stats:            game.stats,
-    flags:            game.flags,
-    activeConflicts:  game.activeConflicts,
-    activeScandals:   game.activeScandals,
-    pendingConsequences: game.pendingConsequences,
-    chainCooldowns: game.chainCooldowns,
-    npcRelationships: game.npcRelationships,
-    usedNpcAbilities: game.usedNpcAbilities,
-    passedLaws:       game.passedLaws,
-    usedEvents:       game.usedEvents,
-    approvalHistory:  game.approvalHistory,
-    legacyScore:      game.legacyScore ?? null,
+    currentMonth:        game.currentMonth,
+    status:              game.status,
+    stats:               toJson(game.stats),
+    flags:               toJson(game.flags),
+    activeConflicts:     toJson(game.activeConflicts),
+    activeScandals:      game.activeScandals,
+    pendingConsequences: toJson(game.pendingConsequences),
+    chainCooldowns:      toJson(game.chainCooldowns),
+    npcRelationships:    toJson(game.npcRelationships),
+    usedNpcAbilities:    toJson(game.usedNpcAbilities),
+    passedLaws:          toJson(game.passedLaws),
+    usedEvents:          toJson(game.usedEvents),
+    approvalHistory:     toJson(game.approvalHistory),
+    legacyScore:         game.legacyScore ?? null,
   }
 }
