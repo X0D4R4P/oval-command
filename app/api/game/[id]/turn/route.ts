@@ -3,10 +3,15 @@ import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { processEventTurn, pickEvent, isEventEligible, EVENTS } from '@/lib/game-engine'
 import { computePresidentialArchetype } from '@/lib/archetype-engine'
-import { dbToGame, gameToDbUpdate } from '@/lib/db-helpers'
+import { dbToGame, gameToDbUpdate, dbToGameLog } from '@/lib/db-helpers'
 import type { ProcessTurnRequest } from '@/types/game'
+import type { InputJsonValue } from '@prisma/client/runtime/library'
 
 interface Params { params: Promise<{ id: string }> }
+
+function toJson(value: unknown): InputJsonValue {
+  return value as InputJsonValue
+}
 
 export async function POST(req: NextRequest, { params }: Params) {
   const { id } = await params
@@ -45,11 +50,6 @@ export async function POST(req: NextRequest, { params }: Params) {
 
   const game = dbToGame(row)
 
-  // Re-validate that the submitted event is one the player could
-  // legitimately have been shown right now — without this, a modified
-  // client request could fire any of the 82 events regardless of
-  // month/stat/flag gates (e.g. a rare weight-3 event, or one scoped to
-  // a narrow month window like midterm_results at months 24-26 only).
   const submittedEvent = EVENTS.find(e => e.id === eventId)
   if (!submittedEvent) {
     return NextResponse.json({ error: 'Unknown event' }, { status: 400 })
@@ -63,11 +63,6 @@ export async function POST(req: NextRequest, { params }: Params) {
 
   const result = processEventTurn(game, eventId, choiceIndex)
 
-  // Persist game state and log in a transaction, with an optimistic-lock
-  // guard on updatedAt: if another request already advanced this game
-  // since we read it (double-click, network retry, multiple tabs), the
-  // updateMany's where-clause matches zero rows and we detect that below
-  // rather than silently overwriting the other request's turn.
   const [updateResult] = await prisma.$transaction([
     prisma.game.updateMany({
       where: { id: id, updatedAt: row.updatedAt },
@@ -81,16 +76,13 @@ export async function POST(req: NextRequest, { params }: Params) {
         eventId:     result.log.eventId     ?? null,
         choiceIndex: result.log.choiceIndex ?? null,
         lawId:       result.log.lawId       ?? null,
-        statDeltas:  result.log.statDeltas,
+        statDeltas:  toJson(result.log.statDeltas),
         narrative:   result.log.narrative   ?? null,
       },
     }),
   ])
 
   if (updateResult.count === 0) {
-    // Another request already advanced this turn between our read and
-    // write. The log row above already committed (harmless — it's just
-    // a record), but the game state itself was NOT overwritten by us.
     return NextResponse.json(
       { error: 'This turn was already processed by another request. Reload to see the current state.' },
       { status: 409 }
@@ -101,14 +93,15 @@ export async function POST(req: NextRequest, { params }: Params) {
     ? pickEvent(result.updatedGame)
     : null
 
-  // Compute archetype on game-over so the client has it for the legacy screen
+  // Compute archetype on game-over — convert DB logs to GameLog via dbToGameLog
+  // so createdAt is a string (GameLog type) not a Date (Prisma type)
   let archetype = undefined
   if (result.gameOver) {
     const allLogs = await prisma.gameLog.findMany({
       where: { gameId: id },
       orderBy: { month: 'asc' },
     })
-    archetype = computePresidentialArchetype(result.updatedGame, allLogs as import('@/types/game').GameLog[])
+    archetype = computePresidentialArchetype(result.updatedGame, allLogs.map(dbToGameLog))
   }
 
   return NextResponse.json({ result: { ...result, archetype }, nextEvent })

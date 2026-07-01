@@ -6,12 +6,17 @@ import { getLawById, resolveLawPassage, applyLawPassage, canUseNpcAbility } from
 import { computePassiveDrift, applyDelta, pickEvent } from '@/lib/game-engine'
 import { generateLawHeadline } from '@/lib/headlines'
 import { checkAndEnqueueChains, resolveDueConsequences } from '@/lib/cascade-engine'
+import type { InputJsonValue } from '@prisma/client/runtime/library'
 
 interface Params { params: Promise<{ id: string }> }
 
 interface ProposeLawBody {
   lawId: string
   useNpcAbility?: 'senate_leader' | 'speaker'
+}
+
+function toJson(value: unknown): InputJsonValue {
+  return value as InputJsonValue
 }
 
 export async function POST(req: NextRequest, { params }: Params) {
@@ -48,16 +53,13 @@ export async function POST(req: NextRequest, { params }: Params) {
 
   const game = dbToGame(row)
 
-  // Already passed or blocked by an exclusive law already on the books
   if (game.passedLaws.includes(lawId)) {
     return NextResponse.json({ error: 'This law has already passed' }, { status: 400 })
   }
-  if (law.blocks_laws.some(id => game.passedLaws.includes(id))) {
+  if (law.blocks_laws.some(bid => game.passedLaws.includes(bid))) {
     return NextResponse.json({ error: 'A mutually exclusive law has already passed this term' }, { status: 400 })
   }
 
-  // Validate ability eligibility up front so the client gets a clear error
-  // rather than a silent fallback to a normal dice roll.
   if (useNpcAbility) {
     const { eligible, reason } = canUseNpcAbility(game, useNpcAbility)
     if (!eligible) {
@@ -68,8 +70,6 @@ export async function POST(req: NextRequest, { params }: Params) {
   const passageResult = resolveLawPassage(law, game, { useNpcAbility })
   let updatedGame = applyLawPassage(game, law, passageResult)
 
-  // If passed, apply the immediate onPass stat effects (passive effects
-  // are picked up automatically by computePassiveDrift via passedLaws)
   if (passageResult.passed) {
     updatedGame = {
       ...updatedGame,
@@ -77,9 +77,7 @@ export async function POST(req: NextRequest, { params }: Params) {
     }
   }
 
-  // Advance the turn the same way a crisis choice would
   const drift = computePassiveDrift(updatedGame)
-
   const nextMonthNumber = updatedGame.currentMonth + 1
   const { effects: cascadeEffects, headlines: cascadeHeadlines, remaining, newCooldowns } =
     resolveDueConsequences(updatedGame.pendingConsequences, nextMonthNumber)
@@ -108,10 +106,6 @@ export async function POST(req: NextRequest, { params }: Params) {
     updatedAt:           new Date().toISOString(),
   }
 
-  // Optimistic-lock guard on updatedAt: see the equivalent comment in
-  // the turn route for why this matters — without it, two concurrent
-  // requests (double-click, retry, multiple tabs) silently overwrite
-  // each other's game state while both still write duplicate log rows.
   const [updateResult] = await prisma.$transaction([
     prisma.game.updateMany({
       where: { id: id, updatedAt: row.updatedAt },
@@ -123,7 +117,7 @@ export async function POST(req: NextRequest, { params }: Params) {
         month:       game.currentMonth,
         actionType:  passageResult.passed ? 'LAW_PASSED' : 'LAW_FAILED',
         lawId:       law.id,
-        statDeltas:  passageResult.passed ? law.effects.onPass : {},
+        statDeltas:  toJson(passageResult.passed ? law.effects.onPass : {}),
         narrative:   passageResult.usedAbility
           ? `${law.title} passed via ${passageResult.usedAbility}.`
           : passageResult.passed
@@ -141,7 +135,6 @@ export async function POST(req: NextRequest, { params }: Params) {
   }
 
   const nextEvent = updatedGame.status === 'ACTIVE' ? pickEvent(updatedGame) : null
-
   const headline = generateLawHeadline(law.title, law.category, passageResult.passed, passageResult.usedAbility)
 
   return NextResponse.json({
