@@ -1,22 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
-import { dbToGame, gameToDbUpdate } from '@/lib/db-helpers'
+import { dbToGame, gameToDbUpdate, toJson } from '@/lib/db-helpers'
 import { getLawById, resolveLawPassage, applyLawPassage, canUseNpcAbility } from '@/lib/law-engine'
 import { computePassiveDrift, applyDelta, pickEvent } from '@/lib/game-engine'
 import { generateLawHeadline } from '@/lib/headlines'
 import { checkAndEnqueueChains, resolveDueConsequences } from '@/lib/cascade-engine'
-import type { InputJsonValue } from '@prisma/client/runtime/library'
 
 interface Params { params: Promise<{ id: string }> }
 
 interface ProposeLawBody {
   lawId: string
   useNpcAbility?: 'senate_leader' | 'speaker'
-}
-
-function toJson(value: unknown): InputJsonValue {
-  return value as InputJsonValue
 }
 
 export async function POST(req: NextRequest, { params }: Params) {

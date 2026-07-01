@@ -2,13 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { createInitialGame, pickEvent } from '@/lib/game-engine'
-import { dbToGame } from '@/lib/db-helpers'
+import { dbToGame, toJson } from '@/lib/db-helpers'
 import type { CreateGameRequest } from '@/types/game'
-import type { InputJsonValue } from '@prisma/client/runtime/library'
-
-function toJson(value: unknown): InputJsonValue {
-  return value as InputJsonValue
-}
 
 export async function POST(req: NextRequest) {
   const session = await auth()

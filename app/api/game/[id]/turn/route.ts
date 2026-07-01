@@ -3,15 +3,10 @@ import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { processEventTurn, pickEvent, isEventEligible, EVENTS } from '@/lib/game-engine'
 import { computePresidentialArchetype } from '@/lib/archetype-engine'
-import { dbToGame, gameToDbUpdate } from '@/lib/db-helpers'
+import { dbToGame, gameToDbUpdate, toJson } from '@/lib/db-helpers'
 import type { ProcessTurnRequest, GameLog } from '@/types/game'
-import type { InputJsonValue } from '@prisma/client/runtime/library'
 
 interface Params { params: Promise<{ id: string }> }
-
-function toJson(value: unknown): InputJsonValue {
-  return value as InputJsonValue
-}
 
 export async function POST(req: NextRequest, { params }: Params) {
   const { id } = await params
@@ -93,14 +88,12 @@ export async function POST(req: NextRequest, { params }: Params) {
     ? pickEvent(result.updatedGame)
     : null
 
-  // Compute archetype on game-over
   let archetype = undefined
   if (result.gameOver) {
     const allLogs = await prisma.gameLog.findMany({
       where: { gameId: id },
       orderBy: { month: 'asc' },
     })
-    // Convert Prisma rows to GameLog shape — createdAt must be string not Date
     const gameLogs: GameLog[] = allLogs.map(l => ({
       id:          l.id,
       gameId:      l.gameId,

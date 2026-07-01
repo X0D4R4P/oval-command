@@ -4,7 +4,6 @@
  * lives in one place to update.
  */
 import type { Game, GameLog, ActionType } from '@/types/game'
-import type { InputJsonValue } from '@prisma/client/runtime/library'
 
 // Prisma row shapes (mirrors schema.prisma — keep in sync)
 interface DbGame {
@@ -59,7 +58,7 @@ export function dbToGame(row: DbGame): Game {
     activeConflicts:  (row.activeConflicts as Game['activeConflicts']) ?? [],
     activeScandals:   row.activeScandals,
     pendingConsequences: (row.pendingConsequences as Game['pendingConsequences']) ?? [],
-    chainCooldowns: (row.chainCooldowns as Game['chainCooldowns']) ?? {},
+    chainCooldowns:   (row.chainCooldowns as Game['chainCooldowns']) ?? {},
     npcRelationships: (row.npcRelationships as Game['npcRelationships']) ?? {},
     usedNpcAbilities: (row.usedNpcAbilities as string[]) ?? [],
     passedLaws:       (row.passedLaws as string[]) ?? [],
@@ -87,9 +86,10 @@ export function dbToGameLog(row: DbGameLog): GameLog {
   }
 }
 
-/** Cast a value to Prisma's InputJsonValue for JSON fields */
-function toJson(value: unknown): InputJsonValue {
-  return value as InputJsonValue
+/** Cast a value to Prisma's JSON input type */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function toJson(value: unknown): any {
+  return value
 }
 
 /** Extract only the fields that change on every turn update */
