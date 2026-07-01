@@ -1,0 +1,119 @@
+import { redirect, notFound } from 'next/navigation'
+import Link from 'next/link'
+import { auth } from '@/lib/auth'
+import { prisma } from '@/lib/prisma'
+import { EVENTS, LAWS } from '@/lib/game-engine'
+import { cn, formatDelta, isDeltaGood, getStatLabel, monthToDate } from '@/lib/utils'
+
+interface PageProps {
+  params: Promise<{ id: string }>
+}
+
+const ACTION_LABEL: Record<string, string> = {
+  CRISIS: 'Decision',
+  LAW_PROPOSED: 'Bill Proposed',
+  LAW_PASSED: 'Bill Passed',
+  LAW_FAILED: 'Bill Failed',
+  BUDGET: 'Budget',
+  EXECUTIVE_ORDER: 'Executive Order',
+  PRESS_CONFERENCE: 'Press Conference',
+  DIPLOMATIC_VISIT: 'Diplomatic Visit',
+  TURN_END: 'Turn End',
+}
+
+export default async function HistoryPage({ params }: PageProps) {
+  const { id } = await params
+  const session = await auth()
+  if (!session?.user?.id) redirect('/login')
+
+  const game = await prisma.game.findUnique({
+    where: { id },
+    select: {
+      id: true,
+      userId: true,
+      presidentName: true,
+      logs: { orderBy: { month: 'asc' } },
+    },
+  })
+
+  if (!game) notFound()
+  if (game.userId !== session.user.id) redirect('/dashboard')
+
+  return (
+    <main className="mx-auto max-w-2xl px-6 py-10">
+      <div className="flex items-baseline justify-between">
+        <div>
+          <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-brass)]">
+            The Record
+          </div>
+          <h1 className="mt-1 font-[family-name:var(--font-display)] text-2xl font-semibold text-[var(--color-paper)]">
+            Presidential History
+          </h1>
+        </div>
+        <Link
+          href={`/game/${id}`}
+          className="font-mono text-xs text-[var(--color-paper-faint)] hover:text-[var(--color-paper)]"
+        >
+          ← Back
+        </Link>
+      </div>
+
+      {game.logs.length === 0 && (
+        <div className="mt-8 rounded-sm border border-dashed border-[var(--color-border-strong)] px-6 py-12 text-center">
+          <p className="text-sm text-[var(--color-paper-dim)]">
+            No decisions recorded yet. History starts with your first choice.
+          </p>
+        </div>
+      )}
+
+      <div className="mt-7 space-y-0 border-l border-[var(--color-border)] pl-5">
+        {game.logs.map((log: (typeof game.logs)[number]) => {
+          const event = log.eventId ? EVENTS.find(e => e.id === log.eventId) : undefined
+          const law = log.lawId ? LAWS.find(l => l.id === log.lawId) : undefined
+          const title = event?.title ?? law?.title ?? ACTION_LABEL[log.actionType] ?? log.actionType
+          const deltas = Object.entries(log.statDeltas as Record<string, number>).filter(([, v]) => v !== 0)
+
+          return (
+            <div key={log.id} className="relative pb-6 last:pb-0">
+              <div className="absolute -left-[25px] top-1 h-2.5 w-2.5 rounded-full border-2 border-[var(--color-ink)] bg-[var(--color-brass-dim)]" />
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-[10px] uppercase tracking-[0.08em] text-[var(--color-paper-faint)]">
+                  {monthToDate(log.month)}
+                </span>
+                <span
+                  className={cn(
+                    'rounded-full px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.05em]',
+                    log.actionType === 'LAW_PASSED' && 'bg-[var(--color-good-dim)] text-[var(--color-good)]',
+                    log.actionType === 'LAW_FAILED' && 'bg-[var(--color-bad-dim)] text-[var(--color-bad)]',
+                    log.actionType === 'CRISIS' && 'bg-[var(--color-surface-2)] text-[var(--color-paper-faint)]'
+                  )}
+                >
+                  {ACTION_LABEL[log.actionType] ?? log.actionType}
+                </span>
+              </div>
+              <p className="mt-1.5 text-sm font-medium text-[var(--color-paper)]">{title}</p>
+              {log.narrative && (
+                <p className="mt-1 text-[13px] leading-snug text-[var(--color-paper-dim)]">{log.narrative}</p>
+              )}
+              {deltas.length > 0 && (
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {deltas.map(([key, value]) => (
+                    <span
+                      key={key}
+                      className={cn(
+                        'font-mono text-[11px]',
+                        isDeltaGood(key, value) ? 'text-[var(--color-good)]' : 'text-[var(--color-bad)]'
+                      )}
+                    >
+                      {getStatLabel(key as never)} {formatDelta(key, value)}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          )
+        })}
+      </div>
+    </main>
+  )
+}

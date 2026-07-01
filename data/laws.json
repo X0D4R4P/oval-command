@@ -1,0 +1,1508 @@
+[
+  {
+    "id": "universal_healthcare",
+    "title": "Universal Healthcare Act",
+    "shortTitle": "Universal Healthcare",
+    "category": "progressive",
+    "description": "Establishes a federal single-payer healthcare system replacing private insurance for all Americans. The most ambitious domestic legislation since Medicare.",
+    "flavor": "Every American gets coverage. Every insurance lobbyist gets an enemy.",
+    "cost": "high",
+    "debtImpact": 4.5,
+    "annualCostBn": 1800,
+    "passage": {
+      "congressMin": 65,
+      "partyUnityMin": 60,
+      "approvalBonus": {
+        "threshold": 60,
+        "bonus": 15
+      },
+      "approvalPenalty": {
+        "threshold": 35,
+        "penalty": 20
+      },
+      "lobbyOpposition": [
+        {
+          "name": "Insurance Industry Coalition",
+          "penalty": 20
+        },
+        {
+          "name": "American Medical Association",
+          "penalty": 10
+        }
+      ],
+      "basePassProbability": 30
+    },
+    "effects": {
+      "onPass": {
+        "approval": 12,
+        "economy": -4,
+        "unrest": -8,
+        "congressSupport": -5,
+        "baseSupport": 18,
+        "globalReputation": 6
+      },
+      "passive": {
+        "approval": 3,
+        "economy": 1,
+        "unrest": -2
+      },
+      "description": "Passive: +3 approval/mo, +1 economy/mo, -2 unrest/mo for remainder of term"
+    },
+    "sets_flags": [
+      "universal_healthcare_passed"
+    ],
+    "requires_flags": [],
+    "blocks_laws": [
+      "public_option_expansion"
+    ],
+    "npc_reactions": {
+      "speaker": {
+        "relationship": -15,
+        "quote": "The Speaker calls it 'a government takeover that will destroy American medicine.'"
+      },
+      "senate_leader": {
+        "relationship": 10,
+        "quote": "The Senate Leader calls it 'the fulfillment of a promise made to the American people.'"
+      },
+      "protest_leader": {
+        "relationship": 20,
+        "quote": "The protest leader calls it 'the most important day in American history since the Civil Rights Act.'"
+      }
+    }
+  },
+  {
+    "id": "climate_emergency_bill",
+    "title": "Climate Emergency and Clean Energy Transition Act",
+    "shortTitle": "Climate Emergency Act",
+    "category": "progressive",
+    "description": "Declares a national climate emergency and commits $2T over 10 years to renewable energy, electric vehicle infrastructure, and carbon capture. Sets binding emissions targets.",
+    "flavor": "The planet doesn't negotiate. Neither does this bill.",
+    "cost": "high",
+    "debtImpact": 3.2,
+    "annualCostBn": 200,
+    "passage": {
+      "congressMin": 60,
+      "partyUnityMin": 55,
+      "approvalBonus": {
+        "threshold": 58,
+        "bonus": 12
+      },
+      "approvalPenalty": {
+        "threshold": 38,
+        "penalty": 18
+      },
+      "lobbyOpposition": [
+        {
+          "name": "Oil and Gas Industry",
+          "penalty": 25
+        },
+        {
+          "name": "Coal Mining Association",
+          "penalty": 10
+        }
+      ],
+      "basePassProbability": 35
+    },
+    "effects": {
+      "onPass": {
+        "approval": 8,
+        "economy": -3,
+        "globalReputation": 15,
+        "congressSupport": -4,
+        "baseSupport": 14,
+        "unrest": -5
+      },
+      "passive": {
+        "economy": 2,
+        "globalReputation": 1
+      },
+      "description": "Passive: +2 economy/mo (jobs), +1 global rep/mo for remainder of term"
+    },
+    "sets_flags": [
+      "climate_legislation_passed"
+    ],
+    "requires_flags": [],
+    "blocks_laws": [],
+    "npc_reactions": {
+      "treasury_secretary": {
+        "relationship": -8,
+        "quote": "The Treasury Secretary warns of 'significant near-term economic disruption.'"
+      },
+      "foreign_ally": {
+        "relationship": 20,
+        "quote": "The allied foreign leader calls it 'the leadership moment the world has been waiting for.'"
+      },
+      "protest_leader": {
+        "relationship": 18,
+        "quote": "Environmental protesters call off demonstrations outside the White House."
+      }
+    }
+  },
+  {
+    "id": "student_debt_relief",
+    "title": "Student Debt Relief and Higher Education Reform Act",
+    "shortTitle": "Student Debt Relief",
+    "category": "progressive",
+    "description": "Cancels up to $30,000 in federal student loan debt per borrower and caps future interest rates at 2%. Establishes income-based repayment as the default option.",
+    "flavor": "40 million borrowers. One bill. Every one of them votes.",
+    "cost": "high",
+    "debtImpact": 1.2,
+    "annualCostBn": 0,
+    "passage": {
+      "congressMin": 52,
+      "partyUnityMin": 60,
+      "approvalBonus": {
+        "threshold": 55,
+        "bonus": 10
+      },
+      "approvalPenalty": {
+        "threshold": 38,
+        "penalty": 15
+      },
+      "lobbyOpposition": [
+        {
+          "name": "Private Student Loan Industry",
+          "penalty": 12
+        },
+        {
+          "name": "Fiscal Responsibility Coalition",
+          "penalty": 8
+        }
+      ],
+      "basePassProbability": 45
+    },
+    "effects": {
+      "onPass": {
+        "approval": 10,
+        "economy": 5,
+        "congressSupport": -6,
+        "baseSupport": 15,
+        "unrest": -6
+      },
+      "passive": {
+        "economy": 1,
+        "approval": 1
+      },
+      "description": "Passive: +1 economy/mo, +1 approval/mo (consumer spending boost)"
+    },
+    "sets_flags": [
+      "student_debt_cancelled"
+    ],
+    "requires_flags": [],
+    "blocks_laws": [],
+    "npc_reactions": {
+      "speaker": {
+        "relationship": -10,
+        "quote": "The Speaker calls it 'a slap in the face to every American who paid off their loans.'"
+      },
+      "protest_leader": {
+        "relationship": 15,
+        "quote": "Student advocacy groups declare the President 'the most consequential education leader in a generation.'"
+      }
+    }
+  },
+  {
+    "id": "police_reform",
+    "title": "Law Enforcement Accountability and Reform Act",
+    "shortTitle": "Police Reform Act",
+    "category": "progressive",
+    "description": "Establishes a national use-of-force standard, requires body cameras, bans chokeholds, creates a federal misconduct database, and mandates independent review boards in cities over 100,000.",
+    "flavor": "Accountability isn't anti-police. It's pro-justice.",
+    "cost": "low",
+    "debtImpact": 0.3,
+    "annualCostBn": 12,
+    "passage": {
+      "congressMin": 55,
+      "partyUnityMin": 55,
+      "approvalBonus": {
+        "threshold": 55,
+        "bonus": 10
+      },
+      "approvalPenalty": {
+        "threshold": 38,
+        "penalty": 12
+      },
+      "lobbyOpposition": [
+        {
+          "name": "Fraternal Order of Police",
+          "penalty": 18
+        },
+        {
+          "name": "Law Enforcement Alliance",
+          "penalty": 10
+        }
+      ],
+      "basePassProbability": 40
+    },
+    "effects": {
+      "onPass": {
+        "approval": 7,
+        "unrest": -12,
+        "congressSupport": -5,
+        "security": -3,
+        "baseSupport": 12
+      },
+      "passive": {
+        "unrest": -1,
+        "security": 1
+      },
+      "description": "Passive: -1 unrest/mo, +1 security/mo as trust in law enforcement improves"
+    },
+    "sets_flags": [
+      "police_reform_passed"
+    ],
+    "requires_flags": [],
+    "blocks_laws": [],
+    "npc_reactions": {
+      "protest_leader": {
+        "relationship": 22,
+        "quote": "The protest leader says 'this is a start, not a finish \u2014 but it's a real start.'"
+      },
+      "speaker": {
+        "relationship": -12,
+        "quote": "The Speaker calls it 'a dangerous experiment that will embolden criminals.'"
+      }
+    }
+  },
+  {
+    "id": "corporate_tax_hike",
+    "title": "Fair Share Corporate Tax Act",
+    "shortTitle": "Corporate Tax Hike",
+    "category": "progressive",
+    "description": "Raises the corporate tax rate from 21% to 28%, implements a 15% minimum book tax on corporations with over $1B in profits, and closes major offshore tax loopholes.",
+    "flavor": "They made the money here. They can pay taxes here.",
+    "cost": "none",
+    "debtImpact": -1.5,
+    "annualCostBn": -400,
+    "passage": {
+      "congressMin": 55,
+      "partyUnityMin": 65,
+      "approvalBonus": {
+        "threshold": 55,
+        "bonus": 12
+      },
+      "approvalPenalty": {
+        "threshold": 40,
+        "penalty": 15
+      },
+      "lobbyOpposition": [
+        {
+          "name": "US Chamber of Commerce",
+          "penalty": 22
+        },
+        {
+          "name": "Business Roundtable",
+          "penalty": 18
+        },
+        {
+          "name": "Wall Street Coalition",
+          "penalty": 15
+        }
+      ],
+      "basePassProbability": 35
+    },
+    "effects": {
+      "onPass": {
+        "approval": 9,
+        "economy": -3,
+        "congressSupport": -8,
+        "baseSupport": 12,
+        "unrest": -4
+      },
+      "passive": {
+        "debt": -0.3,
+        "economy": -1
+      },
+      "description": "Passive: -$300B debt/mo (revenue), -1 economy/mo (reduced investment)"
+    },
+    "sets_flags": [
+      "corporate_tax_raised"
+    ],
+    "requires_flags": [],
+    "blocks_laws": [
+      "tax_cuts_jobs"
+    ],
+    "npc_reactions": {
+      "treasury_secretary": {
+        "relationship": -5,
+        "quote": "The Treasury Secretary privately warns of capital flight risk."
+      },
+      "speaker": {
+        "relationship": -20,
+        "quote": "The Speaker calls it 'the most anti-business legislation in 40 years.'"
+      },
+      "protest_leader": {
+        "relationship": 12,
+        "quote": "Progressive groups call it 'the first step toward a fair economy.'"
+      }
+    }
+  },
+  {
+    "id": "voting_rights",
+    "title": "Voting Rights Restoration and Modernization Act",
+    "shortTitle": "Voting Rights Act",
+    "category": "progressive",
+    "description": "Restores Section 4 of the Voting Rights Act, requires automatic voter registration, mandates 15 days of early voting, and establishes federal standards for polling place access.",
+    "flavor": "The right to vote isn't partisan. Protecting it shouldn't be either.",
+    "cost": "low",
+    "debtImpact": 0.2,
+    "annualCostBn": 8,
+    "passage": {
+      "congressMin": 60,
+      "partyUnityMin": 70,
+      "approvalBonus": {
+        "threshold": 58,
+        "bonus": 10
+      },
+      "approvalPenalty": {
+        "threshold": 40,
+        "penalty": 18
+      },
+      "lobbyOpposition": [
+        {
+          "name": "State Sovereignty Alliance",
+          "penalty": 15
+        }
+      ],
+      "basePassProbability": 32
+    },
+    "effects": {
+      "onPass": {
+        "approval": 8,
+        "congressSupport": -8,
+        "baseSupport": 16,
+        "unrest": -5,
+        "globalReputation": 8
+      },
+      "passive": {
+        "baseSupport": 1
+      },
+      "description": "Passive: +1 base support/mo as voter enthusiasm builds"
+    },
+    "sets_flags": [
+      "voting_rights_passed"
+    ],
+    "requires_flags": [],
+    "blocks_laws": [],
+    "npc_reactions": {
+      "foreign_ally": {
+        "relationship": 12,
+        "quote": "Allied nations cite the act as 'a reaffirmation of American democratic values.'"
+      },
+      "opposition_leader": {
+        "relationship": -20,
+        "quote": "The opposition leader calls it 'a partisan power grab disguised as civil rights.'"
+      }
+    }
+  },
+  {
+    "id": "ai_regulation",
+    "title": "Artificial Intelligence Safety and Accountability Act",
+    "shortTitle": "AI Regulation Act",
+    "category": "progressive",
+    "description": "Establishes mandatory safety testing for frontier AI systems, creates a National AI Safety Board, requires algorithmic transparency in hiring and lending, and sets liability standards for AI-caused harm.",
+    "flavor": "We regulated cars. We regulated planes. Now we regulate the thing smarter than both.",
+    "cost": "medium",
+    "debtImpact": 0.4,
+    "annualCostBn": 18,
+    "passage": {
+      "congressMin": 50,
+      "partyUnityMin": 50,
+      "approvalBonus": {
+        "threshold": 52,
+        "bonus": 8
+      },
+      "approvalPenalty": {
+        "threshold": 38,
+        "penalty": 12
+      },
+      "lobbyOpposition": [
+        {
+          "name": "Big Tech Alliance",
+          "penalty": 20
+        },
+        {
+          "name": "Venture Capital Council",
+          "penalty": 8
+        }
+      ],
+      "basePassProbability": 45
+    },
+    "effects": {
+      "onPass": {
+        "approval": 7,
+        "economy": -2,
+        "security": 5,
+        "unrest": -4,
+        "globalReputation": 8
+      },
+      "passive": {
+        "security": 1,
+        "economy": 1
+      },
+      "description": "Passive: +1 security/mo, +1 economy/mo (trust in AI systems improves)"
+    },
+    "sets_flags": [
+      "ai_regulated"
+    ],
+    "requires_flags": [],
+    "blocks_laws": [],
+    "npc_reactions": {
+      "foreign_ally": {
+        "relationship": 14,
+        "quote": "The EU immediately signals intent to align with the new American framework."
+      },
+      "treasury_secretary": {
+        "relationship": -6,
+        "quote": "The Treasury Secretary worries about 'chilling innovation at exactly the wrong moment.'"
+      }
+    }
+  },
+  {
+    "id": "public_option_expansion",
+    "title": "Medicare Public Option Expansion Act",
+    "shortTitle": "Public Option",
+    "category": "progressive",
+    "description": "Creates a Medicare public option available to all Americans under 65, competing with private insurance. Allows Medicare to negotiate drug prices directly with pharmaceutical companies.",
+    "flavor": "Competition is good. Unless you're a monopoly. Then it's terrifying.",
+    "cost": "medium",
+    "debtImpact": 1.8,
+    "annualCostBn": 120,
+    "passage": {
+      "congressMin": 55,
+      "partyUnityMin": 58,
+      "approvalBonus": {
+        "threshold": 55,
+        "bonus": 12
+      },
+      "approvalPenalty": {
+        "threshold": 38,
+        "penalty": 15
+      },
+      "lobbyOpposition": [
+        {
+          "name": "Insurance Industry Coalition",
+          "penalty": 22
+        },
+        {
+          "name": "Pharmaceutical Manufacturers",
+          "penalty": 18
+        }
+      ],
+      "basePassProbability": 38
+    },
+    "effects": {
+      "onPass": {
+        "approval": 9,
+        "economy": -2,
+        "unrest": -7,
+        "baseSupport": 12,
+        "congressSupport": -4
+      },
+      "passive": {
+        "approval": 2,
+        "unrest": -1
+      },
+      "description": "Passive: +2 approval/mo, -1 unrest/mo as healthcare access improves"
+    },
+    "sets_flags": [
+      "public_option_passed"
+    ],
+    "requires_flags": [],
+    "blocks_laws": [
+      "universal_healthcare"
+    ],
+    "npc_reactions": {
+      "protest_leader": {
+        "relationship": 16,
+        "quote": "Healthcare advocates call it 'the most important health policy in 60 years.'"
+      },
+      "speaker": {
+        "relationship": -14,
+        "quote": "The Speaker calls it 'socialism through the back door.'"
+      }
+    }
+  },
+  {
+    "id": "border_security",
+    "title": "Border Security and Immigration Enforcement Act",
+    "shortTitle": "Border Security Act",
+    "category": "conservative",
+    "description": "Funds 500 additional miles of border barriers, doubles Border Patrol staffing, implements mandatory E-Verify for all employers, and increases penalties for illegal entry and overstaying visas.",
+    "flavor": "Enforcement first. Everything else second.",
+    "cost": "medium",
+    "debtImpact": 0.8,
+    "annualCostBn": 32,
+    "passage": {
+      "congressMin": 50,
+      "partyUnityMin": 55,
+      "approvalBonus": {
+        "threshold": 52,
+        "bonus": 10
+      },
+      "approvalPenalty": {
+        "threshold": 35,
+        "penalty": 12
+      },
+      "lobbyOpposition": [
+        {
+          "name": "Immigration Rights Organizations",
+          "penalty": 8
+        },
+        {
+          "name": "Business Groups (labor shortage)",
+          "penalty": 10
+        }
+      ],
+      "basePassProbability": 50
+    },
+    "effects": {
+      "onPass": {
+        "approval": 6,
+        "security": 10,
+        "unrest": 8,
+        "congressSupport": 5,
+        "globalReputation": -5,
+        "economy": -2
+      },
+      "passive": {
+        "security": 1,
+        "unrest": 1
+      },
+      "description": "Passive: +1 security/mo, +1 unrest/mo (ongoing protests)"
+    },
+    "sets_flags": [
+      "border_security_passed"
+    ],
+    "requires_flags": [],
+    "blocks_laws": [],
+    "npc_reactions": {
+      "foreign_adversary": {
+        "relationship": -5,
+        "quote": "The adversary nation accuses the US of 'xenophobic policy.'"
+      },
+      "speaker": {
+        "relationship": 15,
+        "quote": "The Speaker calls it 'finally, an administration that takes border security seriously.'"
+      }
+    }
+  },
+  {
+    "id": "tax_cuts_jobs",
+    "title": "Tax Cuts and Economic Growth Act",
+    "shortTitle": "Tax Cuts Act",
+    "category": "conservative",
+    "description": "Cuts the corporate tax rate to 18%, reduces the top individual income tax rate from 37% to 32%, doubles the standard deduction, and creates new investment incentive zones in rural areas.",
+    "flavor": "Cut taxes, grow the economy, let the next president deal with the debt.",
+    "cost": "high",
+    "debtImpact": 2.2,
+    "annualCostBn": 0,
+    "passage": {
+      "congressMin": 55,
+      "partyUnityMin": 65,
+      "approvalBonus": {
+        "threshold": 52,
+        "bonus": 10
+      },
+      "approvalPenalty": {
+        "threshold": 38,
+        "penalty": 15
+      },
+      "lobbyOpposition": [
+        {
+          "name": "Progressive Tax Coalition",
+          "penalty": 8
+        }
+      ],
+      "basePassProbability": 48
+    },
+    "effects": {
+      "onPass": {
+        "approval": 5,
+        "economy": 8,
+        "congressSupport": 8,
+        "baseSupport": 10,
+        "unrest": 3
+      },
+      "passive": {
+        "economy": 2,
+        "debt": 0.15
+      },
+      "description": "Passive: +2 economy/mo, +$150B debt/mo (lost revenue)"
+    },
+    "sets_flags": [
+      "tax_cuts_passed"
+    ],
+    "requires_flags": [],
+    "blocks_laws": [
+      "corporate_tax_hike"
+    ],
+    "npc_reactions": {
+      "treasury_secretary": {
+        "relationship": 8,
+        "quote": "The Treasury Secretary projects '3.2% GDP growth' in the next quarter."
+      },
+      "opposition_leader": {
+        "relationship": -15,
+        "quote": "The opposition leader calls it 'trickle-down economics proven wrong once again.'"
+      }
+    }
+  },
+  {
+    "id": "military_spending",
+    "title": "National Defense Authorization and Modernization Act",
+    "shortTitle": "Military Spending Increase",
+    "category": "conservative",
+    "description": "Increases defense spending by $200B annually, funds a 350-ship Navy, accelerates hypersonic weapons development, expands Space Force capabilities, and fully funds military readiness programs.",
+    "flavor": "Peace through strength. Strength through investment.",
+    "cost": "high",
+    "debtImpact": 2.0,
+    "annualCostBn": 200,
+    "passage": {
+      "congressMin": 50,
+      "partyUnityMin": 50,
+      "approvalBonus": {
+        "threshold": 50,
+        "bonus": 8
+      },
+      "approvalPenalty": {
+        "threshold": 38,
+        "penalty": 10
+      },
+      "lobbyOpposition": [
+        {
+          "name": "Peace and Diplomacy Coalition",
+          "penalty": 5
+        }
+      ],
+      "basePassProbability": 60
+    },
+    "effects": {
+      "onPass": {
+        "security": 15,
+        "approval": 4,
+        "economy": 3,
+        "congressSupport": 6,
+        "debt": 2.0,
+        "globalReputation": 4
+      },
+      "passive": {
+        "security": 2,
+        "debt": 0.1,
+        "militaryReadiness": 3
+      },
+      "description": "Passive: +2 security/mo, +3 military readiness/mo, +$100B debt/mo for remainder of term"
+    },
+    "sets_flags": [
+      "military_expanded"
+    ],
+    "requires_flags": [],
+    "blocks_laws": [],
+    "npc_reactions": {
+      "sec_defense": {
+        "relationship": 20,
+        "quote": "The Defense Secretary calls it 'the investment our service members have deserved for two decades.'"
+      },
+      "foreign_ally": {
+        "relationship": 8,
+        "quote": "Allied nations signal relief at the renewed US commitment to collective defense."
+      },
+      "foreign_adversary": {
+        "relationship": -12,
+        "quote": "The adversary nation calls the spending increase 'a provocation.'"
+      }
+    }
+  },
+  {
+    "id": "deregulation_package",
+    "title": "American Business Freedom and Deregulation Act",
+    "shortTitle": "Deregulation Package",
+    "category": "conservative",
+    "description": "Rolls back 200 federal regulations across energy, finance, agriculture, and manufacturing. Implements a 'one in, two out' rule for new regulations and reduces small business compliance burden by 40%.",
+    "flavor": "Government gets out of the way. Business gets to work.",
+    "cost": "none",
+    "debtImpact": -0.2,
+    "annualCostBn": -20,
+    "passage": {
+      "congressMin": 45,
+      "partyUnityMin": 55,
+      "approvalBonus": {
+        "threshold": 48,
+        "bonus": 8
+      },
+      "approvalPenalty": {
+        "threshold": 35,
+        "penalty": 10
+      },
+      "lobbyOpposition": [
+        {
+          "name": "Environmental Defense Groups",
+          "penalty": 12
+        },
+        {
+          "name": "Consumer Protection Advocates",
+          "penalty": 8
+        }
+      ],
+      "basePassProbability": 58
+    },
+    "effects": {
+      "onPass": {
+        "economy": 7,
+        "approval": 3,
+        "congressSupport": 8,
+        "unrest": 4,
+        "globalReputation": -3
+      },
+      "passive": {
+        "economy": 1,
+        "unrest": 1
+      },
+      "description": "Passive: +1 economy/mo (business activity), +1 unrest/mo (consumer/environmental backlash)"
+    },
+    "sets_flags": [
+      "deregulated"
+    ],
+    "requires_flags": [],
+    "blocks_laws": [],
+    "npc_reactions": {
+      "treasury_secretary": {
+        "relationship": 10,
+        "quote": "The Treasury Secretary projects 'significant GDP uplift from reduced compliance costs.'"
+      },
+      "protest_leader": {
+        "relationship": -15,
+        "quote": "Environmental groups announce the largest sustained protest campaign since the 1970s."
+      }
+    }
+  },
+  {
+    "id": "school_choice",
+    "title": "Education Freedom and School Choice Act",
+    "shortTitle": "School Choice Act",
+    "category": "conservative",
+    "description": "Creates a $20B federal education savings account program allowing families to use public education funds for private, charter, or homeschool options. Includes teacher merit pay provisions.",
+    "flavor": "Parents choose. Children benefit. Competition improves everyone.",
+    "cost": "low",
+    "debtImpact": 0.4,
+    "annualCostBn": 20,
+    "passage": {
+      "congressMin": 50,
+      "partyUnityMin": 60,
+      "approvalBonus": {
+        "threshold": 50,
+        "bonus": 8
+      },
+      "approvalPenalty": {
+        "threshold": 38,
+        "penalty": 12
+      },
+      "lobbyOpposition": [
+        {
+          "name": "National Education Association",
+          "penalty": 20
+        },
+        {
+          "name": "American Federation of Teachers",
+          "penalty": 18
+        }
+      ],
+      "basePassProbability": 42
+    },
+    "effects": {
+      "onPass": {
+        "approval": 5,
+        "congressSupport": 5,
+        "baseSupport": 8,
+        "unrest": 5
+      },
+      "passive": {
+        "approval": 1
+      },
+      "description": "Passive: +1 approval/mo (parental satisfaction)"
+    },
+    "sets_flags": [
+      "school_choice_passed"
+    ],
+    "requires_flags": [],
+    "blocks_laws": [],
+    "npc_reactions": {
+      "speaker": {
+        "relationship": 10,
+        "quote": "The Speaker calls it 'finally putting parents in charge of their children's education.'"
+      },
+      "protest_leader": {
+        "relationship": -10,
+        "quote": "Teacher unions announce a national work action to protest what they call 'the defunding of public education.'"
+      }
+    }
+  },
+  {
+    "id": "energy_independence",
+    "title": "American Energy Dominance and Independence Act",
+    "shortTitle": "Energy Independence Act",
+    "category": "conservative",
+    "description": "Opens federal lands and offshore areas to expanded drilling, fast-tracks LNG export terminal permits, streamlines pipeline approvals, and funds nuclear energy modernization.",
+    "flavor": "American energy. American jobs. American security.",
+    "cost": "medium",
+    "debtImpact": 0.5,
+    "annualCostBn": 25,
+    "passage": {
+      "congressMin": 50,
+      "partyUnityMin": 55,
+      "approvalBonus": {
+        "threshold": 50,
+        "bonus": 10
+      },
+      "approvalPenalty": {
+        "threshold": 38,
+        "penalty": 12
+      },
+      "lobbyOpposition": [
+        {
+          "name": "Environmental Defense Coalition",
+          "penalty": 18
+        },
+        {
+          "name": "Climate Action Network",
+          "penalty": 12
+        }
+      ],
+      "basePassProbability": 52
+    },
+    "effects": {
+      "onPass": {
+        "economy": 8,
+        "security": 5,
+        "approval": 4,
+        "congressSupport": 6,
+        "globalReputation": -6,
+        "unrest": 5
+      },
+      "passive": {
+        "economy": 2,
+        "security": 1
+      },
+      "description": "Passive: +2 economy/mo (energy production), +1 security/mo (energy independence)"
+    },
+    "sets_flags": [
+      "energy_independence_passed"
+    ],
+    "requires_flags": [],
+    "blocks_laws": [
+      "climate_emergency_bill"
+    ],
+    "npc_reactions": {
+      "foreign_adversary": {
+        "relationship": -8,
+        "quote": "The adversary nation signals concern about reduced energy leverage over the United States."
+      },
+      "foreign_ally": {
+        "relationship": 5,
+        "quote": "European allies quietly welcome the prospect of American LNG as an alternative to adversary energy supplies."
+      }
+    }
+  },
+  {
+    "id": "welfare_reform",
+    "title": "Work Opportunity and Welfare Modernization Act",
+    "shortTitle": "Welfare Reform Act",
+    "category": "conservative",
+    "description": "Implements work requirements for able-bodied adults receiving federal benefits, consolidates 12 welfare programs into 4 block grants to states, and creates pathways from assistance to employment.",
+    "flavor": "A hand up. Not just a hand out.",
+    "cost": "none",
+    "debtImpact": -0.4,
+    "annualCostBn": -60,
+    "passage": {
+      "congressMin": 50,
+      "partyUnityMin": 60,
+      "approvalBonus": {
+        "threshold": 50,
+        "bonus": 8
+      },
+      "approvalPenalty": {
+        "threshold": 38,
+        "penalty": 14
+      },
+      "lobbyOpposition": [
+        {
+          "name": "Anti-Poverty Advocacy Coalition",
+          "penalty": 10
+        },
+        {
+          "name": "Social Workers Association",
+          "penalty": 6
+        }
+      ],
+      "basePassProbability": 48
+    },
+    "effects": {
+      "onPass": {
+        "approval": 3,
+        "congressSupport": 7,
+        "baseSupport": 8,
+        "unrest": 10,
+        "economy": 2
+      },
+      "passive": {
+        "debt": -0.15,
+        "unrest": 2
+      },
+      "description": "Passive: -$150B debt/mo (savings), +2 unrest/mo (affected communities)"
+    },
+    "sets_flags": [
+      "welfare_reformed"
+    ],
+    "requires_flags": [],
+    "blocks_laws": [],
+    "npc_reactions": {
+      "speaker": {
+        "relationship": 12,
+        "quote": "The Speaker calls it 'common-sense reform that will help more people achieve independence.'"
+      },
+      "protest_leader": {
+        "relationship": -18,
+        "quote": "Anti-poverty groups call it 'a bill that will push millions of children into hunger.'"
+      }
+    }
+  },
+  {
+    "id": "infrastructure_investment",
+    "title": "Rebuild America Infrastructure Investment Act",
+    "shortTitle": "Infrastructure Act",
+    "category": "bipartisan",
+    "description": "Invests $1.2T over 8 years in roads, bridges, rail, broadband, water systems, and ports. The largest infrastructure investment since the Interstate Highway System. Funded through user fees and bond financing.",
+    "flavor": "Potholes don't have a political party. Neither does this bill.",
+    "cost": "high",
+    "debtImpact": 1.5,
+    "annualCostBn": 150,
+    "passage": {
+      "congressMin": 40,
+      "partyUnityMin": 40,
+      "approvalBonus": {
+        "threshold": 48,
+        "bonus": 12
+      },
+      "approvalPenalty": {
+        "threshold": 35,
+        "penalty": 8
+      },
+      "lobbyOpposition": [
+        {
+          "name": "Fiscal Hawk Coalition",
+          "penalty": 5
+        }
+      ],
+      "basePassProbability": 68
+    },
+    "effects": {
+      "onPass": {
+        "economy": 8,
+        "approval": 10,
+        "congressSupport": 6,
+        "security": 3,
+        "unrest": -6,
+        "debt": 1.5
+      },
+      "passive": {
+        "economy": 3,
+        "approval": 1
+      },
+      "description": "Passive: +3 economy/mo (jobs + efficiency), +1 approval/mo for 24 months"
+    },
+    "sets_flags": [
+      "infrastructure_passed"
+    ],
+    "requires_flags": [],
+    "blocks_laws": [],
+    "npc_reactions": {
+      "speaker": {
+        "relationship": 8,
+        "quote": "The Speaker calls it 'one of the few things we can agree on \u2014 America's roads are terrible.'"
+      },
+      "senate_leader": {
+        "relationship": 10,
+        "quote": "The Senate Leader credits 'a rare moment of bipartisan cooperation on something that actually matters.'"
+      },
+      "opposition_leader": {
+        "relationship": 5,
+        "quote": "The opposition leader cautiously endorses the bill's 'sensible investment in American competitiveness.'"
+      }
+    }
+  },
+  {
+    "id": "cybersecurity_act",
+    "title": "National Cybersecurity Resilience and Defense Act",
+    "shortTitle": "Cybersecurity Act",
+    "category": "bipartisan",
+    "description": "Mandates security standards for critical infrastructure, creates a public-private Cyber Defense Partnership, establishes a Cyber National Guard, and funds federal agency security modernization.",
+    "flavor": "The next Pearl Harbor will come through a keyboard. We need to be ready.",
+    "cost": "medium",
+    "debtImpact": 0.6,
+    "annualCostBn": 28,
+    "passage": {
+      "congressMin": 40,
+      "partyUnityMin": 40,
+      "approvalBonus": {
+        "threshold": 45,
+        "bonus": 8
+      },
+      "approvalPenalty": {
+        "threshold": 35,
+        "penalty": 8
+      },
+      "lobbyOpposition": [
+        {
+          "name": "Tech Industry (compliance costs)",
+          "penalty": 8
+        }
+      ],
+      "basePassProbability": 72
+    },
+    "effects": {
+      "onPass": {
+        "security": 12,
+        "approval": 5,
+        "congressSupport": 5,
+        "economy": -1
+      },
+      "passive": {
+        "security": 2
+      },
+      "description": "Passive: +2 security/mo as cyber defenses improve"
+    },
+    "sets_flags": [
+      "cyber_defense_deployed",
+      "cyber_bill_passed"
+    ],
+    "requires_flags": [],
+    "blocks_laws": [],
+    "npc_reactions": {
+      "sec_defense": {
+        "relationship": 12,
+        "quote": "The Defense Secretary calls it 'overdue by a decade, essential for the next one.'"
+      },
+      "foreign_ally": {
+        "relationship": 6,
+        "quote": "Allied intelligence agencies signal new willingness to share threat intelligence."
+      }
+    }
+  },
+  {
+    "id": "drug_pricing_reform",
+    "title": "Prescription Drug Pricing Transparency and Reform Act",
+    "shortTitle": "Drug Pricing Reform",
+    "category": "bipartisan",
+    "description": "Allows Medicare to directly negotiate drug prices, requires drug companies to disclose pricing methodology, caps out-of-pocket drug costs for seniors at $2,000/year, and penalizes price increases above inflation.",
+    "flavor": "Insulin shouldn't cost more than a car payment. This law makes sure it doesn't.",
+    "cost": "low",
+    "debtImpact": -0.3,
+    "annualCostBn": -80,
+    "passage": {
+      "congressMin": 45,
+      "partyUnityMin": 45,
+      "approvalBonus": {
+        "threshold": 52,
+        "bonus": 10
+      },
+      "approvalPenalty": {
+        "threshold": 38,
+        "penalty": 10
+      },
+      "lobbyOpposition": [
+        {
+          "name": "Pharmaceutical Manufacturers Association",
+          "penalty": 25
+        },
+        {
+          "name": "Biotech Industry Council",
+          "penalty": 12
+        }
+      ],
+      "basePassProbability": 55
+    },
+    "effects": {
+      "onPass": {
+        "approval": 12,
+        "economy": 3,
+        "unrest": -6,
+        "congressSupport": 4
+      },
+      "passive": {
+        "approval": 2,
+        "economy": 1
+      },
+      "description": "Passive: +2 approval/mo, +1 economy/mo (consumer spending freed up)"
+    },
+    "sets_flags": [
+      "drug_prices_reformed"
+    ],
+    "requires_flags": [],
+    "blocks_laws": [],
+    "npc_reactions": {
+      "opposition_leader": {
+        "relationship": 4,
+        "quote": "Even the opposition leader quietly admits 'this is something both parties' voters want.'"
+      },
+      "speaker": {
+        "relationship": 3,
+        "quote": "The Speaker calls the bill 'imperfect but acceptable \u2014 senior voters are watching.'"
+      }
+    }
+  },
+  {
+    "id": "mental_health_parity",
+    "title": "Mental Health and Substance Use Parity Enforcement Act",
+    "shortTitle": "Mental Health Act",
+    "category": "bipartisan",
+    "description": "Requires insurers to cover mental health and substance use disorder treatment on equal terms with physical health, creates a network of community mental health centers, and funds 25,000 new mental health workers.",
+    "flavor": "A broken arm gets treatment. A broken mind should too.",
+    "cost": "low",
+    "debtImpact": 0.3,
+    "annualCostBn": 15,
+    "passage": {
+      "congressMin": 35,
+      "partyUnityMin": 35,
+      "approvalBonus": {
+        "threshold": 45,
+        "bonus": 8
+      },
+      "approvalPenalty": {
+        "threshold": 35,
+        "penalty": 6
+      },
+      "lobbyOpposition": [
+        {
+          "name": "Insurance Industry",
+          "penalty": 8
+        }
+      ],
+      "basePassProbability": 78
+    },
+    "effects": {
+      "onPass": {
+        "approval": 8,
+        "unrest": -8,
+        "congressSupport": 4,
+        "economy": 2
+      },
+      "passive": {
+        "unrest": -2,
+        "economy": 1
+      },
+      "description": "Passive: -2 unrest/mo, +1 economy/mo (workforce productivity) for remainder of term"
+    },
+    "sets_flags": [
+      "mental_health_funded"
+    ],
+    "requires_flags": [],
+    "blocks_laws": [],
+    "npc_reactions": {
+      "opposition_leader": {
+        "relationship": 6,
+        "quote": "The opposition leader co-sponsors the bill, calling mental health 'an issue beyond politics.'"
+      },
+      "protest_leader": {
+        "relationship": 10,
+        "quote": "Advocacy groups call it 'the most important quality-of-life legislation in years.'"
+      }
+    }
+  },
+  {
+    "id": "criminal_justice_reform",
+    "title": "Second Chance and Criminal Justice Reform Act",
+    "shortTitle": "Criminal Justice Reform",
+    "category": "bipartisan",
+    "description": "Reduces mandatory minimum sentences for non-violent offenses, expands federal reentry programs, bans private federal prisons, creates expungement pathways for non-violent convictions, and funds community violence interruption programs.",
+    "flavor": "Justice means more than punishment. It means a path back.",
+    "cost": "low",
+    "debtImpact": 0.2,
+    "annualCostBn": 8,
+    "passage": {
+      "congressMin": 45,
+      "partyUnityMin": 45,
+      "approvalBonus": {
+        "threshold": 50,
+        "bonus": 8
+      },
+      "approvalPenalty": {
+        "threshold": 36,
+        "penalty": 10
+      },
+      "lobbyOpposition": [
+        {
+          "name": "Private Prison Industry",
+          "penalty": 10
+        },
+        {
+          "name": "Law Enforcement Alliance",
+          "penalty": 8
+        }
+      ],
+      "basePassProbability": 58
+    },
+    "effects": {
+      "onPass": {
+        "approval": 7,
+        "unrest": -10,
+        "security": 3,
+        "congressSupport": 5
+      },
+      "passive": {
+        "unrest": -1,
+        "security": 1,
+        "economy": 1
+      },
+      "description": "Passive: -1 unrest/mo, +1 security/mo, +1 economy/mo (workforce reintegration)"
+    },
+    "sets_flags": [
+      "criminal_justice_reformed"
+    ],
+    "requires_flags": [],
+    "blocks_laws": [],
+    "npc_reactions": {
+      "opposition_leader": {
+        "relationship": 8,
+        "quote": "The opposition leader, citing Koch network support, calls it 'a rare case of justice and fiscal sense aligning.'"
+      },
+      "protest_leader": {
+        "relationship": 14,
+        "quote": "Civil rights groups call it 'incomplete but meaningful \u2014 a genuine step forward.'"
+      }
+    }
+  },
+  {
+    "id": "veterans_care",
+    "title": "Veterans First: Comprehensive Care and Benefits Act",
+    "shortTitle": "Veterans Care Act",
+    "category": "bipartisan",
+    "description": "Expands VA hospital capacity, hires 15,000 new VA healthcare workers, increases disability benefits, funds veteran mental health and suicide prevention programs, and creates a veteran small business loan fund.",
+    "flavor": "They kept their promise to us. Time to keep ours to them.",
+    "cost": "medium",
+    "debtImpact": 0.9,
+    "annualCostBn": 45,
+    "passage": {
+      "congressMin": 35,
+      "partyUnityMin": 35,
+      "approvalBonus": {
+        "threshold": 45,
+        "bonus": 10
+      },
+      "approvalPenalty": {
+        "threshold": 35,
+        "penalty": 6
+      },
+      "lobbyOpposition": [],
+      "basePassProbability": 82
+    },
+    "effects": {
+      "onPass": {
+        "approval": 10,
+        "congressSupport": 8,
+        "unrest": -5,
+        "security": 4,
+        "baseSupport": 8
+      },
+      "passive": {
+        "approval": 1,
+        "security": 1
+      },
+      "description": "Passive: +1 approval/mo, +1 security/mo (veteran morale and readiness)"
+    },
+    "sets_flags": [
+      "va_expanded"
+    ],
+    "requires_flags": [],
+    "blocks_laws": [],
+    "npc_reactions": {
+      "opposition_leader": {
+        "relationship": 12,
+        "quote": "The opposition leader calls veteran care 'the one thing this chamber agrees on.'"
+      },
+      "sec_defense": {
+        "relationship": 14,
+        "quote": "The Defense Secretary calls it 'essential for recruitment and the long-term health of our all-volunteer force.'"
+      }
+    }
+  },
+  {
+    "id": "fentanyl_enforcement",
+    "title": "Stop Fentanyl Act: Supply Chain Disruption and Recovery",
+    "shortTitle": "Fentanyl Enforcement Act",
+    "category": "bipartisan",
+    "description": "Mandates death penalty for high-quantity fentanyl trafficking, creates a $10B treatment and recovery fund, funds DEA expansion and international interdiction operations, and sanctions foreign precursor chemical manufacturers.",
+    "flavor": "120,000 dead last year. This is a war. We need to fight it like one.",
+    "cost": "medium",
+    "debtImpact": 0.5,
+    "annualCostBn": 22,
+    "passage": {
+      "congressMin": 40,
+      "partyUnityMin": 45,
+      "approvalBonus": {
+        "threshold": 48,
+        "bonus": 10
+      },
+      "approvalPenalty": {
+        "threshold": 35,
+        "penalty": 8
+      },
+      "lobbyOpposition": [
+        {
+          "name": "ACLU and Civil Liberties Groups",
+          "penalty": 8
+        }
+      ],
+      "basePassProbability": 70
+    },
+    "effects": {
+      "onPass": {
+        "approval": 9,
+        "security": 8,
+        "unrest": -5,
+        "congressSupport": 6,
+        "globalReputation": -3
+      },
+      "passive": {
+        "security": 1,
+        "approval": 1
+      },
+      "description": "Passive: +1 security/mo, +1 approval/mo as overdose deaths decline"
+    },
+    "sets_flags": [
+      "fentanyl_law_passed"
+    ],
+    "requires_flags": [],
+    "blocks_laws": [],
+    "npc_reactions": {
+      "opposition_leader": {
+        "relationship": 8,
+        "quote": "The opposition leader co-sponsors the bill, calling fentanyl 'an equal-opportunity killer that demands bipartisan action.'"
+      },
+      "speaker": {
+        "relationship": 10,
+        "quote": "The Speaker calls it 'the most important public safety legislation we've passed together.'"
+      }
+    }
+  },
+  {
+    "id": "broadband_expansion",
+    "title": "Digital Equity and Rural Broadband Access Act",
+    "shortTitle": "Broadband Expansion Act",
+    "category": "bipartisan",
+    "description": "Invests $65B to bring high-speed internet to every American home, prioritizing rural and low-income communities. Requires ISPs to offer $30/month affordable plans and prohibits data throttling for low-income households.",
+    "flavor": "You can't do homework, apply for jobs, or see a doctor online without internet. Let's fix that.",
+    "cost": "medium",
+    "debtImpact": 0.65,
+    "annualCostBn": 12,
+    "passage": {
+      "congressMin": 38,
+      "partyUnityMin": 40,
+      "approvalBonus": {
+        "threshold": 48,
+        "bonus": 8
+      },
+      "approvalPenalty": {
+        "threshold": 35,
+        "penalty": 8
+      },
+      "lobbyOpposition": [
+        {
+          "name": "Telecom Industry Coalition",
+          "penalty": 12
+        }
+      ],
+      "basePassProbability": 72
+    },
+    "effects": {
+      "onPass": {
+        "approval": 8,
+        "economy": 5,
+        "congressSupport": 5,
+        "unrest": -4
+      },
+      "passive": {
+        "economy": 2,
+        "approval": 1
+      },
+      "description": "Passive: +2 economy/mo, +1 approval/mo (rural community satisfaction)"
+    },
+    "sets_flags": [
+      "broadband_expanded"
+    ],
+    "requires_flags": [],
+    "blocks_laws": [],
+    "npc_reactions": {
+      "opposition_leader": {
+        "relationship": 7,
+        "quote": "The opposition leader supports the bill, noting 'rural broadband is an economic necessity, not a luxury.'"
+      },
+      "senate_leader": {
+        "relationship": 8,
+        "quote": "The Senate Leader calls broadband 'the rural electrification project of our generation.'"
+      }
+    }
+  },
+  {
+    "id": "affordable_housing",
+    "title": "Homes for America: Affordable Housing and Supply Act",
+    "shortTitle": "Affordable Housing Act",
+    "category": "bipartisan",
+    "description": "Creates 500,000 affordable housing units through federal land release and construction grants, provides $25,000 in down payment assistance for first-time buyers, and offers tax incentives for developers who build below market-rate units.",
+    "flavor": "A home is not a luxury. It's the foundation everything else is built on.",
+    "cost": "high",
+    "debtImpact": 1.8,
+    "annualCostBn": 85,
+    "passage": {
+      "congressMin": 42,
+      "partyUnityMin": 45,
+      "approvalBonus": {
+        "threshold": 50,
+        "bonus": 10
+      },
+      "approvalPenalty": {
+        "threshold": 38,
+        "penalty": 10
+      },
+      "lobbyOpposition": [
+        {
+          "name": "Existing Homeowner Associations",
+          "penalty": 10
+        },
+        {
+          "name": "NIMBY Coalition",
+          "penalty": 8
+        }
+      ],
+      "basePassProbability": 62
+    },
+    "effects": {
+      "onPass": {
+        "approval": 9,
+        "economy": 6,
+        "unrest": -8,
+        "congressSupport": 5
+      },
+      "passive": {
+        "economy": 2,
+        "unrest": -1,
+        "approval": 1
+      },
+      "description": "Passive: +2 economy/mo, -1 unrest/mo, +1 approval/mo as housing supply increases"
+    },
+    "sets_flags": [
+      "housing_bill_passed"
+    ],
+    "requires_flags": [],
+    "blocks_laws": [],
+    "npc_reactions": {
+      "opposition_leader": {
+        "relationship": 6,
+        "quote": "The opposition leader sees political upside in supporting housing, calling it 'common ground we've been missing.'"
+      },
+      "protest_leader": {
+        "relationship": 12,
+        "quote": "Housing advocates call it 'the most meaningful housing legislation since the Fair Housing Act.'"
+      }
+    }
+  }
+]

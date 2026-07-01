@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+:root {
+  /* ── Surfaces ─────────────────────────────────────────── */
+  --color-ink:        #0B0E14;  /* page background — near-black */
+  --color-surface:    #131825;  /* card background */
+  --color-surface-2:  #1A2332;  /* elevated card / hover */
+  --color-border:     #2A3344;  /* hairline dividers */
+  --color-border-strong: #3D4A5C;
+
+  /* ── Text ─────────────────────────────────────────────── */
+  --color-paper:       #E8E4D9; /* primary text — aged paper */
+  --color-paper-dim:   #A8A398; /* secondary text */
+  --color-paper-faint: #6B6860; /* tertiary / placeholder */
+
+  /* ── Accent ───────────────────────────────────────────── */
+  --color-brass:       #B8915A; /* presidential seal gold */
+  --color-brass-dim:   #8A6B3F;
+
+  /* ── Status ───────────────────────────────────────────── */
+  --color-good:        #4A7C66; /* federal green */
+  --color-good-dim:    #2E4D40;
+  --color-warn:        #B8863D; /* amber */
+  --color-bad:         #9B3D3D; /* oxblood */
+  --color-bad-dim:     #5C2424;
+
+  /* ── Category tags ───────────────────────────────────── */
+  --color-cat-security:  #4A6FA5;
+  --color-cat-economy:   #4A7C66;
+  --color-cat-disaster:  #B8863D;
+  --color-cat-military:  #6B5A9E;
+  --color-cat-scandal:   #9B3D3D;
+  --color-cat-congress:  #A56B3D;
+  --color-cat-social:    #A54B7D;
+  --color-cat-diplomacy: #3D9E9E;
+}
+
+@theme inline {
+  --color-ink: var(--color-ink);
+  --color-surface: var(--color-surface);
+  --color-surface-2: var(--color-surface-2);
+  --color-border: var(--color-border);
+  --color-border-strong: var(--color-border-strong);
+  --color-paper: var(--color-paper);
+  --color-paper-dim: var(--color-paper-dim);
+  --color-paper-faint: var(--color-paper-faint);
+  --color-brass: var(--color-brass);
+  --color-brass-dim: var(--color-brass-dim);
+  --color-good: var(--color-good);
+  --color-good-dim: var(--color-good-dim);
+  --color-warn: var(--color-warn);
+  --color-bad: var(--color-bad);
+  --color-bad-dim: var(--color-bad-dim);
+
+  --font-display: var(--font-source-serif), Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), "SF Mono", monospace;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-sans);
+}
+
+/* Briefing-document hairline rule, used above crisis event cards */
+.brief-rule {
+  background: linear-gradient(
+    to right,
+    var(--color-brass) 0%,
+    var(--color-brass) 40px,
+    var(--color-border) 40px
+  );
+  height: 2px;
+}
+
+/* Visible keyboard focus ring everywhere — accessibility floor */
+:focus-visible {
+  outline: 2px solid var(--color-brass);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

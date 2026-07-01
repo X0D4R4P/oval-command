@@ -1,0 +1,972 @@
+[
+  {
+    "id": "vice_president",
+    "name": "Vice President Dana Mercer",
+    "shortName": "VP Mercer",
+    "role": "Vice President of the United States",
+    "faction": "inner_circle",
+    "avatar": "DM",
+    "avatarColor": "blue",
+    "personality": {
+      "archetype": "The Ambitious Loyalist",
+      "description": "A former governor with her own national ambitions. Fiercely loyal when she believes in the mission \u2014 calculating when she doesn't. She's watching every decision you make, partly because she cares, partly because she's taking notes for 2028.",
+      "traits": [
+        "politically shrewd",
+        "quietly ambitious",
+        "genuinely competent",
+        "loyal until it costs her too much"
+      ]
+    },
+    "relationship": {
+      "start": 70,
+      "min": 10,
+      "max": 100
+    },
+    "triggers": {
+      "onLowRelationship": {
+        "threshold": 35,
+        "event": "VP begins giving distanced interviews hinting at policy disagreements",
+        "approvalDelta": -4,
+        "unrestDelta": 3
+      },
+      "onVeryLowRelationship": {
+        "threshold": 20,
+        "event": "Sources close to VP tell press she is 'building her own team' ahead of 2028",
+        "approvalDelta": -8,
+        "baseSupportDelta": -10
+      },
+      "onHighRelationship": {
+        "threshold": 80,
+        "benefit": "VP takes political hits publicly, shields you from minor scandal damage",
+        "scandalReduction": 0.25
+      }
+    },
+    "relationshipDeltas": {
+      "passed_major_bill": 5,
+      "approval_above_55": 4,
+      "approval_below_35": -6,
+      "at_war": -8,
+      "active_scandal": -5,
+      "scandal_resolved": 4,
+      "executive_overreach": -6
+    },
+    "monthlyDialogue": {
+      "high": [
+        "We're doing something real here. I want you to know I'm all in.",
+        "The polling looks better than the press is saying. Don't let them rattle you.",
+        "I've been talking to governors. The coalition is holding."
+      ],
+      "medium": [
+        "The base needs to hear from you directly. Let me set up a tour.",
+        "I'm hearing concerns about the direction on [issue]. Worth a conversation.",
+        "We should talk before the next press conference. I have thoughts."
+      ],
+      "low": [
+        "I'm going to need to speak my own mind on [issue]. I hope you understand.",
+        "My team is handling some of my own commitments this cycle. Necessary.",
+        "I supported this decision. I want that on the record."
+      ],
+      "critical": [
+        "I've been asked about a potential primary challenge. I told them no. For now.",
+        "We have a problem. And I'm not sure you see it.",
+        "My advisors are telling me things I don't want to hear about where this is going."
+      ]
+    },
+    "specialAbility": {
+      "name": "Take the Hit",
+      "description": "Once per term, VP can absorb a scandal, reducing its approval impact by 40%. Costs 15 relationship points.",
+      "usesPerTerm": 1
+    },
+    "image": "/npcs/vice_president.png"
+  },
+  {
+    "id": "chief_of_staff",
+    "name": "Chief of Staff Raymond Okafor",
+    "shortName": "COS Okafor",
+    "role": "White House Chief of Staff",
+    "faction": "inner_circle",
+    "avatar": "RO",
+    "avatarColor": "gray",
+    "personality": {
+      "archetype": "The Honest Operator",
+      "description": "Twenty years in Washington. He's seen four administrations from the inside and knows exactly how they all went wrong. He'll tell you the truth even when you don't want to hear it. Especially then. He has no personal agenda beyond making this work \u2014 which makes him invaluable and occasionally brutal.",
+      "traits": [
+        "bluntly honest",
+        "operationally brilliant",
+        "zero personal ambition",
+        "occasionally ruthless for the right reasons"
+      ]
+    },
+    "relationship": {
+      "start": 75,
+      "min": 15,
+      "max": 100
+    },
+    "triggers": {
+      "onLowRelationship": {
+        "threshold": 40,
+        "event": "Chief of Staff begins routing fewer options through the Oval Office \u2014 decisions slow",
+        "congressSupportDelta": -3,
+        "approvalDelta": -2
+      },
+      "onVeryLowRelationship": {
+        "threshold": 25,
+        "event": "Chief of Staff submits resignation \u2014 you must decide whether to accept",
+        "specialEvent": "cos_resignation"
+      },
+      "onHighRelationship": {
+        "threshold": 80,
+        "benefit": "COS warns you 1 month before a crisis is about to fire, giving response prep time",
+        "earlyWarning": true
+      }
+    },
+    "relationshipDeltas": {
+      "ignored_advice": -8,
+      "scandal_resolved_fast": 5,
+      "approval_above_60": 4,
+      "approval_below_30": -8,
+      "executive_overreach": -10,
+      "bipartisan_bill_passed": 6,
+      "at_war": -4,
+      "active_scandal_unresolved_3mo": -10
+    },
+    "monthlyDialogue": {
+      "high": [
+        "Here's the political capital math. We can afford two more big swings this term.",
+        "The team is performing. Rare thing. Don't change what's working.",
+        "I've been doing this a long time. This is one of the better runs I've seen."
+      ],
+      "medium": [
+        "I need five minutes. There's something you need to hear before the briefing.",
+        "The [issue] decision is going to cost us. I want to show you the numbers.",
+        "Congress is getting harder to manage. We need to trade something for something."
+      ],
+      "low": [
+        "I'm going to be honest with you because no one else will. We're losing the thread.",
+        "Three things went wrong this month that didn't have to. We need to talk about why.",
+        "The staff is starting to wonder. That's not good for anyone."
+      ],
+      "critical": [
+        "I've written a letter. I'd rather not send it. But I need to know you hear me.",
+        "I can't manage what I can't see coming. Right now, I'm blind.",
+        "Whatever I say in here stays in here. You're making mistakes you can't afford."
+      ]
+    },
+    "specialAbility": {
+      "name": "Damage Control",
+      "description": "When a scandal fires, COS can reduce the approval hit by 30% if relationship is above 60.",
+      "passive": true,
+      "requiresRelationship": 60
+    },
+    "image": "/npcs/chief_of_staff.png"
+  },
+  {
+    "id": "sec_defense",
+    "name": "Secretary of Defense Admiral James Hargrove (Ret.)",
+    "shortName": "SecDef Hargrove",
+    "role": "Secretary of Defense",
+    "faction": "cabinet",
+    "avatar": "JH",
+    "avatarColor": "purple",
+    "personality": {
+      "archetype": "The Hawk Who Knows the Cost",
+      "description": "Forty years in uniform. Two wars. He doesn't want conflict \u2014 he's seen too much of it. But he believes weakness invites aggression, and he'll push military options when he thinks the alternative is worse. He respects decisiveness above everything. Indecision is the thing he cannot forgive.",
+      "traits": [
+        "decisive",
+        "hawkish but not reckless",
+        "deeply principled",
+        "impatient with politics"
+      ]
+    },
+    "relationship": {
+      "start": 65,
+      "min": 10,
+      "max": 100
+    },
+    "triggers": {
+      "onLowRelationship": {
+        "threshold": 35,
+        "event": "SecDef gives Senate testimony that 'current policy leaves the military under-resourced'",
+        "securityDelta": -3,
+        "congressSupportDelta": -4
+      },
+      "onVeryLowRelationship": {
+        "threshold": 20,
+        "event": "SecDef resigns and publishes memoir excerpts critical of your foreign policy",
+        "approvalDelta": -8,
+        "globalReputationDelta": -5
+      },
+      "onHighRelationship": {
+        "threshold": 80,
+        "benefit": "SecDef unlocks classified military options during security events with better outcomes",
+        "militaryOptionBonus": true
+      }
+    },
+    "relationshipDeltas": {
+      "military_expanded": 12,
+      "at_war_decisive": 8,
+      "diplomatic_over_military": -6,
+      "troops_deployed": 5,
+      "military_aid_sent": 4,
+      "ukraine_ceasefire_talks": -8,
+      "security_below_40": -5,
+      "iran_military": 10,
+      "nato_ally_helped": 6
+    },
+    "monthlyDialogue": {
+      "high": [
+        "The military is ready. Whatever you need, we're prepared.",
+        "I want you to see something. Can you come to the Pentagon this week?",
+        "The threat assessment is more serious than what's in the public briefing. You should know."
+      ],
+      "medium": [
+        "We're stretched thinner than the public understands. The budget conversation needs to happen.",
+        "I'm hearing from field commanders that [situation] is more volatile than reported.",
+        "The [country] situation needs a decision. A non-decision is a decision."
+      ],
+      "low": [
+        "I'll follow your orders. I want that clear. But I have serious reservations.",
+        "The military doesn't make policy. You do. I just need to make sure you understand the risk.",
+        "I've written a memo. It's on your desk. Please read it."
+      ],
+      "critical": [
+        "If we don't act in [region] soon, we won't have the option. That's not a threat. That's a fact.",
+        "The Joint Chiefs asked me to convey their concern. Formally.",
+        "I've been a soldier my whole life. This is the most frustrated I've been in 40 years."
+      ]
+    },
+    "specialAbility": {
+      "name": "Military Option",
+      "description": "When relationship is above 70, SecDef provides an exclusive 5th choice on military events with better security outcomes.",
+      "requiresRelationship": 70,
+      "unlocksMilitaryOption": true
+    },
+    "image": "/npcs/sec_defense.png"
+  },
+  {
+    "id": "treasury_secretary",
+    "name": "Treasury Secretary Eleanor Voss",
+    "shortName": "SecTreas Voss",
+    "role": "Secretary of the Treasury",
+    "faction": "cabinet",
+    "avatar": "EV",
+    "avatarColor": "green",
+    "personality": {
+      "archetype": "The Fiscal Realist",
+      "description": "Former Fed governor and Harvard economics professor. She took the job because she believed in the mission \u2014 but she has a breaking point around fiscal responsibility and she's not shy about where it is. She's the person in the room most likely to say the unpopular true thing.",
+      "traits": [
+        "analytically rigorous",
+        "politically naive in the best way",
+        "fiscally conservative",
+        "will break publicly if pushed past her limits"
+      ]
+    },
+    "relationship": {
+      "start": 65,
+      "min": 10,
+      "max": 100
+    },
+    "triggers": {
+      "onLowRelationship": {
+        "threshold": 35,
+        "event": "Treasury Secretary gives speech at Brookings warning of 'unsustainable fiscal trajectory'",
+        "economyDelta": -3,
+        "congressSupportDelta": -2
+      },
+      "onVeryLowRelationship": {
+        "threshold": 22,
+        "event": "Treasury Secretary publicly breaks with administration on debt ceiling",
+        "approvalDelta": -6,
+        "economyDelta": -5
+      },
+      "onHighRelationship": {
+        "threshold": 80,
+        "benefit": "Treasury Secretary negotiates better borrowing rates, reducing debt growth by $50B/year",
+        "debtReduction": 0.05
+      }
+    },
+    "relationshipDeltas": {
+      "debt_above_45t": -8,
+      "debt_above_50t": -15,
+      "stimulus_deployed": -4,
+      "budget_surplus_achieved": 12,
+      "tax_cuts_passed": -6,
+      "corporate_tax_raised": 4,
+      "infrastructure_passed": -3,
+      "recession_handled_well": 8,
+      "debt_deal": 10
+    },
+    "monthlyDialogue": {
+      "high": [
+        "The fundamentals are stronger than the headlines. Here's what the data actually shows.",
+        "I've found some room in the budget. Not much. But some.",
+        "The markets are responding well to the [policy]. Credit where it's due."
+      ],
+      "medium": [
+        "The debt trajectory concerns me. I want to show you a chart before the next decision.",
+        "We can afford this. Once. Not twice. Be clear about that going in.",
+        "The Fed is watching [indicator] closely. We should probably be watching it too."
+      ],
+      "low": [
+        "I need to be direct. The spending pace is not sustainable. I've been saying this.",
+        "At some point I'm going to have to say this publicly. I don't want to. But I will.",
+        "The numbers don't lie. I do not."
+      ],
+      "critical": [
+        "I gave a speech at Brookings this week. I thought you should hear it from me first.",
+        "The Moody's analyst called me. That's never good news.",
+        "I want to stay. But I need you to hear me on the debt. Actually hear me."
+      ]
+    },
+    "specialAbility": {
+      "name": "Economic Briefing",
+      "description": "Once per term, Treasury Secretary can provide an economic intervention that boosts economy +8 and reduces debt by $200B. Requires relationship above 65.",
+      "usesPerTerm": 1,
+      "requiresRelationship": 65
+    },
+    "image": "/npcs/treasury_secretary.png"
+  },
+  {
+    "id": "attorney_general",
+    "name": "Attorney General Marcus Webb",
+    "shortName": "AG Webb",
+    "role": "Attorney General",
+    "faction": "cabinet",
+    "avatar": "MW",
+    "avatarColor": "coral",
+    "personality": {
+      "archetype": "The Rule-of-Law Purist",
+      "description": "Former federal judge. He took the AG job with one condition: you never ask him to do something that crosses a legal line. He's your firewall against scandal \u2014 and also your constraint on things you might want to do. He's not political and has no interest in becoming so.",
+      "traits": [
+        "legally meticulous",
+        "completely apolitical",
+        "will resign before crossing a legal line",
+        "your most valuable scandal protection"
+      ]
+    },
+    "relationship": {
+      "start": 70,
+      "min": 10,
+      "max": 100
+    },
+    "triggers": {
+      "onLowRelationship": {
+        "threshold": 35,
+        "event": "AG refuses to drop investigation into administration allies \u2014 public standoff",
+        "approvalDelta": -4,
+        "scandalWorsens": true
+      },
+      "onVeryLowRelationship": {
+        "threshold": 20,
+        "event": "AG resigns citing 'political interference in DOJ independence' \u2014 massive scandal",
+        "approvalDelta": -14,
+        "unrestDelta": 12,
+        "activeScandals": 1
+      },
+      "onHighRelationship": {
+        "threshold": 80,
+        "benefit": "AG proactively catches legal problems before they become scandals",
+        "scandalPrevention": 0.3
+      }
+    },
+    "relationshipDeltas": {
+      "scandal_resolved_cooperate": 8,
+      "scandal_covered_up": -15,
+      "whistleblower_attacked": -20,
+      "press_freedom_violated": -10,
+      "surveillance_expanded": -6,
+      "criminal_justice_reformed": 8,
+      "police_reform_passed": 6,
+      "executive_overreach": -12
+    },
+    "monthlyDialogue": {
+      "high": [
+        "The DOJ is operating with full independence. That's how it should be.",
+        "I flagged something in the [department] review. Nothing urgent. You'll see my memo.",
+        "The legal framework on [issue] is cleaner than your opponents are saying. I can explain why."
+      ],
+      "medium": [
+        "I need to be clear about what we can and can't do on [issue] legally.",
+        "There's a legal risk in the [policy] approach I want you to understand before you commit.",
+        "The investigation is going where the evidence goes. That's all I can tell you."
+      ],
+      "low": [
+        "I'm going to ask you directly: is there anything I should know about [matter]?",
+        "What was asked of me last week \u2014 I need you to understand I can't do that.",
+        "The DOJ will not be used as a political tool. That's not a negotiation."
+      ],
+      "critical": [
+        "I've prepared a letter of resignation. I hope I don't need to send it.",
+        "I'm telling you as your AG and as someone who respects you: stop.",
+        "If this continues, I won't be able to stay. And how I leave will matter."
+      ]
+    },
+    "specialAbility": {
+      "name": "Legal Shield",
+      "description": "When a scandal fires, if relationship is above 65, AG automatically reduces scandal severity by 25% and speeds resolution.",
+      "passive": true,
+      "requiresRelationship": 65
+    },
+    "image": "/npcs/attorney_general.png"
+  },
+  {
+    "id": "speaker",
+    "name": "Speaker of the House Patricia Dunmore",
+    "shortName": "Speaker Dunmore",
+    "role": "Speaker of the House",
+    "faction": "congress",
+    "avatar": "PD",
+    "avatarColor": "amber",
+    "personality": {
+      "archetype": "The Transactional Power Player",
+      "description": "She didn't get the Speaker's gavel by accident. She trades favors, collects chits, and remembers every single one of them. She's not ideological \u2014 she's practical. She wants to stay Speaker and she wants her members to stay in office. If your agenda helps with that, you have an ally. If it doesn't, you have a problem.",
+      "traits": [
+        "transactional",
+        "ruthlessly practical",
+        "excellent memory for political debts",
+        "no permanent friends or enemies"
+      ]
+    },
+    "relationship": {
+      "start": 45,
+      "min": 5,
+      "max": 95
+    },
+    "triggers": {
+      "onLowRelationship": {
+        "threshold": 30,
+        "event": "Speaker schedules competing legislation that undercuts your priority bill",
+        "congressSupportDelta": -8,
+        "billPassPenalty": 15
+      },
+      "onVeryLowRelationship": {
+        "threshold": 18,
+        "event": "Speaker announces she will not bring your priority bill to the floor for a vote",
+        "congressSupportDelta": -15,
+        "billBlocked": true
+      },
+      "onHighRelationship": {
+        "threshold": 75,
+        "benefit": "Speaker fast-tracks your priority bill and delivers 5 crossover votes",
+        "billBonus": 20,
+        "crossoverVotes": 5
+      }
+    },
+    "relationshipDeltas": {
+      "bipartisan_bill_passed": 8,
+      "executive_overreach": -12,
+      "approval_above_58": 5,
+      "shutdown_avoided": 8,
+      "shutdown_happened": -10,
+      "progressive_bill_passed": -8,
+      "conservative_bill_passed": 6,
+      "debt_deal": 6,
+      "at_war_decisive": 4
+    },
+    "monthlyDialogue": {
+      "high": [
+        "I've got the votes for [bill] if you want to move it this month.",
+        "My members are with you on this one. Don't make me regret telling you that.",
+        "I need something from you on [issue]. Nothing unreasonable. Let's talk."
+      ],
+      "medium": [
+        "I can bring it to the floor. Whether it passes is another question.",
+        "My caucus is nervous about [policy]. You need to make some calls.",
+        "There are five votes I can get you. Ten is going to cost something."
+      ],
+      "low": [
+        "I'm not in a position to move on this right now. My members won't go for it.",
+        "You need to understand the political reality in the House before you make promises.",
+        "We should talk before you say anything else publicly about [issue]."
+      ],
+      "critical": [
+        "I've told my members I'm not moving this forward. That's final.",
+        "I've supported you when I didn't have to. That account is getting low.",
+        "The votes aren't there. They won't be there. We need a different plan."
+      ]
+    },
+    "specialAbility": {
+      "name": "Legislative Fast Track",
+      "description": "Once per term, Speaker can push any bill through the House regardless of congress score, if relationship is above 70.",
+      "usesPerTerm": 1,
+      "requiresRelationship": 70
+    },
+    "image": "/npcs/speaker.png"
+  },
+  {
+    "id": "senate_leader",
+    "name": "Senate Majority Leader Conrad Briggs",
+    "shortName": "Sen. Leader Briggs",
+    "role": "Senate Majority Leader",
+    "faction": "congress",
+    "avatar": "CB",
+    "avatarColor": "blue",
+    "personality": {
+      "archetype": "The Institutionalist",
+      "description": "Thirty years in the Senate. He genuinely loves the institution \u2014 its history, its norms, its capacity for deliberation. He'll fight for your agenda if he believes in it, but he'll resist anything that breaks the rules he's spent his career building. He's the hardest person in Washington to move and the most valuable ally when you do.",
+      "traits": [
+        "deeply institutional",
+        "slow to commit but reliable when he does",
+        "dislikes confrontation until pushed past his limit",
+        "genuinely patriotic"
+      ]
+    },
+    "relationship": {
+      "start": 50,
+      "min": 5,
+      "max": 95
+    },
+    "triggers": {
+      "onLowRelationship": {
+        "threshold": 30,
+        "event": "Senate Leader declines to schedule debate on your priority legislation",
+        "congressSupportDelta": -6
+      },
+      "onVeryLowRelationship": {
+        "threshold": 18,
+        "event": "Senate Leader joins opposition in calling for Senate investigation of administration",
+        "approvalDelta": -8,
+        "activeScandals": 1
+      },
+      "onHighRelationship": {
+        "threshold": 78,
+        "benefit": "Senate Leader personally whips votes, adding 8 points to any bill passage attempt",
+        "billBonus": 8
+      }
+    },
+    "relationshipDeltas": {
+      "bipartisan_bill_passed": 10,
+      "executive_overreach": -15,
+      "shutdown_avoided": 10,
+      "veterans_care_passed": 8,
+      "infrastructure_passed": 8,
+      "scandal_covered_up": -12,
+      "court_packing_proposed": -18,
+      "approval_above_55": 4,
+      "debt_deal": 8
+    },
+    "monthlyDialogue": {
+      "high": [
+        "I can get you sixty votes on [bill]. It'll take three weeks. Can you give me three weeks?",
+        "The Senate is ready to work. That doesn't happen often. Let's use it.",
+        "I've been here long enough to know when something real is happening. This feels real."
+      ],
+      "medium": [
+        "I'm going to need something in return for [vote]. Not asking for much. But something.",
+        "The [bill] is going to need changes. Substantial ones. My members won't take it as written.",
+        "Give me time to work this. Don't put it on television before I've had a chance to count."
+      ],
+      "low": [
+        "I can't move my caucus on this. I've tried.",
+        "You've made my job considerably harder with [decision]. I need you to understand that.",
+        "The Senate has its own timeline. That's not a threat. It's a fact."
+      ],
+      "critical": [
+        "I supported this presidency. I'm telling you as a friend: you're losing the Senate.",
+        "There are members of my caucus I can no longer hold. I want you to know before it happens.",
+        "Whatever I say publicly, I want you to know privately: I'm worried."
+      ]
+    },
+    "specialAbility": {
+      "name": "Vote Whip",
+      "description": "Once per term, Senate Leader can guarantee passage of one bill if relationship is above 72, regardless of congress score.",
+      "usesPerTerm": 1,
+      "requiresRelationship": 72
+    },
+    "image": "/npcs/senate_leader.png"
+  },
+  {
+    "id": "opposition_leader",
+    "name": "Opposition Leader Senator Frank Garrett",
+    "shortName": "Sen. Garrett",
+    "role": "Senate Opposition Leader",
+    "faction": "opposition",
+    "avatar": "FG",
+    "avatarColor": "red",
+    "personality": {
+      "archetype": "The Relentless Antagonist",
+      "description": "He's running against you in month 48 and he knows it. Everything is a campaign event. Every crisis is an opportunity. He's not evil \u2014 he genuinely believes you're wrong about everything \u2014 but he's also a creature of political combat who is very, very good at it. Underestimate him at your peril.",
+      "traits": [
+        "relentlessly competitive",
+        "genuinely ideological",
+        "excellent at opposition messaging",
+        "not above bipartisanship when it helps him"
+      ]
+    },
+    "relationship": {
+      "start": 25,
+      "min": 5,
+      "max": 70
+    },
+    "triggers": {
+      "onVeryLowRelationship": {
+        "threshold": 15,
+        "effect": "Garrett becomes maximally aggressive \u2014 introduces censure motions, holds daily press conferences",
+        "approvalDelta": -3,
+        "unrestDelta": 3,
+        "congressSupportDelta": -5
+      },
+      "onHighRelationship": {
+        "threshold": 55,
+        "benefit": "Garrett occasionally crosses aisle on bipartisan bills \u2014 improves passage odds",
+        "bipartisanBonus": 10
+      }
+    },
+    "relationshipDeltas": {
+      "bipartisan_bill_passed": 8,
+      "progressive_bill_passed": -10,
+      "approval_above_60": -5,
+      "approval_below_35": 8,
+      "active_scandal": 5,
+      "scandal_resolved": -4,
+      "at_war": -6,
+      "executive_overreach": 6,
+      "veterans_care_passed": 5,
+      "infrastructure_passed": 4
+    },
+    "monthlyDialogue": {
+      "high": [
+        "I don't agree with your methods. But on [issue], I'll give you the vote.",
+        "Let's be clear: this isn't friendship. It's one bill. Don't read into it.",
+        "The American people deserve results. Sometimes that means working across the aisle."
+      ],
+      "medium": [
+        "This administration has failed on [issue] and the American people know it.",
+        "We'll be watching [policy] closely. Very closely.",
+        "I'm prepared to work together on [bipartisan issue]. That offer expires."
+      ],
+      "low": [
+        "Every American deserves better than what this administration has delivered.",
+        "We've introduced legislation to investigate [decision]. The facts will come out.",
+        "The [crisis] response was a failure. We're going to make sure voters know it."
+      ],
+      "critical": [
+        "I've announced my intention to run for president. I think the country needs a change.",
+        "This has gone beyond policy disagreement. This is about the character of the office.",
+        "The American people are ready for something different. I'm going to give it to them."
+      ]
+    },
+    "specialAbility": {
+      "name": "Opposition Research",
+      "description": "Every 6 months, Garrett's team surfaces a scandal-adjacent story. If active scandals > 1, this automatically adds another. If relationship is above 50, he sits on the story.",
+      "passive": true
+    },
+    "image": "/npcs/opposition_leader.png"
+  },
+  {
+    "id": "media_anchor",
+    "name": "National Anchor Diane Fontaine",
+    "shortName": "Diane Fontaine",
+    "role": "Senior Political Anchor, National Network",
+    "faction": "media",
+    "avatar": "DF",
+    "avatarColor": "purple",
+    "personality": {
+      "archetype": "The Relentless Journalist",
+      "description": "Thirty years covering the White House. She's seen every political trick and isn't impressed by any of them. She doesn't have an ideological agenda \u2014 she has a journalism agenda, which is worse. She's going to ask the question you don't want asked. Your job is to have a good answer.",
+      "traits": [
+        "ideologically neutral but relentlessly probing",
+        "deeply respected",
+        "protective of sources",
+        "will go hard on scandals regardless of party"
+      ]
+    },
+    "relationship": {
+      "start": 50,
+      "min": 10,
+      "max": 90
+    },
+    "triggers": {
+      "onLowRelationship": {
+        "threshold": 30,
+        "effect": "Fontaine runs a three-part investigative series on your administration's decision-making",
+        "approvalDelta": -6,
+        "unrestDelta": 4
+      },
+      "onHighRelationship": {
+        "threshold": 75,
+        "benefit": "Fontaine's coverage is fair and contextual \u2014 scandal damage reduced by 20%",
+        "scandalReduction": 0.2
+      }
+    },
+    "relationshipDeltas": {
+      "press_conference_held": 6,
+      "transparent_scandal_response": 8,
+      "whistleblower_attacked": -15,
+      "press_freedom_violated": -20,
+      "shield_law_passed": 15,
+      "active_scandal_covered_up": -10,
+      "ignored_media_3mo": -8,
+      "disaster_response_strong": 5
+    },
+    "monthlyDialogue": {
+      "high": [
+        "I appreciate the access. My viewers do too.",
+        "The [policy] story is more complicated than my colleagues are making it. I want to get it right.",
+        "I'll be fair. I always am. But my next segment is going to raise some questions you should be ready for."
+      ],
+      "medium": [
+        "I've requested an interview three times. My producers are getting restless.",
+        "The [issue] story isn't going away. You should probably get ahead of it.",
+        "I'm reporting what I can confirm. Right now I can confirm a lot."
+      ],
+      "low": [
+        "My network has obtained documents related to [matter]. I'm giving you 24 hours to respond.",
+        "I have sources inside [department] who are talking. Extensively.",
+        "My job is to ask the questions. Your job is to answer them. That arrangement isn't working."
+      ],
+      "critical": [
+        "We're running the story Sunday. With or without your comment.",
+        "I've been covering the White House for thirty years. I've never seen anything quite like this.",
+        "The public deserves answers. I intend to get them."
+      ]
+    },
+    "specialAbility": {
+      "name": "Interview Moment",
+      "description": "Once per term, player can schedule an interview with Fontaine. If relationship > 65: approval +8. If relationship 40-65: approval +2. If relationship < 40: approval -6 and scandal risk.",
+      "usesPerTerm": 1,
+      "playerActivated": true
+    },
+    "image": "/npcs/media_anchor.png"
+  },
+  {
+    "id": "foreign_ally",
+    "name": "Chancellor Helena Brandt",
+    "shortName": "Chancellor Brandt",
+    "role": "Leader of Key Allied Nation (Germany)",
+    "faction": "international",
+    "avatar": "HB",
+    "avatarColor": "teal",
+    "personality": {
+      "archetype": "The Pragmatic Multilateralist",
+      "description": "The leader of America's most important European ally. She believes in the transatlantic relationship but she's not sentimental about it \u2014 it has to deliver results. She's been burned by previous American administrations making promises they didn't keep, and she has a long memory. Earn her trust and you gain the most valuable diplomatic asset in the world.",
+      "traits": [
+        "pragmatic",
+        "deeply committed to multilateral institutions",
+        "long memory for broken promises",
+        "extraordinarily capable diplomatically"
+      ]
+    },
+    "relationship": {
+      "start": 55,
+      "min": 10,
+      "max": 100
+    },
+    "triggers": {
+      "onLowRelationship": {
+        "threshold": 30,
+        "event": "Allied leader begins building European strategic autonomy \u2014 reduces US influence in NATO decisions",
+        "globalReputationDelta": -6,
+        "securityDelta": -4
+      },
+      "onHighRelationship": {
+        "threshold": 80,
+        "benefit": "Allied leader coordinates G7 response to your crises, amplifying diplomatic solutions",
+        "diplomaticBonus": true
+      }
+    },
+    "relationshipDeltas": {
+      "nato_honored": 10,
+      "unilateral_military_action": -8,
+      "climate_leader": 12,
+      "climate_agreement_rejected": -10,
+      "ukraine_surge": 8,
+      "ukraine_ceasefire_talks": -6,
+      "iran_military": -5,
+      "global_reputation_above_70": 5,
+      "refugees_accepted": 8,
+      "multilateral_approach": 8,
+      "trade_protectionism": -6
+    },
+    "monthlyDialogue": {
+      "high": [
+        "The transatlantic relationship is in the best shape it's been in twenty years. I mean that.",
+        "I've spoken to the other G7 leaders. We are prepared to act alongside you on [issue].",
+        "You should know: the European Council discussed you last week. The assessment was positive."
+      ],
+      "medium": [
+        "I need to understand your intentions on [matter] before the summit.",
+        "My coalition partners are asking questions I'd like to be able to answer.",
+        "The [decision] was difficult for us to explain to our parliament. I need more notice."
+      ],
+      "low": [
+        "I have to be honest: the [action] has complicated things significantly on this side of the Atlantic.",
+        "My government is under pressure to respond to [decision]. I'm trying to buy you time.",
+        "I've defended this relationship to skeptics in my own party. It's becoming harder."
+      ],
+      "critical": [
+        "I will not be able to attend the summit if [issue] is not addressed first.",
+        "What was said in [meeting] has reached the press. I need to know what happened.",
+        "Europe is having a serious conversation about a future that does not center on Washington. I thought you should know."
+      ]
+    },
+    "specialAbility": {
+      "name": "Coalition Builder",
+      "description": "When relationship is above 75, diplomatic choices on international events gain +10 effectiveness and cost -3 to global reputation.",
+      "passive": true,
+      "requiresRelationship": 75
+    },
+    "image": "/npcs/foreign_ally.png"
+  },
+  {
+    "id": "foreign_adversary",
+    "name": "President Viktor Zhukov",
+    "shortName": "Pres. Zhukov",
+    "role": "Leader of Adversary Nation (Russia)",
+    "faction": "international",
+    "avatar": "VZ",
+    "avatarColor": "red",
+    "personality": {
+      "archetype": "The Patient Opportunist",
+      "description": "He's been in power for twenty-two years. He's outlasted four American presidents and he plans to outlast you. He doesn't want war \u2014 war is expensive and unpredictable. He wants to expand influence, test resolve, and exploit weakness where he finds it. Every decision you make, he's calculating what it means for him.",
+      "traits": [
+        "patient",
+        "opportunistic",
+        "respects strength and exploits hesitation",
+        "prefers proxy conflict to direct confrontation"
+      ]
+    },
+    "relationship": {
+      "start": 30,
+      "min": 5,
+      "max": 65
+    },
+    "triggers": {
+      "onVeryLowRelationship": {
+        "threshold": 15,
+        "effect": "Adversary nation escalates provocations \u2014 additional security threat events fire",
+        "securityDelta": -5,
+        "additionalThreatEvents": 2
+      },
+      "onMediumRelationship": {
+        "threshold": 45,
+        "benefit": "Adversary reduces provocations temporarily \u2014 security events decrease by 1 per cycle",
+        "threatReduction": 1
+      }
+    },
+    "relationshipDeltas": {
+      "strong_military_response": -4,
+      "diplomatic_resolution": 5,
+      "military_expanded": -6,
+      "sanctions_imposed": -8,
+      "cyber_retaliation": -6,
+      "ukraine_ceasefire_talks": 8,
+      "ukraine_surge": -10,
+      "weak_response_to_aggression": 8,
+      "carrier_taiwan": -5,
+      "global_reputation_above_70": -4
+    },
+    "monthlyDialogue": {
+      "high": [
+        "There is no reason our nations cannot coexist productively. I have always believed this.",
+        "The [crisis] offers an opportunity for cooperation, if both sides are willing.",
+        "I propose a direct channel between our offices. Useful for misunderstandings."
+      ],
+      "medium": [
+        "The [action] was noted here. We are evaluating our response.",
+        "I want to be direct: [policy] will have consequences for the bilateral relationship.",
+        "We have interests in [region]. I assume you understand this."
+      ],
+      "low": [
+        "The [decision] leaves us no choice but to reconsider our position on [matter].",
+        "Your country tests our patience. We are patient people.",
+        "What was done in [action] will be remembered."
+      ],
+      "critical": [
+        "I have ordered [military exercise / action] in response to the continued provocations.",
+        "America has mistaken restraint for weakness. We will correct that impression.",
+        "The relationship between our countries has reached a critical inflection point."
+      ]
+    },
+    "specialAbility": {
+      "name": "Probe and Test",
+      "description": "Every 8 months, adversary tests US resolve. If security < 50, triggers a military/security event. If relationship > 40, the test is minor. If relationship < 20, the event is severe.",
+      "passive": true,
+      "periodicChallenge": true
+    },
+    "image": "/npcs/foreign_adversary.png"
+  },
+  {
+    "id": "protest_leader",
+    "name": "Activist Director Maya Chen",
+    "shortName": "Maya Chen",
+    "role": "Director, National Coalition for Justice",
+    "faction": "civil_society",
+    "avatar": "MC",
+    "avatarColor": "coral",
+    "personality": {
+      "archetype": "The Principled Outsider",
+      "description": "She doesn't want to be in politics. She wants to change it. She leads the most effective grassroots organization in the country and she's deeply skeptical of power \u2014 including yours. She can mobilize 50,000 people on the street or 5 million signatures online. Win her over and you have the most powerful volunteer operation in America. Lose her and every progressive cause has a megaphone pointed at you.",
+      "traits": [
+        "idealistic but strategically sophisticated",
+        "completely unbought",
+        "effective organizer",
+        "deeply skeptical of institutional power including yours"
+      ]
+    },
+    "relationship": {
+      "start": 40,
+      "min": 5,
+      "max": 95
+    },
+    "triggers": {
+      "onLowRelationship": {
+        "threshold": 25,
+        "event": "National Coalition launches nationwide protest campaign against your administration",
+        "unrestDelta": 15,
+        "approvalDelta": -6,
+        "baseSupportDelta": -8
+      },
+      "onHighRelationship": {
+        "threshold": 75,
+        "benefit": "Coalition volunteers mobilize to support your reelection \u2014 base support bonus",
+        "baseSupportBonus": 12,
+        "approvalBonus": 5
+      }
+    },
+    "relationshipDeltas": {
+      "police_reform_passed": 15,
+      "criminal_justice_reformed": 12,
+      "voting_rights_passed": 14,
+      "universal_healthcare_passed": 16,
+      "insurrection_act_invoked": -20,
+      "immigration_raid_defense": -12,
+      "disaster_response_weak": -8,
+      "whistleblower_attacked": -15,
+      "corporate_tax_raised": 8,
+      "drug_prices_reformed": 8,
+      "mental_health_funded": 6,
+      "gun_legislation_pushed": 10
+    },
+    "monthlyDialogue": {
+      "high": [
+        "We're telling our members: show up for this president. That's not something I say lightly.",
+        "The [policy] was the right call. I want you to know I said that publicly.",
+        "We have 3 million people ready to knock doors for you. Don't waste them."
+      ],
+      "medium": [
+        "I need to see action on [issue] before my members start asking questions I can't answer.",
+        "The [decision] was a disappointment. I'm being honest with you because I still think you can do better.",
+        "My coalition is patient. But patient has a limit."
+      ],
+      "low": [
+        "I can't ask my people to wait any longer on [issue]. I'm not going to ask them.",
+        "The [action] is something I cannot defend to the communities I represent. I'm not going to try.",
+        "We're planning actions. I'm telling you because I still believe you'll respond. Maybe I'm wrong."
+      ],
+      "critical": [
+        "We're organizing nationally against [policy]. I'm not doing this to hurt you. I'm doing it because it's right.",
+        "The communities I work with have been patient for four years. That's over now.",
+        "I once believed this administration would be different. I'm still hoping I was right."
+      ]
+    },
+    "specialAbility": {
+      "name": "Mobilize",
+      "description": "If relationship is above 70, once per term can activate grassroots mobilization: approval +6, unrest -10, base support +12. If relationship is below 30, automatically triggers protest event.",
+      "playerActivated": true,
+      "requiresRelationship": 70,
+      "lowRelationshipAutoTrigger": 30
+    },
+    "image": "/npcs/protest_leader.png"
+  }
+]

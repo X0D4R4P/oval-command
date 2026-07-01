@@ -1,0 +1,94 @@
+import { NextRequest, NextResponse } from 'next/server'
+import { auth } from '@/lib/auth'
+import { prisma } from '@/lib/prisma'
+import { createInitialGame, pickEvent } from '@/lib/game-engine'
+import { dbToGame } from '@/lib/db-helpers'
+import type { CreateGameRequest } from '@/types/game'
+
+export async function POST(req: NextRequest) {
+  const session = await auth()
+  if (!session?.user?.id) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
+  let body: CreateGameRequest
+  try {
+    body = await req.json()
+  } catch {
+    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
+  }
+
+  const { presidentName, party, difficulty = 'normal' } = body
+
+  if (!presidentName?.trim() || presidentName.trim().length > 60) {
+    return NextResponse.json({ error: 'President name must be 1–60 characters' }, { status: 400 })
+  }
+  if (!['DEMOCRAT', 'REPUBLICAN', 'INDEPENDENT'].includes(party)) {
+    return NextResponse.json({ error: 'Invalid party' }, { status: 400 })
+  }
+  if (!['easy', 'normal', 'hard', 'expert'].includes(difficulty)) {
+    return NextResponse.json({ error: 'Invalid difficulty' }, { status: 400 })
+  }
+
+  const initial = createInitialGame(session.user.id, presidentName.trim(), party, difficulty)
+
+  const dbGame = await prisma.game.create({
+    data: {
+      userId:           session.user.id,
+      presidentName:    initial.presidentName,
+      party:            initial.party,
+      difficulty:       initial.difficulty,
+      currentMonth:     initial.currentMonth,
+      status:           initial.status,
+      stats:            initial.stats,
+      flags:            initial.flags,
+      activeConflicts:  initial.activeConflicts,
+      activeScandals:   initial.activeScandals,
+      pendingConsequences: initial.pendingConsequences,
+      chainCooldowns:   initial.chainCooldowns,
+      npcRelationships: initial.npcRelationships,
+      usedNpcAbilities: initial.usedNpcAbilities,
+      passedLaws:       initial.passedLaws,
+      usedEvents:       initial.usedEvents,
+      approvalHistory:  initial.approvalHistory,
+    },
+  })
+
+  const game = dbToGame(dbGame)
+  const currentEvent = pickEvent(game)
+
+  return NextResponse.json({ game, currentEvent }, { status: 201 })
+}
+
+export async function GET() {
+  const session = await auth()
+  if (!session?.user?.id) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
+  const rows = await prisma.game.findMany({
+    where:   { userId: session.user.id },
+    orderBy: { updatedAt: 'desc' },
+    select:  {
+      id:            true,
+      presidentName: true,
+      party:         true,
+      currentMonth:  true,
+      status:        true,
+      legacyScore:   true,
+      stats:         true,
+      createdAt:     true,
+      updatedAt:     true,
+      // Exclude large JSON fields from list view
+      activeConflicts:  false,
+      activeScandals:   false,
+      npcRelationships: false,
+      flags:            false,
+      passedLaws:       false,
+      usedEvents:       false,
+      approvalHistory:  false,
+    },
+  })
+
+  return NextResponse.json({ games: rows })
+}
