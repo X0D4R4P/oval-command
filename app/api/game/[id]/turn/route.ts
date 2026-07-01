@@ -3,8 +3,8 @@ import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { processEventTurn, pickEvent, isEventEligible, EVENTS } from '@/lib/game-engine'
 import { computePresidentialArchetype } from '@/lib/archetype-engine'
-import { dbToGame, gameToDbUpdate, dbToGameLog } from '@/lib/db-helpers'
-import type { ProcessTurnRequest } from '@/types/game'
+import { dbToGame, gameToDbUpdate } from '@/lib/db-helpers'
+import type { ProcessTurnRequest, GameLog } from '@/types/game'
 import type { InputJsonValue } from '@prisma/client/runtime/library'
 
 interface Params { params: Promise<{ id: string }> }
@@ -93,15 +93,27 @@ export async function POST(req: NextRequest, { params }: Params) {
     ? pickEvent(result.updatedGame)
     : null
 
-  // Compute archetype on game-over — convert DB logs to GameLog via dbToGameLog
-  // so createdAt is a string (GameLog type) not a Date (Prisma type)
+  // Compute archetype on game-over
   let archetype = undefined
   if (result.gameOver) {
     const allLogs = await prisma.gameLog.findMany({
       where: { gameId: id },
       orderBy: { month: 'asc' },
     })
-    archetype = computePresidentialArchetype(result.updatedGame, allLogs.map(dbToGameLog))
+    // Convert Prisma rows to GameLog shape — createdAt must be string not Date
+    const gameLogs: GameLog[] = allLogs.map(l => ({
+      id:          l.id,
+      gameId:      l.gameId,
+      month:       l.month,
+      actionType:  l.actionType as GameLog['actionType'],
+      eventId:     l.eventId    ?? undefined,
+      choiceIndex: l.choiceIndex ?? undefined,
+      lawId:       l.lawId      ?? undefined,
+      statDeltas:  l.statDeltas as GameLog['statDeltas'],
+      narrative:   l.narrative  ?? undefined,
+      createdAt:   l.createdAt.toISOString(),
+    }))
+    archetype = computePresidentialArchetype(result.updatedGame, gameLogs)
   }
 
   return NextResponse.json({ result: { ...result, archetype }, nextEvent })
