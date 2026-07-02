@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
-import { pickEvent } from '@/lib/game-engine'
+import { pickEvent, EVENTS } from '@/lib/game-engine'
 import { dbToGame } from '@/lib/db-helpers'
 
 interface Params { params: Promise<{ id: string }> }
@@ -28,7 +28,22 @@ export async function GET(req: NextRequest, { params }: Params) {
   }
 
   const game = dbToGame(row)
-  const currentEvent = game.status === 'ACTIVE' ? pickEvent(game) : null
+
+  let currentEvent = null
+  if (game.status === 'ACTIVE') {
+    const currentEventId = (row as any).currentEventId
+    if (currentEventId) {
+      currentEvent = EVENTS.find(e => e.id === currentEventId) ?? null
+    } else {
+      currentEvent = pickEvent(game)
+      if (currentEvent) {
+        await prisma.game.update({
+          where: { id },
+          data:  { currentEventId: currentEvent.id } as any,
+        })
+      }
+    }
+  }
 
   return NextResponse.json({ game, currentEvent })
 }
