@@ -31,6 +31,11 @@ export function DashboardHeader({ presidentName, party, currentMonth, approval }
             {monthToDate(currentMonth)} · Year {getTermYear(currentMonth)} of Term
           </p>
         </div>
+        {currentMonth >= 40 && (
+          <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.1em] text-[var(--color-warn)]">
+            🗳️ {currentMonth >= 48 ? 'Election Day' : `${48 - currentMonth} months to Election Day`}
+          </p>
+        )}
       </div>
       <div className="text-right">
         <div className="font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--color-paper-faint)]">

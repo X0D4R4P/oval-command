@@ -6761,5 +6761,215 @@
         "outcome": "The adversary takes it as confirmation of weakness. Allies are stunned. It will be the defining image of the end of your term."
       }
     ]
+  },
+  {
+    "id": "campaign_fundraising_gala",
+    "title": "Major Party Fundraising Gala",
+    "category": "social",
+    "description": "With re-election on the horizon, your campaign has organized a high-dollar fundraising gala. Donors expect face time. Your schedule is already packed with governing. Skipping it risks the campaign's war chest; attending risks the optics of a president distracted by politics while problems remain unsolved.",
+    "triggers": {
+      "month": { "min": 40 }
+    },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 7,
+    "choices": [
+      {
+        "index": 0,
+        "text": "Attend personally and work the room all night",
+        "effects": { "baseSupport": 8, "partyUnity": 6, "approval": -4, "debt": 0 },
+        "sets_flags": ["courted_major_donors"],
+        "outcome": "The war chest swells. Photos of you laughing with donors make the morning shows, and not in a flattering light."
+      },
+      {
+        "index": 1,
+        "text": "Send the Vice President in your place",
+        "effects": { "baseSupport": 3, "partyUnity": 2, "approval": 1 },
+        "sets_flags": [],
+        "outcome": "Donors are mildly disappointed but understanding. The optics stay clean. Fundraising totals come in lower than hoped."
+      },
+      {
+        "index": 2,
+        "text": "Skip it entirely and hold a working dinner on policy instead",
+        "effects": { "approval": 5, "baseSupport": -6, "partyUnity": -4 },
+        "sets_flags": [],
+        "outcome": "The press praises your focus. Campaign finance staff are furious — the fundraising gap with your opponent widens."
+      },
+      {
+        "index": 3,
+        "text": "Attend briefly, deliver remarks, then leave early",
+        "effects": { "baseSupport": 4, "approval": 1, "partyUnity": 3 },
+        "sets_flags": [],
+        "outcome": "A measured showing. Nobody's fully satisfied, but nobody's especially upset either."
+      }
+    ]
+  },
+  {
+    "id": "campaign_first_debate",
+    "title": "The First Presidential Debate",
+    "category": "social",
+    "description": "Ninety minutes, one stage, no script. Your opponent has been rehearsing attack lines for weeks. Your debate prep team is split on strategy — some want you aggressive, some want you presidential and above the fray. The performance will dominate news coverage for the following week regardless of what you actually say.",
+    "triggers": {
+      "month": { "min": 41 }
+    },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 6,
+    "choices": [
+      {
+        "index": 0,
+        "text": "Go on the offensive and attack your opponent's record directly",
+        "effects": { "approval": 3, "baseSupport": 7, "partyUnity": 4, "mediaScore": -0.5 },
+        "sets_flags": ["went_negative_debate"],
+        "outcome": "Your base loves it. Pundits call it a mixed bag — sharp, but undignified. Clips of the sharpest exchange go viral within hours."
+      },
+      {
+        "index": 1,
+        "text": "Stay above the fray and focus on substantive policy",
+        "effects": { "approval": 6, "congressSupport": 3, "baseSupport": -2 },
+        "sets_flags": [],
+        "outcome": "Fact-checkers rate you highly. It doesn't make for great television, and your opponent's attack lines land largely unanswered."
+      },
+      {
+        "index": 2,
+        "text": "Lean on humor to defuse the sharpest attacks",
+        "effects": { "approval": 4, "mediaScore": 1, "baseSupport": 2 },
+        "sets_flags": [],
+        "outcome": "A couple of lines land well and dominate the highlight reels. Some voters find it too glib for the moment."
+      },
+      {
+        "index": 3,
+        "text": "Play it safe and avoid any real news",
+        "effects": { "approval": -3, "baseSupport": -3, "partyUnity": -2 },
+        "sets_flags": [],
+        "outcome": "The safest possible ninety minutes. Commentators call it forgettable, which your opponent's campaign happily amplifies."
+      }
+    ]
+  },
+  {
+    "id": "campaign_attack_ads",
+    "title": "Opponent Launches Brutal Attack Ad Campaign",
+    "category": "scandal",
+    "description": "A wave of attack ads is airing in every swing state, built around your administration's most controversial moments — some fairly characterized, others badly distorted. Your campaign manager wants a response strategy locked in before the news cycle moves on and the ads' framing hardens into conventional wisdom.",
+    "triggers": {
+      "month": { "min": 40 }
+    },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 7,
+    "choices": [
+      {
+        "index": 0,
+        "text": "Launch an equally aggressive counter-ad campaign",
+        "effects": { "baseSupport": 6, "approval": -3, "debt": 0.1, "unrest": 2 },
+        "sets_flags": ["ran_counter_ads"],
+        "outcome": "The airwaves turn into a slugfest. Your base is energized. Independents tell pollsters they're tired of both sides."
+      },
+      {
+        "index": 1,
+        "text": "Publicly fact-check the ads point by point",
+        "effects": { "mediaScore": 1, "approval": 2, "baseSupport": 1 },
+        "sets_flags": [],
+        "outcome": "The fact-check gets real pickup in the press. It also keeps the ads' claims in the news for another cycle."
+      },
+      {
+        "index": 2,
+        "text": "Threaten legal action against the most misleading claims",
+        "effects": { "approval": -4, "mediaScore": -1, "baseSupport": 3 },
+        "sets_flags": ["threatened_legal_action"],
+        "outcome": "Free speech advocates in both parties criticize the move. The ads keep airing, now with extra attention."
+      },
+      {
+        "index": 3,
+        "text": "Ignore it and stay focused on the day-to-day business of governing",
+        "effects": { "approval": 3, "baseSupport": -5, "congressSupport": 2 },
+        "sets_flags": [],
+        "outcome": "You look presidential by comparison. Campaign staff worry the unanswered attacks are sinking in with undecided voters."
+      }
+    ]
+  },
+  {
+    "id": "campaign_swing_state_stop",
+    "title": "Swing State Campaign Stop",
+    "category": "social",
+    "description": "Your campaign has scheduled a rally in a state that could decide the election. Local organizers, national strategists, and your own instincts don't fully agree on what the crowd needs to hear tonight.",
+    "triggers": {
+      "month": { "min": 42 }
+    },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 7,
+    "choices": [
+      {
+        "index": 0,
+        "text": "Fire up the base with red-meat rhetoric",
+        "effects": { "baseSupport": 9, "partyUnity": 5, "approval": -3, "unrest": 2 },
+        "sets_flags": [],
+        "outcome": "The crowd roars. Clips travel fast on social media — thrilling to supporters, alarming to everyone else watching."
+      },
+      {
+        "index": 1,
+        "text": "Pitch a moderate, unifying message to undecided voters",
+        "effects": { "approval": 5, "baseSupport": -3, "congressSupport": 2 },
+        "sets_flags": [],
+        "outcome": "The speech plays well with commentators calling for less division. Some of your most committed supporters call it flat."
+      },
+      {
+        "index": 2,
+        "text": "Focus entirely on local jobs and issues specific to this state",
+        "effects": { "baseSupport": 5, "economy": 1, "approval": 2 },
+        "sets_flags": [],
+        "outcome": "Local coverage is glowing. National media barely covers it — it wasn't built for that audience anyway."
+      },
+      {
+        "index": 3,
+        "text": "Cancel the rally and send senior surrogates instead",
+        "effects": { "baseSupport": -4, "approval": 1 },
+        "sets_flags": [],
+        "outcome": "Local organizers are frustrated. The decision barely registers nationally, but it costs you momentum on the ground."
+      }
+    ]
+  },
+  {
+    "id": "campaign_party_endorsement",
+    "title": "Party Leaders Debate Endorsing You for a Second Term",
+    "category": "congress",
+    "description": "Behind closed doors, senior members of your own party are debating how enthusiastically to back your re-election. Some want to campaign hard on your record. Others are quietly keeping their distance, hedging in case your numbers slide further before Election Day.",
+    "triggers": {
+      "month": { "min": 41 }
+    },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 6,
+    "choices": [
+      {
+        "index": 0,
+        "text": "Call in every favor to lock down a unified, full-throated endorsement",
+        "effects": { "congressSupport": 6, "partyUnity": 8, "debt": 0 },
+        "sets_flags": ["secured_party_unity"],
+        "outcome": "The party closes ranks publicly. Privately, some members remind you they expect this debt repaid after the election."
+      },
+      {
+        "index": 1,
+        "text": "Let each member endorse on their own terms and timeline",
+        "effects": { "partyUnity": 2, "congressSupport": 1 },
+        "sets_flags": [],
+        "outcome": "A patchwork of endorsements trickles out over several weeks. It reads as authentic, if a little disorganized."
+      },
+      {
+        "index": 2,
+        "text": "Lean into running as an outsider, independent of party machinery",
+        "effects": { "baseSupport": 5, "partyUnity": -8, "congressSupport": -4 },
+        "sets_flags": ["ran_as_outsider"],
+        "outcome": "It plays well with voters tired of politics as usual. Party leadership is furious at being publicly sidelined."
+      },
+      {
+        "index": 3,
+        "text": "Focus on courting a handful of high-profile crossover endorsements instead",
+        "effects": { "approval": 4, "globalReputation": 2, "partyUnity": -2 },
+        "sets_flags": [],
+        "outcome": "The crossover endorsements generate real buzz. Your own party's rank-and-file feel taken for granted."
+      }
+    ]
   }
 ]
