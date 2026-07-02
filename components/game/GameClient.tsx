@@ -183,6 +183,34 @@ export function GameClient({ initialGame, initialEvent }: GameClientProps) {
         </p>
       )}
 
+      {view.phase === 'briefing' && (
+        <div className="mt-4 rounded-sm border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3">
+          <div className="font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--color-paper-faint)]">
+            This Month
+          </div>
+          <div className="mt-2 space-y-1.5">
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-[var(--color-paper)]">Respond to Briefing</span>
+              <span className={event ? 'text-[var(--color-warn)]' : 'text-[var(--color-paper-faint)]'}>
+                {event ? 'Pending' : 'None this month'}
+              </span>
+            </div>
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-[var(--color-paper)]">Propose Legislation</span>
+              <Link
+                href={`/game/${game.id}/congress`}
+                className="text-[var(--color-brass)] hover:underline"
+              >
+                Congress →
+              </Link>
+            </div>
+          </div>
+          <p className="mt-2 text-[11px] text-[var(--color-paper-faint)]">
+            Taking either action advances to next month.
+          </p>
+        </div>
+      )}
+
       <div className="mt-6">
         {view.phase === 'briefing' && event && (
           <CrisisCard

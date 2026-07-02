@@ -21,6 +21,7 @@ interface CongressClientProps {
   lawsWithOdds: LawWithOdds[]
   canUseSenateAbility: boolean
   canUseSpeakerAbility: boolean
+  pendingBriefingTitle: string | null
 }
 
 const CATEGORY_FILTERS = [
@@ -38,7 +39,7 @@ interface ProposeResult {
   lawTitle: string
 }
 
-export function CongressClient({ game, lawsWithOdds, canUseSenateAbility, canUseSpeakerAbility }: CongressClientProps) {
+export function CongressClient({ game, lawsWithOdds, canUseSenateAbility, canUseSpeakerAbility, pendingBriefingTitle }: CongressClientProps) {
   const searchParams = useSearchParams()
   const highlightedLawId = searchParams.get('highlight')
 
@@ -52,6 +53,7 @@ export function CongressClient({ game, lawsWithOdds, canUseSenateAbility, canUse
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [result, setResult] = useState<ProposeResult | null>(null)
+  const [pendingProposal, setPendingProposal] = useState<{ lawId: string; useNpcAbility?: 'senate_leader' | 'speaker' } | null>(null)
   const highlightRef = useRef<HTMLDivElement>(null)
 
   const filtered = filter === 'all' ? lawsWithOdds : lawsWithOdds.filter(l => l.law.category === filter)
@@ -65,6 +67,16 @@ export function CongressClient({ game, lawsWithOdds, canUseSenateAbility, canUse
 
   async function handlePropose(lawId: string, useNpcAbility?: 'senate_leader' | 'speaker') {
     if (submitting) return
+
+    // First click on a law when a briefing is still pending just arms the
+    // confirmation instead of submitting — proposing a law advances the
+    // month exactly like answering the briefing would, silently skipping it.
+    const isConfirmed = pendingProposal?.lawId === lawId && pendingProposal?.useNpcAbility === useNpcAbility
+    if (pendingBriefingTitle && !isConfirmed) {
+      setPendingProposal({ lawId, useNpcAbility })
+      return
+    }
+
     setSubmitting(true)
     setError(null)
 
@@ -94,6 +106,7 @@ export function CongressClient({ game, lawsWithOdds, canUseSenateAbility, canUse
       setError(err instanceof Error ? err.message : 'Something went wrong.')
     } finally {
       setSubmitting(false)
+      setPendingProposal(null)
     }
   }
 
@@ -194,6 +207,8 @@ export function CongressClient({ game, lawsWithOdds, canUseSenateAbility, canUse
               canUseSpeakerAbility={canUseSpeakerAbility && !alreadyPassed && !blocked}
               onPropose={handlePropose}
               disabled={submitting}
+              confirmSkipWarning={pendingProposal?.lawId === law.id}
+              pendingBriefingTitle={pendingBriefingTitle}
             />
           </div>
         ))}

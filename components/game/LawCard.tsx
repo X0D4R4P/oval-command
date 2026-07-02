@@ -19,6 +19,8 @@ interface LawCardProps {
   canUseSpeakerAbility: boolean
   onPropose: (lawId: string, useNpcAbility?: 'senate_leader' | 'speaker') => void
   disabled?: boolean
+  confirmSkipWarning?: boolean
+  pendingBriefingTitle?: string | null
 }
 
 const COST_LABEL: Record<Law['cost'], { text: string; color: string }> = {
@@ -43,6 +45,8 @@ export function LawCard({
   canUseSpeakerAbility,
   onPropose,
   disabled,
+  confirmSkipWarning,
+  pendingBriefingTitle,
 }: LawCardProps) {
   const onPassEntries = Object.entries(law.effects.onPass).filter(([, v]) => v !== 0) as [string, number][]
   const costInfo = COST_LABEL[law.cost]
@@ -95,6 +99,12 @@ export function LawCard({
         </p>
       )}
 
+      {confirmSkipWarning && pendingBriefingTitle && (
+        <p className="mt-3 text-[11px] text-[var(--color-warn)]">
+          Skips &ldquo;{pendingBriefingTitle}&rdquo; without a response. Click again to confirm.
+        </p>
+      )}
+
       <div className="mt-4 flex items-center justify-between border-t border-[var(--color-border)] pt-3.5">
         {alreadyPassed ? (
           <span className="font-mono text-xs text-[var(--color-good)]">✓ Already law</span>
@@ -117,28 +127,43 @@ export function LawCard({
               <button
                 onClick={() => onPropose(law.id, 'senate_leader')}
                 disabled={disabled}
-                className="rounded-sm border border-[var(--color-brass-dim)] px-2.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.05em] text-[var(--color-brass)] transition-colors hover:bg-[var(--color-surface-2)] disabled:opacity-40"
+                className={cn(
+                  'rounded-sm border px-2.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.05em] transition-colors disabled:opacity-40',
+                  confirmSkipWarning
+                    ? 'border-[var(--color-warn)] text-[var(--color-warn)] hover:bg-[var(--color-surface-2)]'
+                    : 'border-[var(--color-brass-dim)] text-[var(--color-brass)] hover:bg-[var(--color-surface-2)]'
+                )}
                 title="Senate Leader guarantees passage (once per term)"
               >
-                Use Vote Whip
+                {confirmSkipWarning ? 'Confirm — Use Vote Whip' : 'Use Vote Whip'}
               </button>
             )}
             {canUseSpeakerAbility && (
               <button
                 onClick={() => onPropose(law.id, 'speaker')}
                 disabled={disabled}
-                className="rounded-sm border border-[var(--color-brass-dim)] px-2.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.05em] text-[var(--color-brass)] transition-colors hover:bg-[var(--color-surface-2)] disabled:opacity-40"
+                className={cn(
+                  'rounded-sm border px-2.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.05em] transition-colors disabled:opacity-40',
+                  confirmSkipWarning
+                    ? 'border-[var(--color-warn)] text-[var(--color-warn)] hover:bg-[var(--color-surface-2)]'
+                    : 'border-[var(--color-brass-dim)] text-[var(--color-brass)] hover:bg-[var(--color-surface-2)]'
+                )}
                 title="Speaker fast-tracks passage (once per term)"
               >
-                Fast Track
+                {confirmSkipWarning ? 'Confirm — Fast Track' : 'Fast Track'}
               </button>
             )}
             <button
               onClick={() => onPropose(law.id)}
               disabled={disabled}
-              className="rounded-sm border border-[var(--color-border-strong)] bg-[var(--color-surface-2)] px-3 py-1.5 text-xs font-medium text-[var(--color-paper)] transition-colors hover:border-[var(--color-brass-dim)] disabled:opacity-40"
+              className={cn(
+                'rounded-sm border px-3 py-1.5 text-xs font-medium transition-colors disabled:opacity-40',
+                confirmSkipWarning
+                  ? 'border-[var(--color-warn)] bg-[var(--color-surface-2)] text-[var(--color-warn)]'
+                  : 'border-[var(--color-border-strong)] bg-[var(--color-surface-2)] text-[var(--color-paper)] hover:border-[var(--color-brass-dim)]'
+              )}
             >
-              Propose
+              {confirmSkipWarning ? 'Confirm — Skip Briefing' : 'Propose'}
             </button>
           </div>
         )}
