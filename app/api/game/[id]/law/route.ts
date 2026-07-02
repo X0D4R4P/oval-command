@@ -6,6 +6,7 @@ import { getLawById, resolveLawPassage, applyLawPassage, canUseNpcAbility } from
 import { computePassiveDrift, applyDelta, pickEvent } from '@/lib/game-engine'
 import { generateLawHeadline } from '@/lib/headlines'
 import { checkAndEnqueueChains, resolveDueConsequences } from '@/lib/cascade-engine'
+import type { Headline } from '@/lib/headlines'
 
 interface Params { params: Promise<{ id: string }> }
 
@@ -62,49 +63,60 @@ export async function POST(req: NextRequest, { params }: Params) {
     }
   }
 
-  const passageResult = resolveLawPassage(law, game, { useNpcAbility })
-  let updatedGame = applyLawPassage(game, law, passageResult)
+  let passageResult: ReturnType<typeof resolveLawPassage>
+  let updatedGame: ReturnType<typeof applyLawPassage>
+  let cascadeHeadlines: Headline[]
+  try {
+    passageResult = resolveLawPassage(law, game, { useNpcAbility })
+    updatedGame = applyLawPassage(game, law, passageResult)
 
-  if (passageResult.passed) {
+    if (passageResult.passed) {
+      updatedGame = {
+        ...updatedGame,
+        stats: applyDelta(updatedGame.stats, law.effects.onPass),
+      }
+    }
+
+    const drift = computePassiveDrift(updatedGame)
+    const nextMonthNumber = updatedGame.currentMonth + 1
+    const { effects: cascadeEffects, headlines, remaining, newCooldowns } =
+      resolveDueConsequences(updatedGame.pendingConsequences, nextMonthNumber)
+    cascadeHeadlines = headlines
+
+    const combinedDrift = { ...drift }
+    for (const [k, v] of Object.entries(cascadeEffects) as [keyof typeof drift, number][]) {
+      combinedDrift[k] = ((combinedDrift[k] ?? 0) as number) + v
+    }
+
+    const driftedStats = applyDelta(updatedGame.stats, combinedDrift)
+    const updatedCooldowns = { ...updatedGame.chainCooldowns, ...newCooldowns }
+
+    const newPendingConsequences = checkAndEnqueueChains(
+      { ...updatedGame, stats: driftedStats, currentMonth: nextMonthNumber },
+      remaining,
+      updatedCooldowns,
+    )
+
     updatedGame = {
       ...updatedGame,
-      stats: applyDelta(updatedGame.stats, law.effects.onPass),
+      stats:               driftedStats,
+      pendingConsequences: newPendingConsequences,
+      chainCooldowns:      updatedCooldowns,
+      currentMonth:        nextMonthNumber,
+      approvalHistory:     [...updatedGame.approvalHistory, Math.round(driftedStats.approval)],
+      updatedAt:           new Date().toISOString(),
     }
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Law could not be processed'
+    return NextResponse.json({ error: message }, { status: 400 })
   }
 
-  const drift = computePassiveDrift(updatedGame)
-  const nextMonthNumber = updatedGame.currentMonth + 1
-  const { effects: cascadeEffects, headlines: cascadeHeadlines, remaining, newCooldowns } =
-    resolveDueConsequences(updatedGame.pendingConsequences, nextMonthNumber)
-
-  const combinedDrift = { ...drift }
-  for (const [k, v] of Object.entries(cascadeEffects) as [keyof typeof drift, number][]) {
-    combinedDrift[k] = ((combinedDrift[k] ?? 0) as number) + v
-  }
-
-  const driftedStats = applyDelta(updatedGame.stats, combinedDrift)
-  const updatedCooldowns = { ...updatedGame.chainCooldowns, ...newCooldowns }
-
-  const newPendingConsequences = checkAndEnqueueChains(
-    { ...updatedGame, stats: driftedStats, currentMonth: nextMonthNumber },
-    remaining,
-    updatedCooldowns,
-  )
-
-  updatedGame = {
-    ...updatedGame,
-    stats:               driftedStats,
-    pendingConsequences: newPendingConsequences,
-    chainCooldowns:      updatedCooldowns,
-    currentMonth:        nextMonthNumber,
-    approvalHistory:     [...updatedGame.approvalHistory, Math.round(driftedStats.approval)],
-    updatedAt:           new Date().toISOString(),
-  }
+  const nextEvent = updatedGame.status === 'ACTIVE' ? pickEvent(updatedGame) : null
 
   const [updateResult] = await prisma.$transaction([
     prisma.game.updateMany({
       where: { id: id, updatedAt: row.updatedAt },
-      data:  gameToDbUpdate(updatedGame),
+      data:  { ...gameToDbUpdate(updatedGame), currentEventId: nextEvent?.id ?? null } as any,
     }),
     prisma.gameLog.create({
       data: {
@@ -129,7 +141,6 @@ export async function POST(req: NextRequest, { params }: Params) {
     )
   }
 
-  const nextEvent = updatedGame.status === 'ACTIVE' ? pickEvent(updatedGame) : null
   const headline = generateLawHeadline(law.title, law.category, passageResult.passed, passageResult.usedAbility)
 
   return NextResponse.json({
