@@ -3,6 +3,9 @@ import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { EVENTS, LAWS } from '@/lib/game-engine'
 import { cn, formatDelta, isDeltaGood, getStatLabel, monthToDate } from '@/lib/utils'
+import { PendingEventBanner } from '@/components/game/PendingEventBanner'
+
+const MATCHING_CATEGORIES = ['scandal', 'social']
 
 interface PageProps {
   params: Promise<{ id: string }>
@@ -31,6 +34,8 @@ export default async function HistoryPage({ params }: PageProps) {
       id: true,
       userId: true,
       presidentName: true,
+      status: true,
+      currentEventId: true,
       logs: { orderBy: { month: 'asc' } },
     },
   })
@@ -38,16 +43,25 @@ export default async function HistoryPage({ params }: PageProps) {
   if (!game) notFound()
   if (game.userId !== session.user.id) redirect('/dashboard')
 
+  const pendingEvent = game.currentEventId ? EVENTS.find(e => e.id === game.currentEventId) : undefined
+  const showBanner = game.status === 'ACTIVE' && pendingEvent && MATCHING_CATEGORIES.includes(pendingEvent.category)
+
   return (
     <main className="mx-auto max-w-2xl px-6 py-10">
       <div>
-        <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-brass)]">
+        <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-cat-scandal)]">
           The Record
         </div>
         <h1 className="mt-1 font-[family-name:var(--font-display)] text-2xl font-semibold text-[var(--color-paper)]">
           Presidential History
         </h1>
       </div>
+
+      {showBanner && pendingEvent && (
+        <div className="mt-6">
+          <PendingEventBanner event={pendingEvent} gameId={game.id} />
+        </div>
+      )}
 
       {game.logs.length === 0 && (
         <div className="mt-8 rounded-sm border border-dashed border-[var(--color-border-strong)] px-6 py-12 text-center">

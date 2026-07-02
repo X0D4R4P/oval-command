@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { DashboardHeader } from '@/components/game/DashboardHeader'
 import { TermProgress } from '@/components/game/TermProgress'
 import { StatCard } from '@/components/game/StatCard'
@@ -9,7 +10,6 @@ import { CrisisCard } from '@/components/game/CrisisCard'
 import { OutcomeCard } from '@/components/game/OutcomeCard'
 import { LegacyScreen } from '@/components/game/LegacyScreen'
 import { HeadlineTicker } from '@/components/game/HeadlineTicker'
-import { AdvisorPanel } from '@/components/game/AdvisorPanel'
 import { ApprovalChart } from '@/components/game/ApprovalChart'
 import { ConflictBanner } from '@/components/game/ConflictBanner'
 import { SecondaryStats } from '@/components/game/SecondaryStats'
@@ -165,10 +165,12 @@ export function GameClient({ initialGame, initialEvent }: GameClientProps) {
 
       {view.phase === 'briefing' && advisorRecommendations.length > 0 && (
         <div className="mt-4">
-          <AdvisorPanel
-            recommendations={advisorRecommendations}
-            onProposeLaw={(lawId) => router.push(`/game/${game.id}/congress?highlight=${lawId}`)}
-          />
+          <Link
+            href={`/game/${game.id}/cabinet`}
+            className="block rounded-sm border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3 text-sm text-[var(--color-paper-dim)] transition-colors hover:border-[var(--color-brass-dim)] hover:text-[var(--color-paper)]"
+          >
+            {advisorRecommendations.length} advisor{advisorRecommendations.length > 1 ? 's have' : ' has'} something to say — visit the Cabinet Room →
+          </Link>
         </div>
       )}
 

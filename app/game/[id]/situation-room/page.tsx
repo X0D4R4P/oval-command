@@ -2,10 +2,13 @@ import { redirect, notFound } from 'next/navigation'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { dbToGame } from '@/lib/db-helpers'
-import { NPCS } from '@/lib/game-engine'
+import { NPCS, EVENTS } from '@/lib/game-engine'
 import { StatCard } from '@/components/game/StatCard'
 import { ConflictBanner } from '@/components/game/ConflictBanner'
 import { CabinetCard } from '@/components/game/CabinetCard'
+import { PendingEventBanner } from '@/components/game/PendingEventBanner'
+
+const MATCHING_CATEGORIES = ['security', 'military', 'disaster']
 
 interface PageProps {
   params: Promise<{ id: string }>
@@ -22,11 +25,13 @@ export default async function SituationRoomPage({ params }: PageProps) {
 
   const game = dbToGame(row)
   const secDef = NPCS.find(n => n.id === 'sec_defense')
+  const pendingEvent = row.currentEventId ? EVENTS.find(e => e.id === row.currentEventId) : undefined
+  const showBanner = game.status === 'ACTIVE' && pendingEvent && MATCHING_CATEGORIES.includes(pendingEvent.category)
 
   return (
     <main className="mx-auto max-w-2xl px-6 py-10">
       <div>
-        <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-brass)]">
+        <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-cat-military)]">
           National Security
         </div>
         <h1 className="mt-1 font-[family-name:var(--font-display)] text-2xl font-semibold text-[var(--color-paper)]">
@@ -37,6 +42,12 @@ export default async function SituationRoomPage({ params }: PageProps) {
       <p className="mt-3 text-sm text-[var(--color-paper-dim)]">
         Active conflicts, military readiness, and the people who brief you on them.
       </p>
+
+      {showBanner && pendingEvent && (
+        <div className="mt-6">
+          <PendingEventBanner event={pendingEvent} gameId={game.id} />
+        </div>
+      )}
 
       {game.activeConflicts.length > 0 && (
         <div className="mt-6">

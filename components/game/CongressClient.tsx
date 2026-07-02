@@ -141,7 +141,7 @@ export function CongressClient({ game, lawsWithOdds, canUseSenateAbility, canUse
   return (
     <main className="mx-auto max-w-2xl px-6 py-10">
       <div>
-        <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-brass)]">
+        <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-cat-congress)]">
           Congress
         </div>
         <h1 className="mt-1 font-[family-name:var(--font-display)] text-2xl font-semibold text-[var(--color-paper)]">

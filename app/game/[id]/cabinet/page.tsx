@@ -2,8 +2,13 @@ import { redirect, notFound } from 'next/navigation'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { dbToGame } from '@/lib/db-helpers'
-import { NPCS } from '@/lib/game-engine'
+import { NPCS, EVENTS } from '@/lib/game-engine'
 import { CabinetCard } from '@/components/game/CabinetCard'
+import { AdvisorConversationPanel } from '@/components/game/AdvisorConversationPanel'
+import { PendingEventBanner } from '@/components/game/PendingEventBanner'
+import { getAdvisorRecommendations } from '@/lib/advisor-engine'
+
+const MATCHING_CATEGORIES = ['economy']
 
 interface PageProps {
   params: Promise<{ id: string }>
@@ -33,6 +38,9 @@ export default async function CabinetPage({ params }: PageProps) {
   if (row.userId !== session.user.id) redirect('/dashboard')
 
   const game = dbToGame(row)
+  const recommendations = getAdvisorRecommendations(game)
+  const pendingEvent = row.currentEventId ? EVENTS.find(e => e.id === row.currentEventId) : undefined
+  const showBanner = game.status === 'ACTIVE' && pendingEvent && MATCHING_CATEGORIES.includes(pendingEvent.category)
 
   return (
     <main className="mx-auto max-w-2xl px-6 py-10">
@@ -48,6 +56,23 @@ export default async function CabinetPage({ params }: PageProps) {
       <p className="mt-3 text-sm text-[var(--color-paper-dim)]">
         Every relationship here has been shaped by what you&rsquo;ve done, not what you&rsquo;ve said.
       </p>
+
+      {showBanner && pendingEvent && (
+        <div className="mt-6">
+          <PendingEventBanner event={pendingEvent} gameId={game.id} />
+        </div>
+      )}
+
+      {recommendations.length > 0 && (
+        <div className="mt-7">
+          <h2 className="font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--color-paper-faint)]">
+            Cabinet Briefing
+          </h2>
+          <div className="mt-3">
+            <AdvisorConversationPanel recommendations={recommendations} gameId={game.id} />
+          </div>
+        </div>
+      )}
 
       {FACTION_ORDER.map(faction => {
         const npcsInFaction = NPCS.filter(n => n.faction === faction)

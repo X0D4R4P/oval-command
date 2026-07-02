@@ -1,4 +1,5 @@
 import { redirect } from 'next/navigation'
+import Image from 'next/image'
 import { auth, signIn } from '@/lib/auth'
 import { Seal } from '@/components/Seal'
 
@@ -11,8 +12,20 @@ export default async function LoginPage() {
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6">
 
-      {/* Background oval office atmosphere — subtle radial gradient */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_60%,#1a2235_0%,#0B0E14_70%)]" />
+      {/* Background oval office photo — same atmosphere as the dashboard's entry screen */}
+      <Image
+        src="/oval-office-bg.png"
+        alt=""
+        fill
+        priority
+        className="pointer-events-none object-cover"
+      />
+
+      {/* Dark overlay for text legibility, darkest at center where the card sits */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_65%_50%_at_50%_50%,rgba(3,5,10,0.82)_0%,rgba(3,5,10,0.55)_55%,rgba(3,5,10,0.35)_100%)]" />
+
+      {/* Edge vignette */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_90%_at_50%_50%,transparent_40%,rgba(2,3,7,0.7)_80%,rgba(2,3,7,0.92)_100%)]" />
 
       {/* Decorative columns */}
       <div className="pointer-events-none absolute bottom-0 left-8 top-0 w-px bg-gradient-to-b from-transparent via-[var(--color-border)] to-transparent opacity-40" />
