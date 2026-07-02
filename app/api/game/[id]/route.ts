@@ -31,7 +31,7 @@ export async function GET(req: NextRequest, { params }: Params) {
 
   let currentEvent = null
   if (game.status === 'ACTIVE') {
-    const currentEventId = (row as any).currentEventId
+    const currentEventId = row.currentEventId
     if (currentEventId) {
       currentEvent = EVENTS.find(e => e.id === currentEventId) ?? null
     } else {
@@ -39,7 +39,7 @@ export async function GET(req: NextRequest, { params }: Params) {
       if (currentEvent) {
         await prisma.game.update({
           where: { id },
-          data:  { currentEventId: currentEvent.id } as any,
+          data:  { currentEventId: currentEvent.id },
         })
       }
     }

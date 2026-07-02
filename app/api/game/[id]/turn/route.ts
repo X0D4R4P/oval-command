@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
-import { processEventTurn, pickEvent, EVENTS } from '@/lib/game-engine'
+import { processEventTurn, pickEvent, isEventEligible, EVENTS } from '@/lib/game-engine'
 import { computePresidentialArchetype } from '@/lib/archetype-engine'
 import { dbToGame, gameToDbUpdate, toJson } from '@/lib/db-helpers'
 import type { ProcessTurnRequest, GameLog } from '@/types/game'
@@ -49,6 +49,12 @@ export async function POST(req: NextRequest, { params }: Params) {
   if (!submittedEvent) {
     return NextResponse.json({ error: 'Unknown event' }, { status: 400 })
   }
+  if (!isEventEligible(submittedEvent, game, { ignoreRecentBlock: true })) {
+    return NextResponse.json(
+      { error: 'This event is no longer available for the current game state' },
+      { status: 409 }
+    )
+  }
 
   let result: ReturnType<typeof processEventTurn>
   try {
@@ -65,7 +71,7 @@ export async function POST(req: NextRequest, { params }: Params) {
   const [updateResult] = await prisma.$transaction([
     prisma.game.updateMany({
       where: { id: id, updatedAt: row.updatedAt },
-      data:  { ...gameToDbUpdate(result.updatedGame), currentEventId: nextEvent?.id ?? null } as any,
+      data:  { ...gameToDbUpdate(result.updatedGame), currentEventId: nextEvent?.id ?? null },
     }),
     prisma.gameLog.create({
       data: {

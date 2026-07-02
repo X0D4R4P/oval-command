@@ -116,7 +116,7 @@ export async function POST(req: NextRequest, { params }: Params) {
   const [updateResult] = await prisma.$transaction([
     prisma.game.updateMany({
       where: { id: id, updatedAt: row.updatedAt },
-      data:  { ...gameToDbUpdate(updatedGame), currentEventId: nextEvent?.id ?? null } as any,
+      data:  { ...gameToDbUpdate(updatedGame), currentEventId: nextEvent?.id ?? null },
     }),
     prisma.gameLog.create({
       data: {
