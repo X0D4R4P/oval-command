@@ -9,6 +9,13 @@ export default async function LoginPage() {
     redirect('/dashboard')
   }
 
+  // Mirror the exact same env-var check lib/auth.ts uses to decide whether
+  // to register each OAuth provider — a button for an unregistered provider
+  // would error on click instead of signing in.
+  const githubEnabled = Boolean(process.env.GITHUB_ID && process.env.GITHUB_SECRET)
+  const googleEnabled = Boolean(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET)
+  const anyOAuthEnabled = githubEnabled || googleEnabled
+
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6">
 
@@ -61,39 +68,47 @@ export default async function LoginPage() {
             </button>
           </form>
 
-          <div className="relative flex items-center gap-3 py-1">
-            <div className="flex-1 border-t border-[var(--color-border)]" />
-            <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-[var(--color-paper-faint)]">or save your legacy</span>
-            <div className="flex-1 border-t border-[var(--color-border)]" />
-          </div>
+          {anyOAuthEnabled && (
+            <>
+              <div className="relative flex items-center gap-3 py-1">
+                <div className="flex-1 border-t border-[var(--color-border)]" />
+                <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-[var(--color-paper-faint)]">or save your legacy</span>
+                <div className="flex-1 border-t border-[var(--color-border)]" />
+              </div>
 
-          <form
-            action={async () => {
-              'use server'
-              await signIn('github', { redirectTo: '/dashboard' })
-            }}
-          >
-            <button
-              type="submit"
-              className="w-full rounded-sm border border-[var(--color-border-strong)] bg-[var(--color-surface)] py-3 text-sm font-medium text-[var(--color-paper)] transition-colors hover:bg-[var(--color-surface-2)]"
-            >
-              Continue with GitHub
-            </button>
-          </form>
+              {githubEnabled && (
+                <form
+                  action={async () => {
+                    'use server'
+                    await signIn('github', { redirectTo: '/dashboard' })
+                  }}
+                >
+                  <button
+                    type="submit"
+                    className="w-full rounded-sm border border-[var(--color-border-strong)] bg-[var(--color-surface)] py-3 text-sm font-medium text-[var(--color-paper)] transition-colors hover:bg-[var(--color-surface-2)]"
+                  >
+                    Continue with GitHub
+                  </button>
+                </form>
+              )}
 
-          <form
-            action={async () => {
-              'use server'
-              await signIn('google', { redirectTo: '/dashboard' })
-            }}
-          >
-            <button
-              type="submit"
-              className="w-full rounded-sm border border-[var(--color-border-strong)] bg-[var(--color-surface)] py-3 text-sm font-medium text-[var(--color-paper)] transition-colors hover:bg-[var(--color-surface-2)]"
-            >
-              Continue with Google
-            </button>
-          </form>
+              {googleEnabled && (
+                <form
+                  action={async () => {
+                    'use server'
+                    await signIn('google', { redirectTo: '/dashboard' })
+                  }}
+                >
+                  <button
+                    type="submit"
+                    className="w-full rounded-sm border border-[var(--color-border-strong)] bg-[var(--color-surface)] py-3 text-sm font-medium text-[var(--color-paper)] transition-colors hover:bg-[var(--color-surface-2)]"
+                  >
+                    Continue with Google
+                  </button>
+                </form>
+              )}
+            </>
+          )}
         </div>
 
         <p className="mt-8 text-center font-mono text-[10px] text-[var(--color-paper-faint)]">
