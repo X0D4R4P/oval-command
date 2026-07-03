@@ -4,7 +4,6 @@ import type { GameStats } from '@/types/game'
 interface StatCardProps {
   statKey: keyof GameStats
   value: number
-  previousValue?: number
 }
 
 /**
@@ -44,13 +43,10 @@ const TONE_CLASSES = {
   bad:  { text: 'text-[var(--color-bad)]',  bar: 'bg-[var(--color-bad)]'  },
 } as const
 
-export function StatCard({ statKey, value, previousValue }: StatCardProps) {
+export function StatCard({ statKey, value }: StatCardProps) {
   const tone = getStatTone(statKey, value)
   const toneClass = TONE_CLASSES[tone]
   const barPercent = Math.max(2, Math.min(100, getStatBarPercent(statKey, value)))
-
-  const delta = previousValue !== undefined ? value - previousValue : undefined
-  const deltaSign = delta !== undefined && delta !== 0 ? (delta > 0 ? '+' : '') : null
 
   return (
     <div className="rounded-sm border border-[var(--color-border)] bg-[var(--color-surface)] px-3.5 py-3">
@@ -58,16 +54,6 @@ export function StatCard({ statKey, value, previousValue }: StatCardProps) {
         <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--color-paper-faint)]">
           {getStatLabel(statKey)}
         </span>
-        {deltaSign !== null && (
-          <span
-            className={cn(
-              'font-mono text-[10px]',
-              delta! > 0 ? 'text-[var(--color-good)]' : 'text-[var(--color-bad)]'
-            )}
-          >
-            {deltaSign}{delta!.toFixed(1)}
-          </span>
-        )}
       </div>
       <div className={cn('mt-1 font-mono text-xl font-medium tabular-nums', toneClass.text)}>
         {formatStat(statKey, value)}
