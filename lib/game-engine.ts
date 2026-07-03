@@ -326,7 +326,7 @@ export function isEventEligible(event: CrisisEvent, game: Game, opts: { ignoreRe
     if (t.month.max !== undefined && currentMonth > t.month.max) return false
   }
 
-  const statGates = ['economy', 'security', 'unrest', 'debt', 'baseSupport', 'globalReputation'] as const
+  const statGates = ['approval', 'economy', 'security', 'unrest', 'debt', 'baseSupport', 'globalReputation'] as const
   for (const key of statGates) {
     const gate = t[key] as { min?: number; max?: number } | undefined
     if (!gate) continue

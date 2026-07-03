@@ -222,7 +222,7 @@ const RULES: Rule[] = [
   },
   {
     // Fires when congress is highly favorable AND high approval — push something hard
-    id: 'congress_opportunity',
+    id: 'congress_opportunity_early_term',
     npcId: 'senate_leader',
     severity: 'opportunity',
     condition: g => g.stats.congressSupport > 65 && g.stats.approval > 58 && g.passedLaws.length < 3,
