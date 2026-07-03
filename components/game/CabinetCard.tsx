@@ -1,17 +1,19 @@
 import Image from 'next/image'
 import { cn, AVATAR_COLORS } from '@/lib/utils'
+import { MILESTONE_ALLY_THRESHOLD, MILESTONE_ESTRANGED_THRESHOLD, getMilestoneText, type MilestoneTier } from '@/lib/npc-milestones'
 import type { Npc } from '@/types/game'
 
 interface CabinetCardProps {
   npc: Npc
   relationship: number
+  milestoneTier?: MilestoneTier
 }
 
 function relationshipTone(value: number, min: number, max: number): { label: string; color: string } {
   const pct = (value - min) / (max - min)
-  if (pct >= 0.7) return { label: 'Strong ally', color: 'text-[var(--color-good)]' }
+  if (pct >= MILESTONE_ALLY_THRESHOLD) return { label: 'Strong ally', color: 'text-[var(--color-good)]' }
   if (pct >= 0.45) return { label: 'Cordial', color: 'text-[var(--color-warn)]' }
-  if (pct >= 0.25) return { label: 'Strained', color: 'text-[var(--color-warn)]' }
+  if (pct >= MILESTONE_ESTRANGED_THRESHOLD) return { label: 'Strained', color: 'text-[var(--color-warn)]' }
   return { label: 'Hostile', color: 'text-[var(--color-bad)]' }
 }
 
@@ -25,10 +27,11 @@ const FACTION_LABEL: Record<Npc['faction'], string> = {
   civil_society: 'Civil Society',
 }
 
-export function CabinetCard({ npc, relationship }: CabinetCardProps) {
+export function CabinetCard({ npc, relationship, milestoneTier }: CabinetCardProps) {
   const { min, max } = npc.relationship
   const tone = relationshipTone(relationship, min, max)
   const barPercent = Math.max(2, Math.min(100, ((relationship - min) / (max - min)) * 100))
+  const milestoneText = milestoneTier ? getMilestoneText(npc.id, milestoneTier) : null
 
   return (
     <div className="rounded-sm border border-[var(--color-border)] bg-[var(--color-surface)] p-4">
@@ -80,6 +83,22 @@ export function CabinetCard({ npc, relationship }: CabinetCardProps) {
           style={{ width: `${barPercent}%` }}
         />
       </div>
+
+      {milestoneText && (
+        <div className="mt-2.5 border-t border-[var(--color-border)] pt-2.5">
+          <span
+            className={cn(
+              'font-mono text-[10px] uppercase tracking-[0.06em]',
+              milestoneTier === 'ally' ? 'text-[var(--color-good)]' : 'text-[var(--color-bad)]'
+            )}
+          >
+            {milestoneTier === 'ally' ? '🤝 Milestone: Trusted Ally' : '⚠️ Milestone: Estranged'}
+          </span>
+          <p className="mt-1 text-[12px] leading-snug text-[var(--color-paper-dim)]">
+            {milestoneText}
+          </p>
+        </div>
+      )}
     </div>
   )
 }

@@ -22,6 +22,7 @@ import { resolveNpcTriggerKeys, deriveTurnActionLabels } from '@/lib/npc-trigger
 import { updateActiveConflicts } from '@/lib/conflict-engine'
 import { generateCrisisHeadline, maybeApprovalTrendHeadline } from '@/lib/headlines'
 import { checkAndEnqueueChains, resolveDueConsequences } from '@/lib/cascade-engine'
+import { checkNpcMilestones } from '@/lib/npc-milestones'
 import lawsRaw   from '@/data/laws.json'
 import npcsRaw   from '@/data/npcs.json'
 
@@ -654,6 +655,11 @@ export function processEventTurn(
     triggerKeys
   )
 
+  // One-time flags for relationships that just crossed into the ally or
+  // estranged tier this turn — computed from the pre/post relationship
+  // values, not part of any earlier this-turn NPC-reaction resolution.
+  const milestoneFlags = checkNpcMilestones(NPCS, game.npcRelationships, newRelationships, newFlags)
+
   // Resolve conflict lifecycle (entry/escalation/de-escalation/resolution)
   // BEFORE computing passive drift, since drift's war-cost loop reads activeConflicts.
   const turnFlags = [...(event.sets_flags ?? []), ...(choice.sets_flags ?? [])]
@@ -710,7 +716,7 @@ export function processEventTurn(
   const updatedGame: Game = {
     ...game,
     stats:               driftedStats,
-    flags:               newFlags,
+    flags:               { ...newFlags, ...milestoneFlags },
     npcRelationships:    newRelationships,
     activeConflicts:     nextConflicts,
     activeScandals:      newActiveScandals,

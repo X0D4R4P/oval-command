@@ -8,6 +8,7 @@ import { AdvisorConversationPanel } from '@/components/game/AdvisorConversationP
 import { PendingEventBanner } from '@/components/game/PendingEventBanner'
 import { RoomAtmosphere } from '@/components/game/RoomAtmosphere'
 import { getAdvisorRecommendations } from '@/lib/advisor-engine'
+import type { MilestoneTier } from '@/lib/npc-milestones'
 
 const MATCHING_CATEGORIES = ['economy']
 
@@ -86,13 +87,21 @@ export default async function CabinetPage({ params }: PageProps) {
               {FACTION_SECTION_LABEL[faction]}
             </h2>
             <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {npcsInFaction.map(npc => (
-                <CabinetCard
-                  key={npc.id}
-                  npc={npc}
-                  relationship={game.npcRelationships[npc.id] ?? npc.relationship.start}
-                />
-              ))}
+              {npcsInFaction.map(npc => {
+                const milestoneTier: MilestoneTier | undefined = game.flags[`milestone_${npc.id}_ally`]
+                  ? 'ally'
+                  : game.flags[`milestone_${npc.id}_estranged`]
+                  ? 'estranged'
+                  : undefined
+                return (
+                  <CabinetCard
+                    key={npc.id}
+                    npc={npc}
+                    relationship={game.npcRelationships[npc.id] ?? npc.relationship.start}
+                    milestoneTier={milestoneTier}
+                  />
+                )
+              })}
             </div>
           </section>
         )
