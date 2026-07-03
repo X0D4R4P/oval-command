@@ -67,21 +67,16 @@ export function CrisisCard({ event, month, gameId, flags, onChoose, disabled }: 
         }}
       />
 
-      {/* Dark overlay to make text readable — darkest in center where the card sits */}
+      {/* Dark overlay to make text readable. Unlike the dashboard entry screen
+          (a single centered message, where a viewport-centered radial vignette
+          works), this backdrop sits behind an entire scrollable page — the nav
+          bar, header, and stat cards can end up anywhere in the viewport as the
+          player scrolls, so a spotlight-style radial leaves the edges (where a
+          radial's own math keeps opacity low) too bright. A flat, uniform scrim
+          guarantees the same contrast everywhere regardless of scroll position. */}
       <div
         className="pointer-events-none fixed inset-0 -z-10"
-        style={{
-          background: 'radial-gradient(ellipse 65% 50% at 50% 52%, rgba(3,5,10,0.78) 0%, rgba(3,5,10,0.45) 60%, rgba(3,5,10,0.25) 100%)',
-        }}
-      />
-
-      {/* Edge vignette — darkens the page chrome (nav, header, stat cards) that
-          sits outside the center overlay and has no opaque background of its own */}
-      <div
-        className="pointer-events-none fixed inset-0 -z-10"
-        style={{
-          background: 'radial-gradient(120% 90% at 50% 50%, transparent 40%, rgba(2,3,7,0.7) 80%, rgba(2,3,7,0.92) 100%)',
-        }}
+        style={{ background: 'rgba(6,8,14,0.78)' }}
       />
 
       <div
