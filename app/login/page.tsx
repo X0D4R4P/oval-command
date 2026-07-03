@@ -1,12 +1,22 @@
 import { redirect } from 'next/navigation'
 import Image from 'next/image'
 import { auth, signIn } from '@/lib/auth'
+import { prisma } from '@/lib/prisma'
 import { Seal } from '@/components/Seal'
 
 export default async function LoginPage() {
   const session = await auth()
-  if (session?.user) {
-    redirect('/dashboard')
+  if (session?.user?.id) {
+    // A JWT session stays "valid" even after its underlying User row is
+    // gone (e.g. an old guest account removed during cleanup) — without
+    // this check, redirecting straight to /dashboard on any session token
+    // traps a player with a broken session: they can never reach the
+    // sign-in form to get a fresh one. Only redirect away if the account
+    // this session points to is actually still real.
+    const userExists = await prisma.user.findUnique({ where: { id: session.user.id }, select: { id: true } })
+    if (userExists) {
+      redirect('/dashboard')
+    }
   }
 
   // Mirror the exact same env-var check lib/auth.ts uses to decide whether
