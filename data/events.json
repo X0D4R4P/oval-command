@@ -7302,5 +7302,495 @@
         "outcome": "The rally response energizes your core supporters. It does nothing for the undecided voters Garrett was actually trying to reach — but it wasn't meant to."
       }
     ]
+  },
+  {
+    "id": "meridian_contracts_leak",
+    "title": "Investigative Report Alleges Pentagon Contract Kickback Scheme",
+    "category": "scandal",
+    "description": "A major newspaper has published documents alleging that Meridian Defense Systems — a contractor with ties to a top campaign donor — received a $340 million no-bid contract despite a lower competing bid, and that officials in the Pentagon's procurement office may have been pressured to approve it. The story is spreading fast.",
+    "triggers": {
+      "month": {
+        "min": 4
+      }
+    },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 6,
+    "choices": [
+      {
+        "index": 0,
+        "text": "Order an independent inspector general investigation",
+        "effects": {
+          "approval": 2,
+          "security": -2,
+          "congressSupport": 3
+        },
+        "sets_flags": [
+          "arc_meridian_beat1_done",
+          "meridian_investigated"
+        ],
+        "outcome": "The investigation order buys credibility, though it guarantees this story stays alive for months."
+      },
+      {
+        "index": 1,
+        "text": "Publicly deny any wrongdoing and stand by the contract",
+        "effects": {
+          "approval": -4,
+          "baseSupport": 3,
+          "globalReputation": -1
+        },
+        "sets_flags": [
+          "arc_meridian_beat1_done",
+          "meridian_denied"
+        ],
+        "outcome": "The denial holds the base. It does nothing to slow the reporting, which keeps finding new documents."
+      },
+      {
+        "index": 2,
+        "text": "Quietly cancel the contract and hope the story fades",
+        "effects": {
+          "approval": -1,
+          "debt": -0.2
+        },
+        "sets_flags": [
+          "arc_meridian_beat1_done",
+          "meridian_buried"
+        ],
+        "outcome": "The contract is cancelled without comment. Reporters notice the silence as much as the cancellation."
+      },
+      {
+        "index": 3,
+        "text": "Fire the procurement officials immediately, before any investigation starts",
+        "effects": {
+          "approval": 3,
+          "congressSupport": -2,
+          "partyUnity": -1
+        },
+        "sets_flags": [
+          "arc_meridian_beat1_done",
+          "meridian_officials_fired"
+        ],
+        "outcome": "The swift firings look decisive on television. Career staff call it a scapegoating that skipped due process."
+      }
+    ]
+  },
+  {
+    "id": "meridian_contracts_hearings",
+    "title": "Congress Schedules Hearings on the Meridian Contract",
+    "category": "scandal",
+    "description": "The House Oversight Committee has scheduled hearings into the Meridian contract, with subpoenas expected for senior procurement staff. How your administration handles this moment — cooperation, resistance, or damage control — will shape how this story ends far more than anything that's happened so far.",
+    "triggers": {
+      "month": {
+        "min": 7
+      }
+    },
+    "sets_flags": [],
+    "requires_flags": [
+      "arc_meridian_beat1_done"
+    ],
+    "weight": 5,
+    "callbacks": [
+      {
+        "flag": "meridian_investigated",
+        "text": "The independent investigation you ordered gave the committee a head start — and gives your team a credible story to tell about taking this seriously from day one."
+      },
+      {
+        "flag": "meridian_denied",
+        "text": "Your public denial back when the story broke is now Exhibit A in the committee's opening statement."
+      },
+      {
+        "flag": "meridian_buried",
+        "text": "Quietly cancelling the contract without comment reads, in hindsight, like exactly what it was — and the committee knows it."
+      },
+      {
+        "flag": "meridian_officials_fired",
+        "text": "The officials you fired before any investigation are now testifying, with every incentive to say whatever protects them most."
+      }
+    ],
+    "choices": [
+      {
+        "index": 0,
+        "text": "Cooperate fully — hand over every document requested",
+        "effects": {
+          "congressSupport": 6,
+          "approval": 2,
+          "globalReputation": 1
+        },
+        "sets_flags": [
+          "arc_meridian_beat2_done",
+          "meridian_cooperated"
+        ],
+        "outcome": "Full cooperation takes the political sting out of the hearings almost entirely. There is nowhere left to dig."
+      },
+      {
+        "index": 1,
+        "text": "Invoke executive privilege to shield internal communications",
+        "effects": {
+          "congressSupport": -6,
+          "approval": -3,
+          "security": 2
+        },
+        "sets_flags": [
+          "arc_meridian_beat2_done",
+          "meridian_privilege_invoked"
+        ],
+        "outcome": "The privilege claim protects sensitive deliberations. It also becomes the story, replacing the original scandal in every headline."
+      },
+      {
+        "index": 2,
+        "text": "Have your Attorney General manage the response and limit exposure",
+        "effects": {
+          "congressSupport": 2,
+          "approval": -1
+        },
+        "sets_flags": [
+          "arc_meridian_beat2_done"
+        ],
+        "outcome": "AG Webb's careful, lawyerly handling keeps things contained without fully resolving anything."
+      },
+      {
+        "index": 3,
+        "text": "Let a senior official take the fall publicly to protect the West Wing",
+        "effects": {
+          "approval": -2,
+          "baseSupport": -3,
+          "congressSupport": 4
+        },
+        "sets_flags": [
+          "arc_meridian_beat2_done",
+          "meridian_scapegoat"
+        ],
+        "outcome": "The committee gets its scalp and moves on satisfied. Inside the building, trust in you takes a quiet hit."
+      }
+    ]
+  },
+  {
+    "id": "meridian_contracts_resolution",
+    "title": "Meridian Contract Scandal Reaches Its Conclusion",
+    "category": "scandal",
+    "description": "After months in the headlines, the Meridian contract story is finally reaching a resolution — a final committee report, a settled question of what your administration knew and when, and a verdict, of sorts, on how the whole episode will be remembered.",
+    "triggers": {
+      "month": {
+        "min": 10
+      }
+    },
+    "sets_flags": [],
+    "requires_flags": [
+      "arc_meridian_beat2_done"
+    ],
+    "weight": 4,
+    "callbacks": [
+      {
+        "flag": "meridian_cooperated",
+        "text": "The full cooperation you offered months ago is the main reason this report reads as an oversight failure, not a cover-up."
+      },
+      {
+        "flag": "meridian_privilege_invoked",
+        "text": "The executive privilege fight never fully went away — it colors every finding in this report, fair or not."
+      },
+      {
+        "flag": "meridian_scapegoat",
+        "text": "The official who took the fall for this months ago is a footnote in the final report — a resolution that never felt entirely earned."
+      }
+    ],
+    "choices": [
+      {
+        "index": 0,
+        "text": "Accept the committee’s findings and implement every recommended reform",
+        "effects": {
+          "approval": 4,
+          "congressSupport": 5,
+          "security": -1
+        },
+        "sets_flags": [
+          "arc_meridian_resolved"
+        ],
+        "outcome": "Accepting the findings in full closes the story cleanly — and locks in real procurement reforms that outlast the headlines."
+      },
+      {
+        "index": 1,
+        "text": "Dispute the findings and press your own account of events",
+        "effects": {
+          "approval": -2,
+          "baseSupport": 6,
+          "congressSupport": -4
+        },
+        "sets_flags": [
+          "arc_meridian_resolved"
+        ],
+        "outcome": "Disputing the report keeps your base energized and keeps the story alive a while longer than it needed to be."
+      },
+      {
+        "index": 2,
+        "text": "Use the resolution as a chance for a broader procurement reform push",
+        "effects": {
+          "congressSupport": 3,
+          "approval": 2,
+          "debt": -0.3
+        },
+        "sets_flags": [
+          "arc_meridian_resolved",
+          "procurement_reform_pushed"
+        ],
+        "outcome": "Turning the scandal into a reform mandate is the rare case of a crisis producing something durable."
+      },
+      {
+        "index": 3,
+        "text": "Move on quickly and decline to comment further",
+        "effects": {
+          "approval": -1,
+          "mediaScore": -1
+        },
+        "sets_flags": [
+          "arc_meridian_resolved"
+        ],
+        "outcome": "Declining comment lets the story fade on its own. The press corps notices the silence more than they would a statement."
+      }
+    ]
+  },
+  {
+    "id": "pacific_framework_proposal",
+    "title": "You Propose a New Pacific Security Framework",
+    "category": "diplomacy",
+    "description": "Facing a rising and increasingly assertive regional power, you've decided to pursue a new multilateral security framework linking key Pacific allies more closely together — the most ambitious diplomatic initiative of your term, with real strategic upside and real domestic political risk.",
+    "triggers": {
+      "month": {
+        "min": 6
+      }
+    },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 6,
+    "choices": [
+      {
+        "index": 0,
+        "text": "Go big — propose a full mutual-defense pact",
+        "effects": {
+          "globalReputation": 8,
+          "security": 5,
+          "debt": 0.4,
+          "congressSupport": -2
+        },
+        "sets_flags": [
+          "arc_pacific_beat1_done",
+          "pacific_ambitious"
+        ],
+        "outcome": "The ambitious pact draws global attention and real commitments from wary allies who wanted exactly this kind of signal."
+      },
+      {
+        "index": 1,
+        "text": "Propose a measured economic-and-intelligence-sharing framework",
+        "effects": {
+          "globalReputation": 4,
+          "economy": 2,
+          "security": 2
+        },
+        "sets_flags": [
+          "arc_pacific_beat1_done",
+          "pacific_measured"
+        ],
+        "outcome": "The measured framework is easy to sell at home and easy for allies to say yes to. It is also easy to underwhelm with."
+      },
+      {
+        "index": 2,
+        "text": "Pursue bilateral deals instead of a multilateral framework",
+        "effects": {
+          "globalReputation": 2,
+          "congressSupport": 2
+        },
+        "sets_flags": [
+          "arc_pacific_beat1_done",
+          "pacific_bilateral"
+        ],
+        "outcome": "Bilateral deals move faster and draw less scrutiny. They also give up the leverage a unified framework would have carried."
+      },
+      {
+        "index": 3,
+        "text": "Defer the idea — the timing isn't right",
+        "effects": {
+          "approval": 1,
+          "globalReputation": -3
+        },
+        "sets_flags": [
+          "arc_pacific_beat1_done",
+          "pacific_deferred"
+        ],
+        "outcome": "Deferring costs little at home and something real abroad — allies who were counting on this notice the hesitation."
+      }
+    ]
+  },
+  {
+    "id": "pacific_framework_negotiations",
+    "title": "Pacific Framework Talks Hit a Snag Over Basing Rights",
+    "category": "diplomacy",
+    "description": "Negotiations over the framework you set in motion have advanced further than most expected — but a key ally is now demanding expanded US basing rights and cost-sharing commitments that Congress never anticipated.",
+    "triggers": {
+      "month": {
+        "min": 9
+      }
+    },
+    "sets_flags": [],
+    "requires_flags": [
+      "arc_pacific_beat1_done"
+    ],
+    "weight": 5,
+    "callbacks": [
+      {
+        "flag": "pacific_ambitious",
+        "text": "The scale of the mutual-defense pact you proposed is exactly why this ally feels entitled to ask for more now — you set the bar high yourself."
+      },
+      {
+        "flag": "pacific_measured",
+        "text": "The measured framework you proposed made this ally's current demands feel like a genuine overreach, not a natural next step."
+      },
+      {
+        "flag": "pacific_bilateral",
+        "text": "Negotiating bilaterally instead of multilaterally means this demand lands on you alone, with no coalition to share the pressure."
+      },
+      {
+        "flag": "pacific_deferred",
+        "text": "Having deferred the framework once already, walking away from this demand now would likely end the initiative for good."
+      }
+    ],
+    "choices": [
+      {
+        "index": 0,
+        "text": "Agree to the expanded basing rights",
+        "effects": {
+          "globalReputation": 6,
+          "debt": 0.5,
+          "congressSupport": -3
+        },
+        "sets_flags": [
+          "arc_pacific_beat2_done",
+          "pacific_basing_agreed"
+        ],
+        "outcome": "Agreeing keeps the framework alive and deepens the alliance. Congress will have questions about the cost."
+      },
+      {
+        "index": 1,
+        "text": "Hold firm and negotiate a smaller commitment",
+        "effects": {
+          "globalReputation": 2,
+          "congressSupport": 2
+        },
+        "sets_flags": [
+          "arc_pacific_beat2_done",
+          "pacific_held_firm"
+        ],
+        "outcome": "Holding firm produces a smaller deal than hoped, but one Congress will actually fund without a fight."
+      },
+      {
+        "index": 2,
+        "text": "Bring Congress in early to build support for the concessions",
+        "effects": {
+          "congressSupport": 5,
+          "approval": 1,
+          "globalReputation": 3
+        },
+        "sets_flags": [
+          "arc_pacific_beat2_done",
+          "pacific_congress_briefed"
+        ],
+        "outcome": "Briefing Congress early slows things down but means the eventual deal actually has the votes behind it."
+      },
+      {
+        "index": 3,
+        "text": "Walk away from this particular ally's demands",
+        "effects": {
+          "globalReputation": -4,
+          "security": -2
+        },
+        "sets_flags": [
+          "arc_pacific_beat2_done",
+          "pacific_ally_lost"
+        ],
+        "outcome": "Walking away preserves the budget and the principle. It also likely costs the framework its most important participant."
+      }
+    ]
+  },
+  {
+    "id": "pacific_framework_signing",
+    "title": "Pacific Security Framework Ready for Signature",
+    "category": "diplomacy",
+    "description": "After months of negotiation, the Pacific Security Framework is ready — or close to it. This is the moment that determines whether this becomes a defining foreign policy legacy or a costly initiative that quietly fades.",
+    "triggers": {
+      "month": {
+        "min": 13
+      }
+    },
+    "sets_flags": [],
+    "requires_flags": [
+      "arc_pacific_beat2_done"
+    ],
+    "weight": 4,
+    "callbacks": [
+      {
+        "flag": "pacific_basing_agreed",
+        "text": "The basing concessions you agreed to months ago are the reason this framework has real teeth instead of being a symbolic gesture."
+      },
+      {
+        "flag": "pacific_held_firm",
+        "text": "Holding firm on cost-sharing earlier means this is a leaner framework than originally envisioned — but one built to last politically."
+      },
+      {
+        "flag": "pacific_ally_lost",
+        "text": "Losing that one ally along the way left a real gap in the framework — this signing happens with a noticeably smaller coalition than planned."
+      }
+    ],
+    "choices": [
+      {
+        "index": 0,
+        "text": "Sign the framework in a high-profile ceremony",
+        "effects": {
+          "globalReputation": 10,
+          "approval": 3,
+          "debt": 0.2
+        },
+        "sets_flags": [
+          "arc_pacific_resolved",
+          "pacific_framework_signed"
+        ],
+        "outcome": "The signing ceremony becomes a defining image of your foreign policy — the kind historians reach for first."
+      },
+      {
+        "index": 1,
+        "text": "Sign quietly, without the fanfare, to manage domestic optics",
+        "effects": {
+          "globalReputation": 6,
+          "approval": 1
+        },
+        "sets_flags": [
+          "arc_pacific_resolved",
+          "pacific_framework_signed"
+        ],
+        "outcome": "The quiet signing gets the substance without the political exposure — a durable deal that never quite gets its due at home."
+      },
+      {
+        "index": 2,
+        "text": "Delay signing to extract further concessions",
+        "effects": {
+          "globalReputation": -2,
+          "congressSupport": 2
+        },
+        "sets_flags": [
+          "arc_pacific_resolved"
+        ],
+        "outcome": "The delay squeezes out a marginally better deal and tests the patience of allies who thought this was already settled."
+      },
+      {
+        "index": 3,
+        "text": "Let the framework quietly die rather than lock in the commitment",
+        "effects": {
+          "globalReputation": -8,
+          "security": -3
+        },
+        "sets_flags": [
+          "arc_pacific_resolved",
+          "pacific_framework_collapsed"
+        ],
+        "outcome": "Letting it die avoids the long-term commitment. It also tells every ally watching exactly how far your word travels."
+      }
+    ]
   }
 ]
