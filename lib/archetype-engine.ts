@@ -11,6 +11,7 @@
  */
 
 import type { Game, GameLog } from '@/types/game'
+import { NPCS } from '@/lib/game-engine'
 
 export interface PresidentialArchetype {
   title:                string   // "The Crisis Manager"
@@ -21,6 +22,7 @@ export interface PresidentialArchetype {
   accomplishments:      string[] // concrete things derived from actual game data
   biggestCriticism:     string   // one-line honest critique
   historicalComparison: string   // "Historians will view this presidency as..."
+  relationshipLegacy:   string   // how the term's closest and most strained relationships ended
 }
 
 interface GoverningPattern {
@@ -170,6 +172,32 @@ const ARCHETYPES: Array<{
   },
 ]
 
+// ── Relationship Legacy ──────────────────────────────────────────────────
+// Normalizes each NPC's final relationship into their own min/max range
+// (same 0-1 calculation CabinetCard.tsx's relationshipTone() uses) so the
+// comparison is fair across NPCs with very different starting positions
+// (e.g. opposition_leader's 5-70 range vs. chief_of_staff's 15-100).
+function buildRelationshipLegacy(game: Game): string {
+  const scored = NPCS.map(npc => {
+    const value = game.npcRelationships[npc.id] ?? npc.relationship.start
+    const { min, max } = npc.relationship
+    return { name: npc.shortName, pct: (value - min) / (max - min) }
+  }).sort((a, b) => b.pct - a.pct)
+
+  const closest = scored[0]
+  const weakest = scored[scored.length - 1]
+
+  const closestLine = closest.pct >= 0.7
+    ? `No one in the administration stood by you more than ${closest.name} — that bond held through everything this term threw at it.`
+    : `${closest.name} was, in the end, the closest thing to a true ally you had — though even that relationship never became what it could have.`
+
+  const weakestLine = weakest.pct < 0.25
+    ? `${weakest.name} never came around — by the end, that relationship was beyond repair.`
+    : `${weakest.name} kept a professional distance throughout — not hostile, but never quite trusting either.`
+
+  return `${closestLine} ${weakestLine}`
+}
+
 export function computePresidentialArchetype(game: Game, logs: GameLog[]): PresidentialArchetype {
   const pattern = scorePattern(game, logs)
 
@@ -290,5 +318,6 @@ export function computePresidentialArchetype(game: Game, logs: GameLog[]): Presi
     accomplishments:      accomplishments.slice(0, 4), // cap at 4 for readability
     biggestCriticism,
     historicalComparison,
+    relationshipLegacy:   buildRelationshipLegacy(game),
   }
 }

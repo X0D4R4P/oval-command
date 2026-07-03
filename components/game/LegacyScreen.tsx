@@ -128,6 +128,16 @@ export function LegacyScreen({ legacy, reason, presidentName, archetype, onNewGa
                 </p>
               </div>
 
+              {/* Relationships */}
+              <div className="mt-3 rounded-sm border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2.5">
+                <div className="font-mono text-[9px] uppercase tracking-[0.12em] text-[var(--color-paper-faint)]">
+                  Those Who Were There
+                </div>
+                <p className="mt-1 text-[12px] leading-relaxed text-[var(--color-paper-dim)]">
+                  {archetype.relationshipLegacy}
+                </p>
+              </div>
+
               {/* Historical Comparison */}
               <div className="mt-3 border-t border-[var(--color-border)] pt-3">
                 <p className="text-[11px] leading-relaxed text-[var(--color-paper-faint)]">
