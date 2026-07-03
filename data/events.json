@@ -7039,5 +7039,268 @@
         "outcome": "The crossover endorsements generate real buzz. Your own party's rank-and-file feel taken for granted."
       }
     ]
+  },
+  {
+    "id": "opposition_leader_obstruction_campaign",
+    "title": "Senator Garrett Announces Total Opposition Campaign",
+    "category": "congress",
+    "description": "Senate Opposition Leader Frank Garrett has declared he will oppose your entire legislative agenda regardless of merit, sensing political opportunity in your early vulnerability. It's the kind of blanket obstruction that used to be rare — and it sets the tone for how Congress treats you for the rest of your term.",
+    "triggers": {
+      "month": {
+        "min": 2
+      }
+    },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 6,
+    "choices": [
+      {
+        "index": 0,
+        "text": "Reach out privately — offer him a seat at the table on one issue",
+        "effects": {
+          "approval": -2,
+          "congressSupport": 6,
+          "partyUnity": -2
+        },
+        "sets_flags": [],
+        "outcome": "The private outreach softens nothing publicly, but it opens a real channel — one your team will be able to use again."
+      },
+      {
+        "index": 1,
+        "text": "Go on offense — publicly call his opposition bad-faith",
+        "effects": {
+          "approval": 3,
+          "congressSupport": -6,
+          "baseSupport": 8,
+          "unrest": 2
+        },
+        "sets_flags": [],
+        "outcome": "Your base loves the fight. Garrett loves it more — he needed exactly this kind of villain narrative to raise money."
+      },
+      {
+        "index": 2,
+        "text": "Ignore him and focus on governing",
+        "effects": {
+          "approval": 1,
+          "congressSupport": -2
+        },
+        "sets_flags": [],
+        "outcome": "Refusing to engage denies him the spectacle he wanted. It also means his obstruction goes largely unanswered."
+      },
+      {
+        "index": 3,
+        "text": "Have your Chief of Staff quietly work his caucus to peel off votes",
+        "effects": {
+          "congressSupport": 4,
+          "approval": -1
+        },
+        "sets_flags": [],
+        "outcome": "The backroom approach works better than the public one ever could — a few votes come loose, quietly."
+      }
+    ]
+  },
+  {
+    "id": "opposition_leader_hostile_escalation",
+    "title": "Garrett Launches Formal Censure Motion Against You",
+    "category": "scandal",
+    "description": "With your relationship fully broken down, Senator Garrett has moved from rhetoric to formal action — a censure resolution that, while symbolic and unlikely to pass, dominates the news cycle for a week and forces every member of Congress to go on the record about you.",
+    "triggers": {
+      "month": {
+        "min": 8
+      }
+    },
+    "sets_flags": [],
+    "requires_flags": [
+      "milestone_opposition_leader_estranged"
+    ],
+    "weight": 5,
+    "callbacks": [
+      {
+        "flag": "milestone_opposition_leader_estranged",
+        "text": "This is exactly where the relationship was always headed — Garrett has been building toward a moment like this since things went cold between you."
+      }
+    ],
+    "choices": [
+      {
+        "index": 0,
+        "text": "Let it fail on the floor — don't dignify it with a response",
+        "effects": {
+          "approval": 2,
+          "congressSupport": -3
+        },
+        "sets_flags": [],
+        "outcome": "The motion fails, as expected. Ignoring it costs you nothing and denies Garrett the fight he wanted."
+      },
+      {
+        "index": 1,
+        "text": "Counterattack — release opposition research on Garrett's own record",
+        "effects": {
+          "approval": -3,
+          "baseSupport": 10,
+          "globalReputation": -2
+        },
+        "sets_flags": [],
+        "outcome": "The counterattack is effective and ugly. Your base is thrilled. Editorial boards call it a new low for the relationship."
+      },
+      {
+        "index": 2,
+        "text": "Cut a deal — offer him something real to make it go away",
+        "effects": {
+          "congressSupport": 8,
+          "baseSupport": -8,
+          "partyUnity": -4
+        },
+        "sets_flags": [],
+        "outcome": "The motion quietly disappears. Your own base sees the concession as a cave to a man they consider an enemy."
+      },
+      {
+        "index": 3,
+        "text": "Go on national TV to respond to it directly",
+        "effects": {
+          "approval": 5,
+          "mediaScore": 1,
+          "unrest": 2
+        },
+        "sets_flags": [],
+        "outcome": "The direct response dominates the next news cycle in your favor — but it also confirms this is now personal, not just political."
+      }
+    ]
+  },
+  {
+    "id": "opposition_leader_bipartisan_overture",
+    "title": "Garrett Privately Offers a Bipartisan Deal",
+    "category": "congress",
+    "description": "In a reversal of his public posture, Senator Garrett has quietly approached your team — he is willing to break with his own leadership on one piece of legislation if you give him a real policy win and credit for delivering it. His base will not love it. Neither, probably, will yours.",
+    "triggers": {
+      "month": {
+        "min": 8
+      }
+    },
+    "sets_flags": [],
+    "requires_flags": [
+      "milestone_opposition_leader_ally"
+    ],
+    "weight": 5,
+    "callbacks": [
+      {
+        "flag": "milestone_opposition_leader_ally",
+        "text": "Nobody would have predicted this a year ago — the working relationship you two built has become one of the more unlikely stories of this administration."
+      }
+    ],
+    "choices": [
+      {
+        "index": 0,
+        "text": "Take the deal and share the credit publicly",
+        "effects": {
+          "congressSupport": 10,
+          "partyUnity": -3,
+          "approval": 3
+        },
+        "sets_flags": [
+          "opposition_bipartisan_deal"
+        ],
+        "outcome": "The joint announcement makes headlines. It is a genuine legislative win — and a political risk for both of you."
+      },
+      {
+        "index": 1,
+        "text": "Take the deal but keep his role quiet",
+        "effects": {
+          "congressSupport": 6,
+          "approval": 1
+        },
+        "sets_flags": [],
+        "outcome": "The bill passes cleanly. Garrett gets the policy outcome he wanted without the political exposure — and privately, he notices you protected him."
+      },
+      {
+        "index": 2,
+        "text": "Decline — your base would see any deal with him as a betrayal",
+        "effects": {
+          "baseSupport": 5,
+          "congressSupport": -4,
+          "partyUnity": 3
+        },
+        "sets_flags": [],
+        "outcome": "You pass on the opening. Garrett is disappointed but not surprised — he made the same calculation about his own base."
+      },
+      {
+        "index": 3,
+        "text": "Push for more before agreeing to anything",
+        "effects": {
+          "congressSupport": 4,
+          "approval": -1
+        },
+        "sets_flags": [],
+        "outcome": "The extra pressure works, barely — you get a slightly better deal, and a slightly more annoyed negotiating partner."
+      }
+    ]
+  },
+  {
+    "id": "opposition_leader_final_confrontation",
+    "title": "Garrett Delivers the Closing Argument Against Your Presidency",
+    "category": "congress",
+    "description": "With Election Day approaching, Senator Garrett has delivered what pundits are already calling the most consequential speech of his career — a direct, personal case against your presidency, aimed squarely at undecided voters in the final stretch.",
+    "triggers": {
+      "month": {
+        "min": 42
+      }
+    },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 5,
+    "callbacks": [
+      {
+        "flag": "milestone_opposition_leader_estranged",
+        "text": "This is the culmination of years of open warfare between you — Garrett has been building to this exact moment since the relationship collapsed."
+      },
+      {
+        "flag": "milestone_opposition_leader_ally",
+        "text": "There's real reluctance in his delivery. Those close to Garrett say the working relationship you two built made this speech harder for him to give than he'll ever admit publicly."
+      }
+    ],
+    "choices": [
+      {
+        "index": 0,
+        "text": "Respond immediately and forcefully",
+        "effects": {
+          "approval": 4,
+          "baseSupport": 6,
+          "unrest": 3,
+          "congressSupport": -2
+        },
+        "sets_flags": [],
+        "outcome": "The forceful response dominates the next 48 hours of coverage — for better or worse, the whole race is now about this fight."
+      },
+      {
+        "index": 1,
+        "text": "Let your campaign surrogates handle it — stay above the fray",
+        "effects": {
+          "approval": 1,
+          "mediaScore": 1
+        },
+        "sets_flags": [],
+        "outcome": "The measured, above-it-all response plays well with the exact undecided voters the speech was aimed at."
+      },
+      {
+        "index": 2,
+        "text": "Reach out to Garrett directly, one on one, before he goes further",
+        "effects": {
+          "congressSupport": 5,
+          "baseSupport": -3
+        },
+        "sets_flags": [],
+        "outcome": "The private conversation defuses some of the personal edge, at the cost of looking, to your own supporters, a little soft."
+      },
+      {
+        "index": 3,
+        "text": "Use it to fire up your base with a rally",
+        "effects": {
+          "baseSupport": 10,
+          "approval": -2,
+          "unrest": 4
+        },
+        "sets_flags": [],
+        "outcome": "The rally response energizes your core supporters. It does nothing for the undecided voters Garrett was actually trying to reach — but it wasn't meant to."
+      }
+    ]
   }
 ]
