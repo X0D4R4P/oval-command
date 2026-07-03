@@ -4917,7 +4917,6 @@
     "category": "diplomacy",
     "description": "A military coup has overthrown the democratically elected government in a nation where the US has significant security partnerships and rare earth mineral agreements. The new junta is already signaling a turn toward China and Russia. 800 US military advisors are in country. The African Union is calling for intervention.",
     "triggers": {
-      "always_available": true,
       "month": {
         "min": 6
       }
@@ -5125,7 +5124,6 @@
     "category": "diplomacy",
     "description": "The annual G7 summit arrives at a moment of maximum transatlantic tension. Trade disputes, burden-sharing arguments, and competing visions for confronting China have fractured the alliance. As the host, you have one chance to set the agenda and restore coherence. Every major ally is watching.",
     "triggers": {
-      "always_available": true,
       "month": {
         "min": 6
       }
@@ -5191,7 +5189,6 @@
     "category": "diplomacy",
     "description": "A US-drafted Security Council resolution on a critical international crisis is being blocked by Russian and Chinese vetoes. The world is watching whether the US can lead through international institutions or is forced to act unilaterally. Your UN Ambassador is asking for guidance.",
     "triggers": {
-      "always_available": true,
       "month": {
         "min": 6
       }
@@ -5573,7 +5570,6 @@
     "category": "social",
     "description": "A new study confirms the US maternal mortality rate is now the highest in the developed world \u2014 and 3x higher for Black women. The data has sparked national outrage. OB-GYN deserts are growing. Healthcare providers are leaving the field citing legal uncertainty in states with new restrictions.",
     "triggers": {
-      "always_available": true,
       "month": {
         "min": 6
       }
@@ -5704,7 +5700,6 @@
     "category": "military",
     "description": "U-2 reconnaissance photos confirm it: a hostile nuclear power is installing medium-range ballistic missile sites in Cuba, capable of striking most of the continental United States within minutes of launch. Your Joint Chiefs are unanimous in recommending an immediate airstrike. Your UN Ambassador wants to expose the photos publicly first. Every option carries real risk of nuclear war. You have, by most estimates, about a week before the sites become operational.",
     "triggers": {
-      "always_available": true,
       "month": {
         "min": 6
       }
@@ -5777,7 +5772,6 @@
     "category": "economy",
     "description": "In retaliation for US support of an ally during a regional war, the largest oil-producing nations have announced an embargo on exports to the United States. Gas lines are already forming. Prices are projected to quadruple within months. Your Energy Secretary wants emergency rationing. Your Treasury Secretary wants to ride it out and let markets adjust. Winter is approaching.",
     "triggers": {
-      "always_available": true,
       "month": {
         "min": 6
       }
@@ -5918,7 +5912,6 @@
     "category": "diplomacy",
     "description": "Revolutionary forces have stormed the US embassy in a country undergoing violent upheaval and are holding dozens of American diplomatic personnel hostage. Demands include the return of the former allied head of state, who fled to the US for medical treatment. Negotiations have stalled for months. Your Joint Chiefs have a rescue plan. Your diplomats warn it's a long shot with catastrophic downside if it fails.",
     "triggers": {
-      "always_available": true,
       "month": {
         "min": 8
       }
@@ -5991,7 +5984,6 @@
     "category": "congress",
     "description": "Hundreds of thousands of steelworkers have walked off the job over wages and working conditions, just as the nation's defense industry depends on steady steel production. Industry executives want you to break the strike by seizing the mills under emergency powers. Labor unions, a core part of your coalition, are furious at the idea. The Supreme Court has not yet weighed in on whether you even have that authority.",
     "triggers": {
-      "always_available": true,
       "month": {
         "min": 8
       }
@@ -6064,7 +6056,6 @@
     "category": "disaster",
     "description": "Health officials confirm the first domestic cases of a novel respiratory virus that has been spreading internationally for weeks. Early data is incomplete and contradictory \u2014 some models suggest a mild flu-like illness, others suggest something far deadlier. The CDC wants to move cautiously and avoid panic. Your political team is split on whether early, visible action helps or just spooks markets before there's enough data to justify it.",
     "triggers": {
-      "always_available": true,
       "month": {
         "min": 4
       },
@@ -6141,7 +6132,6 @@
     "category": "congress",
     "description": "Congress and the White House are deadlocked over a single contentious spending provision. The shutdown has now stretched past a month \u2014 the longest in the nation's history. 800,000 federal workers are furloughed or working without pay. Air traffic controllers are calling in sick at unsustainable rates. Neither side believes blinking first is politically survivable.",
     "triggers": {
-      "always_available": true,
       "month": {
         "min": 10
       }
@@ -6220,7 +6210,6 @@
     "category": "security",
     "description": "A geopolitical rival has successfully launched the world's first artificial satellite, beating the United States into space. The technological shock has triggered genuine public fear that the same rocket technology could deliver a nuclear warhead to American soil. Congress wants immediate, dramatic investment in science and defense. Your budget team warns the panic may be larger than the actual strategic shift.",
     "triggers": {
-      "always_available": true,
       "month": {
         "min": 4
       }
@@ -6371,7 +6360,6 @@
     "category": "scandal",
     "description": "A former staffer has gone public claiming the White House has been secretly recording Oval Office conversations \u2014 including conversations relevant to an ongoing investigation into senior officials. Congress is demanding the tapes. Your legal team says you may have a claim of executive privilege, but it has never been tested this directly before. Refusing will look like guilt. Releasing them sets a precedent no future President may want.",
     "triggers": {
-      "always_available": true,
       "month": {
         "min": 12
       }
@@ -6441,7 +6429,7 @@
     ]
   },
   {
-    "id": "reelection_campaign_launch",
+    "id": "reelection_campaign_kickoff",
     "title": "Your Reelection Campaign Has Officially Launched",
     "category": "social",
     "description": "Your campaign team says it's time. The opposition has been running ads in swing states for months. Donors want a strategy, the base wants a message, and the press wants access. How you enter this race will define it.",
@@ -6455,7 +6443,6 @@
     ],
     "requires_flags": [],
     "weight": 3,
-    "isLatGame": true,
     "choices": [
       {
         "index": 0,
@@ -6511,15 +6498,13 @@
     "triggers": {
       "month": {
         "min": 30
-      },
-      "always_available": true
+      }
     },
     "sets_flags": [
       "under_investigation"
     ],
     "requires_flags": [],
     "weight": 2,
-    "isLateGame": true,
     "choices": [
       {
         "index": 0,
@@ -6578,8 +6563,7 @@
     "triggers": {
       "month": {
         "min": 24
-      },
-      "always_available": true
+      }
     },
     "sets_flags": [
       "active_scandal"
