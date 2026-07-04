@@ -16,7 +16,7 @@ import { SecondaryStats } from '@/components/game/SecondaryStats'
 import { LegislativeAlert } from '@/components/game/LegislativeAlert'
 import { RoomAtmosphere } from '@/components/game/RoomAtmosphere'
 import { RoomBackground, roomAccentStyle } from '@/components/game/RoomBackground'
-import { getEventAccentColor } from '@/lib/event-backgrounds'
+import { getEventAccentColor, getRoomTreatment } from '@/lib/event-backgrounds'
 import { computeLegacyScore, checkGameOver } from '@/lib/game-engine'
 import { getAdvisorRecommendations } from '@/lib/advisor-engine'
 import type { Game, CrisisEvent, TurnResult, ProcessTurnResponse } from '@/types/game'
@@ -102,9 +102,15 @@ export function GameClient({ initialGame, initialEvent }: GameClientProps) {
     const legacy = computeLegacyScore(game)
     const reason = view.phase === 'gameover' ? view.result.gameOver! : view.reason
     const archetype = view.phase === 'gameover' ? view.result.archetype : undefined
+    const gameoverTreatment = getRoomTreatment('/oval-office-bg.png')
     return (
       <main className="mx-auto max-w-2xl px-6 py-12" style={roomAccentStyle('var(--color-brass)')}>
-        <RoomBackground image="/oval-office-bg.png" color="var(--color-brass)" />
+        <RoomBackground
+          image="/oval-office-bg.png"
+          color="var(--color-brass)"
+          backgroundPosition={gameoverTreatment.backgroundPosition}
+          foreground={{ style: gameoverTreatment.foregroundStyle, color: gameoverTreatment.foregroundColor }}
+        />
         <LegacyScreen
           legacy={legacy}
           reason={reason}

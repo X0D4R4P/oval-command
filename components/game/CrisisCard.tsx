@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { cn, formatDelta, isDeltaGood, getStatLabel } from '@/lib/utils'
 import { isBreakingEvent, getEventCallback } from '@/lib/game-engine'
-import { getEventBackground, getEventAccentColor } from '@/lib/event-backgrounds'
+import { getEventBackground, getEventAccentColor, getRoomTreatment } from '@/lib/event-backgrounds'
 import { RoomBackground, roomAccentStyle } from './RoomBackground'
 import { CategoryTag } from './CategoryTag'
 import { IntelligenceBriefing } from './IntelligenceBriefing'
@@ -55,10 +55,16 @@ export function CrisisCard({ event, month, gameId, flags, onChoose, disabled }: 
 
   const backgroundImage = getEventBackground(event.category)
   const accentColor = getEventAccentColor(event.category)
+  const treatment = getRoomTreatment(backgroundImage)
 
   return (
     <>
-      <RoomBackground image={backgroundImage} color={accentColor} />
+      <RoomBackground
+        image={backgroundImage}
+        color={accentColor}
+        backgroundPosition={treatment.backgroundPosition}
+        foreground={{ style: treatment.foregroundStyle, color: treatment.foregroundColor }}
+      />
 
       <div
         style={roomAccentStyle(accentColor)}

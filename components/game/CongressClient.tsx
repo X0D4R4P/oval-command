@@ -6,6 +6,7 @@ import { useSearchParams } from 'next/navigation'
 import { LawCard } from '@/components/game/LawCard'
 import { HeadlineTicker } from '@/components/game/HeadlineTicker'
 import { RoomBackground, roomAccentStyle } from '@/components/game/RoomBackground'
+import { getRoomTreatment } from '@/lib/event-backgrounds'
 import { cn } from '@/lib/utils'
 import type { Game, Law, Headline } from '@/types/game'
 
@@ -57,6 +58,7 @@ export function CongressClient({ game, lawsWithOdds, canUseSenateAbility, canUse
   const highlightRef = useRef<HTMLDivElement>(null)
 
   const filtered = filter === 'all' ? lawsWithOdds : lawsWithOdds.filter(l => l.law.category === filter)
+  const treatment = getRoomTreatment('/congress-bg.png')
 
   // Scroll the highlighted law into view once the page settles
   useEffect(() => {
@@ -113,7 +115,12 @@ export function CongressClient({ game, lawsWithOdds, canUseSenateAbility, canUse
   if (result) {
     return (
       <main className="mx-auto max-w-2xl px-6 py-12" style={roomAccentStyle('var(--color-cat-congress)')}>
-        <RoomBackground image="/congress-bg.png" color="var(--color-cat-congress)" />
+        <RoomBackground
+          image="/congress-bg.png"
+          color="var(--color-cat-congress)"
+          backgroundPosition={treatment.backgroundPosition}
+          foreground={{ style: treatment.foregroundStyle, color: treatment.foregroundColor }}
+        />
         <div className="rounded-sm border border-[var(--color-border-strong)] bg-[var(--color-surface)] backdrop-blur-sm">
           <div className="brief-rule" />
           <div className="p-6 text-center">
@@ -155,7 +162,12 @@ export function CongressClient({ game, lawsWithOdds, canUseSenateAbility, canUse
 
   return (
     <main className="mx-auto max-w-2xl px-6 py-10" style={roomAccentStyle('var(--color-cat-congress)')}>
-      <RoomBackground image="/congress-bg.png" color="var(--color-cat-congress)" />
+      <RoomBackground
+        image="/congress-bg.png"
+        color="var(--color-cat-congress)"
+        backgroundPosition={treatment.backgroundPosition}
+        foreground={{ style: treatment.foregroundStyle, color: treatment.foregroundColor }}
+      />
       <div>
         <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-cat-congress)]">
           Congress

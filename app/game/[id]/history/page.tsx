@@ -5,6 +5,7 @@ import { EVENTS, LAWS } from '@/lib/game-engine'
 import { cn, formatDelta, isDeltaGood, getStatLabel, monthToDate } from '@/lib/utils'
 import { PendingEventBanner } from '@/components/game/PendingEventBanner'
 import { RoomBackground, roomAccentStyle } from '@/components/game/RoomBackground'
+import { getRoomTreatment } from '@/lib/event-backgrounds'
 
 const MATCHING_CATEGORIES = ['scandal', 'social']
 
@@ -47,9 +48,16 @@ export default async function HistoryPage({ params }: PageProps) {
   const pendingEvent = game.currentEventId ? EVENTS.find(e => e.id === game.currentEventId) : undefined
   const showBanner = game.status === 'ACTIVE' && pendingEvent && MATCHING_CATEGORIES.includes(pendingEvent.category)
 
+  const treatment = getRoomTreatment('/press-room-bg.png')
+
   return (
     <main className="mx-auto max-w-2xl px-6 py-10" style={roomAccentStyle('var(--color-cat-scandal)')}>
-      <RoomBackground image="/press-room-bg.png" color="var(--color-cat-scandal)" />
+      <RoomBackground
+        image="/press-room-bg.png"
+        color="var(--color-cat-scandal)"
+        backgroundPosition={treatment.backgroundPosition}
+        foreground={{ style: treatment.foregroundStyle, color: treatment.foregroundColor }}
+      />
       <div>
         <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-cat-scandal)]">
           The Record

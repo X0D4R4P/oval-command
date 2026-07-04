@@ -8,6 +8,7 @@ import { ConflictBanner } from '@/components/game/ConflictBanner'
 import { CabinetCard } from '@/components/game/CabinetCard'
 import { PendingEventBanner } from '@/components/game/PendingEventBanner'
 import { RoomBackground, roomAccentStyle } from '@/components/game/RoomBackground'
+import { getRoomTreatment } from '@/lib/event-backgrounds'
 
 const MATCHING_CATEGORIES = ['security', 'military', 'disaster']
 
@@ -29,9 +30,16 @@ export default async function SituationRoomPage({ params }: PageProps) {
   const pendingEvent = row.currentEventId ? EVENTS.find(e => e.id === row.currentEventId) : undefined
   const showBanner = game.status === 'ACTIVE' && pendingEvent && MATCHING_CATEGORIES.includes(pendingEvent.category)
 
+  const treatment = getRoomTreatment('/situation-room-bg.png')
+
   return (
     <main className="mx-auto max-w-2xl px-6 py-10" style={roomAccentStyle('var(--color-cat-military)')}>
-      <RoomBackground image="/situation-room-bg.png" color="var(--color-cat-military)" />
+      <RoomBackground
+        image="/situation-room-bg.png"
+        color="var(--color-cat-military)"
+        backgroundPosition={treatment.backgroundPosition}
+        foreground={{ style: treatment.foregroundStyle, color: treatment.foregroundColor }}
+      />
       <div>
         <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-cat-military)]">
           National Security
