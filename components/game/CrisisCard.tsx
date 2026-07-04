@@ -3,8 +3,8 @@
 import { useState } from 'react'
 import { cn, formatDelta, isDeltaGood, getStatLabel } from '@/lib/utils'
 import { isBreakingEvent, getEventCallback } from '@/lib/game-engine'
-import { getEventBackground } from '@/lib/event-backgrounds'
-import { RoomBackground } from './RoomBackground'
+import { getEventBackground, getEventAccentColor } from '@/lib/event-backgrounds'
+import { RoomBackground, roomAccentStyle } from './RoomBackground'
 import { CategoryTag } from './CategoryTag'
 import { IntelligenceBriefing } from './IntelligenceBriefing'
 import type { CrisisEvent, StatDelta } from '@/types/game'
@@ -54,12 +54,14 @@ export function CrisisCard({ event, month, gameId, flags, onChoose, disabled }: 
   }
 
   const backgroundImage = getEventBackground(event.category)
+  const accentColor = getEventAccentColor(event.category)
 
   return (
     <>
-      <RoomBackground image={backgroundImage} />
+      <RoomBackground image={backgroundImage} color={accentColor} />
 
       <div
+        style={roomAccentStyle(accentColor)}
         className={cn(
           'rounded-sm border bg-[var(--color-surface)]',
           breaking ? 'border-[var(--color-bad)]' : 'border-[var(--color-border-strong)]'

@@ -4,7 +4,7 @@ import { prisma } from '@/lib/prisma'
 import { EVENTS, LAWS } from '@/lib/game-engine'
 import { cn, formatDelta, isDeltaGood, getStatLabel, monthToDate } from '@/lib/utils'
 import { PendingEventBanner } from '@/components/game/PendingEventBanner'
-import { RoomBackground } from '@/components/game/RoomBackground'
+import { RoomBackground, roomAccentStyle } from '@/components/game/RoomBackground'
 
 const MATCHING_CATEGORIES = ['scandal', 'social']
 
@@ -48,8 +48,8 @@ export default async function HistoryPage({ params }: PageProps) {
   const showBanner = game.status === 'ACTIVE' && pendingEvent && MATCHING_CATEGORIES.includes(pendingEvent.category)
 
   return (
-    <main className="mx-auto max-w-2xl px-6 py-10">
-      <RoomBackground image="/press-room-bg.png" />
+    <main className="mx-auto max-w-2xl px-6 py-10" style={roomAccentStyle('var(--color-cat-scandal)')}>
+      <RoomBackground image="/press-room-bg.png" color="var(--color-cat-scandal)" />
       <div>
         <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-cat-scandal)]">
           The Record

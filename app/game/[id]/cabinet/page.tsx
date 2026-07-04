@@ -6,7 +6,7 @@ import { NPCS, EVENTS } from '@/lib/game-engine'
 import { CabinetCard } from '@/components/game/CabinetCard'
 import { AdvisorConversationPanel } from '@/components/game/AdvisorConversationPanel'
 import { PendingEventBanner } from '@/components/game/PendingEventBanner'
-import { RoomBackground } from '@/components/game/RoomBackground'
+import { RoomBackground, roomAccentStyle } from '@/components/game/RoomBackground'
 import { getAdvisorRecommendations } from '@/lib/advisor-engine'
 import type { MilestoneTier } from '@/lib/npc-milestones'
 
@@ -45,8 +45,8 @@ export default async function CabinetPage({ params }: PageProps) {
   const showBanner = game.status === 'ACTIVE' && pendingEvent && MATCHING_CATEGORIES.includes(pendingEvent.category)
 
   return (
-    <main className="mx-auto max-w-2xl px-6 py-10">
-      <RoomBackground image="/cabinet-room-bg.png" />
+    <main className="mx-auto max-w-2xl px-6 py-10" style={roomAccentStyle('var(--color-brass)')}>
+      <RoomBackground image="/cabinet-room-bg.png" color="var(--color-brass)" />
       <div>
         <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-brass)]">
           Administration

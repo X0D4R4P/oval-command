@@ -15,6 +15,8 @@ import { ConflictBanner } from '@/components/game/ConflictBanner'
 import { SecondaryStats } from '@/components/game/SecondaryStats'
 import { LegislativeAlert } from '@/components/game/LegislativeAlert'
 import { RoomAtmosphere } from '@/components/game/RoomAtmosphere'
+import { roomAccentStyle } from '@/components/game/RoomBackground'
+import { getEventAccentColor } from '@/lib/event-backgrounds'
 import { computeLegacyScore, checkGameOver } from '@/lib/game-engine'
 import { getAdvisorRecommendations } from '@/lib/advisor-engine'
 import type { Game, CrisisEvent, TurnResult, ProcessTurnResponse } from '@/types/game'
@@ -119,8 +121,10 @@ export function GameClient({ initialGame, initialEvent }: GameClientProps) {
     )
   }
 
+  const accentColor = event ? getEventAccentColor(event.category) : 'var(--color-brass)'
+
   return (
-    <main className="mx-auto max-w-2xl px-6 py-10">
+    <main className="mx-auto max-w-2xl px-6 py-10" style={roomAccentStyle(accentColor)}>
       <RoomAtmosphere color="var(--color-brass)" />
       <DashboardHeader
         presidentName={game.presidentName}

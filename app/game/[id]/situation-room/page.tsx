@@ -7,7 +7,7 @@ import { StatCard } from '@/components/game/StatCard'
 import { ConflictBanner } from '@/components/game/ConflictBanner'
 import { CabinetCard } from '@/components/game/CabinetCard'
 import { PendingEventBanner } from '@/components/game/PendingEventBanner'
-import { RoomBackground } from '@/components/game/RoomBackground'
+import { RoomBackground, roomAccentStyle } from '@/components/game/RoomBackground'
 
 const MATCHING_CATEGORIES = ['security', 'military', 'disaster']
 
@@ -30,8 +30,8 @@ export default async function SituationRoomPage({ params }: PageProps) {
   const showBanner = game.status === 'ACTIVE' && pendingEvent && MATCHING_CATEGORIES.includes(pendingEvent.category)
 
   return (
-    <main className="mx-auto max-w-2xl px-6 py-10">
-      <RoomBackground image="/situation-room-bg.png" />
+    <main className="mx-auto max-w-2xl px-6 py-10" style={roomAccentStyle('var(--color-cat-military)')}>
+      <RoomBackground image="/situation-room-bg.png" color="var(--color-cat-military)" />
       <div>
         <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-cat-military)]">
           National Security

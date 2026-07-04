@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { LawCard } from '@/components/game/LawCard'
 import { HeadlineTicker } from '@/components/game/HeadlineTicker'
-import { RoomBackground } from '@/components/game/RoomBackground'
+import { RoomBackground, roomAccentStyle } from '@/components/game/RoomBackground'
 import { cn } from '@/lib/utils'
 import type { Game, Law, Headline } from '@/types/game'
 
@@ -112,8 +112,8 @@ export function CongressClient({ game, lawsWithOdds, canUseSenateAbility, canUse
 
   if (result) {
     return (
-      <main className="mx-auto max-w-2xl px-6 py-12">
-        <RoomBackground image="/congress-bg.png" />
+      <main className="mx-auto max-w-2xl px-6 py-12" style={roomAccentStyle('var(--color-cat-congress)')}>
+        <RoomBackground image="/congress-bg.png" color="var(--color-cat-congress)" />
         <div className="rounded-sm border border-[var(--color-border-strong)] bg-[var(--color-surface)]">
           <div className="brief-rule" />
           <div className="p-6 text-center">
@@ -154,8 +154,8 @@ export function CongressClient({ game, lawsWithOdds, canUseSenateAbility, canUse
   }
 
   return (
-    <main className="mx-auto max-w-2xl px-6 py-10">
-      <RoomBackground image="/congress-bg.png" />
+    <main className="mx-auto max-w-2xl px-6 py-10" style={roomAccentStyle('var(--color-cat-congress)')}>
+      <RoomBackground image="/congress-bg.png" color="var(--color-cat-congress)" />
       <div>
         <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-cat-congress)]">
           Congress
