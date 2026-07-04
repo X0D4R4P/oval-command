@@ -6,8 +6,9 @@ import { resolveSpeech } from '@/lib/address-nation'
 import { computePassiveDrift, applyDelta, pickEvent, checkGameOver, computeLegacyScore } from '@/lib/game-engine'
 import { generateSpeechHeadline, type SpeechTheme } from '@/lib/headlines'
 import { checkAndEnqueueChains, resolveDueConsequences } from '@/lib/cascade-engine'
+import { unlockAchievements } from '@/lib/achievements'
 import type { Headline } from '@/lib/headlines'
-import type { StatDelta } from '@/types/game'
+import type { StatDelta, GameOverReason } from '@/types/game'
 
 interface Params { params: Promise<{ id: string }> }
 
@@ -47,6 +48,7 @@ export async function POST(req: NextRequest, { params }: Params) {
   let effective: boolean
   let speechEffects: StatDelta
   let cascadeHeadlines: Headline[]
+  let gameOver: GameOverReason | null = null
   try {
     const speechResult = resolveSpeech(theme, game)
     effective = speechResult.effective
@@ -83,7 +85,7 @@ export async function POST(req: NextRequest, { params }: Params) {
       updatedAt:           new Date().toISOString(),
     }
 
-    const gameOver = checkGameOver(updatedGame)
+    gameOver = checkGameOver(updatedGame)
     if (gameOver) {
       updatedGame.status = gameOver === 'TERM_COMPLETE' ? 'COMPLETE' : 'GAMEOVER'
       updatedGame.legacyScore = computeLegacyScore(updatedGame).total
@@ -123,6 +125,7 @@ export async function POST(req: NextRequest, { params }: Params) {
   }
 
   const headline = generateSpeechHeadline(theme, effective)
+  const newAchievements = gameOver ? await unlockAchievements(session.user.id, updatedGame, gameOver) : []
 
   return NextResponse.json({
     game: updatedGame,
@@ -131,5 +134,6 @@ export async function POST(req: NextRequest, { params }: Params) {
     headline,
     cascadeHeadlines,
     nextEvent,
+    newAchievements,
   })
 }

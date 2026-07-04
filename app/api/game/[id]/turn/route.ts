@@ -3,8 +3,9 @@ import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { processEventTurn, pickEvent, isEventEligible, EVENTS } from '@/lib/game-engine'
 import { computePresidentialArchetype } from '@/lib/archetype-engine'
+import { unlockAchievements } from '@/lib/achievements'
 import { dbToGame, gameToDbUpdate, toJson } from '@/lib/db-helpers'
-import type { ProcessTurnRequest, GameLog } from '@/types/game'
+import type { ProcessTurnRequest, GameLog, Achievement } from '@/types/game'
 
 interface Params { params: Promise<{ id: string }> }
 
@@ -95,6 +96,7 @@ export async function POST(req: NextRequest, { params }: Params) {
   }
 
   let archetype = undefined
+  let newAchievements: Achievement[] = []
   if (result.gameOver) {
     const allLogs = await prisma.gameLog.findMany({
       where: { gameId: id },
@@ -113,7 +115,8 @@ export async function POST(req: NextRequest, { params }: Params) {
       createdAt:   l.createdAt.toISOString(),
     }))
     archetype = computePresidentialArchetype(result.updatedGame, gameLogs)
+    newAchievements = await unlockAchievements(session.user.id, result.updatedGame, result.gameOver)
   }
 
-  return NextResponse.json({ result: { ...result, archetype }, nextEvent })
+  return NextResponse.json({ result: { ...result, archetype, newAchievements }, nextEvent })
 }

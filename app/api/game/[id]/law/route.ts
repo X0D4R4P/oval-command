@@ -6,7 +6,9 @@ import { getLawById, resolveLawPassage, applyLawPassage, canUseNpcAbility } from
 import { computePassiveDrift, applyDelta, pickEvent, checkGameOver, computeLegacyScore } from '@/lib/game-engine'
 import { generateLawHeadline } from '@/lib/headlines'
 import { checkAndEnqueueChains, resolveDueConsequences } from '@/lib/cascade-engine'
+import { unlockAchievements } from '@/lib/achievements'
 import type { Headline } from '@/lib/headlines'
+import type { GameOverReason } from '@/types/game'
 
 interface Params { params: Promise<{ id: string }> }
 
@@ -66,6 +68,7 @@ export async function POST(req: NextRequest, { params }: Params) {
   let passageResult: ReturnType<typeof resolveLawPassage>
   let updatedGame: ReturnType<typeof applyLawPassage>
   let cascadeHeadlines: Headline[]
+  let gameOver: GameOverReason | null = null
   try {
     passageResult = resolveLawPassage(law, game, { useNpcAbility })
     updatedGame = applyLawPassage(game, law, passageResult)
@@ -107,7 +110,7 @@ export async function POST(req: NextRequest, { params }: Params) {
       updatedAt:           new Date().toISOString(),
     }
 
-    const gameOver = checkGameOver(updatedGame)
+    gameOver = checkGameOver(updatedGame)
     if (gameOver) {
       updatedGame.status = gameOver === 'TERM_COMPLETE' ? 'COMPLETE' : 'GAMEOVER'
       updatedGame.legacyScore = computeLegacyScore(updatedGame).total
@@ -148,6 +151,7 @@ export async function POST(req: NextRequest, { params }: Params) {
   }
 
   const headline = generateLawHeadline(law.title, law.category, passageResult.passed, passageResult.usedAbility)
+  const newAchievements = gameOver ? await unlockAchievements(session.user.id, updatedGame, gameOver) : []
 
   return NextResponse.json({
     game: updatedGame,
@@ -155,5 +159,6 @@ export async function POST(req: NextRequest, { params }: Params) {
     headline,
     cascadeHeadlines,
     nextEvent,
+    newAchievements,
   })
 }

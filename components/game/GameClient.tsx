@@ -16,6 +16,7 @@ import { SecondaryStats } from '@/components/game/SecondaryStats'
 import { LegislativeAlert } from '@/components/game/LegislativeAlert'
 import { RoomAtmosphere } from '@/components/game/RoomAtmosphere'
 import { RoomBackground, roomAccentStyle } from '@/components/game/RoomBackground'
+import { AchievementUnlockToast } from '@/components/game/AchievementUnlockToast'
 import { getEventAccentColor, getRoomTreatment } from '@/lib/event-backgrounds'
 import { computeLegacyScore, checkGameOver } from '@/lib/game-engine'
 import { getAdvisorRecommendations } from '@/lib/advisor-engine'
@@ -118,6 +119,11 @@ export function GameClient({ initialGame, initialEvent }: GameClientProps) {
           archetype={archetype}
           onNewGame={() => router.push('/new-game')}
         />
+        {view.phase === 'gameover' && (view.result.newAchievements?.length ?? 0) > 0 && (
+          <div className="mt-4">
+            <AchievementUnlockToast achievements={view.result.newAchievements ?? []} />
+          </div>
+        )}
         {game.approvalHistory.length >= 2 && (
           <div className="mt-4">
             <ApprovalChart approvalHistory={game.approvalHistory} />

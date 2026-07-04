@@ -17,6 +17,13 @@ export function SiteNav({ userName, userImage }: SiteNavProps) {
         </Link>
 
         <div className="flex items-center gap-3">
+          <Link
+            href="/achievements"
+            className="font-mono text-[10px] uppercase tracking-[0.05em] text-[var(--color-paper-faint)] transition-colors hover:text-[var(--color-brass)]"
+          >
+            Achievements
+          </Link>
+
           {userName && (
             <div className="flex items-center gap-2">
               {userImage ? (

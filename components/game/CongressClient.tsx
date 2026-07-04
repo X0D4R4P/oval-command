@@ -6,9 +6,10 @@ import { useSearchParams } from 'next/navigation'
 import { LawCard } from '@/components/game/LawCard'
 import { HeadlineTicker } from '@/components/game/HeadlineTicker'
 import { RoomBackground, roomAccentStyle } from '@/components/game/RoomBackground'
+import { AchievementUnlockToast } from '@/components/game/AchievementUnlockToast'
 import { getRoomTreatment } from '@/lib/event-backgrounds'
 import { cn } from '@/lib/utils'
-import type { Game, Law, Headline } from '@/types/game'
+import type { Game, Law, Headline, Achievement } from '@/types/game'
 
 interface LawWithOdds {
   law: Law
@@ -38,6 +39,7 @@ interface ProposeResult {
   usedAbility: string | null
   headline: Headline
   lawTitle: string
+  newAchievements: Achievement[]
 }
 
 export function CongressClient({ game, lawsWithOdds, canUseSenateAbility, canUseSpeakerAbility, pendingBriefingTitle }: CongressClientProps) {
@@ -103,6 +105,7 @@ export function CongressClient({ game, lawsWithOdds, canUseSenateAbility, canUse
         usedAbility: data.passageResult.usedAbility,
         headline: data.headline,
         lawTitle,
+        newAchievements: data.newAchievements ?? [],
       })
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong.')
@@ -147,6 +150,12 @@ export function CongressClient({ game, lawsWithOdds, canUseSenateAbility, canUse
             <div className="mt-5">
               <HeadlineTicker headlines={[result.headline]} />
             </div>
+
+            {result.newAchievements.length > 0 && (
+              <div className="mt-5 text-left">
+                <AchievementUnlockToast achievements={result.newAchievements} />
+              </div>
+            )}
 
             <Link
               href={`/game/${game.id}`}

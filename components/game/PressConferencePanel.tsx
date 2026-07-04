@@ -4,7 +4,9 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { SPEECH_THEMES } from '@/lib/address-nation'
+import { AchievementUnlockToast } from '@/components/game/AchievementUnlockToast'
 import type { SpeechTheme } from '@/lib/headlines'
+import type { Achievement } from '@/types/game'
 
 interface PressConferencePanelProps {
   gameId: string
@@ -15,6 +17,7 @@ interface SpeechResult {
   effective: boolean
   narrative: string
   headlineText: string
+  newAchievements: Achievement[]
 }
 
 export function PressConferencePanel({ gameId, pendingBriefingTitle }: PressConferencePanelProps) {
@@ -55,6 +58,7 @@ export function PressConferencePanel({ gameId, pendingBriefingTitle }: PressConf
         effective: data.effective,
         narrative: data.narrative,
         headlineText: data.headline.text,
+        newAchievements: data.newAchievements ?? [],
       })
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong.')
@@ -77,6 +81,11 @@ export function PressConferencePanel({ gameId, pendingBriefingTitle }: PressConf
         </span>
         <p className="mt-1.5 text-sm text-[var(--color-paper-dim)]">{result.narrative}</p>
         <p className="mt-2 text-[12px] italic text-[var(--color-paper-faint)]">“{result.headlineText}”</p>
+        {result.newAchievements.length > 0 && (
+          <div className="mt-3">
+            <AchievementUnlockToast achievements={result.newAchievements} />
+          </div>
+        )}
         <button
           onClick={() => router.push(`/game/${gameId}`)}
           className="mt-3 w-full rounded-sm border border-[var(--color-brass-dim)] bg-[var(--color-brass)] py-2.5 text-sm font-medium text-[var(--color-ink)] transition-opacity hover:opacity-90"

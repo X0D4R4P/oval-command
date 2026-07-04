@@ -3,8 +3,9 @@ import { Prisma } from '@prisma/client'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { createInitialGame, pickEvent } from '@/lib/game-engine'
+import { ALL_PERKS } from '@/lib/achievements'
 import { dbToGame, toJson } from '@/lib/db-helpers'
-import type { CreateGameRequest } from '@/types/game'
+import type { CreateGameRequest, UnlockedAchievement } from '@/types/game'
 
 export async function POST(req: NextRequest) {
   const session = await auth()
@@ -19,7 +20,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
   }
 
-  const { presidentName, party, difficulty = 'normal' } = body
+  const { presidentName, party, difficulty = 'normal', perkId } = body
 
   if (!presidentName?.trim() || presidentName.trim().length > 60) {
     return NextResponse.json({ error: 'President name must be 1–60 characters' }, { status: 400 })
@@ -31,7 +32,21 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid difficulty' }, { status: 400 })
   }
 
-  const initial = createInitialGame(session.user.id, presidentName.trim(), party, difficulty)
+  let perkBonus = undefined
+  if (perkId) {
+    const perk = ALL_PERKS.find(p => p.id === perkId)
+    if (!perk) {
+      return NextResponse.json({ error: 'Unknown perk' }, { status: 400 })
+    }
+    const user = await prisma.user.findUnique({ where: { id: session.user.id }, select: { unlockedAchievements: true } })
+    const unlockedIds = new Set(((user?.unlockedAchievements as unknown as UnlockedAchievement[]) ?? []).map(u => u.id))
+    if (!unlockedIds.has(perk.id)) {
+      return NextResponse.json({ error: 'This perk has not been unlocked' }, { status: 400 })
+    }
+    perkBonus = perk.statBonus
+  }
+
+  const initial = createInitialGame(session.user.id, presidentName.trim(), party, difficulty, perkBonus)
 
   let dbGame
   try {
@@ -57,11 +72,10 @@ export async function POST(req: NextRequest) {
       },
     })
   } catch (err) {
-    // The JWT session strategy means a signed-in browser tab stays "valid"
-    // even after its underlying User row is gone (e.g. an old guest account
-    // that was cleaned up) — Postgres then rejects the insert with a foreign
-    // key violation instead of an auth error. Surface a message that tells
-    // the player what to actually do instead of a generic failure.
+    // lib/auth.ts's jwt callback already invalidates sessions whose User row
+    // is gone, so this should be unreachable in practice — this only exists
+    // to catch the narrow race where the account is deleted (guest
+    // expiration) in the moments between that check and this insert.
     if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2003') {
       return NextResponse.json(
         { error: 'Your session has expired. Please sign out and sign back in to start a new term.' },

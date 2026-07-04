@@ -373,6 +373,7 @@ export interface TurnResult {
   headlines:    Headline[]
   gameOver?:    GameOverReason
   archetype?:   import('@/lib/archetype-engine').PresidentialArchetype
+  newAchievements?: Achievement[]
 }
 
 export interface LegacyScore {
@@ -392,6 +393,32 @@ export interface LegacyScore {
 }
 
 // ============================================================
+// ACHIEVEMENTS / UNLOCKABLES
+// ============================================================
+
+/** A small starting-stat bonus a player can select on future new games. */
+export interface Perk {
+  id:          string
+  label:       string
+  description: string
+  statBonus:   StatDelta
+}
+
+export interface Achievement {
+  id:          string
+  title:       string
+  description: string
+  icon:        string
+  perk?:       Perk
+}
+
+/** Shape persisted in User.unlockedAchievements (Json). */
+export interface UnlockedAchievement {
+  id:       string
+  earnedAt: string
+}
+
+// ============================================================
 // API SHAPES
 // ============================================================
 
@@ -399,6 +426,7 @@ export interface CreateGameRequest {
   presidentName: string
   party:         Party
   difficulty?:   Difficulty
+  perkId?:       string
 }
 
 export interface CreateGameResponse {

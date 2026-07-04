@@ -791,7 +791,8 @@ export function createInitialGame(
   userId: string,
   presidentName: string,
   party: Party,
-  difficulty: import('@/types/game').Difficulty = 'normal'
+  difficulty: import('@/types/game').Difficulty = 'normal',
+  perkBonus?: StatDelta
 ): Omit<Game, 'id' | 'createdAt' | 'updatedAt'> {
   const npcRelationships: Record<string, number> = Object.fromEntries(
     NPCS.map(npc => [npc.id, npc.relationship.start])
@@ -801,7 +802,10 @@ export function createInitialGame(
   const baseStats: GameStats = { ...INITIAL_STATS, ...(PARTY_STAT_MODS[party] ?? {}) }
 
   // Apply difficulty modifiers and clamp to valid ranges
-  const stats = applyDelta(baseStats, diffMods)
+  const afterDifficulty = applyDelta(baseStats, diffMods)
+  // Unlocked starting perk (see lib/achievements.ts) applies on top, same
+  // clamping/diminishing-returns pipeline as difficulty mods.
+  const stats = perkBonus ? applyDelta(afterDifficulty, perkBonus) : afterDifficulty
 
   return {
     userId,

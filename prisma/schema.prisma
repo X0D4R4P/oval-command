@@ -13,6 +13,7 @@ model User {
   emailVerified DateTime?
   image         String?
   createdAt     DateTime  @default(now())
+  unlockedAchievements Json @default("[]")
   accounts      Account[]
   sessions      Session[]
   games         Game[]
