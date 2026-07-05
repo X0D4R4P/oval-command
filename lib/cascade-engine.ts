@@ -26,16 +26,8 @@
  * after a chain last fired.
  */
 
-import type { Game, GameStats, StatDelta } from '@/types/game'
+import type { Game, GameStats, StatDelta, PendingConsequence } from '@/types/game'
 import type { Headline } from '@/lib/headlines'
-
-export interface PendingConsequence {
-  id:           string   // unique per enqueue, prevents duplicate firing
-  chain:        string   // identifies the causal chain, for de-dup / debugging
-  fireAtMonth:  number
-  effects:      StatDelta
-  headlineText: string
-}
 
 // ============================================================
 // THRESHOLD WATCHERS — decide what gets enqueued this turn

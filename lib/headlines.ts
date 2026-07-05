@@ -8,13 +8,9 @@
  * produce identical wording.
  */
 
-import type { EventCategory, StatDelta, LawCategory } from '@/types/game'
+import type { EventCategory, StatDelta, LawCategory, Headline } from '@/types/game'
 
-export interface Headline {
-  text: string
-  outlet: string
-  tone: 'positive' | 'negative' | 'neutral'
-}
+export type { Headline }
 
 const OUTLETS = [
   'The National Herald',

@@ -136,10 +136,9 @@ export interface LegislativeOpportunity {
 }
 
 /**
- * Shared "is this a good moment to push legislation" check — extracted
- * from components/game/LegislativeAlert.tsx so PresidentialInbox and the
- * Propose Legislation action card can reuse the exact same condition
- * instead of re-deriving it.
+ * Shared "is this a good moment to push legislation" check, reused by
+ * PresidentialInbox and the Propose Legislation action card so both
+ * derive the same condition instead of duplicating it.
  */
 export function getLegislativeOpportunity(game: Game): LegislativeOpportunity | null {
   const congressFavorable = game.stats.congressSupport > 55

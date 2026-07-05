@@ -58,7 +58,7 @@ const RESOLUTION_FLAGS = new Set([
   'war_defunded',
 ])
 
-export interface ConflictUpdateResult {
+interface ConflictUpdateResult {
   activeConflicts: ActiveConflict[]
   changes: Array<{ type: 'entered' | 'escalated' | 'deescalated' | 'resolved'; region: string }>
 }
@@ -131,9 +131,4 @@ export function updateActiveConflicts(
   }
 
   return { activeConflicts: conflicts, changes }
-}
-
-/** True if the game currently has any conflict at war-footing (level >= 3) */
-export function isAtActiveWar(game: Game): boolean {
-  return game.activeConflicts.some(c => c.level >= 3)
 }

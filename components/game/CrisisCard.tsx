@@ -7,7 +7,7 @@ import { getEventBackground, getEventAccentColor, getRoomTreatment } from '@/lib
 import { RoomBackground, roomAccentStyle } from './RoomBackground'
 import { CategoryTag } from './CategoryTag'
 import { IntelligenceBriefing } from './IntelligenceBriefing'
-import type { CrisisEvent, StatDelta } from '@/types/game'
+import type { CrisisEvent, StatDelta, GameStats } from '@/types/game'
 
 interface CrisisCardProps {
   event: CrisisEvent
@@ -19,7 +19,7 @@ interface CrisisCardProps {
 }
 
 function EffectPreview({ effects }: { effects: StatDelta }) {
-  const entries = Object.entries(effects).filter(([, v]) => v !== 0) as [string, number][]
+  const entries = Object.entries(effects).filter(([, v]) => v !== 0) as [keyof GameStats, number][]
   if (entries.length === 0) return null
 
   return (
@@ -34,7 +34,7 @@ function EffectPreview({ effects }: { effects: StatDelta }) {
               good ? 'text-[var(--color-good)]' : 'text-[var(--color-bad)]'
             )}
           >
-            {getStatLabel(key as never)} {formatDelta(key, value)}
+            {getStatLabel(key)} {formatDelta(key, value)}
           </span>
         )
       })}

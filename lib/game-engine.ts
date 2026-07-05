@@ -15,6 +15,7 @@ import {
   type LegacyScore,
   type GameOverReason,
   type Party,
+  type PendingConsequence,
 } from '@/types/game'
 
 import eventsRaw from '@/data/events.json'
@@ -341,8 +342,8 @@ export function isEventEligible(event: CrisisEvent, game: Game, opts: { ignoreRe
 
 // Rare, low-weight events double as "this is a big deal" narratively — weight
 // is otherwise used only for random-selection odds in weightedRandom() below.
-// Reused by the room-nav shell and CrisisCard to flag "breaking" events.
-export const BREAKING_EVENT_WEIGHT_THRESHOLD = 3
+// isBreakingEvent() below is what's reused by the room-nav shell and CrisisCard.
+const BREAKING_EVENT_WEIGHT_THRESHOLD = 3
 
 export function isBreakingEvent(event: CrisisEvent): boolean {
   return event.weight <= BREAKING_EVENT_WEIGHT_THRESHOLD
@@ -698,7 +699,7 @@ export function processEventTurn(
 
   // Merge choice-level delayed effects (e.g. "cut regulations now, pay later")
   // with the threshold-triggered cascade chains already in the queue.
-  const choiceDelayedConsequences: import('@/lib/cascade-engine').PendingConsequence[] =
+  const choiceDelayedConsequences: PendingConsequence[] =
     (choice.delayed_effects ?? []).map((d, i) => ({
       id:           `${event.id}-choice${choiceIndex}-delay${i}-month${game.currentMonth}`,
       chain:        `${event.id}_choice${choiceIndex}`,

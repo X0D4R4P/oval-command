@@ -84,6 +84,8 @@ model Game {
   updatedAt       DateTime   @updatedAt @db.Timestamp(3)
   user            User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   logs            GameLog[]
+
+  @@index([userId, updatedAt])
 }
 
 model GameLog {
@@ -98,6 +100,8 @@ model GameLog {
   narrative   String?
   createdAt   DateTime   @default(now())
   game        Game       @relation(fields: [gameId], references: [id], onDelete: Cascade)
+
+  @@index([gameId, month])
 }
 
 enum Party {

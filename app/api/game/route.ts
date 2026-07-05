@@ -4,8 +4,8 @@ import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { createInitialGame, pickEvent } from '@/lib/game-engine'
 import { ALL_PERKS } from '@/lib/achievements'
-import { dbToGame, toJson } from '@/lib/db-helpers'
-import type { CreateGameRequest, UnlockedAchievement } from '@/types/game'
+import { dbToGame, toJson, toUnlockedAchievements } from '@/lib/db-helpers'
+import type { CreateGameRequest } from '@/types/game'
 
 export async function POST(req: NextRequest) {
   const session = await auth()
@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Unknown perk' }, { status: 400 })
     }
     const user = await prisma.user.findUnique({ where: { id: session.user.id }, select: { unlockedAchievements: true } })
-    const unlockedIds = new Set(((user?.unlockedAchievements as unknown as UnlockedAchievement[]) ?? []).map(u => u.id))
+    const unlockedIds = new Set(toUnlockedAchievements(user?.unlockedAchievements).map(u => u.id))
     if (!unlockedIds.has(perk.id)) {
       return NextResponse.json({ error: 'This perk has not been unlocked' }, { status: 400 })
     }

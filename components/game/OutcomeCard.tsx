@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { cn, formatDelta, isDeltaGood, getStatLabel } from '@/lib/utils'
 import { NPCS } from '@/lib/game-engine'
-import type { StatDelta, NpcReactionResult } from '@/types/game'
+import type { StatDelta, NpcReactionResult, GameStats } from '@/types/game'
 
 interface OutcomeCardProps {
   narrative: string
@@ -20,7 +20,7 @@ export function OutcomeCard({
   nextMonth,
   isGameOver,
 }: OutcomeCardProps) {
-  const entries = Object.entries(effects).filter(([, v]) => v !== 0) as [string, number][]
+  const entries = Object.entries(effects).filter(([, v]) => v !== 0) as [keyof GameStats, number][]
 
   return (
     <div className="rounded-sm border border-[var(--color-border-strong)] bg-[var(--color-surface)] backdrop-blur-sm">
@@ -47,7 +47,7 @@ export function OutcomeCard({
                       : 'bg-[var(--color-bad-dim)] text-[var(--color-bad)]'
                   )}
                 >
-                  {getStatLabel(key as never)} {formatDelta(key, value)}
+                  {getStatLabel(key)} {formatDelta(key, value)}
                 </span>
               )
             })}

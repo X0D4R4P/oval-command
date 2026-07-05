@@ -3,7 +3,7 @@ import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { ACHIEVEMENTS } from '@/lib/achievements'
 import { NewGameForm } from '@/components/NewGameForm'
-import type { UnlockedAchievement } from '@/types/game'
+import { toUnlockedAchievements } from '@/lib/db-helpers'
 
 export default async function NewGamePage() {
   const session = await auth()
@@ -14,7 +14,7 @@ export default async function NewGamePage() {
     select: { unlockedAchievements: true },
   })
 
-  const unlockedIds = new Set(((user?.unlockedAchievements as unknown as UnlockedAchievement[]) ?? []).map(u => u.id))
+  const unlockedIds = new Set(toUnlockedAchievements(user?.unlockedAchievements).map(u => u.id))
   const unlockedPerks = ACHIEVEMENTS.filter(a => a.perk && unlockedIds.has(a.id)).map(a => a.perk!)
 
   return <NewGameForm unlockedPerks={unlockedPerks} />

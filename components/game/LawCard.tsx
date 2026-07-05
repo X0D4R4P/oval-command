@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { cn, formatDelta, isDeltaGood, getStatLabel } from '@/lib/utils'
-import type { Law, LawCategory } from '@/types/game'
+import type { Law, LawCategory, GameStats } from '@/types/game'
 
 const LAW_CATEGORY_ICON: Record<LawCategory, { icon: string; color: string }> = {
   progressive: { icon: '/icons/cat_social.png',   color: 'var(--color-cat-social)' },
@@ -48,7 +48,7 @@ export function LawCard({
   pendingProposal,
   pendingBriefingTitle,
 }: LawCardProps) {
-  const onPassEntries = Object.entries(law.effects.onPass).filter(([, v]) => v !== 0) as [string, number][]
+  const onPassEntries = Object.entries(law.effects.onPass).filter(([, v]) => v !== 0) as [keyof GameStats, number][]
   const costInfo = COST_LABEL[law.cost]
   const catInfo = LAW_CATEGORY_ICON[law.category]
 
@@ -96,7 +96,7 @@ export function LawCard({
                 : 'bg-[var(--color-bad-dim)] text-[var(--color-bad)]'
             )}
           >
-            {getStatLabel(key as never)} {formatDelta(key, value)}
+            {getStatLabel(key)} {formatDelta(key, value)}
           </span>
         ))}
       </div>

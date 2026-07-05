@@ -4,7 +4,7 @@ import { prisma } from '@/lib/prisma'
 import { SiteNav } from '@/components/SiteNav'
 import { ACHIEVEMENTS } from '@/lib/achievements'
 import { cn } from '@/lib/utils'
-import type { UnlockedAchievement } from '@/types/game'
+import { toUnlockedAchievements } from '@/lib/db-helpers'
 
 export default async function AchievementsPage() {
   const session = await auth()
@@ -15,7 +15,7 @@ export default async function AchievementsPage() {
     select: { unlockedAchievements: true },
   })
 
-  const unlocked = (user?.unlockedAchievements as unknown as UnlockedAchievement[]) ?? []
+  const unlocked = toUnlockedAchievements(user?.unlockedAchievements)
   const unlockedById = new Map(unlocked.map(u => [u.id, u]))
 
   return (

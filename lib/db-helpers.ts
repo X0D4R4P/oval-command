@@ -3,7 +3,7 @@
  * Centralised here so API routes stay thin and the conversion logic
  * lives in one place to update.
  */
-import type { Game, GameLog, ActionType } from '@/types/game'
+import type { Game, GameLog, ActionType, UnlockedAchievement } from '@/types/game'
 
 // Prisma row shapes (mirrors schema.prisma — keep in sync)
 interface DbGame {
@@ -90,6 +90,11 @@ export function dbToGameLog(row: DbGameLog): GameLog {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function toJson(value: unknown): any {
   return value
+}
+
+/** Read the User.unlockedAchievements Json column back into its real shape */
+export function toUnlockedAchievements(value: unknown): UnlockedAchievement[] {
+  return (value as UnlockedAchievement[] | null) ?? []
 }
 
 /** Extract only the fields that change on every turn update */

@@ -109,7 +109,7 @@ export default async function HistoryPage({ params }: PageProps) {
           const event = log.eventId ? EVENTS.find(e => e.id === log.eventId) : undefined
           const law = log.lawId ? LAWS.find(l => l.id === log.lawId) : undefined
           const title = event?.title ?? law?.title ?? ACTION_LABEL[log.actionType] ?? log.actionType
-          const deltas = Object.entries(log.statDeltas as Record<string, number>).filter(([, v]) => v !== 0)
+          const deltas = Object.entries(log.statDeltas as Partial<Record<keyof GameStats, number>>).filter(([, v]) => v !== 0) as [keyof GameStats, number][]
 
           return (
             <div key={log.id} className="relative pb-6 last:pb-0">
@@ -143,7 +143,7 @@ export default async function HistoryPage({ params }: PageProps) {
                         isDeltaGood(key, value) ? 'text-[var(--color-good)]' : 'text-[var(--color-bad)]'
                       )}
                     >
-                      {getStatLabel(key as never)} {formatDelta(key, value)}
+                      {getStatLabel(key)} {formatDelta(key, value)}
                     </span>
                   ))}
                 </div>

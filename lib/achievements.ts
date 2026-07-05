@@ -13,7 +13,7 @@
 
 import { prisma } from '@/lib/prisma'
 import { LAWS, computeLegacyScore } from '@/lib/game-engine'
-import { toJson } from '@/lib/db-helpers'
+import { toJson, toUnlockedAchievements } from '@/lib/db-helpers'
 import type { Game, GameOverReason, LegacyScore, LawCategory, Achievement, UnlockedAchievement } from '@/types/game'
 
 export const ACHIEVEMENTS: Achievement[] = [
@@ -139,7 +139,7 @@ export async function unlockAchievements(userId: string, game: Game, reason: Gam
   const user = await prisma.user.findUnique({ where: { id: userId }, select: { unlockedAchievements: true } })
   if (!user) return []
 
-  const existing = (user.unlockedAchievements as unknown as UnlockedAchievement[]) ?? []
+  const existing = toUnlockedAchievements(user.unlockedAchievements)
   const existingIds = new Set(existing.map(e => e.id))
   const newlyEarned = earned.filter(a => !existingIds.has(a.id))
   if (newlyEarned.length === 0) return []

@@ -2,9 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
-import { toJson } from '@/lib/db-helpers'
+import { toJson, toUnlockedAchievements } from '@/lib/db-helpers'
 import { LINK_COOKIE_NAME } from '@/lib/link-cookie'
-import type { UnlockedAchievement } from '@/types/game'
 
 /**
  * Lands here right after a guest completes GitHub/Google OAuth via
@@ -48,8 +47,8 @@ export async function GET(req: NextRequest) {
     select: { unlockedAchievements: true },
   })
 
-  const oldAchievements = (oldGuest.unlockedAchievements as unknown as UnlockedAchievement[]) ?? []
-  const newAchievements = (newUser?.unlockedAchievements as unknown as UnlockedAchievement[]) ?? []
+  const oldAchievements = toUnlockedAchievements(oldGuest.unlockedAchievements)
+  const newAchievements = toUnlockedAchievements(newUser?.unlockedAchievements)
   const existingIds = new Set(newAchievements.map(a => a.id))
   const mergedAchievements = [...newAchievements, ...oldAchievements.filter(a => !existingIds.has(a.id))]
 
