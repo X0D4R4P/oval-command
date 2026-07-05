@@ -18,9 +18,11 @@
   --color-brass-dim:   #8A6B3F;
 
   /* ── Status ───────────────────────────────────────────── */
-  /* Brightened from the original #4A7C66 — reused for both stat-tone
-     ("good") AND the new bottom-nav active/selected state, which needed
-     more punch than the original muted federal green had. */
+  /* Brightened from the original #4A7C66 for more punch on stat tones
+     (StatCard, ApprovalGauge, trend arrows). Brass — not green — is the
+     app's "selected/important" signature color (bottom nav active state,
+     headings, advisor names); green stays purely semantic ("this number
+     is good"). */
   --color-good:        #3FAE7A;
   --color-good-dim:    #2E4D40;
   --color-warn:        #B8863D; /* amber */

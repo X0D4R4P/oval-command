@@ -69,6 +69,17 @@ export function RoomBackground({
         style={{ background: 'rgba(10,7,4,0.70)' }}
       />
 
+      {/* Spotlight — darkens the center column (where the readable content
+          sits) further than the edges, without reintroducing the "bright
+          edges at some scroll positions" bug the flat scrim above was built
+          to fix: this gradient only varies left-to-right, never top-to-
+          bottom, so it reads identically regardless of vertical scroll
+          position. Purely horizontal by design. */}
+      <div
+        className="pointer-events-none fixed inset-0 -z-10"
+        style={{ background: 'linear-gradient(to right, transparent 0%, rgba(5,3,2,0.32) 22%, rgba(5,3,2,0.32) 78%, transparent 100%)' }}
+      />
+
       {foreground?.style === 'desk' && <DeskEdge color={foreground.color} />}
       {foreground?.style === 'chairs' && <ChairBacks color={foreground.color} />}
       {foreground?.style === 'columns' && <ColumnFrame color={foreground.color} />}

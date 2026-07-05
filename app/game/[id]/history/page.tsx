@@ -60,7 +60,7 @@ export default async function HistoryPage({ params }: PageProps) {
   const treatment = getRoomTreatment('/press-room-bg.webp')
 
   return (
-    <main className="mx-auto max-w-2xl px-6 py-10" style={roomAccentStyle('var(--color-cat-scandal)')}>
+    <main className="mx-auto max-w-3xl px-6 py-10" style={roomAccentStyle('var(--color-cat-scandal)')}>
       <RoomBackground
         image="/press-room-bg.webp"
         color="var(--color-cat-scandal)"

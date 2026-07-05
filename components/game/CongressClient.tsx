@@ -117,7 +117,7 @@ export function CongressClient({ game, lawsWithOdds, canUseSenateAbility, canUse
 
   if (result) {
     return (
-      <main className="mx-auto max-w-2xl px-6 py-12" style={roomAccentStyle('var(--color-cat-congress)')}>
+      <main className="mx-auto max-w-3xl px-6 py-12" style={roomAccentStyle('var(--color-cat-congress)')}>
         <RoomBackground
           image="/congress-bg.webp"
           color="var(--color-cat-congress)"
@@ -170,7 +170,7 @@ export function CongressClient({ game, lawsWithOdds, canUseSenateAbility, canUse
   }
 
   return (
-    <main className="mx-auto max-w-2xl px-6 py-10" style={roomAccentStyle('var(--color-cat-congress)')}>
+    <main className="mx-auto max-w-3xl px-6 py-10" style={roomAccentStyle('var(--color-cat-congress)')}>
       <RoomBackground
         image="/congress-bg.webp"
         color="var(--color-cat-congress)"

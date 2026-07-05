@@ -40,7 +40,7 @@ export default async function GovernmentOverviewPage({ params }: PageProps) {
   ) as Record<keyof GameStats, ReturnType<typeof computeStatTrend>>
 
   return (
-    <main className="mx-auto max-w-2xl px-6 py-10">
+    <main className="mx-auto max-w-3xl px-6 py-10">
       <Link
         href={`/game/${game.id}`}
         className="font-mono text-[10px] uppercase tracking-[0.1em] text-[var(--color-paper-faint)] hover:text-[var(--color-paper)]"

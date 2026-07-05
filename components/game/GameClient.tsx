@@ -123,7 +123,7 @@ export function GameClient({ initialGame, initialEvent, recentLogs: initialRecen
     const archetype = view.phase === 'gameover' ? view.result.archetype : undefined
     const gameoverTreatment = getRoomTreatment('/oval-office-bg.webp')
     return (
-      <main className="mx-auto max-w-2xl px-6 py-12" style={roomAccentStyle('var(--color-brass)')}>
+      <main className="mx-auto max-w-3xl px-6 py-12" style={roomAccentStyle('var(--color-brass)')}>
         <RoomBackground
           image="/oval-office-bg.webp"
           color="var(--color-brass)"
@@ -179,7 +179,7 @@ export function GameClient({ initialGame, initialEvent, recentLogs: initialRecen
   const topAdvisorNpc = topAdvisorRec ? NPCS.find(n => n.id === topAdvisorRec.npcId) : undefined
 
   return (
-    <main className="mx-auto max-w-2xl px-6 py-10" style={roomAccentStyle(accentColor)}>
+    <main className="mx-auto max-w-3xl px-6 py-10" style={roomAccentStyle(accentColor)}>
       <RoomAtmosphere color="var(--color-brass)" />
 
       {view.phase === 'briefing' && (
@@ -242,13 +242,16 @@ export function GameClient({ initialGame, initialEvent, recentLogs: initialRecen
 
       {/* 3. Choose Your Presidential Action — visually distinct from the
           bottom nav's free room navigation: these are the things that
-          consume this month's turn. */}
+          consume this month's turn. The live crisis briefing renders
+          directly beneath its own card (not after the other two cards and
+          the advisor/inbox sections) so responding to it doesn't feel
+          disconnected from choosing to. */}
       {view.phase === 'briefing' && (
         <div className="mt-8">
           <div className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--color-paper-faint)]">
             Choose Your Presidential Action
           </div>
-          <div className="mt-3 space-y-2.5">
+          <div className="mt-3">
             <ActionCard
               icon={ShieldAlert}
               title="Respond to Crisis"
@@ -257,6 +260,22 @@ export function GameClient({ initialGame, initialEvent, recentLogs: initialRecen
               tag={crisisTag}
               href={`/game/${game.id}`}
             />
+          </div>
+
+          {event && (
+            <div className="mt-3">
+              <CrisisCard
+                event={event}
+                month={game.currentMonth}
+                gameId={game.id}
+                flags={game.flags}
+                onChoose={handleChoice}
+                disabled={submitting}
+              />
+            </div>
+          )}
+
+          <div className="mt-5 space-y-2.5">
             <ActionCard
               icon={Gavel}
               title="Propose Legislation"
@@ -302,7 +321,7 @@ export function GameClient({ initialGame, initialEvent, recentLogs: initialRecen
                 </div>
               )}
               <div className="min-w-0 flex-1">
-                <span className="text-sm font-medium text-[var(--color-paper)]">{topAdvisorRec.npcName}</span>
+                <span className="text-sm font-medium text-[var(--color-brass)]">{topAdvisorRec.npcName}</span>
                 <p className="mt-1 text-sm italic leading-snug text-[var(--color-paper-dim)]">
                   “{topAdvisorRec.detail}”
                 </p>
@@ -330,17 +349,6 @@ export function GameClient({ initialGame, initialEvent, recentLogs: initialRecen
       )}
 
       <div className="mt-6">
-        {view.phase === 'briefing' && event && (
-          <CrisisCard
-            event={event}
-            month={game.currentMonth}
-            gameId={game.id}
-            flags={game.flags}
-            onChoose={handleChoice}
-            disabled={submitting}
-          />
-        )}
-
         {view.phase === 'outcome' && (
           <OutcomeCard
             narrative={view.result.log.narrative ?? ''}

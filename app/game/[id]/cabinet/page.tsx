@@ -48,7 +48,7 @@ export default async function CabinetPage({ params }: PageProps) {
   const treatment = getRoomTreatment('/cabinet-room-bg.webp')
 
   return (
-    <main className="mx-auto max-w-2xl px-6 py-10" style={roomAccentStyle('var(--color-brass)')}>
+    <main className="mx-auto max-w-3xl px-6 py-10" style={roomAccentStyle('var(--color-brass)')}>
       <RoomBackground
         image="/cabinet-room-bg.webp"
         color="var(--color-brass)"

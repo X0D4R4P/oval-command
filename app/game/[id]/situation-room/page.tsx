@@ -33,7 +33,7 @@ export default async function SituationRoomPage({ params }: PageProps) {
   const treatment = getRoomTreatment('/situation-room-bg.webp')
 
   return (
-    <main className="mx-auto max-w-2xl px-6 py-10" style={roomAccentStyle('var(--color-cat-military)')}>
+    <main className="mx-auto max-w-3xl px-6 py-10" style={roomAccentStyle('var(--color-cat-military)')}>
       <RoomBackground
         image="/situation-room-bg.webp"
         color="var(--color-cat-military)"

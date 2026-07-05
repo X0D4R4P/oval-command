@@ -66,7 +66,7 @@ export function RoomNav({ gameId, breakingEvent }: { gameId: string; breakingEve
               className={cn(
                 'flex min-w-0 flex-1 flex-col items-center gap-0.5 rounded-full px-2 py-1.5 transition-colors',
                 isActive
-                  ? 'bg-[var(--color-good)] text-[var(--color-ink)]'
+                  ? 'bg-[var(--color-brass)] text-[var(--color-ink)]'
                   : 'text-[var(--color-paper-faint)] hover:text-[var(--color-paper)]'
               )}
             >
