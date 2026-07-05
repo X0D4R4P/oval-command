@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils'
 import { Seal } from '@/components/Seal'
+import { ShareButton } from '@/components/ShareButton'
 import type { LegacyScore, GameOverReason } from '@/types/game'
 import type { PresidentialArchetype } from '@/lib/archetype-engine'
 
@@ -67,6 +68,13 @@ export function LegacyScreen({ legacy, reason, presidentName, archetype, onNewGa
           <p className="mx-auto mt-5 max-w-sm text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
             {legacy.verdict}
           </p>
+
+          {archetype && (
+            <ShareButton
+              className="mt-4"
+              text={`I was ${archetype.icon} ${archetype.title} as President ${presidentName} — Legacy Score ${legacy.total}/100. ${archetype.subtitle}`}
+            />
+          )}
 
           {archetype && (
             <div className="mx-auto mt-6 max-w-sm rounded-sm border border-[var(--color-border-strong)] bg-[var(--color-surface-2)] px-5 py-5 text-left backdrop-blur-sm">
