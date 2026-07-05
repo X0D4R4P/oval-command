@@ -3,6 +3,7 @@ import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { dbToGame, dbToGameLog } from '@/lib/db-helpers'
 import { pickEvent, EVENTS } from '@/lib/game-engine'
+import { getInactivityWarning } from '@/lib/guest-cleanup'
 import { GameClient } from '@/components/game/GameClient'
 
 interface PageProps {
@@ -49,5 +50,18 @@ export default async function GamePage({ params }: PageProps) {
   })
   const recentLogs = recentLogRows.map(dbToGameLog)
 
-  return <GameClient initialGame={game} initialEvent={currentEvent} recentLogs={recentLogs} />
+  // Guest sessions are the only ones subject to expiration — session.user.name
+  // is 'Guest' for exactly the accounts lib/guest-cleanup.ts targets, so this
+  // reuses a signal already present on the session rather than a new query.
+  const isGuest = session.user.name === 'Guest'
+  const inactivityWarning = isGuest ? getInactivityWarning(row.updatedAt) : null
+
+  return (
+    <GameClient
+      initialGame={game}
+      initialEvent={currentEvent}
+      recentLogs={recentLogs}
+      inactivityWarning={inactivityWarning}
+    />
+  )
 }

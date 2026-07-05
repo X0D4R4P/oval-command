@@ -20,18 +20,21 @@ import { ActionCard, type ActionCardTag } from '@/components/game/ActionCard'
 import { PresidentialInbox } from '@/components/game/PresidentialInbox'
 import { DailyBrief } from '@/components/game/DailyBrief'
 import { OnboardingWelcome } from '@/components/game/OnboardingWelcome'
+import { GuestExpiryWarning } from '@/components/game/GuestExpiryWarning'
 import { getEventAccentColor, getRoomTreatment } from '@/lib/event-backgrounds'
 import { computeLegacyScore, checkGameOver, isBreakingEvent, computePassProbability, NPCS } from '@/lib/game-engine'
 import { getLegislativeOpportunity } from '@/lib/law-engine'
 import { getAdvisorRecommendations } from '@/lib/advisor-engine'
 import { computeStatTrend, getTopMovers } from '@/lib/stat-trends'
 import { cn, monthToDate, AVATAR_COLORS } from '@/lib/utils'
+import type { InactivityWarning } from '@/lib/guest-cleanup'
 import type { Game, GameLog, CrisisEvent, TurnResult, ProcessTurnResponse } from '@/types/game'
 
 interface GameClientProps {
   initialGame: Game
   initialEvent: CrisisEvent | null
   recentLogs: GameLog[]
+  inactivityWarning: InactivityWarning | null
 }
 
 type ViewState =
@@ -46,7 +49,7 @@ const SEVERITY_DOT: Record<string, string> = {
   opportunity: 'bg-[var(--color-good)]',
 }
 
-export function GameClient({ initialGame, initialEvent, recentLogs: initialRecentLogs }: GameClientProps) {
+export function GameClient({ initialGame, initialEvent, recentLogs: initialRecentLogs, inactivityWarning }: GameClientProps) {
   const router = useRouter()
   const [game, setGame] = useState(initialGame)
   const [event, setEvent] = useState(initialEvent)
@@ -205,6 +208,12 @@ export function GameClient({ initialGame, initialEvent, recentLogs: initialRecen
       {view.phase === 'briefing' && (
         <div className="mt-4">
           <OnboardingWelcome />
+        </div>
+      )}
+
+      {view.phase === 'briefing' && inactivityWarning && (
+        <div className="mt-4">
+          <GuestExpiryWarning warning={inactivityWarning} />
         </div>
       )}
 

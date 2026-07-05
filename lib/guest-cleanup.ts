@@ -4,7 +4,33 @@ import { prisma } from '@/lib/prisma'
 // a persistence guarantee. 14 days is long enough that a normal
 // multi-session player never loses progress, short enough to actually
 // bound the User table's growth over time.
-const EXPIRY_DAYS = 14
+export const EXPIRY_DAYS = 14
+
+// How many days before the actual cutoff a returning guest sees an
+// in-game warning that their administration is at risk.
+const WARNING_WINDOW_DAYS = 4
+
+export interface InactivityWarning {
+  daysInactive: number
+  daysRemaining: number
+}
+
+/**
+ * Returns a warning if a guest's game hasn't been touched recently enough
+ * that it's approaching (but hasn't yet hit) the expiration cutoff — null
+ * otherwise. Pure/synchronous: takes the timestamp the caller already has
+ * (Game.updatedAt), no extra query. There's deliberately no "sign in to
+ * save this" recovery path offered here — this codebase has no guest-to-
+ * OAuth account migration, so signing in mid-game would create a separate,
+ * empty account rather than preserve this one. The honest message is just
+ * "keep playing," not a fix that doesn't exist yet.
+ */
+export function getInactivityWarning(lastActivity: Date): InactivityWarning | null {
+  const daysInactive = Math.floor((Date.now() - lastActivity.getTime()) / (24 * 60 * 60 * 1000))
+  const daysRemaining = EXPIRY_DAYS - daysInactive
+  if (daysRemaining <= 0 || daysRemaining > WARNING_WINDOW_DAYS) return null
+  return { daysInactive, daysRemaining }
+}
 
 /**
  * Deletes Guest accounts that have been inactive for EXPIRY_DAYS — either
