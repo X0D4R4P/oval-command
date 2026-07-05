@@ -98,6 +98,34 @@ export const ACHIEVEMENTS: Achievement[] = [
 
 export const ALL_PERKS = ACHIEVEMENTS.flatMap(a => (a.perk ? [a.perk] : []))
 
+export interface AchievementProgress {
+  current: number
+  target:  number
+}
+
+/**
+ * Progress toward locked achievements, computed from a player's current
+ * ACTIVE game — only for the achievements reducible to a single "current
+ * climbing toward a fixed target" number. Deliberately excludes: compound
+ * conditions (peacemaker needs both zero conflicts AND reputation ≥70),
+ * outcome-gated ones that only resolve at the end of a term
+ * (two_term_president, battle_tested, spotless_record), the one
+ * inverted "lower is better" condition (domestic_tranquility), and the
+ * achievement for a bad ending (removed_from_office) — a progress bar
+ * toward getting impeached doesn't read as an achievement bar.
+ */
+export function computeAchievementProgress(game: Game): Record<string, AchievementProgress> {
+  const bipartisanPassed = LAWS.filter(l => game.passedLaws.includes(l.id) && l.category === 'bipartisan').length
+
+  return {
+    legislative_powerhouse: { current: Math.min(game.passedLaws.length, 8), target: 8 },
+    bridge_builder:         { current: Math.min(bipartisanPassed, 3), target: 3 },
+    boom_economy:           { current: Math.min(Math.round(game.stats.economy), 80), target: 80 },
+    fortress:               { current: Math.min(Math.round(game.stats.security), 80), target: 80 },
+    full_term_survivor:     { current: game.currentMonth, target: 48 },
+  }
+}
+
 interface AchievementContext {
   game:               Game
   reason:             GameOverReason

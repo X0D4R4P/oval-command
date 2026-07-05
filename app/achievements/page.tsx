@@ -2,9 +2,9 @@ import { redirect } from 'next/navigation'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { SiteNav } from '@/components/SiteNav'
-import { ACHIEVEMENTS } from '@/lib/achievements'
+import { ACHIEVEMENTS, computeAchievementProgress } from '@/lib/achievements'
 import { cn } from '@/lib/utils'
-import { toUnlockedAchievements } from '@/lib/db-helpers'
+import { dbToGame, toUnlockedAchievements } from '@/lib/db-helpers'
 
 export default async function AchievementsPage() {
   const session = await auth()
@@ -17,6 +17,15 @@ export default async function AchievementsPage() {
 
   const unlocked = toUnlockedAchievements(user?.unlockedAchievements)
   const unlockedById = new Map(unlocked.map(u => [u.id, u]))
+
+  // Progress bars reflect whichever ACTIVE game the player touched most
+  // recently — if they have several in progress, that's the one they're
+  // actually mid-decision on right now.
+  const activeGameRow = await prisma.game.findFirst({
+    where: { userId: session.user.id, status: 'ACTIVE' },
+    orderBy: { updatedAt: 'desc' },
+  })
+  const progress = activeGameRow ? computeAchievementProgress(dbToGame(activeGameRow)) : null
 
   return (
     <>
@@ -38,6 +47,7 @@ export default async function AchievementsPage() {
           {ACHIEVEMENTS.map(a => {
             const earned = unlockedById.get(a.id)
             const isUnlocked = Boolean(earned)
+            const prog = !isUnlocked ? progress?.[a.id] : undefined
             return (
               <div
                 key={a.id}
@@ -66,6 +76,19 @@ export default async function AchievementsPage() {
                       )}
                     </div>
                     <p className="mt-1 text-xs text-[var(--color-paper-faint)]">{a.description}</p>
+                    {prog && (
+                      <div className="mt-2">
+                        <div className="h-1.5 w-full overflow-hidden rounded-full bg-[var(--color-surface-2)]">
+                          <div
+                            className="h-full rounded-full bg-[var(--color-brass)]"
+                            style={{ width: `${Math.min(100, (prog.current / prog.target) * 100)}%` }}
+                          />
+                        </div>
+                        <p className="mt-1 font-mono text-[10px] text-[var(--color-paper-faint)]">
+                          {prog.current} / {prog.target}
+                        </p>
+                      </div>
+                    )}
                     {isUnlocked && earned && (
                       <p className="mt-1 font-mono text-[10px] text-[var(--color-paper-faint)]">
                         Earned {new Date(earned.earnedAt).toLocaleDateString()}
