@@ -87,7 +87,10 @@ export function CrisisCard({ event, month, gameId, flags, onChoose, disabled }: 
           </span>
         </div>
 
-        <h2 className="mt-3 font-[family-name:var(--font-display)] text-xl font-semibold leading-snug text-[var(--color-paper)]">
+        <h2 className={cn(
+          'mt-3 font-[family-name:var(--font-display)] text-xl font-semibold leading-snug text-[var(--color-paper)]',
+          breaking && 'animate-breaking-title'
+        )}>
           {event.title}
         </h2>
 

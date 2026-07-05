@@ -1,10 +1,14 @@
 import type { Metadata } from 'next'
-import { Source_Serif_4, Inter, JetBrains_Mono } from 'next/font/google'
+import { Cinzel, Inter, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 
-const sourceSerif = Source_Serif_4({
+// Ceremonial/presidential display face — engraved-monument, official-seal
+// feel for section titles and historic moments (Legacy screen, Daily
+// Brief, room names, "You are the President."). Used sparingly by design;
+// Inter carries the other ~90% of the UI.
+const cinzel = Cinzel({
   subsets: ['latin'],
-  variable: '--font-source-serif',
+  variable: '--font-cinzel',
   weight: ['500', '600', '700'],
 })
 
@@ -35,7 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${sourceSerif.variable} ${inter.variable} ${jetbrainsMono.variable} h-full`}
+      className={`${cinzel.variable} ${inter.variable} ${jetbrainsMono.variable} h-full`}
     >
       <body className="min-h-full antialiased">{children}</body>
     </html>

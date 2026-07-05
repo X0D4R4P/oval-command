@@ -54,8 +54,8 @@ export function DailyBrief({ gameId, month, monthLabel, approvalDelta, topMovers
       onClick={() => setVisible(false)}
       className="fixed inset-0 z-50 flex cursor-pointer flex-col items-center justify-center bg-[var(--color-ink)]/95 backdrop-blur-sm"
     >
-      <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--color-brass)]">
-        Daily Brief
+      <div className="animate-typewriter font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--color-brass)]">
+        Presidential Daily Brief
       </div>
       <div className="mt-3 font-[family-name:var(--font-display)] text-2xl font-semibold text-[var(--color-paper)]">
         {monthLabel}
