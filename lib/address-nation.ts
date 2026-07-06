@@ -16,6 +16,8 @@ export const SPEECH_THEMES: SpeechThemeMeta[] = [
   { id: 'security', label: 'Project Strength on Security', description: 'Show the country — and the world — that you’re in command.' },
   { id: 'unity', label: 'Call for National Unity', description: 'Ask a divided country to come together.' },
   { id: 'record', label: 'Defend Your Record', description: 'Make the case for what your administration has accomplished.' },
+  { id: 'diplomacy', label: 'Reaffirm America’s Global Leadership', description: 'Tell the world where America stands.' },
+  { id: 'reform', label: 'Promise to Fix a Broken Congress', description: 'Make the case that gridlock has a cure.' },
 ]
 
 /**
@@ -47,6 +49,14 @@ export function resolveSpeech(theme: SpeechTheme, game: Game): { effects: StatDe
     case 'record': {
       const effective = game.passedLaws.length >= 3
       return { effective, effects: effective ? { approval: 5, baseSupport: 4 } : { approval: -1, mediaScore: -1 } }
+    }
+    case 'diplomacy': {
+      const effective = game.stats.globalReputation >= 50
+      return { effective, effects: effective ? { globalReputation: 5, approval: 2 } : { globalReputation: -2, approval: -2 } }
+    }
+    case 'reform': {
+      const effective = game.stats.congressSupport >= 50
+      return { effective, effects: effective ? { congressSupport: 4, approval: 3 } : { congressSupport: -2, approval: -3 } }
     }
   }
 }

@@ -273,7 +273,7 @@ export function maybeApprovalTrendHeadline(
 
 // ── Address the Nation headlines ────────────────────────────
 
-export type SpeechTheme = 'economy' | 'security' | 'unity' | 'record'
+export type SpeechTheme = 'economy' | 'security' | 'unity' | 'record' | 'diplomacy' | 'reform'
 
 const SPEECH_TEMPLATES: Record<SpeechTheme, { effective: string[]; hollow: string[] }> = {
   economy: {
@@ -314,6 +314,26 @@ const SPEECH_TEMPLATES: Record<SpeechTheme, { effective: string[]; hollow: strin
     hollow: [
       'President’s defense of a thin record draws open mockery',
       'Address on accomplishments met with "what accomplishments?" from critics',
+    ],
+  },
+  diplomacy: {
+    effective: [
+      'President’s address on global leadership draws praise from allies abroad',
+      'Speech reaffirming America’s global role lands as intended',
+    ],
+    hollow: [
+      'Address on global leadership rings hollow after a string of setbacks abroad',
+      'Allies unmoved by speech on America’s world standing',
+    ],
+  },
+  reform: {
+    effective: [
+      'President’s call to fix a broken Congress resonates with a frustrated public',
+      'Address on congressional reform draws rare bipartisan nods',
+    ],
+    hollow: [
+      'Reform speech falls flat given the President’s own gridlock with Congress',
+      'Address on fixing Congress met with "physician, heal thyself" from critics',
     ],
   },
 }

@@ -1,7 +1,8 @@
 /**
  * The campaign, election night, and inauguration — the beat before a term
- * starts. Three short campaign-trail choices feed a small starting-stat
- * bonus (same clamping pipeline as difficulty mods and perks), then an
+ * starts. Six short campaign-trail choices, in rough chronological order
+ * (running mate through victory speech), feed a small starting-stat bonus
+ * (same clamping pipeline as difficulty mods and perks), then an
  * election-night result is revealed before the oath of office.
  *
  * The player wins the overwhelming majority of the time — computeElectionResult
@@ -10,8 +11,8 @@
  * reroll rather than a real game-over (see NewGameForm's "Try Again").
  */
 
-import type { StatDelta, Difficulty } from '@/types/game'
-import { hashSeed } from '@/lib/utils'
+import type { StatDelta, Difficulty, GameStats } from '@/types/game'
+import { hashSeed, getStatLabel } from '@/lib/utils'
 
 export interface CampaignOption {
   id: string
@@ -27,6 +28,26 @@ export interface CampaignScenario {
 }
 
 export const CAMPAIGN_SCENARIOS: CampaignScenario[] = [
+  {
+    id: 'running_mate',
+    prompt: 'The Running Mate Announcement',
+    flavor: "Every name on the shortlist says something different about the campaign you're about to run.",
+    options: [
+      { id: 'mate_loyalist', label: 'Pick the loyalist — steady hands, zero surprises', effects: { partyUnity: 3, congressSupport: 1 } },
+      { id: 'mate_swing_state', label: 'Pick the swing-state governor — an electoral gamble with a real payoff', effects: { baseSupport: 2, approval: 1 } },
+      { id: 'mate_outsider', label: 'Pick the outsider — energizes the base, unsettles the establishment', effects: { baseSupport: 3, partyUnity: -2 } },
+    ],
+  },
+  {
+    id: 'october_surprise',
+    prompt: 'The October Surprise',
+    flavor: 'Three weeks out, a leaked memo lands in every newsroom in the country. How you respond in the next 48 hours will define the final stretch.',
+    options: [
+      { id: 'surprise_confront', label: 'Address it head-on in a press conference', effects: { approval: 2, globalReputation: 1 } },
+      { id: 'surprise_deflect', label: "Deflect — pivot every question back to your opponent's record", effects: { baseSupport: 2, partyUnity: -1 } },
+      { id: 'surprise_silence', label: 'Say nothing and let surrogates handle it', effects: { congressSupport: 1, approval: -1 } },
+    ],
+  },
   {
     id: 'final_debate',
     prompt: 'The Final Debate',
@@ -45,6 +66,16 @@ export const CAMPAIGN_SCENARIOS: CampaignScenario[] = [
       { id: 'stop_base', label: 'Barnstorm the industrial Midwest — shore up the base', effects: { baseSupport: 3, partyUnity: 1 } },
       { id: 'stop_suburbs', label: 'Court the suburbs with a message of unity', effects: { approval: 2, congressSupport: 1 } },
       { id: 'stop_congress', label: 'Skip the rally — lock in commitments from wavering members of Congress', effects: { congressSupport: 3 } },
+    ],
+  },
+  {
+    id: 'election_day_ground_game',
+    prompt: 'Election Day Ground Game',
+    flavor: "Polls are open. The campaign's last lever is turnout — and where you spend the final hours of organizing money says everything about your theory of the race.",
+    options: [
+      { id: 'ground_base_turnout', label: 'Pour resources into base turnout operations', effects: { baseSupport: 3 } },
+      { id: 'ground_persuasion', label: 'Fund last-minute persuasion ads in swing districts', effects: { approval: 2, congressSupport: 1 } },
+      { id: 'ground_legal', label: 'Deploy legal teams to monitor polling places', effects: { globalReputation: 1, partyUnity: 1 } },
     ],
   },
   {
@@ -80,10 +111,16 @@ export function resolveCampaignChoices(choiceIds: string[]): StatDelta {
 }
 
 export interface ElectionResult {
-  won:          boolean
-  votePercent:  number
-  marginLabel:  string
-  narrative:    string
+  won:               boolean
+  votePercent:       number
+  marginLabel:       string
+  narrative:         string
+  // Deterministic flavor for the election-night reveal — same precedent as
+  // votePercent/marginLabel: not a real statistical simulation, just a
+  // richer read on the same underlying roll.
+  popularVoteMargin: string
+  electoralVotes:    number
+  keyIssue:          string | null
 }
 
 // Harder modes start from a slimmer mandate — same "headwinds from day
@@ -96,6 +133,35 @@ const DIFFICULTY_MARGIN_PENALTY: Record<Difficulty, number> = {
 // difficulty/campaign choices so it can't be farmed or avoided, just an
 // occasional surprise. 1-in-200 (0.5%).
 const LOSS_CHANCE_DENOMINATOR = 200
+
+/** "+6.2 pts" style margin over the opponent, with a hash-derived decimal for texture. */
+function formatPopularVoteMargin(seed: string, votePercent: number): string {
+  const wholeMargin = 2 * votePercent - 100
+  const decimal = (hashSeed(seed, 'margin-decimal') % 10) / 10
+  const margin = wholeMargin + (wholeMargin >= 0 ? decimal : -decimal)
+  return `${margin >= 0 ? '+' : ''}${margin.toFixed(1)} pts`
+}
+
+/**
+ * A decorative electoral-vote count scaled to votePercent — NOT a real
+ * state-by-state simulation (the engine has no concept of states). Wins
+ * scale across the real 270–538 range; losses scale across a
+ * below-270 range so the number itself communicates the outcome.
+ */
+function computeElectoralVotes(won: boolean, votePercent: number): number {
+  if (won) {
+    return Math.round(270 + ((votePercent - 50) / 18) * 268)
+  }
+  return Math.round(180 + ((votePercent - 44) / 4) * 89)
+}
+
+/** The single largest-magnitude stat from the campaign bonus, as a human label — or null if no campaign was run. */
+function computeKeyIssue(campaignBonus: StatDelta): string | null {
+  const entries = Object.entries(campaignBonus).filter(([, v]) => v !== undefined && v !== 0) as [keyof GameStats, number][]
+  if (entries.length === 0) return null
+  const top = entries.reduce((a, b) => (Math.abs(b[1]) > Math.abs(a[1]) ? b : a))
+  return getStatLabel(top[0])
+}
 
 /**
  * A deterministic-but-flavorful vote share for election night — same
@@ -113,6 +179,9 @@ export function computeElectionResult(seed: string, difficulty: Difficulty, camp
       votePercent,
       marginLabel: 'Conceded the Race',
       narrative: "The math never got there. Not every campaign ends in the Oval Office — this one ends in a ballroom that's already half empty.",
+      popularVoteMargin: formatPopularVoteMargin(seed, votePercent),
+      electoralVotes: computeElectoralVotes(false, votePercent),
+      keyIssue: computeKeyIssue(campaignBonus),
     }
   }
 
@@ -121,6 +190,11 @@ export function computeElectionResult(seed: string, difficulty: Difficulty, camp
     Object.values(campaignBonus).reduce((sum: number, v) => sum + (v ?? 0), 0) * 0.4
   )
   const votePercent = Math.max(50, Math.min(68, base + DIFFICULTY_MARGIN_PENALTY[difficulty] + campaignSwing))
+  const flavorFields = {
+    popularVoteMargin: formatPopularVoteMargin(seed, votePercent),
+    electoralVotes: computeElectoralVotes(true, votePercent),
+    keyIssue: computeKeyIssue(campaignBonus),
+  }
 
   if (votePercent >= 60) {
     return {
@@ -128,6 +202,7 @@ export function computeElectionResult(seed: string, difficulty: Difficulty, camp
       votePercent,
       marginLabel: 'Landslide Victory',
       narrative: 'The networks called it before midnight. A mandate, unmistakably.',
+      ...flavorFields,
     }
   }
   if (votePercent >= 54) {
@@ -136,6 +211,7 @@ export function computeElectionResult(seed: string, difficulty: Difficulty, camp
       votePercent,
       marginLabel: 'Comfortable Majority',
       narrative: 'A clear win — enough to govern, not enough to silence the opposition.',
+      ...flavorFields,
     }
   }
   return {
@@ -143,5 +219,6 @@ export function computeElectionResult(seed: string, difficulty: Difficulty, camp
     votePercent,
     marginLabel: 'Razor-Thin Mandate',
     narrative: 'It came down to the final precincts. You won — barely. Everyone remembers that.',
+    ...flavorFields,
   }
 }

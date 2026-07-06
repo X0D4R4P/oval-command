@@ -257,6 +257,22 @@ export function NewGameForm({ unlockedPerks }: NewGameFormProps) {
           <p className="mx-auto mt-5 max-w-sm text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
             {result.narrative}
           </p>
+
+          <div className="mx-auto mt-6 grid max-w-sm grid-cols-3 gap-3 border-y border-[var(--color-border)] py-4">
+            <div>
+              <div className="font-mono text-lg font-semibold tabular-nums text-[var(--color-paper)]">{result.popularVoteMargin}</div>
+              <div className="mt-0.5 font-mono text-[9px] uppercase tracking-[0.1em] text-[var(--color-paper-faint)]">Popular Vote</div>
+            </div>
+            <div>
+              <div className="font-mono text-lg font-semibold tabular-nums text-[var(--color-paper)]">{result.electoralVotes}</div>
+              <div className="mt-0.5 font-mono text-[9px] uppercase tracking-[0.1em] text-[var(--color-paper-faint)]">Electoral Votes</div>
+            </div>
+            <div>
+              <div className="font-mono text-lg font-semibold text-[var(--color-paper)]">{result.keyIssue ?? '—'}</div>
+              <div className="mt-0.5 font-mono text-[9px] uppercase tracking-[0.1em] text-[var(--color-paper-faint)]">Key Issue</div>
+            </div>
+          </div>
+
           <h2 className="mt-8 font-[family-name:var(--font-display)] text-xl font-semibold text-[var(--color-paper)]">
             President {presidentName.trim()}
           </h2>

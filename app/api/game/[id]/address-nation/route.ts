@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { dbToGame, gameToDbUpdate, toJson, safeErrorMessage } from '@/lib/db-helpers'
-import { resolveSpeech } from '@/lib/address-nation'
+import { resolveSpeech, SPEECH_THEMES } from '@/lib/address-nation'
 import { applyDelta, pickEvent, advanceMonth } from '@/lib/game-engine'
 import { generateSpeechHeadline, type SpeechTheme } from '@/lib/headlines'
 import { unlockAchievements } from '@/lib/achievements'
@@ -15,7 +15,10 @@ interface AddressNationBody {
   theme: SpeechTheme
 }
 
-const VALID_THEMES: SpeechTheme[] = ['economy', 'security', 'unity', 'record']
+// Derived from SPEECH_THEMES rather than a separately maintained list —
+// this exact drift (a new theme added there but not here) shipped once
+// already and silently 400'd on the two newest themes.
+const VALID_THEMES: SpeechTheme[] = SPEECH_THEMES.map(t => t.id)
 
 export async function POST(req: NextRequest, { params }: Params) {
   const { id } = await params
