@@ -210,7 +210,7 @@
             "effects": {
               "baseSupport": -6
             },
-            "headline": "Progressive base frustrated by compromise \u2014 feels administration gave away too much"
+            "headline": "Progressive base frustrated by compromise — feels administration gave away too much"
           }
         ]
       },
@@ -517,7 +517,7 @@
     "choices": [
       {
         "index": 0,
-        "text": "Hold a joint press conference with FBI and DHS \u2014 lead with competence",
+        "text": "Hold a joint press conference with FBI and DHS — lead with competence",
         "effects": {
           "approval": 10,
           "security": 5,
@@ -608,7 +608,7 @@
       },
       {
         "index": 1,
-        "text": "Issue a calm statement and monitor \u2014 avoid causing public panic",
+        "text": "Issue a calm statement and monitor — avoid causing public panic",
         "effects": {
           "approval": 2,
           "economy": -2,
@@ -654,7 +654,7 @@
       },
       {
         "index": 3,
-        "text": "Leave it to states \u2014 this is a state-level public health matter",
+        "text": "Leave it to states — this is a state-level public health matter",
         "effects": {
           "approval": -10,
           "unrest": 15,
@@ -771,7 +771,7 @@
       },
       {
         "index": 1,
-        "text": "Hold firm \u2014 no concessions. Let the shutdown happen and blame Congress.",
+        "text": "Hold firm — no concessions. Let the shutdown happen and blame Congress.",
         "effects": {
           "approval": -8,
           "congressSupport": -10,
@@ -797,7 +797,7 @@
       },
       {
         "index": 3,
-        "text": "Take the debate public \u2014 hold prime time address to pressure Congress",
+        "text": "Take the debate public — hold prime time address to pressure Congress",
         "effects": {
           "approval": 5,
           "congressSupport": -3,
@@ -945,7 +945,7 @@
       },
       {
         "index": 2,
-        "text": "Nominate a historic first \u2014 prioritize diversity and symbolism",
+        "text": "Nominate a historic first — prioritize diversity and symbolism",
         "effects": {
           "approval": 7,
           "congressSupport": -3,
@@ -959,7 +959,7 @@
       },
       {
         "index": 3,
-        "text": "Delay the nomination \u2014 use the vacancy as political leverage",
+        "text": "Delay the nomination — use the vacancy as political leverage",
         "effects": {
           "approval": -8,
           "congressSupport": -5,
@@ -1017,7 +1017,7 @@
       },
       {
         "index": 2,
-        "text": "Embrace it \u2014 fund massive retraining programs and universal basic income pilot",
+        "text": "Embrace it — fund massive retraining programs and universal basic income pilot",
         "effects": {
           "economy": 3,
           "approval": 5,
@@ -1214,7 +1214,7 @@
       },
       {
         "index": 1,
-        "text": "Focus on deficit reduction \u2014 cut spending to restore business confidence",
+        "text": "Focus on deficit reduction — cut spending to restore business confidence",
         "effects": {
           "economy": -4,
           "approval": -14,
@@ -1322,7 +1322,7 @@
   },
   {
     "id": "debt_ceiling_crisis",
-    "title": "Debt Ceiling Standoff \u2014 Default in 10 Days",
+    "title": "Debt Ceiling Standoff — Default in 10 Days",
     "category": "congress",
     "description": "The Treasury Department has notified Congress that extraordinary measures to avoid default will be exhausted in 10 days. The opposition is refusing to raise the ceiling without massive spending cuts. A US default would be catastrophic for global markets.",
     "triggers": {
@@ -1356,7 +1356,7 @@
       },
       {
         "index": 1,
-        "text": "Invoke the 14th Amendment \u2014 argue the debt ceiling is unconstitutional",
+        "text": "Invoke the 14th Amendment — argue the debt ceiling is unconstitutional",
         "effects": {
           "approval": 4,
           "congressSupport": -10,
@@ -1380,7 +1380,7 @@
       },
       {
         "index": 3,
-        "text": "Let it go to the wire \u2014 call the opposition's bluff publicly",
+        "text": "Let it go to the wire — call the opposition's bluff publicly",
         "effects": {
           "approval": -10,
           "economy": -12,
@@ -1604,7 +1604,7 @@
     "id": "student_loan_crisis",
     "title": "Student Loan Default Wave Hitting the Economy",
     "category": "economy",
-    "description": "Federal student loan repayments resumed after a multi-year pause. Default rates are running at 22% \u2014 far higher than projected. Consumer spending is contracting. A generation of borrowers is locked out of the housing market. The political pressure from your own party is intense.",
+    "description": "Federal student loan repayments resumed after a multi-year pause. Default rates are running at 22% — far higher than projected. Consumer spending is contracting. A generation of borrowers is locked out of the housing market. The political pressure from your own party is intense.",
     "triggers": {
       "month": {
         "min": 6
@@ -1644,9 +1644,9 @@
           {
             "delay_months": 4,
             "effects": {
-              "debt": 1.0
+              "debt": 1
             },
-            "headline": "CBO scores student debt cancellation at $1.1T \u2014 borrowing costs rise"
+            "headline": "CBO scores student debt cancellation at $1.1T — borrowing costs rise"
           },
           {
             "delay_months": 8,
@@ -1951,7 +1951,7 @@
       },
       {
         "index": 3,
-        "text": "Let market forces handle it \u2014 announce deregulation to attract private capital",
+        "text": "Let market forces handle it — announce deregulation to attract private capital",
         "effects": {
           "approval": -12,
           "unrest": 15,
@@ -1980,7 +1980,7 @@
     "choices": [
       {
         "index": 0,
-        "text": "Declassify and publicly attribute the operation \u2014 let voters decide",
+        "text": "Declassify and publicly attribute the operation — let voters decide",
         "effects": {
           "approval": 7,
           "security": 5,
@@ -2127,7 +2127,7 @@
       },
       {
         "index": 1,
-        "text": "Pivot to the center \u2014 announce bipartisan priorities for the second half",
+        "text": "Pivot to the center — announce bipartisan priorities for the second half",
         "effects": {
           "approval": 6,
           "congressSupport": 8,
@@ -2186,7 +2186,7 @@
     "choices": [
       {
         "index": 0,
-        "text": "Ignore the challenger and focus on governing \u2014 don't dignify it",
+        "text": "Ignore the challenger and focus on governing — don't dignify it",
         "effects": {
           "baseSupport": -4,
           "approval": 2,
@@ -2299,7 +2299,7 @@
   },
   {
     "id": "social_media_regulation",
-    "title": "Big Tech CEOs Testify \u2014 Congress Wants Regulation",
+    "title": "Big Tech CEOs Testify — Congress Wants Regulation",
     "category": "social",
     "description": "A Senate hearing into social media's role in teen mental health crisis, political polarization, and election misinformation went viral. Public pressure for tech regulation is at an all-time high. The tech industry is lobbying hard against any action. Your FTC chair is ready to move.",
     "triggers": {
@@ -2375,7 +2375,7 @@
     "id": "fentanyl_crisis",
     "title": "Fentanyl Overdose Deaths Hit Record High",
     "category": "social",
-    "description": "Annual overdose deaths crossed 120,000 for the first time \u2014 more Americans than die in car accidents. Chinese precursor chemicals flowing through Mexican cartels are the primary supply chain. Every community in America is affected. The political coalition to address this crosses party lines.",
+    "description": "Annual overdose deaths crossed 120,000 for the first time — more Americans than die in car accidents. Chinese precursor chemicals flowing through Mexican cartels are the primary supply chain. Every community in America is affected. The political coalition to address this crosses party lines.",
     "triggers": {
       "always_available": true
     },
@@ -2385,7 +2385,7 @@
     "choices": [
       {
         "index": 0,
-        "text": "Treat it as a public health crisis \u2014 massive investment in treatment and harm reduction",
+        "text": "Treat it as a public health crisis — massive investment in treatment and harm reduction",
         "effects": {
           "approval": 5,
           "unrest": -6,
@@ -2399,7 +2399,7 @@
       },
       {
         "index": 1,
-        "text": "Treat it as a national security threat \u2014 military-backed supply chain disruption",
+        "text": "Treat it as a national security threat — military-backed supply chain disruption",
         "effects": {
           "security": 8,
           "approval": 5,
@@ -2441,7 +2441,7 @@
     "id": "housing_affordability_crisis",
     "title": "Housing Affordability Hits All-Time Low",
     "category": "economy",
-    "description": "The median American family can now afford only 12% of homes on the market \u2014 the lowest affordability ratio since records began. Homelessness is rising in every major city. Young voters are furious. The political coalition on housing policy is scrambled along new lines.",
+    "description": "The median American family can now afford only 12% of homes on the market — the lowest affordability ratio since records began. Homelessness is rising in every major city. Young voters are furious. The political coalition on housing policy is scrambled along new lines.",
     "triggers": {
       "always_available": true
     },
@@ -2506,7 +2506,7 @@
   },
   {
     "id": "veterans_healthcare_scandal",
-    "title": "VA Hospitals Falsifying Wait Times \u2014 Veterans Dying",
+    "title": "VA Hospitals Falsifying Wait Times — Veterans Dying",
     "category": "scandal",
     "description": "An investigation reveals VA hospitals across nine states have been falsifying wait time data. Dozens of veterans died waiting for care that never came. Veterans groups are furious. Congress is demanding hearings. This cuts across every political line.",
     "triggers": {
@@ -2641,7 +2641,7 @@
     "id": "press_freedom_clash",
     "title": "Administration Leaks Trigger Journalist Prosecution",
     "category": "scandal",
-    "description": "Your DOJ has charged a journalist with receiving classified information \u2014 a significant escalation of press freedom tensions. The news media is in open revolt. The First Amendment Foundation and 200 press organizations have signed a joint letter. Congress is alarmed.",
+    "description": "Your DOJ has charged a journalist with receiving classified information — a significant escalation of press freedom tensions. The news media is in open revolt. The First Amendment Foundation and 200 press organizations have signed a joint letter. Congress is alarmed.",
     "triggers": {
       "active_scandal": true
     },
@@ -2663,7 +2663,7 @@
       },
       {
         "index": 1,
-        "text": "Let the prosecution proceed \u2014 no one is above the law",
+        "text": "Let the prosecution proceed — no one is above the law",
         "effects": {
           "approval": -8,
           "unrest": 10,
@@ -2703,7 +2703,7 @@
   },
   {
     "id": "space_military_incident",
-    "title": "Adversary Destroys Satellite \u2014 US Assets at Risk",
+    "title": "Adversary Destroys Satellite — US Assets at Risk",
     "category": "military",
     "description": "China has tested an anti-satellite weapon by destroying one of its own satellites in low-Earth orbit. The debris field is threatening US military and commercial satellites. It's widely seen as a direct warning shot. Your Space Force commander is requesting authorization to respond.",
     "triggers": {
@@ -2731,7 +2731,7 @@
       },
       {
         "index": 1,
-        "text": "Accelerate hardening of US satellites and redundant systems \u2014 no public statement",
+        "text": "Accelerate hardening of US satellites and redundant systems — no public statement",
         "effects": {
           "security": 10,
           "debt": 1.5,
@@ -2779,7 +2779,7 @@
     "choices": [
       {
         "index": 0,
-        "text": "Escalate \u2014 add additional tariffs on Chinese electronics and manufactured goods",
+        "text": "Escalate — add additional tariffs on Chinese electronics and manufactured goods",
         "effects": {
           "economy": -5,
           "approval": 2,
@@ -2793,7 +2793,7 @@
       },
       {
         "index": 1,
-        "text": "Negotiate directly with Beijing \u2014 offer tariff rollbacks for agricultural access",
+        "text": "Negotiate directly with Beijing — offer tariff rollbacks for agricultural access",
         "effects": {
           "economy": 6,
           "approval": 4,
@@ -2835,7 +2835,7 @@
     "id": "energy_grid_attack",
     "title": "Coordinated Attack on Power Grid Leaves Millions Without Power",
     "category": "security",
-    "description": "A coordinated physical and cyber attack on power substations has knocked out electricity to 8 million people across the Southeast. Winter temperatures are dropping. Hospitals are on backup power. The attack shows signs of sophisticated planning \u2014 possibly state-sponsored.",
+    "description": "A coordinated physical and cyber attack on power substations has knocked out electricity to 8 million people across the Southeast. Winter temperatures are dropping. Hospitals are on backup power. The attack shows signs of sophisticated planning — possibly state-sponsored.",
     "triggers": {
       "security": {
         "max": 60
@@ -2993,7 +2993,7 @@
       },
       {
         "index": 1,
-        "text": "Let the bank fail \u2014 FDIC only covers $250K per depositor as designed",
+        "text": "Let the bank fail — FDIC only covers $250K per depositor as designed",
         "effects": {
           "economy": -12,
           "approval": -8,
@@ -3005,7 +3005,7 @@
       },
       {
         "index": 2,
-        "text": "Orchestrate private sector rescue \u2014 pressure other banks to acquire the failing one",
+        "text": "Orchestrate private sector rescue — pressure other banks to acquire the failing one",
         "effects": {
           "economy": 5,
           "approval": 6,
@@ -3030,7 +3030,7 @@
   },
   {
     "id": "climate_summit",
-    "title": "International Climate Summit \u2014 US Leadership Moment",
+    "title": "International Climate Summit — US Leadership Moment",
     "category": "diplomacy",
     "description": "A major international climate summit is convening in Geneva. 190 countries are watching to see what commitments the US will make. Your domestic climate record is mixed. This is a moment to either lead or follow on the defining issue of the generation.",
     "triggers": {
@@ -3063,7 +3063,7 @@
       },
       {
         "index": 1,
-        "text": "Sign the agreement but set moderate targets \u2014 prioritize economic realism",
+        "text": "Sign the agreement but set moderate targets — prioritize economic realism",
         "effects": {
           "globalReputation": 5,
           "approval": 2,
@@ -3122,7 +3122,7 @@
     "choices": [
       {
         "index": 0,
-        "text": "Reject the settlement \u2014 DOJ pursues criminal charges against executives",
+        "text": "Reject the settlement — DOJ pursues criminal charges against executives",
         "effects": {
           "approval": 8,
           "economy": -3,
@@ -3143,7 +3143,7 @@
       },
       {
         "index": 1,
-        "text": "Accept the settlement \u2014 $40B for treatment programs is transformative",
+        "text": "Accept the settlement — $40B for treatment programs is transformative",
         "effects": {
           "approval": -3,
           "economy": 2,
@@ -3160,13 +3160,13 @@
             "effects": {
               "approval": -4
             },
-            "headline": "Families of overdose victims call settlement a betrayal \u2014 no one goes to jail"
+            "headline": "Families of overdose victims call settlement a betrayal — no one goes to jail"
           }
         ]
       },
       {
         "index": 2,
-        "text": "Counter-offer \u2014 $60B settlement with some executive accountability",
+        "text": "Counter-offer — $60B settlement with some executive accountability",
         "effects": {
           "approval": 5,
           "economy": -1,
@@ -3194,7 +3194,7 @@
   },
   {
     "id": "embassy_attack",
-    "title": "US Embassy Attacked \u2014 Americans Killed",
+    "title": "US Embassy Attacked — Americans Killed",
     "category": "military",
     "description": "A coordinated attack on the US Embassy in a major Middle Eastern capital has killed 6 Americans including the Deputy Ambassador. The group claiming responsibility has ties to a regional power you've been trying to negotiate with. The comparison to Benghazi is immediate and relentless.",
     "triggers": {
@@ -3235,7 +3235,7 @@
       },
       {
         "index": 2,
-        "text": "Investigate thoroughly before responding \u2014 refuse to be rushed",
+        "text": "Investigate thoroughly before responding — refuse to be rushed",
         "effects": {
           "approval": -8,
           "security": 2,
@@ -3274,7 +3274,7 @@
     "choices": [
       {
         "index": 0,
-        "text": "Schedule a major policy announcement \u2014 go big and dominate the news cycle",
+        "text": "Schedule a major policy announcement — go big and dominate the news cycle",
         "effects": {
           "approval": 5,
           "baseSupport": 8,
@@ -3285,7 +3285,7 @@
       },
       {
         "index": 1,
-        "text": "Challenge the opponent to multiple debates \u2014 confidence play",
+        "text": "Challenge the opponent to multiple debates — confidence play",
         "effects": {
           "approval": 4,
           "baseSupport": 5
@@ -3295,7 +3295,7 @@
       },
       {
         "index": 2,
-        "text": "Stay presidential \u2014 govern, don't campaign. Let your record speak.",
+        "text": "Stay presidential — govern, don't campaign. Let your record speak.",
         "effects": {
           "approval": 3,
           "congressSupport": 4,
@@ -3306,7 +3306,7 @@
       },
       {
         "index": 3,
-        "text": "Go aggressively negative \u2014 attack the opponent's record and character",
+        "text": "Go aggressively negative — attack the opponent's record and character",
         "effects": {
           "approval": -4,
           "baseSupport": 10,
@@ -3470,7 +3470,7 @@
     "id": "nuclear_iran",
     "title": "Iran Announces Enrichment Threshold Crossed",
     "category": "military",
-    "description": "Iran has announced it has enriched uranium to 90% purity \u2014 weapons-grade. The announcement is a direct challenge to the international non-proliferation order. Israel has signaled it is prepared to act militarily within 30 days if the US does not. Every ally is calling.",
+    "description": "Iran has announced it has enriched uranium to 90% purity — weapons-grade. The announcement is a direct challenge to the international non-proliferation order. Israel has signaled it is prepared to act militarily within 30 days if the US does not. Every ally is calling.",
     "triggers": {
       "month": {
         "min": 12
@@ -3537,7 +3537,7 @@
   },
   {
     "id": "water_crisis",
-    "title": "Major City's Water System Fails \u2014 Lead Contamination",
+    "title": "Major City's Water System Fails — Lead Contamination",
     "category": "disaster",
     "description": "Flint-scale lead contamination has been discovered in the water system of a major American city, affecting 800,000 residents. The governor knew for months and didn't act. The city is overwhelmingly low-income. The federal government's jurisdiction is limited but the political pressure is total.",
     "triggers": {
@@ -3561,7 +3561,7 @@
       },
       {
         "index": 1,
-        "text": "Hold the governor accountable \u2014 demand state action before federal support",
+        "text": "Hold the governor accountable — demand state action before federal support",
         "effects": {
           "approval": -5,
           "unrest": 12,
@@ -3632,7 +3632,7 @@
       },
       {
         "index": 1,
-        "text": "Refuse refugee admission \u2014 prioritize national security concerns",
+        "text": "Refuse refugee admission — prioritize national security concerns",
         "effects": {
           "approval": -4,
           "globalReputation": -12,
@@ -3644,7 +3644,7 @@
       },
       {
         "index": 2,
-        "text": "Accept 10,000 with extremely rigorous vetting \u2014 slower but thorough",
+        "text": "Accept 10,000 with extremely rigorous vetting — slower but thorough",
         "effects": {
           "approval": 2,
           "globalReputation": 3,
@@ -3672,7 +3672,7 @@
     "id": "economic_sanctions_backfire",
     "title": "Sanctions Regime Causing Humanitarian Crisis Abroad",
     "category": "diplomacy",
-    "description": "US economic sanctions on a hostile nation are causing a documented civilian humanitarian crisis \u2014 food and medicine shortages affecting 4 million people. International allies are calling for modifications. The sanctioned government is using the crisis to deflect blame for its own failures.",
+    "description": "US economic sanctions on a hostile nation are causing a documented civilian humanitarian crisis — food and medicine shortages affecting 4 million people. International allies are calling for modifications. The sanctioned government is using the crisis to deflect blame for its own failures.",
     "triggers": {
       "sanctioned_foreign_power": true
     },
@@ -3694,7 +3694,7 @@
       },
       {
         "index": 1,
-        "text": "Lift all sanctions \u2014 the civilian cost has become unjustifiable",
+        "text": "Lift all sanctions — the civilian cost has become unjustifiable",
         "effects": {
           "globalReputation": 4,
           "security": -8,
@@ -3706,7 +3706,7 @@
       },
       {
         "index": 2,
-        "text": "Maintain and intensify sanctions \u2014 don't let the government use civilians as shields",
+        "text": "Maintain and intensify sanctions — don't let the government use civilians as shields",
         "effects": {
           "globalReputation": -8,
           "security": 4,
@@ -3732,9 +3732,9 @@
   },
   {
     "id": "inflation_emergency",
-    "title": "Inflation Hits 9% \u2014 Highest in 40 Years",
+    "title": "Inflation Hits 9% — Highest in 40 Years",
     "category": "economy",
-    "description": "Consumer price inflation has hit 9.1% annually. Grocery bills are up 14%. Rent up 22%. The political pain is acute \u2014 this is the most tangible economic problem in a generation. Your economic team is divided and there are no painless options.",
+    "description": "Consumer price inflation has hit 9.1% annually. Grocery bills are up 14%. Rent up 22%. The political pain is acute — this is the most tangible economic problem in a generation. Your economic team is divided and there are no painless options.",
     "triggers": {
       "economy": {
         "max": 45
@@ -3758,7 +3758,7 @@
       },
       {
         "index": 1,
-        "text": "Price controls on essential goods \u2014 groceries, gas, and rent",
+        "text": "Price controls on essential goods — groceries, gas, and rent",
         "effects": {
           "economy": -8,
           "approval": 5,
@@ -3797,7 +3797,7 @@
   },
   {
     "id": "historic_peace_deal",
-    "title": "Historic Peace Deal Within Reach \u2014 Two Ancient Rivals",
+    "title": "Historic Peace Deal Within Reach — Two Ancient Rivals",
     "category": "diplomacy",
     "description": "Secret negotiations you've been quietly hosting between two historically hostile nations have produced a framework for normalization of relations. The deal would be the most significant diplomatic achievement in a generation. But finalizing it requires political capital and real concessions from the US.",
     "triggers": {
@@ -3811,7 +3811,7 @@
     "choices": [
       {
         "index": 0,
-        "text": "Commit fully \u2014 host the signing ceremony at the White House",
+        "text": "Commit fully — host the signing ceremony at the White House",
         "effects": {
           "globalReputation": 15,
           "approval": 10,
@@ -3878,7 +3878,7 @@
     "choices": [
       {
         "index": 0,
-        "text": "Announce a constitutional amendment campaign \u2014 take it to the people",
+        "text": "Announce a constitutional amendment campaign — take it to the people",
         "effects": {
           "approval": 5,
           "baseSupport": 12,
@@ -3901,7 +3901,7 @@
       },
       {
         "index": 2,
-        "text": "Accept the ruling \u2014 respect the Court's constitutional authority",
+        "text": "Accept the ruling — respect the Court's constitutional authority",
         "effects": {
           "approval": -8,
           "baseSupport": -15,
@@ -3953,7 +3953,7 @@
       },
       {
         "index": 1,
-        "text": "Deploy federal law enforcement to restore order \u2014 zero tolerance",
+        "text": "Deploy federal law enforcement to restore order — zero tolerance",
         "effects": {
           "security": 8,
           "approval": -8,
@@ -4020,7 +4020,7 @@
       },
       {
         "index": 1,
-        "text": "Announce a phased drawdown \u2014 begin reducing troop levels",
+        "text": "Announce a phased drawdown — begin reducing troop levels",
         "effects": {
           "approval": 7,
           "unrest": -8,
@@ -4035,7 +4035,7 @@
       },
       {
         "index": 2,
-        "text": "Escalate \u2014 request emergency war funding from Congress to end it faster",
+        "text": "Escalate — request emergency war funding from Congress to end it faster",
         "effects": {
           "approval": -8,
           "congressSupport": -8,
@@ -4048,7 +4048,7 @@
       },
       {
         "index": 3,
-        "text": "Accelerate peace negotiations \u2014 appoint a special envoy",
+        "text": "Accelerate peace negotiations — appoint a special envoy",
         "effects": {
           "approval": 5,
           "globalReputation": 5,
@@ -4081,7 +4081,7 @@
     "choices": [
       {
         "index": 0,
-        "text": "Meet with protest leaders \u2014 acknowledge their concerns publicly",
+        "text": "Meet with protest leaders — acknowledge their concerns publicly",
         "effects": {
           "approval": 6,
           "unrest": -12,
@@ -4093,7 +4093,7 @@
       },
       {
         "index": 1,
-        "text": "Stay the course \u2014 publicly dismiss the protests as uninformed",
+        "text": "Stay the course — publicly dismiss the protests as uninformed",
         "effects": {
           "approval": -10,
           "unrest": 18,
@@ -4105,7 +4105,7 @@
       },
       {
         "index": 2,
-        "text": "Announce a clear exit timeline \u2014 war ends within 18 months",
+        "text": "Announce a clear exit timeline — war ends within 18 months",
         "effects": {
           "approval": 10,
           "unrest": -15,
@@ -4135,7 +4135,7 @@
     "id": "war_peace_opportunity",
     "title": "Adversary Signals Willingness to Negotiate Ceasefire",
     "category": "military",
-    "description": "Through backchannels, the opposing side in the active conflict has indicated a willingness to discuss terms. Your military advisors say the battlefield position is favorable \u2014 pushing harder now could produce a better outcome. Your diplomatic team says this window may close within 30 days.",
+    "description": "Through backchannels, the opposing side in the active conflict has indicated a willingness to discuss terms. Your military advisors say the battlefield position is favorable — pushing harder now could produce a better outcome. Your diplomatic team says this window may close within 30 days.",
     "triggers": {
       "at_war": true,
       "month": {
@@ -4150,7 +4150,7 @@
     "choices": [
       {
         "index": 0,
-        "text": "Accept the opening \u2014 begin formal negotiations immediately",
+        "text": "Accept the opening — begin formal negotiations immediately",
         "effects": {
           "approval": 8,
           "globalReputation": 10,
@@ -4165,7 +4165,7 @@
       },
       {
         "index": 1,
-        "text": "Reject it \u2014 negotiate from a position of complete victory instead",
+        "text": "Reject it — negotiate from a position of complete victory instead",
         "effects": {
           "security": 5,
           "approval": -6,
@@ -4187,11 +4187,11 @@
         "sets_flags": [
           "ceasefire_negotiations"
         ],
-        "outcome": "The secret talks produced a framework. The leak came three weeks later. The optics of secret diplomacy were mixed \u2014 some called it sophisticated, others called it deceptive."
+        "outcome": "The secret talks produced a framework. The leak came three weeks later. The optics of secret diplomacy were mixed — some called it sophisticated, others called it deceptive."
       },
       {
         "index": 3,
-        "text": "Demand preconditions before talks \u2014 public prisoner exchange first",
+        "text": "Demand preconditions before talks — public prisoner exchange first",
         "effects": {
           "approval": 4,
           "globalReputation": 3,
@@ -4222,7 +4222,7 @@
     "choices": [
       {
         "index": 0,
-        "text": "Work with Congress \u2014 negotiate a structured wind-down with funding",
+        "text": "Work with Congress — negotiate a structured wind-down with funding",
         "effects": {
           "approval": 5,
           "congressSupport": 8,
@@ -4271,7 +4271,7 @@
       },
       {
         "index": 3,
-        "text": "Ask for 6 more months and a diplomatic milestone \u2014 negotiate with the bill's authors",
+        "text": "Ask for 6 more months and a diplomatic milestone — negotiate with the bill's authors",
         "effects": {
           "approval": 3,
           "congressSupport": 5,
@@ -4314,7 +4314,7 @@
       },
       {
         "index": 1,
-        "text": "Accept the withdrawal privately \u2014 fill the gap with US assets",
+        "text": "Accept the withdrawal privately — fill the gap with US assets",
         "effects": {
           "debt": 0.8,
           "security": 2,
@@ -4326,7 +4326,7 @@
       },
       {
         "index": 2,
-        "text": "Use it as leverage \u2014 offer trade concessions to keep them in",
+        "text": "Use it as leverage — offer trade concessions to keep them in",
         "effects": {
           "globalReputation": 3,
           "security": 4,
@@ -4354,7 +4354,7 @@
   },
   {
     "id": "war_victory_moment",
-    "title": "Major Military Objective Achieved \u2014 Define the Endgame",
+    "title": "Major Military Objective Achieved — Define the Endgame",
     "category": "military",
     "description": "US forces have achieved the primary military objective that justified the operation. The adversary's command structure is degraded. The immediate threat is neutralized. Now comes the hardest question in American foreign policy: what does victory actually look like, and when do we leave?",
     "triggers": {
@@ -4393,7 +4393,7 @@
       },
       {
         "index": 1,
-        "text": "Stay to rebuild \u2014 commit to a nation-building phase",
+        "text": "Stay to rebuild — commit to a nation-building phase",
         "effects": {
           "approval": -6,
           "debt": 2,
@@ -4424,7 +4424,7 @@
       },
       {
         "index": 3,
-        "text": "Expand the mission \u2014 address secondary threats while positioned",
+        "text": "Expand the mission — address secondary threats while positioned",
         "effects": {
           "approval": -10,
           "debt": 1.5,
@@ -4439,7 +4439,7 @@
   },
   {
     "id": "pandemic_surge",
-    "title": "Second Wave Hits \u2014 Hospitals Overwhelmed in 8 States",
+    "title": "Second Wave Hits — Hospitals Overwhelmed in 8 States",
     "category": "disaster",
     "description": "A more transmissible variant has triggered a second pandemic wave. Hospital ICU capacity is at 94% in eight states. The death rate is climbing. The public is exhausted and compliance with public health guidance has dropped dramatically. Your previous decisions have shaped what tools you have available now.",
     "triggers": {
@@ -4494,7 +4494,7 @@
       },
       {
         "index": 3,
-        "text": "Declare the pandemic over \u2014 let individuals and states manage risk",
+        "text": "Declare the pandemic over — let individuals and states manage risk",
         "effects": {
           "approval": -8,
           "economy": 3,
@@ -4510,7 +4510,7 @@
     "id": "pandemic_vaccine_controversy",
     "title": "Vaccine Misinformation Driving Dangerous Hesitancy",
     "category": "disaster",
-    "description": "Coordinated misinformation campaigns \u2014 some traced to foreign actors \u2014 have pushed vaccine hesitancy to 34% nationally. Outbreaks are concentrated in unvaccinated communities. Hospital systems in these regions are near collapse. The line between public health and political identity has never been sharper.",
+    "description": "Coordinated misinformation campaigns — some traced to foreign actors — have pushed vaccine hesitancy to 34% nationally. Outbreaks are concentrated in unvaccinated communities. Hospital systems in these regions are near collapse. The line between public health and political identity has never been sharper.",
     "triggers": {
       "pandemic_active": true
     },
@@ -4560,7 +4560,7 @@
       },
       {
         "index": 3,
-        "text": "Offer financial incentives \u2014 $200 payments for vaccination proof",
+        "text": "Offer financial incentives — $200 payments for vaccination proof",
         "effects": {
           "approval": 6,
           "security": 5,
@@ -4576,7 +4576,7 @@
     "id": "pandemic_economic_fallout",
     "title": "Pandemic Economic Damage Deeper Than Projected",
     "category": "economy",
-    "description": "The economic data is in. The pandemic has cost the economy an estimated $3.8 trillion in lost output. Small businesses in hospitality, retail, and entertainment are closing permanently. Unemployment in affected sectors is at 12%. The recovery is real but uneven \u2014 and the political pain is acute.",
+    "description": "The economic data is in. The pandemic has cost the economy an estimated $3.8 trillion in lost output. Small businesses in hospitality, retail, and entertainment are closing permanently. Unemployment in affected sectors is at 12%. The recovery is real but uneven — and the political pain is acute.",
     "triggers": {
       "pandemic_active": true,
       "month": {
@@ -4603,7 +4603,7 @@
       },
       {
         "index": 1,
-        "text": "Broad stimulus checks \u2014 $1,400 to every American adult",
+        "text": "Broad stimulus checks — $1,400 to every American adult",
         "effects": {
           "economy": 5,
           "approval": 9,
@@ -4618,7 +4618,7 @@
       },
       {
         "index": 2,
-        "text": "Focus on deficit reduction \u2014 position for long-term fiscal health",
+        "text": "Focus on deficit reduction — position for long-term fiscal health",
         "effects": {
           "economy": -3,
           "approval": -8,
@@ -4630,7 +4630,7 @@
       },
       {
         "index": 3,
-        "text": "Invest in pandemic-proof infrastructure \u2014 remote work, broadband, healthcare capacity",
+        "text": "Invest in pandemic-proof infrastructure — remote work, broadband, healthcare capacity",
         "effects": {
           "economy": 4,
           "approval": 5,
@@ -4644,9 +4644,9 @@
   },
   {
     "id": "pandemic_end_declaration",
-    "title": "WHO Declares Pandemic Over \u2014 Navigate the Aftermath",
+    "title": "WHO Declares Pandemic Over — Navigate the Aftermath",
     "category": "disaster",
-    "description": "The World Health Organization has officially declared the end of the public health emergency. The immediate crisis is over but the aftermath is everywhere \u2014 180,000 Americans died on your watch, the economy is still healing, and the political reckoning over how it was handled is just beginning.",
+    "description": "The World Health Organization has officially declared the end of the public health emergency. The immediate crisis is over but the aftermath is everywhere — 180,000 Americans died on your watch, the economy is still healing, and the political reckoning over how it was handled is just beginning.",
     "triggers": {
       "pandemic_active": true,
       "month": {
@@ -4675,7 +4675,7 @@
       },
       {
         "index": 1,
-        "text": "Declare victory \u2014 emphasize lives saved and economic resilience",
+        "text": "Declare victory — emphasize lives saved and economic resilience",
         "effects": {
           "approval": 4,
           "baseSupport": 8,
@@ -4699,7 +4699,7 @@
       },
       {
         "index": 3,
-        "text": "Move on \u2014 shift focus entirely to economic recovery",
+        "text": "Move on — shift focus entirely to economic recovery",
         "effects": {
           "economy": 4,
           "approval": 2,
@@ -4730,7 +4730,7 @@
     "choices": [
       {
         "index": 0,
-        "text": "Appoint a new economic team \u2014 visible change in approach",
+        "text": "Appoint a new economic team — visible change in approach",
         "effects": {
           "economy": 4,
           "approval": 5,
@@ -4741,7 +4741,7 @@
       },
       {
         "index": 1,
-        "text": "Double down on the current strategy \u2014 the data will turn",
+        "text": "Double down on the current strategy — the data will turn",
         "effects": {
           "economy": -4,
           "approval": -10,
@@ -4752,7 +4752,7 @@
       },
       {
         "index": 2,
-        "text": "Emergency job guarantee program \u2014 federal employer of last resort",
+        "text": "Emergency job guarantee program — federal employer of last resort",
         "effects": {
           "economy": 5,
           "approval": 8,
@@ -4765,7 +4765,7 @@
       },
       {
         "index": 3,
-        "text": "Request emergency Fed coordination \u2014 joint statement on recovery path",
+        "text": "Request emergency Fed coordination — joint statement on recovery path",
         "effects": {
           "economy": 6,
           "approval": 4,
@@ -4778,9 +4778,9 @@
   },
   {
     "id": "recession_recovery_signs",
-    "title": "First Signs of Recovery \u2014 Manage the Narrative",
+    "title": "First Signs of Recovery — Manage the Narrative",
     "category": "economy",
-    "description": "For the first time in three quarters, GDP growth turned positive at 1.2%. Unemployment ticked down 0.3%. The recovery is fragile and early, but real. How you handle this moment \u2014 underselling or overselling it \u2014 will define how voters remember the recession.",
+    "description": "For the first time in three quarters, GDP growth turned positive at 1.2%. Unemployment ticked down 0.3%. The recovery is fragile and early, but real. How you handle this moment — underselling or overselling it — will define how voters remember the recession.",
     "triggers": {
       "recession_active": true,
       "economy": {
@@ -4798,7 +4798,7 @@
     "choices": [
       {
         "index": 0,
-        "text": "Announce cautious optimism \u2014 'we're turning the corner, not there yet'",
+        "text": "Announce cautious optimism — 'we're turning the corner, not there yet'",
         "effects": {
           "approval": 6,
           "economy": 3,
@@ -4817,11 +4817,11 @@
           "unrest": 4
         },
         "sets_flags": [],
-        "outcome": "The declaration was premature \u2014 another 0.2% growth quarter followed. The overclaim became the story when economists pushed back. The partial win turned into a credibility question."
+        "outcome": "The declaration was premature — another 0.2% growth quarter followed. The overclaim became the story when economists pushed back. The partial win turned into a credibility question."
       },
       {
         "index": 2,
-        "text": "Focus on workers who haven't felt the recovery yet \u2014 announce more aid",
+        "text": "Focus on workers who haven't felt the recovery yet — announce more aid",
         "effects": {
           "approval": 8,
           "economy": 4,
@@ -4863,7 +4863,7 @@
     "choices": [
       {
         "index": 0,
-        "text": "Stand firm \u2014 full-court press to confirm your nominee",
+        "text": "Stand firm — full-court press to confirm your nominee",
         "effects": {
           "approval": -4,
           "congressSupport": -6,
@@ -4889,7 +4889,7 @@
       },
       {
         "index": 2,
-        "text": "Negotiate \u2014 offer the wavering senators specific policy concessions",
+        "text": "Negotiate — offer the wavering senators specific policy concessions",
         "effects": {
           "approval": 2,
           "congressSupport": 3,
@@ -4902,7 +4902,7 @@
       },
       {
         "index": 3,
-        "text": "Delay the vote \u2014 buy time for the controversy to fade",
+        "text": "Delay the vote — buy time for the controversy to fade",
         "effects": {
           "approval": -2,
           "congressSupport": -3,
@@ -4917,7 +4917,7 @@
     "id": "scotus_historic_confirmation",
     "title": "Historic Nominee Faces Unexpected Opposition",
     "category": "congress",
-    "description": "Your historic Supreme Court nominee \u2014 the first of their kind \u2014 is facing a coordinated opposition campaign questioning their judicial philosophy. The confirmation battle has taken on cultural weight far beyond the usual politics. Every statement you make about it becomes a national news story.",
+    "description": "Your historic Supreme Court nominee — the first of their kind — is facing a coordinated opposition campaign questioning their judicial philosophy. The confirmation battle has taken on cultural weight far beyond the usual politics. Every statement you make about it becomes a national news story.",
     "triggers": {
       "month": {
         "min": 2
@@ -4931,7 +4931,7 @@
     "choices": [
       {
         "index": 0,
-        "text": "Make the historic significance explicit \u2014 campaign for your nominee",
+        "text": "Make the historic significance explicit — campaign for your nominee",
         "effects": {
           "approval": 6,
           "baseSupport": 12,
@@ -4945,7 +4945,7 @@
       },
       {
         "index": 1,
-        "text": "Let the nominee's record speak \u2014 stay out of the public debate",
+        "text": "Let the nominee's record speak — stay out of the public debate",
         "effects": {
           "approval": 3,
           "congressSupport": 5,
@@ -5011,7 +5011,7 @@
       },
       {
         "index": 1,
-        "text": "Maintain relations with the junta \u2014 prioritize US security partnerships",
+        "text": "Maintain relations with the junta — prioritize US security partnerships",
         "effects": {
           "security": 5,
           "economy": 3,
@@ -5078,7 +5078,7 @@
       },
       {
         "index": 1,
-        "text": "Seal the border \u2014 humanitarian aid at origin only, no new entries",
+        "text": "Seal the border — humanitarian aid at origin only, no new entries",
         "effects": {
           "security": 8,
           "approval": 4,
@@ -5093,7 +5093,7 @@
       },
       {
         "index": 2,
-        "text": "Create a temporary protected status program \u2014 managed humanitarian entry",
+        "text": "Create a temporary protected status program — managed humanitarian entry",
         "effects": {
           "globalReputation": 6,
           "approval": -4,
@@ -5108,7 +5108,7 @@
       },
       {
         "index": 3,
-        "text": "Pressure Mexico to act as a buffer \u2014 offer trade incentives for compliance",
+        "text": "Pressure Mexico to act as a buffer — offer trade incentives for compliance",
         "effects": {
           "security": 5,
           "globalReputation": -3,
@@ -5139,7 +5139,7 @@
     "choices": [
       {
         "index": 0,
-        "text": "Commit fully \u2014 provide the security guarantees and push both sides to sign",
+        "text": "Commit fully — provide the security guarantees and push both sides to sign",
         "effects": {
           "globalReputation": 15,
           "approval": 8,
@@ -5168,7 +5168,7 @@
       },
       {
         "index": 2,
-        "text": "Demand better Palestinian terms before US support \u2014 slow it down",
+        "text": "Demand better Palestinian terms before US support — slow it down",
         "effects": {
           "globalReputation": -4,
           "approval": 2,
@@ -5192,7 +5192,7 @@
   },
   {
     "id": "g7_leadership_moment",
-    "title": "G7 Summit \u2014 Can You Unite the Alliance?",
+    "title": "G7 Summit — Can You Unite the Alliance?",
     "category": "diplomacy",
     "description": "The annual G7 summit arrives at a moment of maximum transatlantic tension. Trade disputes, burden-sharing arguments, and competing visions for confronting China have fractured the alliance. As the host, you have one chance to set the agenda and restore coherence. Every major ally is watching.",
     "triggers": {
@@ -5212,7 +5212,7 @@
     "choices": [
       {
         "index": 0,
-        "text": "Push a bold joint agenda \u2014 China economic competition and climate",
+        "text": "Push a bold joint agenda — China economic competition and climate",
         "effects": {
           "globalReputation": 10,
           "economy": 3,
@@ -5222,7 +5222,7 @@
         "sets_flags": [
           "g7_coalition_built"
         ],
-        "outcome": "The joint communiqu\u00e9 was the most substantive in a decade. Allied leaders left with a sense that American leadership was back. The follow-through would determine if the summit mattered."
+        "outcome": "The joint communiqué was the most substantive in a decade. Allied leaders left with a sense that American leadership was back. The follow-through would determine if the summit mattered."
       },
       {
         "index": 1,
@@ -5263,7 +5263,7 @@
   },
   {
     "id": "un_security_council_crisis",
-    "title": "UN Security Council \u2014 Your Resolution Is Being Vetoed",
+    "title": "UN Security Council — Your Resolution Is Being Vetoed",
     "category": "diplomacy",
     "description": "A US-drafted Security Council resolution on a critical international crisis is being blocked by Russian and Chinese vetoes. The world is watching whether the US can lead through international institutions or is forced to act unilaterally. Your UN Ambassador is asking for guidance.",
     "triggers": {
@@ -5295,7 +5295,7 @@
       },
       {
         "index": 1,
-        "text": "Accept the veto \u2014 work within General Assembly instead",
+        "text": "Accept the veto — work within General Assembly instead",
         "effects": {
           "globalReputation": 6,
           "security": -3,
@@ -5318,7 +5318,7 @@
       },
       {
         "index": 3,
-        "text": "Call out Russia and China publicly \u2014 turn it into a transparency moment",
+        "text": "Call out Russia and China publicly — turn it into a transparency moment",
         "effects": {
           "globalReputation": 5,
           "approval": 5,
@@ -5332,7 +5332,7 @@
   },
   {
     "id": "election_october_surprise",
-    "title": "October Surprise \u2014 Damaging Story Drops 3 Weeks Before Election",
+    "title": "October Surprise — Damaging Story Drops 3 Weeks Before Election",
     "category": "scandal",
     "description": "Three weeks before the election, a major news organization has published an investigative report containing damaging information. Your communications team has 24 hours to craft a response before it dominates the final stretch of the campaign. How you handle the next 72 hours will determine whether you win.",
     "triggers": {
@@ -5349,7 +5349,7 @@
     "choices": [
       {
         "index": 0,
-        "text": "Get ahead of it \u2014 full statement, take questions, own the narrative",
+        "text": "Get ahead of it — full statement, take questions, own the narrative",
         "effects": {
           "approval": 4,
           "baseSupport": 3,
@@ -5365,7 +5365,7 @@
       },
       {
         "index": 1,
-        "text": "Attack the source \u2014 question the journalism and the timing",
+        "text": "Attack the source — question the journalism and the timing",
         "effects": {
           "approval": -6,
           "baseSupport": 8,
@@ -5376,7 +5376,7 @@
       },
       {
         "index": 2,
-        "text": "Ignore it completely \u2014 focus all messaging on your closing argument",
+        "text": "Ignore it completely — focus all messaging on your closing argument",
         "effects": {
           "approval": -3,
           "baseSupport": 2,
@@ -5387,7 +5387,7 @@
       },
       {
         "index": 3,
-        "text": "Counter-program \u2014 release positive news to dominate the cycle",
+        "text": "Counter-program — release positive news to dominate the cycle",
         "effects": {
           "approval": 2,
           "economy": 2,
@@ -5401,9 +5401,9 @@
   },
   {
     "id": "election_debate_moment",
-    "title": "Final Presidential Debate \u2014 Defining Moment",
+    "title": "Final Presidential Debate — Defining Moment",
     "category": "congress",
-    "description": "The final presidential debate is tonight. Your opponent has been gaining in the polls and needs a strong performance. Your debate prep team says you have one clear attack line available that is devastating but risks looking desperate. The stakes could not be higher \u2014 40 million people will watch.",
+    "description": "The final presidential debate is tonight. Your opponent has been gaining in the polls and needs a strong performance. Your debate prep team says you have one clear attack line available that is devastating but risks looking desperate. The stakes could not be higher — 40 million people will watch.",
     "triggers": {
       "month": {
         "min": 42,
@@ -5416,7 +5416,7 @@
     "choices": [
       {
         "index": 0,
-        "text": "Run on your record \u2014 strong, specific, presidential",
+        "text": "Run on your record — strong, specific, presidential",
         "effects": {
           "approval": 5,
           "baseSupport": 6,
@@ -5427,7 +5427,7 @@
       },
       {
         "index": 1,
-        "text": "Go aggressive \u2014 use the opposition research, land the kill shot",
+        "text": "Go aggressive — use the opposition research, land the kill shot",
         "effects": {
           "approval": -3,
           "baseSupport": 12,
@@ -5438,7 +5438,7 @@
       },
       {
         "index": 2,
-        "text": "Pivot to the future \u2014 vision speech, not a defense of the past",
+        "text": "Pivot to the future — vision speech, not a defense of the past",
         "effects": {
           "approval": 6,
           "baseSupport": 4,
@@ -5462,7 +5462,7 @@
   },
   {
     "id": "election_polling_collapse",
-    "title": "Polls Show 8-Point Deficit \u2014 Crisis Meeting with Campaign",
+    "title": "Polls Show 8-Point Deficit — Crisis Meeting with Campaign",
     "category": "congress",
     "description": "New polling shows you trailing by 8 points with 6 weeks to go. Your campaign manager says you need a major move. The safe path is incremental and probably loses. The bold path has risk but a real chance. This is the moment where your character as a leader gets tested most directly.",
     "triggers": {
@@ -5480,7 +5480,7 @@
     "choices": [
       {
         "index": 0,
-        "text": "Major policy announcement \u2014 something big, something real, something bold",
+        "text": "Major policy announcement — something big, something real, something bold",
         "effects": {
           "approval": 7,
           "baseSupport": 10,
@@ -5491,7 +5491,7 @@
       },
       {
         "index": 1,
-        "text": "Voter mobilization \u2014 pour everything into turnout in the base",
+        "text": "Voter mobilization — pour everything into turnout in the base",
         "effects": {
           "approval": 3,
           "baseSupport": 15,
@@ -5502,7 +5502,7 @@
       },
       {
         "index": 2,
-        "text": "Pick a fight \u2014 attack the opponent's record hard",
+        "text": "Pick a fight — attack the opponent's record hard",
         "effects": {
           "approval": -2,
           "baseSupport": 8,
@@ -5513,7 +5513,7 @@
       },
       {
         "index": 3,
-        "text": "Govern, don't campaign \u2014 make news with presidential action",
+        "text": "Govern, don't campaign — make news with presidential action",
         "effects": {
           "approval": 5,
           "globalReputation": 4,
@@ -5526,7 +5526,7 @@
   },
   {
     "id": "election_final_week",
-    "title": "Final Week \u2014 Everything on the Line",
+    "title": "Final Week — Everything on the Line",
     "category": "congress",
     "description": "One week to election day. The polls are within the margin of error. Your campaign has resources for one more major push. Every decision this week will be analyzed for decades. This is what you've been working toward for four years.",
     "triggers": {
@@ -5541,7 +5541,7 @@
     "choices": [
       {
         "index": 0,
-        "text": "Barnstorm swing states \u2014 14-state tour in 7 days",
+        "text": "Barnstorm swing states — 14-state tour in 7 days",
         "effects": {
           "approval": 5,
           "baseSupport": 8
@@ -5551,7 +5551,7 @@
       },
       {
         "index": 1,
-        "text": "Stay presidential \u2014 govern from the Oval Office, not the trail",
+        "text": "Stay presidential — govern from the Oval Office, not the trail",
         "effects": {
           "approval": 4,
           "globalReputation": 3,
@@ -5562,7 +5562,7 @@
       },
       {
         "index": 2,
-        "text": "Make a major surprise endorsement play \u2014 bring in the biggest surrogate you can",
+        "text": "Make a major surprise endorsement play — bring in the biggest surrogate you can",
         "effects": {
           "approval": 4,
           "baseSupport": 10,
@@ -5573,7 +5573,7 @@
       },
       {
         "index": 3,
-        "text": "Spend everything on digital \u2014 micro-targeted final push",
+        "text": "Spend everything on digital — micro-targeted final push",
         "effects": {
           "approval": 3,
           "baseSupport": 7,
@@ -5588,7 +5588,7 @@
     "id": "healthcare_system_reform",
     "title": "Major Hospital System Announces 40% Price Hike",
     "category": "social",
-    "description": "The largest hospital network in America has announced average price increases of 40% citing staffing costs, drug price inflation, and insurance complexity. Medical bankruptcies hit 800,000 last year \u2014 the highest in recorded history. Every American has a healthcare horror story and they're all looking at you.",
+    "description": "The largest hospital network in America has announced average price increases of 40% citing staffing costs, drug price inflation, and insurance complexity. Medical bankruptcies hit 800,000 last year — the highest in recorded history. Every American has a healthcare horror story and they're all looking at you.",
     "triggers": {
       "always_available": true
     },
@@ -5610,7 +5610,7 @@
       },
       {
         "index": 1,
-        "text": "All-payer rate setting \u2014 federal caps on what hospitals can charge",
+        "text": "All-payer rate setting — federal caps on what hospitals can charge",
         "effects": {
           "approval": 10,
           "economy": -3,
@@ -5622,7 +5622,7 @@
       },
       {
         "index": 2,
-        "text": "Medical debt cancellation \u2014 erase all existing medical bankruptcies",
+        "text": "Medical debt cancellation — erase all existing medical bankruptcies",
         "effects": {
           "approval": 9,
           "debt": 0.5,
@@ -5652,7 +5652,7 @@
     "id": "maternal_mortality_crisis",
     "title": "US Maternal Mortality Hits Developed World Record High",
     "category": "social",
-    "description": "A new study confirms the US maternal mortality rate is now the highest in the developed world \u2014 and 3x higher for Black women. The data has sparked national outrage. OB-GYN deserts are growing. Healthcare providers are leaving the field citing legal uncertainty in states with new restrictions.",
+    "description": "A new study confirms the US maternal mortality rate is now the highest in the developed world — and 3x higher for Black women. The data has sparked national outrage. OB-GYN deserts are growing. Healthcare providers are leaving the field citing legal uncertainty in states with new restrictions.",
     "triggers": {
       "month": {
         "min": 6
@@ -5664,7 +5664,7 @@
     "choices": [
       {
         "index": 0,
-        "text": "Federal maternal health investment \u2014 fund OB-GYN training and rural access",
+        "text": "Federal maternal health investment — fund OB-GYN training and rural access",
         "effects": {
           "approval": 7,
           "debt": 0.5,
@@ -5700,7 +5700,7 @@
       },
       {
         "index": 3,
-        "text": "Frame it as a state issue \u2014 direct resources but decline federal role",
+        "text": "Frame it as a state issue — direct resources but decline federal role",
         "effects": {
           "approval": -8,
           "unrest": 10,
@@ -5713,7 +5713,7 @@
   },
   {
     "id": "mental_health_youth_crisis",
-    "title": "Youth Mental Health Emergency \u2014 Suicide Rates at Record High",
+    "title": "Youth Mental Health Emergency — Suicide Rates at Record High",
     "category": "social",
     "description": "The Surgeon General has issued an emergency advisory: youth suicide rates are at all-time highs, teen depression has doubled in a decade, and social media is cited as a contributing factor. Every parent in America is scared. School counselors are overwhelmed. The crisis is real and the political window to act is now.",
     "triggers": {
@@ -5740,7 +5740,7 @@
       },
       {
         "index": 1,
-        "text": "Regulate social media algorithms for minors \u2014 age verification and limits",
+        "text": "Regulate social media algorithms for minors — age verification and limits",
         "effects": {
           "approval": 7,
           "congressSupport": -4,
@@ -5754,7 +5754,7 @@
       },
       {
         "index": 2,
-        "text": "National suicide prevention infrastructure \u2014 988 expansion and crisis centers",
+        "text": "National suicide prevention infrastructure — 988 expansion and crisis centers",
         "effects": {
           "approval": 8,
           "debt": 0.3,
@@ -5766,7 +5766,7 @@
       },
       {
         "index": 3,
-        "text": "Blame parents and screens \u2014 call for personal responsibility",
+        "text": "Blame parents and screens — call for personal responsibility",
         "effects": {
           "approval": -8,
           "unrest": 8,
@@ -5792,7 +5792,7 @@
     "requires_flags": [],
     "weight": 4,
     "isHistorical": true,
-    "historicalContext": "Inspired by the Cuban Missile Crisis of October 1962, widely regarded as the closest the Cold War came to nuclear conflict. The actual resolution involved a naval quarantine, back-channel diplomacy, and a secret missile-removal agreement \u2014 not necessarily the path your choices here will take.",
+    "historicalContext": "Inspired by the Cuban Missile Crisis of October 1962, widely regarded as the closest the Cold War came to nuclear conflict. The actual resolution involved a naval quarantine, back-channel diplomacy, and a secret missile-removal agreement — not necessarily the path your choices here will take.",
     "choices": [
       {
         "index": 0,
@@ -5807,7 +5807,7 @@
         "sets_flags": [
           "missile_crisis_strike"
         ],
-        "outcome": "The strike destroyed most sites but Soviet casualties triggered an immediate military response elsewhere. The world held its breath for nine days. History will remember whether restraint or force kept the peace \u2014 this time, you chose force."
+        "outcome": "The strike destroyed most sites but Soviet casualties triggered an immediate military response elsewhere. The world held its breath for nine days. History will remember whether restraint or force kept the peace — this time, you chose force."
       },
       {
         "index": 1,
@@ -5822,7 +5822,7 @@
         "sets_flags": [
           "missile_crisis_quarantine"
         ],
-        "outcome": "Thirteen days of the tensest diplomacy in the nuclear age. A secret deal \u2014 their missiles out of Cuba, yours quietly out of Turkey \u2014 defused the crisis without a shot fired. Historians will study this for generations."
+        "outcome": "Thirteen days of the tensest diplomacy in the nuclear age. A secret deal — their missiles out of Cuba, yours quietly out of Turkey — defused the crisis without a shot fired. Historians will study this for generations."
       },
       {
         "index": 2,
@@ -5882,7 +5882,7 @@
       },
       {
         "index": 1,
-        "text": "Let markets adjust naturally \u2014 no rationing, no price controls",
+        "text": "Let markets adjust naturally — no rationing, no price controls",
         "effects": {
           "approval": -12,
           "economy": -8,
@@ -5922,7 +5922,7 @@
   },
   {
     "id": "hist_banking_panic",
-    "title": "Bank Runs Spread Across the Country \u2014 Markets in Free Fall",
+    "title": "Bank Runs Spread Across the Country — Markets in Free Fall",
     "category": "economy",
     "description": "What began as one regional bank's collapse has metastasized into a full-blown banking panic. Depositors are pulling cash from institutions nationwide. The stock market has lost a third of its value in weeks. Breadlines are forming in major cities. Your economic advisors are split between dramatic federal intervention and waiting for the market to find its own bottom.",
     "triggers": {
@@ -5938,7 +5938,7 @@
     "choices": [
       {
         "index": 0,
-        "text": "Declare a national bank holiday \u2014 close all banks for inspection and reopen only solvent ones",
+        "text": "Declare a national bank holiday — close all banks for inspection and reopen only solvent ones",
         "effects": {
           "economy": 10,
           "approval": 12,
@@ -5952,7 +5952,7 @@
       },
       {
         "index": 1,
-        "text": "Let weak banks fail \u2014 protect only systemically critical institutions",
+        "text": "Let weak banks fail — protect only systemically critical institutions",
         "effects": {
           "economy": -8,
           "approval": -10,
@@ -6019,7 +6019,7 @@
         "sets_flags": [
           "hostage_rescue_attempted"
         ],
-        "outcome": "The operation failed before reaching the hostages \u2014 equipment failures in harsh terrain forced an abort, with casualties among the rescue team. The failure became a symbol of American vulnerability that haunted the rest of the term."
+        "outcome": "The operation failed before reaching the hostages — equipment failures in harsh terrain forced an abort, with casualties among the rescue team. The failure became a symbol of American vulnerability that haunted the rest of the term."
       },
       {
         "index": 1,
@@ -6033,7 +6033,7 @@
         "sets_flags": [
           "hostage_diplomacy"
         ],
-        "outcome": "Patient diplomacy was politically costly in the short term \u2014 every week of captivity dominated the news and eroded approval \u2014 but ultimately secured release through negotiation rather than force, with no additional lives lost."
+        "outcome": "Patient diplomacy was politically costly in the short term — every week of captivity dominated the news and eroded approval — but ultimately secured release through negotiation rather than force, with no additional lives lost."
       },
       {
         "index": 2,
@@ -6076,7 +6076,7 @@
     "requires_flags": [],
     "weight": 5,
     "isHistorical": true,
-    "historicalContext": "Inspired by the 1952 steel strike and the Youngstown Sheet & Tube Co. v. Sawyer Supreme Court case, in which the Court ruled that a President lacked the constitutional authority to seize private steel mills to prevent a labor strike, even during wartime \u2014 a landmark check on executive power.",
+    "historicalContext": "Inspired by the 1952 steel strike and the Youngstown Sheet & Tube Co. v. Sawyer Supreme Court case, in which the Court ruled that a President lacked the constitutional authority to seize private steel mills to prevent a labor strike, even during wartime — a landmark check on executive power.",
     "choices": [
       {
         "index": 0,
@@ -6092,11 +6092,11 @@
           "steel_mills_seized",
           "executive_overreach"
         ],
-        "outcome": "The seizure kept production running, but legal challenges moved immediately. Months later, the Supreme Court ruled the seizure unconstitutional \u2014 a defining precedent limiting executive power that would be cited for the rest of American history."
+        "outcome": "The seizure kept production running, but legal challenges moved immediately. Months later, the Supreme Court ruled the seizure unconstitutional — a defining precedent limiting executive power that would be cited for the rest of American history."
       },
       {
         "index": 1,
-        "text": "Stay out of it \u2014 let the strike and negotiations run their course",
+        "text": "Stay out of it — let the strike and negotiations run their course",
         "effects": {
           "security": -3,
           "approval": -3,
@@ -6136,9 +6136,9 @@
   },
   {
     "id": "hist_pandemic_origin_outbreak",
-    "title": "Novel Respiratory Virus Detected \u2014 First Cases on US Soil",
+    "title": "Novel Respiratory Virus Detected — First Cases on US Soil",
     "category": "disaster",
-    "description": "Health officials confirm the first domestic cases of a novel respiratory virus that has been spreading internationally for weeks. Early data is incomplete and contradictory \u2014 some models suggest a mild flu-like illness, others suggest something far deadlier. The CDC wants to move cautiously and avoid panic. Your political team is split on whether early, visible action helps or just spooks markets before there's enough data to justify it.",
+    "description": "Health officials confirm the first domestic cases of a novel respiratory virus that has been spreading internationally for weeks. Early data is incomplete and contradictory — some models suggest a mild flu-like illness, others suggest something far deadlier. The CDC wants to move cautiously and avoid panic. Your political team is split on whether early, visible action helps or just spooks markets before there's enough data to justify it.",
     "triggers": {
       "month": {
         "min": 4
@@ -6153,7 +6153,7 @@
     "choices": [
       {
         "index": 0,
-        "text": "Move aggressively early \u2014 travel restrictions and public health emergency, even with incomplete data",
+        "text": "Move aggressively early — travel restrictions and public health emergency, even with incomplete data",
         "effects": {
           "approval": -4,
           "economy": -6,
@@ -6164,7 +6164,7 @@
           "pandemic_early_action",
           "pandemic_active"
         ],
-        "outcome": "The early action was criticized as alarmist at the time \u2014 markets dropped, businesses complained. Weeks later, as case counts confirmed the threat was real, the early measures were credited with meaningfully reducing the eventual death toll."
+        "outcome": "The early action was criticized as alarmist at the time — markets dropped, businesses complained. Weeks later, as case counts confirmed the threat was real, the early measures were credited with meaningfully reducing the eventual death toll."
       },
       {
         "index": 1,
@@ -6178,7 +6178,7 @@
         "sets_flags": [
           "pandemic_active"
         ],
-        "outcome": "The wait-and-see approach avoided early economic disruption but cost critical weeks. By the time the threat was undeniable, containment was no longer realistic \u2014 only mitigation. The early calm became a political liability in hindsight."
+        "outcome": "The wait-and-see approach avoided early economic disruption but cost critical weeks. By the time the threat was undeniable, containment was no longer realistic — only mitigation. The early calm became a political liability in hindsight."
       },
       {
         "index": 2,
@@ -6192,7 +6192,7 @@
           "pandemic_research_surge",
           "pandemic_active"
         ],
-        "outcome": "The research investment paid off later \u2014 when therapeutics and vaccines arrived faster than historical precedent suggested possible. In the immediate term, critics said the response looked passive on the public health side."
+        "outcome": "The research investment paid off later — when therapeutics and vaccines arrived faster than historical precedent suggested possible. In the immediate term, critics said the response looked passive on the public health side."
       },
       {
         "index": 3,
@@ -6214,7 +6214,7 @@
     "id": "hist_government_shutdown_standoff",
     "title": "Budget Standoff Triggers Longest Government Shutdown in History",
     "category": "congress",
-    "description": "Congress and the White House are deadlocked over a single contentious spending provision. The shutdown has now stretched past a month \u2014 the longest in the nation's history. 800,000 federal workers are furloughed or working without pay. Air traffic controllers are calling in sick at unsustainable rates. Neither side believes blinking first is politically survivable.",
+    "description": "Congress and the White House are deadlocked over a single contentious spending provision. The shutdown has now stretched past a month — the longest in the nation's history. 800,000 federal workers are furloughed or working without pay. Air traffic controllers are calling in sick at unsustainable rates. Neither side believes blinking first is politically survivable.",
     "triggers": {
       "month": {
         "min": 10
@@ -6224,11 +6224,11 @@
     "requires_flags": [],
     "weight": 5,
     "isHistorical": true,
-    "historicalContext": "Inspired by the 35-day government shutdown of December 2018\u2013January 2019, the longest in US history, which ended after air traffic disruptions at major airports forced a resolution without the disputed funding being secured.",
+    "historicalContext": "Inspired by the 35-day government shutdown of December 2018–January 2019, the longest in US history, which ended after air traffic disruptions at major airports forced a resolution without the disputed funding being secured.",
     "choices": [
       {
         "index": 0,
-        "text": "Hold firm on the disputed provision \u2014 no compromise until Congress funds it",
+        "text": "Hold firm on the disputed provision — no compromise until Congress funds it",
         "effects": {
           "approval": -10,
           "congressSupport": -10,
@@ -6239,7 +6239,7 @@
         "sets_flags": [
           "shutdown_held_firm"
         ],
-        "outcome": "The standoff dragged on for weeks longer. Air travel disruptions from unpaid controllers eventually forced an end to the shutdown \u2014 without the disputed funding. Holding firm cost more than it gained, but the base respected the fight."
+        "outcome": "The standoff dragged on for weeks longer. Air travel disruptions from unpaid controllers eventually forced an end to the shutdown — without the disputed funding. Holding firm cost more than it gained, but the base respected the fight."
       },
       {
         "index": 1,
@@ -6258,7 +6258,7 @@
       },
       {
         "index": 2,
-        "text": "Negotiate a partial compromise \u2014 some funding, some concessions on both sides",
+        "text": "Negotiate a partial compromise — some funding, some concessions on both sides",
         "effects": {
           "approval": 3,
           "congressSupport": 8,
@@ -6284,13 +6284,13 @@
           "shutdown_emergency_declared",
           "executive_overreach"
         ],
-        "outcome": "The emergency declaration ended the shutdown but triggered immediate, lasting legal challenges over the scope of executive emergency powers \u2014 a fight that outlasted the shutdown itself by years."
+        "outcome": "The emergency declaration ended the shutdown but triggered immediate, lasting legal challenges over the scope of executive emergency powers — a fight that outlasted the shutdown itself by years."
       }
     ]
   },
   {
     "id": "hist_satellite_launch_shock",
-    "title": "Rival Power Launches First Satellite \u2014 National Confidence Shaken",
+    "title": "Rival Power Launches First Satellite — National Confidence Shaken",
     "category": "security",
     "description": "A geopolitical rival has successfully launched the world's first artificial satellite, beating the United States into space. The technological shock has triggered genuine public fear that the same rocket technology could deliver a nuclear warhead to American soil. Congress wants immediate, dramatic investment in science and defense. Your budget team warns the panic may be larger than the actual strategic shift.",
     "triggers": {
@@ -6302,7 +6302,7 @@
     "requires_flags": [],
     "weight": 4,
     "isHistorical": true,
-    "historicalContext": "Inspired by the launch of Sputnik in October 1957, which triggered the \"Sputnik crisis\" \u2014 a wave of American anxiety about technological and military inferiority that led directly to the creation of NASA and a massive increase in federal science education funding.",
+    "historicalContext": "Inspired by the launch of Sputnik in October 1957, which triggered the \"Sputnik crisis\" — a wave of American anxiety about technological and military inferiority that led directly to the creation of NASA and a massive increase in federal science education funding.",
     "choices": [
       {
         "index": 0,
@@ -6321,7 +6321,7 @@
       },
       {
         "index": 1,
-        "text": "Emphasize calm \u2014 the strategic threat is overstated, no crash program needed",
+        "text": "Emphasize calm — the strategic threat is overstated, no crash program needed",
         "effects": {
           "approval": -8,
           "security": -2,
@@ -6361,9 +6361,9 @@
   },
   {
     "id": "hist_stagflation_squeeze",
-    "title": "Inflation and Unemployment Rise Together \u2014 Economists Have No Playbook",
+    "title": "Inflation and Unemployment Rise Together — Economists Have No Playbook",
     "category": "economy",
-    "description": "Conventional economics says inflation and unemployment shouldn't rise simultaneously, but that's exactly what's happening. Prices are climbing while businesses lay off workers. Standard tools \u2014 raise rates to fight inflation, or stimulate spending to fight unemployment \u2014 each risk making the other problem worse. Your economic team is openly divided on which threat to prioritize.",
+    "description": "Conventional economics says inflation and unemployment shouldn't rise simultaneously, but that's exactly what's happening. Prices are climbing while businesses lay off workers. Standard tools — raise rates to fight inflation, or stimulate spending to fight unemployment — each risk making the other problem worse. Your economic team is openly divided on which threat to prioritize.",
     "triggers": {
       "economy": {
         "max": 45
@@ -6376,7 +6376,7 @@
     "requires_flags": [],
     "weight": 5,
     "isHistorical": true,
-    "historicalContext": "Inspired by the stagflation crisis of the 1970s, when high inflation and high unemployment occurred simultaneously \u2014 a combination that conventional Keynesian economics of the era struggled to explain or address, ultimately reshaping macroeconomic policy for decades.",
+    "historicalContext": "Inspired by the stagflation crisis of the 1970s, when high inflation and high unemployment occurred simultaneously — a combination that conventional Keynesian economics of the era struggled to explain or address, ultimately reshaping macroeconomic policy for decades.",
     "choices": [
       {
         "index": 0,
@@ -6425,7 +6425,7 @@
       },
       {
         "index": 3,
-        "text": "Pursue a narrow, targeted approach \u2014 sector-specific relief rather than economy-wide moves",
+        "text": "Pursue a narrow, targeted approach — sector-specific relief rather than economy-wide moves",
         "effects": {
           "economy": 1,
           "approval": -2,
@@ -6442,7 +6442,7 @@
     "id": "hist_whistleblower_tapes",
     "title": "Secret White House Recordings Reportedly Exist",
     "category": "scandal",
-    "description": "A former staffer has gone public claiming the White House has been secretly recording Oval Office conversations \u2014 including conversations relevant to an ongoing investigation into senior officials. Congress is demanding the tapes. Your legal team says you may have a claim of executive privilege, but it has never been tested this directly before. Refusing will look like guilt. Releasing them sets a precedent no future President may want.",
+    "description": "A former staffer has gone public claiming the White House has been secretly recording Oval Office conversations — including conversations relevant to an ongoing investigation into senior officials. Congress is demanding the tapes. Your legal team says you may have a claim of executive privilege, but it has never been tested this directly before. Refusing will look like guilt. Releasing them sets a precedent no future President may want.",
     "triggers": {
       "month": {
         "min": 12
@@ -6458,7 +6458,7 @@
     "choices": [
       {
         "index": 0,
-        "text": "Release the tapes in full \u2014 let the public and Congress hear everything",
+        "text": "Release the tapes in full — let the public and Congress hear everything",
         "effects": {
           "approval": -8,
           "congressSupport": 2,
@@ -6530,7 +6530,7 @@
     "choices": [
       {
         "index": 0,
-        "text": "Run on your record \u2014 major rally, highlight accomplishments",
+        "text": "Run on your record — major rally, highlight accomplishments",
         "effects": {
           "approval": 4,
           "baseSupport": 5,
@@ -6541,7 +6541,7 @@
       },
       {
         "index": 1,
-        "text": "Go negative early \u2014 define the opponent before they define themselves",
+        "text": "Go negative early — define the opponent before they define themselves",
         "effects": {
           "approval": -3,
           "baseSupport": 6,
@@ -6552,7 +6552,7 @@
       },
       {
         "index": 2,
-        "text": "Announce a bold new policy agenda \u2014 give people something to vote for",
+        "text": "Announce a bold new policy agenda — give people something to vote for",
         "effects": {
           "approval": 5,
           "debt": 0.4,
@@ -6563,7 +6563,7 @@
       },
       {
         "index": 3,
-        "text": "Stay presidential \u2014 govern, don't campaign",
+        "text": "Stay presidential — govern, don't campaign",
         "effects": {
           "globalReputation": 3,
           "baseSupport": -4,
@@ -6578,7 +6578,7 @@
     "id": "opposition_investigation",
     "title": "Congressional Opponents Launch Investigation Into Your Administration",
     "category": "scandal",
-    "description": "The opposition has subpoenaed senior White House staff and is demanding documents going back three years. It may be a fishing expedition \u2014 or they may have something. Either way, it will dominate the news for months.",
+    "description": "The opposition has subpoenaed senior White House staff and is demanding documents going back three years. It may be a fishing expedition — or they may have something. Either way, it will dominate the news for months.",
     "triggers": {
       "month": {
         "min": 30
@@ -6592,7 +6592,7 @@
     "choices": [
       {
         "index": 0,
-        "text": "Full cooperation \u2014 release everything, nothing to hide",
+        "text": "Full cooperation — release everything, nothing to hide",
         "effects": {
           "approval": 3,
           "partyUnity": -6,
@@ -6603,7 +6603,7 @@
       },
       {
         "index": 1,
-        "text": "Executive privilege \u2014 fight every subpoena in court",
+        "text": "Executive privilege — fight every subpoena in court",
         "effects": {
           "approval": -5,
           "partyUnity": 8,
@@ -6616,7 +6616,7 @@
       },
       {
         "index": 2,
-        "text": "Negotiate \u2014 cooperate selectively on the least damaging documents",
+        "text": "Negotiate — cooperate selectively on the least damaging documents",
         "effects": {
           "approval": -2,
           "congressSupport": 3,
@@ -6627,7 +6627,7 @@
       },
       {
         "index": 3,
-        "text": "Counter-attack \u2014 demand investigation of the investigators",
+        "text": "Counter-attack — demand investigation of the investigators",
         "effects": {
           "approval": -4,
           "baseSupport": 9,
@@ -6657,7 +6657,7 @@
     "choices": [
       {
         "index": 0,
-        "text": "Get ahead of it \u2014 hold a press conference and contextualize the memos",
+        "text": "Get ahead of it — hold a press conference and contextualize the memos",
         "effects": {
           "approval": 2,
           "mediaScore": 0.5,
@@ -6675,11 +6675,11 @@
           "unrest": 5
         },
         "sets_flags": [],
-        "outcome": "You find someone to blame and make an example of them. It sends a message \u2014 but the story runs anyway, now with a sidebar about the firing."
+        "outcome": "You find someone to blame and make an example of them. It sends a message — but the story runs anyway, now with a sidebar about the firing."
       },
       {
         "index": 2,
-        "text": "Legal threat \u2014 warn the newspaper about national security implications",
+        "text": "Legal threat — warn the newspaper about national security implications",
         "effects": {
           "approval": -6,
           "globalReputation": -4,
@@ -6692,7 +6692,7 @@
       },
       {
         "index": 3,
-        "text": "No comment \u2014 let it pass",
+        "text": "No comment — let it pass",
         "effects": {
           "approval": -5,
           "mediaScore": -0.5,
@@ -6707,7 +6707,7 @@
     "id": "midterm_results_late",
     "title": "Midterm Elections: The Country Votes on Your First Two Years",
     "category": "congress",
-    "description": "Midterms are always a referendum on the sitting president. The question isn't whether you'll lose seats \u2014 history says you will \u2014 it's how many. The result will define whether your second two years are productive or paralyzed.",
+    "description": "Midterms are always a referendum on the sitting president. The question isn't whether you'll lose seats — history says you will — it's how many. The result will define whether your second two years are productive or paralyzed.",
     "triggers": {
       "month": {
         "min": 22,
@@ -6722,7 +6722,7 @@
     "choices": [
       {
         "index": 0,
-        "text": "Heavy campaign investment \u2014 travel, rally, fundraise to protect the majority",
+        "text": "Heavy campaign investment — travel, rally, fundraise to protect the majority",
         "effects": {
           "approval": 2,
           "congressSupport": 8,
@@ -6734,7 +6734,7 @@
       },
       {
         "index": 1,
-        "text": "Focus on governing \u2014 let the record speak for itself",
+        "text": "Focus on governing — let the record speak for itself",
         "effects": {
           "congressSupport": -8,
           "globalReputation": 3,
@@ -6757,7 +6757,7 @@
       },
       {
         "index": 3,
-        "text": "Distance yourself from vulnerable incumbents \u2014 protect the brand",
+        "text": "Distance yourself from vulnerable incumbents — protect the brand",
         "effects": {
           "congressSupport": -5,
           "partyUnity": -10,
@@ -6784,7 +6784,7 @@
     "choices": [
       {
         "index": 0,
-        "text": "Respond with overwhelming force \u2014 make clear lame-duck doesn't mean weak",
+        "text": "Respond with overwhelming force — make clear lame-duck doesn't mean weak",
         "effects": {
           "security": 8,
           "globalReputation": 5,
@@ -6796,7 +6796,7 @@
       },
       {
         "index": 1,
-        "text": "Diplomatic back-channel \u2014 resolve it quietly without escalation",
+        "text": "Diplomatic back-channel — resolve it quietly without escalation",
         "effects": {
           "globalReputation": 6,
           "security": 2,
@@ -6815,11 +6815,11 @@
           "approval": 1
         },
         "sets_flags": [],
-        "outcome": "The public statement firms up the position. Markets wobble briefly. The adversary pauses \u2014 for now."
+        "outcome": "The public statement firms up the position. Markets wobble briefly. The adversary pauses — for now."
       },
       {
         "index": 3,
-        "text": "Defer to your successor \u2014 this decision belongs to the next administration",
+        "text": "Defer to your successor — this decision belongs to the next administration",
         "effects": {
           "security": -6,
           "globalReputation": -8,
@@ -6836,7 +6836,9 @@
     "category": "social",
     "description": "With re-election on the horizon, your campaign has organized a high-dollar fundraising gala. Donors expect face time. Your schedule is already packed with governing. Skipping it risks the campaign's war chest; attending risks the optics of a president distracted by politics while problems remain unsolved.",
     "triggers": {
-      "month": { "min": 40 }
+      "month": {
+        "min": 40
+      }
     },
     "sets_flags": [],
     "requires_flags": [],
@@ -6845,28 +6847,47 @@
       {
         "index": 0,
         "text": "Attend personally and work the room all night",
-        "effects": { "baseSupport": 8, "partyUnity": 6, "approval": -4, "debt": 0 },
-        "sets_flags": ["courted_major_donors"],
+        "effects": {
+          "baseSupport": 8,
+          "partyUnity": 6,
+          "approval": -4,
+          "debt": 0
+        },
+        "sets_flags": [
+          "courted_major_donors"
+        ],
         "outcome": "The war chest swells. Photos of you laughing with donors make the morning shows, and not in a flattering light."
       },
       {
         "index": 1,
         "text": "Send the Vice President in your place",
-        "effects": { "baseSupport": 3, "partyUnity": 2, "approval": 1 },
+        "effects": {
+          "baseSupport": 3,
+          "partyUnity": 2,
+          "approval": 1
+        },
         "sets_flags": [],
         "outcome": "Donors are mildly disappointed but understanding. The optics stay clean. Fundraising totals come in lower than hoped."
       },
       {
         "index": 2,
         "text": "Skip it entirely and hold a working dinner on policy instead",
-        "effects": { "approval": 5, "baseSupport": -6, "partyUnity": -4 },
+        "effects": {
+          "approval": 5,
+          "baseSupport": -6,
+          "partyUnity": -4
+        },
         "sets_flags": [],
         "outcome": "The press praises your focus. Campaign finance staff are furious — the fundraising gap with your opponent widens."
       },
       {
         "index": 3,
         "text": "Attend briefly, deliver remarks, then leave early",
-        "effects": { "baseSupport": 4, "approval": 1, "partyUnity": 3 },
+        "effects": {
+          "baseSupport": 4,
+          "approval": 1,
+          "partyUnity": 3
+        },
         "sets_flags": [],
         "outcome": "A measured showing. Nobody's fully satisfied, but nobody's especially upset either."
       }
@@ -6878,7 +6899,9 @@
     "category": "social",
     "description": "Ninety minutes, one stage, no script. Your opponent has been rehearsing attack lines for weeks. Your debate prep team is split on strategy — some want you aggressive, some want you presidential and above the fray. The performance will dominate news coverage for the following week regardless of what you actually say.",
     "triggers": {
-      "month": { "min": 41 }
+      "month": {
+        "min": 41
+      }
     },
     "sets_flags": [],
     "requires_flags": [],
@@ -6887,28 +6910,47 @@
       {
         "index": 0,
         "text": "Go on the offensive and attack your opponent's record directly",
-        "effects": { "approval": 3, "baseSupport": 7, "partyUnity": 4, "mediaScore": -0.5 },
-        "sets_flags": ["went_negative_debate"],
+        "effects": {
+          "approval": 3,
+          "baseSupport": 7,
+          "partyUnity": 4,
+          "mediaScore": -0.5
+        },
+        "sets_flags": [
+          "went_negative_debate"
+        ],
         "outcome": "Your base loves it. Pundits call it a mixed bag — sharp, but undignified. Clips of the sharpest exchange go viral within hours."
       },
       {
         "index": 1,
         "text": "Stay above the fray and focus on substantive policy",
-        "effects": { "approval": 6, "congressSupport": 3, "baseSupport": -2 },
+        "effects": {
+          "approval": 6,
+          "congressSupport": 3,
+          "baseSupport": -2
+        },
         "sets_flags": [],
         "outcome": "Fact-checkers rate you highly. It doesn't make for great television, and your opponent's attack lines land largely unanswered."
       },
       {
         "index": 2,
         "text": "Lean on humor to defuse the sharpest attacks",
-        "effects": { "approval": 4, "mediaScore": 1, "baseSupport": 2 },
+        "effects": {
+          "approval": 4,
+          "mediaScore": 1,
+          "baseSupport": 2
+        },
         "sets_flags": [],
         "outcome": "A couple of lines land well and dominate the highlight reels. Some voters find it too glib for the moment."
       },
       {
         "index": 3,
         "text": "Play it safe and avoid any real news",
-        "effects": { "approval": -3, "baseSupport": -3, "partyUnity": -2 },
+        "effects": {
+          "approval": -3,
+          "baseSupport": -3,
+          "partyUnity": -2
+        },
         "sets_flags": [],
         "outcome": "The safest possible ninety minutes. Commentators call it forgettable, which your opponent's campaign happily amplifies."
       }
@@ -6920,7 +6962,9 @@
     "category": "scandal",
     "description": "A wave of attack ads is airing in every swing state, built around your administration's most controversial moments — some fairly characterized, others badly distorted. Your campaign manager wants a response strategy locked in before the news cycle moves on and the ads' framing hardens into conventional wisdom.",
     "triggers": {
-      "month": { "min": 40 }
+      "month": {
+        "min": 40
+      }
     },
     "sets_flags": [],
     "requires_flags": [],
@@ -6929,28 +6973,49 @@
       {
         "index": 0,
         "text": "Launch an equally aggressive counter-ad campaign",
-        "effects": { "baseSupport": 6, "approval": -3, "debt": 0.1, "unrest": 2 },
-        "sets_flags": ["ran_counter_ads"],
+        "effects": {
+          "baseSupport": 6,
+          "approval": -3,
+          "debt": 0.1,
+          "unrest": 2
+        },
+        "sets_flags": [
+          "ran_counter_ads"
+        ],
         "outcome": "The airwaves turn into a slugfest. Your base is energized. Independents tell pollsters they're tired of both sides."
       },
       {
         "index": 1,
         "text": "Publicly fact-check the ads point by point",
-        "effects": { "mediaScore": 1, "approval": 2, "baseSupport": 1 },
+        "effects": {
+          "mediaScore": 1,
+          "approval": 2,
+          "baseSupport": 1
+        },
         "sets_flags": [],
         "outcome": "The fact-check gets real pickup in the press. It also keeps the ads' claims in the news for another cycle."
       },
       {
         "index": 2,
         "text": "Threaten legal action against the most misleading claims",
-        "effects": { "approval": -4, "mediaScore": -1, "baseSupport": 3 },
-        "sets_flags": ["threatened_legal_action"],
+        "effects": {
+          "approval": -4,
+          "mediaScore": -1,
+          "baseSupport": 3
+        },
+        "sets_flags": [
+          "threatened_legal_action"
+        ],
         "outcome": "Free speech advocates in both parties criticize the move. The ads keep airing, now with extra attention."
       },
       {
         "index": 3,
         "text": "Ignore it and stay focused on the day-to-day business of governing",
-        "effects": { "approval": 3, "baseSupport": -5, "congressSupport": 2 },
+        "effects": {
+          "approval": 3,
+          "baseSupport": -5,
+          "congressSupport": 2
+        },
         "sets_flags": [],
         "outcome": "You look presidential by comparison. Campaign staff worry the unanswered attacks are sinking in with undecided voters."
       }
@@ -6962,7 +7027,9 @@
     "category": "social",
     "description": "Your campaign has scheduled a rally in a state that could decide the election. Local organizers, national strategists, and your own instincts don't fully agree on what the crowd needs to hear tonight.",
     "triggers": {
-      "month": { "min": 42 }
+      "month": {
+        "min": 42
+      }
     },
     "sets_flags": [],
     "requires_flags": [],
@@ -6971,28 +7038,44 @@
       {
         "index": 0,
         "text": "Fire up the base with red-meat rhetoric",
-        "effects": { "baseSupport": 9, "partyUnity": 5, "approval": -3, "unrest": 2 },
+        "effects": {
+          "baseSupport": 9,
+          "partyUnity": 5,
+          "approval": -3,
+          "unrest": 2
+        },
         "sets_flags": [],
         "outcome": "The crowd roars. Clips travel fast on social media — thrilling to supporters, alarming to everyone else watching."
       },
       {
         "index": 1,
         "text": "Pitch a moderate, unifying message to undecided voters",
-        "effects": { "approval": 5, "baseSupport": -3, "congressSupport": 2 },
+        "effects": {
+          "approval": 5,
+          "baseSupport": -3,
+          "congressSupport": 2
+        },
         "sets_flags": [],
         "outcome": "The speech plays well with commentators calling for less division. Some of your most committed supporters call it flat."
       },
       {
         "index": 2,
         "text": "Focus entirely on local jobs and issues specific to this state",
-        "effects": { "baseSupport": 5, "economy": 1, "approval": 2 },
+        "effects": {
+          "baseSupport": 5,
+          "economy": 1,
+          "approval": 2
+        },
         "sets_flags": [],
         "outcome": "Local coverage is glowing. National media barely covers it — it wasn't built for that audience anyway."
       },
       {
         "index": 3,
         "text": "Cancel the rally and send senior surrogates instead",
-        "effects": { "baseSupport": -4, "approval": 1 },
+        "effects": {
+          "baseSupport": -4,
+          "approval": 1
+        },
         "sets_flags": [],
         "outcome": "Local organizers are frustrated. The decision barely registers nationally, but it costs you momentum on the ground."
       }
@@ -7004,7 +7087,9 @@
     "category": "congress",
     "description": "Behind closed doors, senior members of your own party are debating how enthusiastically to back your re-election. Some want to campaign hard on your record. Others are quietly keeping their distance, hedging in case your numbers slide further before Election Day.",
     "triggers": {
-      "month": { "min": 41 }
+      "month": {
+        "min": 41
+      }
     },
     "sets_flags": [],
     "requires_flags": [],
@@ -7013,28 +7098,47 @@
       {
         "index": 0,
         "text": "Call in every favor to lock down a unified, full-throated endorsement",
-        "effects": { "congressSupport": 6, "partyUnity": 8, "debt": 0 },
-        "sets_flags": ["secured_party_unity"],
+        "effects": {
+          "congressSupport": 6,
+          "partyUnity": 8,
+          "debt": 0
+        },
+        "sets_flags": [
+          "secured_party_unity"
+        ],
         "outcome": "The party closes ranks publicly. Privately, some members remind you they expect this debt repaid after the election."
       },
       {
         "index": 1,
         "text": "Let each member endorse on their own terms and timeline",
-        "effects": { "partyUnity": 2, "congressSupport": 1 },
+        "effects": {
+          "partyUnity": 2,
+          "congressSupport": 1
+        },
         "sets_flags": [],
         "outcome": "A patchwork of endorsements trickles out over several weeks. It reads as authentic, if a little disorganized."
       },
       {
         "index": 2,
         "text": "Lean into running as an outsider, independent of party machinery",
-        "effects": { "baseSupport": 5, "partyUnity": -8, "congressSupport": -4 },
-        "sets_flags": ["ran_as_outsider"],
+        "effects": {
+          "baseSupport": 5,
+          "partyUnity": -8,
+          "congressSupport": -4
+        },
+        "sets_flags": [
+          "ran_as_outsider"
+        ],
         "outcome": "It plays well with voters tired of politics as usual. Party leadership is furious at being publicly sidelined."
       },
       {
         "index": 3,
         "text": "Focus on courting a handful of high-profile crossover endorsements instead",
-        "effects": { "approval": 4, "globalReputation": 2, "partyUnity": -2 },
+        "effects": {
+          "approval": 4,
+          "globalReputation": 2,
+          "partyUnity": -2
+        },
         "sets_flags": [],
         "outcome": "The crossover endorsements generate real buzz. Your own party's rank-and-file feel taken for granted."
       }
@@ -7790,6 +7894,695 @@
           "pacific_framework_collapsed"
         ],
         "outcome": "Letting it die avoids the long-term commitment. It also tells every ally watching exactly how far your word travels."
+      }
+    ]
+  },
+  {
+    "id": "cyber_grid_probe",
+    "title": "Foreign Hackers Probe Power Grid Control Systems",
+    "category": "security",
+    "description": "Cybersecurity officials detect a sophisticated reconnaissance intrusion into control systems for three regional power grids. Attribution points to a state-sponsored group. No outage has occurred yet — but the access itself is the warning.",
+    "triggers": {
+      "always_available": true
+    },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 5,
+    "choices": [
+      {
+        "index": 0,
+        "text": "Publicly attribute the intrusion and impose sanctions",
+        "effects": {
+          "security": 5,
+          "globalReputation": -3,
+          "approval": 3
+        },
+        "sets_flags": [
+          "grid_intrusion_attributed"
+        ],
+        "outcome": "The public attribution rattled the rival power’s markets. Retaliatory cyber probes increased for weeks afterward."
+      },
+      {
+        "index": 1,
+        "text": "Quietly harden defenses without public attribution",
+        "effects": {
+          "security": 3,
+          "approval": 1
+        },
+        "sets_flags": [],
+        "outcome": "Security teams patched the vulnerabilities without fanfare. No one outside the briefing room ever knew how close it came."
+      },
+      {
+        "index": 2,
+        "text": "Authorize a counter-cyber operation in response",
+        "effects": {
+          "security": 6,
+          "globalReputation": -6,
+          "unrest": 2
+        },
+        "sets_flags": [
+          "cyber_retaliation"
+        ],
+        "outcome": "The counter-operation succeeded, but cybersecurity officials privately worry about where the escalation ladder ends."
+      },
+      {
+        "index": 3,
+        "text": "Downplay the intrusion to avoid public panic",
+        "effects": {
+          "security": -4,
+          "approval": -3
+        },
+        "sets_flags": [],
+        "outcome": "The story leaked anyway. \"Why weren’t we told?\" became the week’s dominant headline."
+      }
+    ]
+  },
+  {
+    "id": "border_patrol_ambush",
+    "title": "Border Patrol Agents Ambushed Near Southern Crossing",
+    "category": "security",
+    "description": "Cartel-linked gunmen ambush a Border Patrol unit near a remote crossing, wounding two agents. It’s the third such incident this year, and the first with confirmed cartel involvement.",
+    "triggers": {
+      "always_available": true
+    },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 4,
+    "choices": [
+      {
+        "index": 0,
+        "text": "Deploy the National Guard to the sector",
+        "effects": {
+          "security": 6,
+          "approval": 4,
+          "unrest": -2
+        },
+        "sets_flags": [
+          "guard_deployed_border"
+        ],
+        "outcome": "The Guard presence stabilized the sector within weeks. Border-state governors credited the quick response."
+      },
+      {
+        "index": 1,
+        "text": "Order a joint task force with Mexican authorities",
+        "effects": {
+          "globalReputation": 4,
+          "security": 3
+        },
+        "sets_flags": [],
+        "outcome": "The joint task force led to three arrests within a month — a rare cross-border law enforcement win."
+      },
+      {
+        "index": 2,
+        "text": "Demand emergency border security funding from Congress",
+        "effects": {
+          "congressSupport": -3,
+          "approval": 2
+        },
+        "sets_flags": [],
+        "outcome": "The funding request became a legislative fight, but the ambush footage made it hard for anyone to vote no."
+      },
+      {
+        "index": 3,
+        "text": "Treat it as an isolated incident — no policy change",
+        "effects": {
+          "approval": -5,
+          "security": -3
+        },
+        "sets_flags": [],
+        "outcome": "Border agents’ union called the response \"an insult to the men and women who nearly died out there.\""
+      }
+    ]
+  },
+  {
+    "id": "refinery_explosion",
+    "title": "Gulf Coast Refinery Explosion Disrupts Fuel Supply",
+    "category": "disaster",
+    "description": "An explosion at a major Gulf Coast refinery kills four workers and knocks out roughly 6% of national refining capacity overnight. Gas prices are already climbing at the pump.",
+    "triggers": {
+      "always_available": true
+    },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 6,
+    "choices": [
+      {
+        "index": 0,
+        "text": "Release oil from the Strategic Petroleum Reserve",
+        "effects": {
+          "economy": 4,
+          "approval": 3,
+          "debt": 0.3
+        },
+        "sets_flags": [],
+        "outcome": "The reserve release cushioned the price spike within a week. Energy analysts called it textbook crisis management."
+      },
+      {
+        "index": 1,
+        "text": "Order an OSHA investigation into corporate negligence",
+        "effects": {
+          "approval": 5,
+          "economy": -2
+        },
+        "sets_flags": [
+          "refinery_investigation"
+        ],
+        "outcome": "The investigation found a pattern of deferred safety maintenance. The company’s stock dropped 8% on the news.",
+        "delayed_effects": [
+          {
+            "delay_months": 4,
+            "effects": {
+              "economy": 1,
+              "security": 2
+            },
+            "headline": "Refinery safety reforms credited with preventing a second incident"
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "text": "Let markets self-correct without intervention",
+        "effects": {
+          "economy": -5,
+          "approval": -4
+        },
+        "sets_flags": [],
+        "outcome": "Gas prices stayed elevated for two months. \"Do something\" became a common refrain at town halls."
+      },
+      {
+        "index": 3,
+        "text": "Fast-track emergency refinery permits elsewhere",
+        "effects": {
+          "economy": 2,
+          "unrest": 2,
+          "globalReputation": -2
+        },
+        "sets_flags": [],
+        "outcome": "New capacity came online faster than expected. Environmental groups called it a step backward wrapped in an emergency."
+      }
+    ]
+  },
+  {
+    "id": "un_security_council_veto",
+    "title": "Ally Nation Requests US Veto at the UN Security Council",
+    "category": "diplomacy",
+    "description": "A close ally, facing a Security Council resolution condemning its recent military conduct, quietly asks the United States to use its veto. Allied and adversarial governments alike are watching for the answer.",
+    "triggers": {
+      "always_available": true
+    },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 5,
+    "choices": [
+      {
+        "index": 0,
+        "text": "Cast the veto and protect the alliance",
+        "effects": {
+          "globalReputation": -4,
+          "security": 3
+        },
+        "sets_flags": [],
+        "outcome": "The veto held the alliance together, at the cost of a wave of international criticism."
+      },
+      {
+        "index": 1,
+        "text": "Abstain and let the resolution pass",
+        "effects": {
+          "globalReputation": 3,
+          "security": -4
+        },
+        "sets_flags": [],
+        "outcome": "The ally’s government was furious. Diplomatic cables described the relationship as \"at its coldest point in a decade.\""
+      },
+      {
+        "index": 2,
+        "text": "Broker a watered-down compromise resolution",
+        "effects": {
+          "globalReputation": 2,
+          "congressSupport": 2
+        },
+        "sets_flags": [],
+        "outcome": "Neither side loved the compromise, which diplomats took as a sign it was probably the right call."
+      },
+      {
+        "index": 3,
+        "text": "Vote against the ally publicly",
+        "effects": {
+          "globalReputation": 5,
+          "security": -8,
+          "approval": -3
+        },
+        "sets_flags": [],
+        "outcome": "The vote sent shockwaves through the alliance. Two other partners quietly began hedging their bets."
+      }
+    ]
+  },
+  {
+    "id": "foreign_election_meddling",
+    "title": "Intelligence Confirms Foreign Meddling in Allied Election",
+    "category": "diplomacy",
+    "description": "Intelligence agencies confirm with high confidence that a rival power is running an influence operation against a democratic ally’s upcoming election. The ally’s government does not yet know.",
+    "triggers": {
+      "always_available": true
+    },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 4,
+    "choices": [
+      {
+        "index": 0,
+        "text": "Publicly expose the operation",
+        "effects": {
+          "globalReputation": 5,
+          "security": -3
+        },
+        "sets_flags": [
+          "meddling_exposed"
+        ],
+        "outcome": "The exposure embarrassed the rival power on the world stage — and invited retaliation in kind."
+      },
+      {
+        "index": 1,
+        "text": "Quietly warn the ally and share intelligence",
+        "effects": {
+          "globalReputation": 3,
+          "security": 1
+        },
+        "sets_flags": [],
+        "outcome": "The ally’s government moved fast on the tip. The operation was contained before election day."
+      },
+      {
+        "index": 2,
+        "text": "Respond in kind against the rival power",
+        "effects": {
+          "security": -5,
+          "globalReputation": -3,
+          "unrest": 2
+        },
+        "sets_flags": [],
+        "outcome": "Intelligence officials warned this would escalate. It did."
+      },
+      {
+        "index": 3,
+        "text": "Stay silent to avoid escalation",
+        "effects": {
+          "globalReputation": -4,
+          "approval": -2
+        },
+        "sets_flags": [],
+        "outcome": "The meddling worked. When it surfaced months later, the question was why Washington said nothing."
+      }
+    ]
+  },
+  {
+    "id": "trade_tariffs_proposed",
+    "title": "Advisors Recommend New Tariffs on Steel and Tech Imports",
+    "category": "economy",
+    "description": "Trade advisors present a plan for sweeping new tariffs aimed at protecting domestic steel and semiconductor industries. Economists warn of retaliation; the base is demanding action.",
+    "triggers": {
+      "always_available": true,
+      "trade_war_started": false
+    },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 5,
+    "choices": [
+      {
+        "index": 0,
+        "text": "Impose broad tariffs across the board",
+        "effects": {
+          "economy": -3,
+          "baseSupport": 5,
+          "congressSupport": 2
+        },
+        "sets_flags": [
+          "tariffs_imposed",
+          "trade_war_started"
+        ],
+        "outcome": "The tariffs landed exactly as promised on the campaign trail. Trading partners called emergency meetings within days."
+      },
+      {
+        "index": 1,
+        "text": "Impose targeted tariffs on adversarial nations only",
+        "effects": {
+          "economy": -1,
+          "globalReputation": 2
+        },
+        "sets_flags": [
+          "tariffs_targeted",
+          "trade_war_started"
+        ],
+        "outcome": "The targeted approach drew less blowback, though it satisfied almost no one’s maximalist position."
+      },
+      {
+        "index": 2,
+        "text": "Reject tariffs, pursue negotiation instead",
+        "effects": {
+          "globalReputation": 4,
+          "baseSupport": -4
+        },
+        "sets_flags": [
+          "trade_negotiation_path"
+        ],
+        "outcome": "The decision to negotiate rather than confront drew praise abroad and criticism from the industrial base at home."
+      },
+      {
+        "index": 3,
+        "text": "Delay the decision and commission a study",
+        "effects": {
+          "approval": -2
+        },
+        "sets_flags": [],
+        "outcome": "The delay bought time, but \"still studying it\" became a punchline on cable news within a week."
+      }
+    ]
+  },
+  {
+    "id": "trade_war_retaliation",
+    "title": "Trading Partners Announce Retaliatory Tariffs",
+    "category": "economy",
+    "description": "In response to the administration’s trade posture, several major trading partners announce their own retaliatory tariffs on American agricultural and manufactured exports.",
+    "triggers": {
+      "always_available": true,
+      "trade_war_resolved": false
+    },
+    "sets_flags": [],
+    "requires_flags": [
+      "trade_war_started"
+    ],
+    "weight": 5,
+    "choices": [
+      {
+        "index": 0,
+        "text": "Escalate with a second round of tariffs",
+        "effects": {
+          "economy": -6,
+          "baseSupport": 3
+        },
+        "sets_flags": [
+          "trade_war_escalated"
+        ],
+        "outcome": "Farm-state senators warned their constituents couldn’t absorb another round. The White House held firm anyway."
+      },
+      {
+        "index": 1,
+        "text": "Open back-channel talks to de-escalate",
+        "effects": {
+          "economy": -1,
+          "globalReputation": 3
+        },
+        "sets_flags": [
+          "trade_war_deescalating"
+        ],
+        "outcome": "Quiet diplomacy opened a path off the ledge, even if neither side would admit it publicly yet."
+      },
+      {
+        "index": 2,
+        "text": "Offer to pause tariffs contingent on reciprocity",
+        "effects": {
+          "economy": 1,
+          "globalReputation": 2
+        },
+        "sets_flags": [
+          "trade_war_deescalating"
+        ],
+        "outcome": "The conditional offer was read as a genuine off-ramp — markets rallied on the news."
+      },
+      {
+        "index": 3,
+        "text": "Hold firm and absorb the economic hit",
+        "effects": {
+          "economy": -4,
+          "congressSupport": -2
+        },
+        "sets_flags": [],
+        "outcome": "Export-dependent states bore the brunt. Congressional patience was visibly thinning."
+      }
+    ]
+  },
+  {
+    "id": "trade_war_resolution",
+    "title": "Trade Summit Offers a Path to Resolution — or Further Escalation",
+    "category": "diplomacy",
+    "description": "Months into the standoff, trade ministers from both sides agree to a summit. Whatever happens here will define the economic relationship for years.",
+    "triggers": {
+      "always_available": true
+    },
+    "sets_flags": [],
+    "requires_flags": [
+      "trade_war_started"
+    ],
+    "weight": 5,
+    "choices": [
+      {
+        "index": 0,
+        "text": "Sign a new comprehensive trade framework",
+        "effects": {
+          "economy": 6,
+          "globalReputation": 5,
+          "approval": 3
+        },
+        "sets_flags": [
+          "trade_war_resolved"
+        ],
+        "outcome": "The new framework ended the standoff on favorable terms. Markets treated it as the biggest economic news of the year."
+      },
+      {
+        "index": 1,
+        "text": "Declare a temporary truce — tensions remain",
+        "effects": {
+          "economy": 2,
+          "globalReputation": 1
+        },
+        "sets_flags": [
+          "trade_war_resolved"
+        ],
+        "outcome": "The truce held, barely. Both sides quietly kept their tariff authority on standby."
+      },
+      {
+        "index": 2,
+        "text": "Walk away from the table",
+        "effects": {
+          "economy": -5,
+          "globalReputation": -4,
+          "baseSupport": 3
+        },
+        "sets_flags": [
+          "trade_war_resolved"
+        ],
+        "outcome": "Walking away played well with the base and terribly with every export-dependent industry in the country."
+      },
+      {
+        "index": 3,
+        "text": "Let Congress take the lead on a negotiated deal",
+        "effects": {
+          "congressSupport": 3,
+          "economy": 1
+        },
+        "sets_flags": [
+          "trade_war_resolved"
+        ],
+        "outcome": "Ceding the lead to Congress slowed things down but spread the political risk more evenly."
+      }
+    ]
+  },
+  {
+    "id": "border_surge",
+    "title": "Migrant Crossings Surge to Record Levels at Southern Border",
+    "category": "security",
+    "description": "Monthly crossing numbers hit a record high, straining processing facilities already operating well beyond capacity. Border-state governors are demanding federal action.",
+    "triggers": {
+      "always_available": true,
+      "border_crisis_started": false
+    },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 5,
+    "choices": [
+      {
+        "index": 0,
+        "text": "Deploy additional federal resources to the border",
+        "effects": {
+          "security": 3,
+          "approval": 2,
+          "debt": 0.2
+        },
+        "sets_flags": [
+          "border_surge_response",
+          "border_crisis_started"
+        ],
+        "outcome": "Additional resources eased the immediate strain, though facilities remained well over capacity."
+      },
+      {
+        "index": 1,
+        "text": "Invoke emergency asylum restrictions",
+        "effects": {
+          "security": 4,
+          "globalReputation": -4,
+          "baseSupport": 4
+        },
+        "sets_flags": [
+          "border_crisis_started",
+          "asylum_restricted"
+        ],
+        "outcome": "Crossings dropped within weeks. Human rights groups filed suit within days."
+      },
+      {
+        "index": 2,
+        "text": "Expand legal processing capacity",
+        "effects": {
+          "globalReputation": 3,
+          "unrest": -2,
+          "debt": 0.3
+        },
+        "sets_flags": [
+          "border_crisis_started",
+          "processing_expanded"
+        ],
+        "outcome": "Processing times improved, but critics said it did nothing to address the volume itself."
+      },
+      {
+        "index": 3,
+        "text": "Downplay the surge as a seasonal fluctuation",
+        "effects": {
+          "approval": -4,
+          "security": -3
+        },
+        "sets_flags": [
+          "border_crisis_started"
+        ],
+        "outcome": "Photos from an overcrowded facility went viral within days, undercutting the \"seasonal\" framing badly."
+      }
+    ]
+  },
+  {
+    "id": "border_crisis_flashpoint",
+    "title": "Overcrowded Border Facility Becomes a National Flashpoint",
+    "category": "security",
+    "description": "A single overcrowded facility becomes the face of the crisis nationwide after a viral report on conditions inside. Congress is demanding answers. The cameras aren’t going away.",
+    "triggers": {
+      "always_available": true,
+      "border_crisis_resolved": false
+    },
+    "sets_flags": [],
+    "requires_flags": [
+      "border_crisis_started"
+    ],
+    "weight": 5,
+    "choices": [
+      {
+        "index": 0,
+        "text": "Order emergency facility expansion",
+        "effects": {
+          "approval": 3,
+          "debt": 0.4,
+          "unrest": -3
+        },
+        "sets_flags": [
+          "border_crisis_resolved"
+        ],
+        "outcome": "New capacity relieved the worst of the overcrowding within a month, at real fiscal cost."
+      },
+      {
+        "index": 1,
+        "text": "Accelerate deportation proceedings",
+        "effects": {
+          "baseSupport": 5,
+          "globalReputation": -5,
+          "unrest": 3
+        },
+        "sets_flags": [
+          "border_crisis_resolved"
+        ],
+        "outcome": "Faster deportations cleared the backlog and ignited protests in a dozen cities."
+      },
+      {
+        "index": 2,
+        "text": "Call a bipartisan summit on immigration reform",
+        "effects": {
+          "congressSupport": 4,
+          "approval": 2
+        },
+        "sets_flags": [
+          "border_crisis_resolved"
+        ],
+        "outcome": "The summit produced no legislation yet, but the optics of both parties at one table mattered."
+      },
+      {
+        "index": 3,
+        "text": "Blame the previous administration, take no new action",
+        "effects": {
+          "approval": -6,
+          "unrest": 4
+        },
+        "sets_flags": [
+          "border_crisis_resolved"
+        ],
+        "outcome": "The deflection satisfied no one. \"It’s been years,\" one anchor noted flatly on air."
+      }
+    ]
+  },
+  {
+    "id": "grid_stress_test",
+    "title": "Historic Heat Wave Pushes the National Power Grid to Its Limits",
+    "category": "disaster",
+    "description": "A record-breaking heat wave is driving electricity demand to all-time highs across multiple regional grids simultaneously. Utility operators are warning of possible failures within days.",
+    "triggers": {
+      "always_available": true,
+      "month": {
+        "min": 20
+      }
+    },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 5,
+    "callbacks": [
+      {
+        "flag": "passed_renewable_grid",
+        "text": "The modernized grid you funded is holding steady through the surge — planners are already calling it the investment that paid for itself."
+      }
+    ],
+    "choices": [
+      {
+        "index": 0,
+        "text": "Order emergency rolling blackout protocols",
+        "effects": {
+          "approval": -3,
+          "unrest": 4,
+          "security": 2
+        },
+        "sets_flags": [],
+        "outcome": "Rolling blackouts kept the grid from a full collapse, but nobody thanks a president for the lights going out."
+      },
+      {
+        "index": 1,
+        "text": "Direct federal agencies to lend emergency capacity",
+        "effects": {
+          "approval": 3,
+          "debt": 0.2
+        },
+        "sets_flags": [],
+        "outcome": "Federal emergency capacity kept the worst-hit regions online. The bill for it arrives later."
+      },
+      {
+        "index": 2,
+        "text": "Ask the public to voluntarily conserve energy",
+        "effects": {
+          "approval": 1,
+          "unrest": 1
+        },
+        "sets_flags": [],
+        "outcome": "Voluntary conservation helped at the margins but wasn’t enough on its own."
+      },
+      {
+        "index": 3,
+        "text": "Blame utility companies for chronic underinvestment",
+        "effects": {
+          "approval": 2,
+          "economy": -2
+        },
+        "sets_flags": [],
+        "outcome": "The utilities pushed back hard in the press, but the public mostly agreed with the White House on this one."
       }
     ]
   }
