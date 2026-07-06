@@ -158,6 +158,21 @@ export interface CrisisEvent {
 export type LawCategory = 'progressive' | 'conservative' | 'bipartisan'
 export type LawCost     = 'none' | 'low' | 'medium' | 'high'
 
+// Industry/sector taxonomy — a second, independent way to browse bills in
+// Congress by subject matter rather than ideology. `category` above still
+// drives passage headline flavor and the Bridge Builder achievement; this
+// is purely the player-facing organizing dimension.
+export type LawSector =
+  | 'healthcare'
+  | 'economy_finance'
+  | 'energy_environment'
+  | 'defense_security'
+  | 'technology'
+  | 'education'
+  | 'justice_civil_rights'
+  | 'infrastructure'
+  | 'social_services'
+
 export interface LobbyGroup {
   name:    string
   penalty: number
@@ -188,6 +203,7 @@ export interface Law {
   title:         string
   shortTitle:    string
   category:      LawCategory
+  sector:        LawSector
   description:   string
   flavor:        string
   cost:          LawCost
@@ -197,6 +213,10 @@ export interface Law {
   effects:       LawEffects
   sets_flags:    string[]
   requires_flags: string[]
+  // Human-readable label for what unlocks this law, shown when
+  // requires_flags aren't met yet (e.g. "Requires: AI Regulation Act") —
+  // avoids reverse-mapping flags to law titles at render time.
+  prereqLabel?:  string
   blocks_laws:   string[]
   npc_reactions: Record<string, NpcReaction>
 }

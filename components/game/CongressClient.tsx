@@ -7,15 +7,18 @@ import { LawCard } from '@/components/game/LawCard'
 import { HeadlineTicker } from '@/components/game/HeadlineTicker'
 import { RoomBackground, roomAccentStyle } from '@/components/game/RoomBackground'
 import { AchievementUnlockToast } from '@/components/game/AchievementUnlockToast'
+import { NpcReactionList } from '@/components/game/NpcReactionList'
 import { getRoomTreatment } from '@/lib/event-backgrounds'
+import { LAW_SECTOR_META, LAW_SECTORS } from '@/lib/law-sectors'
 import { cn } from '@/lib/utils'
-import type { Game, Law, Headline, Achievement } from '@/types/game'
+import type { Game, Law, Headline, Achievement, LawSector, NpcReactionResult } from '@/types/game'
 
 interface LawWithOdds {
   law: Law
   probability: number
   alreadyPassed: boolean
   blocked: boolean
+  locked: boolean
 }
 
 interface CongressClientProps {
@@ -26,12 +29,10 @@ interface CongressClientProps {
   pendingBriefingTitle: string | null
 }
 
-const CATEGORY_FILTERS = [
-  { value: 'all', label: 'All Bills' },
-  { value: 'progressive', label: 'Progressive' },
-  { value: 'conservative', label: 'Conservative' },
-  { value: 'bipartisan', label: 'Bipartisan' },
-] as const
+const SECTOR_FILTERS = [
+  { value: 'all' as const, label: 'All Bills' },
+  ...LAW_SECTORS.map(s => ({ value: s, label: LAW_SECTOR_META[s].label })),
+]
 
 interface ProposeResult {
   passed: boolean
@@ -40,6 +41,7 @@ interface ProposeResult {
   headline: Headline
   lawTitle: string
   newAchievements: Achievement[]
+  npcReactions: NpcReactionResult[]
 }
 
 export function CongressClient({ game, lawsWithOdds, canUseSenateAbility, canUseSpeakerAbility, pendingBriefingTitle }: CongressClientProps) {
@@ -47,11 +49,11 @@ export function CongressClient({ game, lawsWithOdds, canUseSenateAbility, canUse
   const highlightedLawId = searchParams.get('highlight')
 
   // If an advisor sent us here for a specific law, auto-select the
-  // category filter that contains it so it's visible without the
-  // player having to guess which tab to click.
+  // sector filter that contains it so it's visible without the player
+  // having to guess which tab to click.
   const highlightedLaw = highlightedLawId ? lawsWithOdds.find(l => l.law.id === highlightedLawId) : undefined
-  const [filter, setFilter] = useState<(typeof CATEGORY_FILTERS)[number]['value']>(
-    highlightedLaw ? highlightedLaw.law.category : 'all'
+  const [filter, setFilter] = useState<'all' | LawSector>(
+    highlightedLaw ? highlightedLaw.law.sector : 'all'
   )
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -59,8 +61,15 @@ export function CongressClient({ game, lawsWithOdds, canUseSenateAbility, canUse
   const [pendingProposal, setPendingProposal] = useState<{ lawId: string; useNpcAbility?: 'senate_leader' | 'speaker' } | null>(null)
   const highlightRef = useRef<HTMLDivElement>(null)
 
-  const filtered = filter === 'all' ? lawsWithOdds : lawsWithOdds.filter(l => l.law.category === filter)
+  const filtered = filter === 'all' ? lawsWithOdds : lawsWithOdds.filter(l => l.law.sector === filter)
   const treatment = getRoomTreatment('/congress-bg.webp')
+
+  // Sector momentum — small "N/M passed" badge per tab, purely presentational.
+  const sectorCounts: Record<string, { passed: number; total: number }> = {}
+  for (const s of LAW_SECTORS) {
+    const inSector = lawsWithOdds.filter(l => l.law.sector === s)
+    sectorCounts[s] = { passed: inSector.filter(l => l.alreadyPassed).length, total: inSector.length }
+  }
 
   // Scroll the highlighted law into view once the page settles
   useEffect(() => {
@@ -106,6 +115,7 @@ export function CongressClient({ game, lawsWithOdds, canUseSenateAbility, canUse
         headline: data.headline,
         lawTitle,
         newAchievements: data.newAchievements ?? [],
+        npcReactions: data.npcReactions ?? [],
       })
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong.')
@@ -151,6 +161,8 @@ export function CongressClient({ game, lawsWithOdds, canUseSenateAbility, canUse
               <HeadlineTicker headlines={[result.headline]} />
             </div>
 
+            <NpcReactionList reactions={result.npcReactions} />
+
             {result.newAchievements.length > 0 && (
               <div className="mt-5 text-left">
                 <AchievementUnlockToast achievements={result.newAchievements} />
@@ -186,21 +198,25 @@ export function CongressClient({ game, lawsWithOdds, canUseSenateAbility, canUse
         </h1>
       </div>
 
-      <div className="mt-5 flex gap-2">
-        {CATEGORY_FILTERS.map(f => (
-          <button
-            key={f.value}
-            onClick={() => setFilter(f.value)}
-            className={cn(
-              'rounded-full px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.05em] transition-colors',
-              filter === f.value
-                ? 'bg-[var(--color-brass)] text-[var(--color-ink)]'
-                : 'bg-[var(--color-surface)] text-[var(--color-paper-faint)] backdrop-blur-sm hover:text-[var(--color-paper)]'
-            )}
-          >
-            {f.label}
-          </button>
-        ))}
+      <div className="mt-5 flex flex-wrap gap-2">
+        {SECTOR_FILTERS.map(f => {
+          const counts = f.value === 'all' ? null : sectorCounts[f.value]
+          return (
+            <button
+              key={f.value}
+              onClick={() => setFilter(f.value)}
+              className={cn(
+                'rounded-full px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.05em] transition-colors',
+                filter === f.value
+                  ? 'bg-[var(--color-brass)] text-[var(--color-ink)]'
+                  : 'bg-[var(--color-surface)] text-[var(--color-paper-faint)] backdrop-blur-sm hover:text-[var(--color-paper)]'
+              )}
+            >
+              {f.label}
+              {counts && <span className="ml-1 opacity-70">{counts.passed}/{counts.total}</span>}
+            </button>
+          )
+        })}
       </div>
 
       {error && (
@@ -210,7 +226,7 @@ export function CongressClient({ game, lawsWithOdds, canUseSenateAbility, canUse
       )}
 
       <div className="mt-5 space-y-3">
-        {filtered.map(({ law, probability, alreadyPassed, blocked }) => (
+        {filtered.map(({ law, probability, alreadyPassed, blocked, locked }) => (
           <div
             key={law.id}
             ref={law.id === highlightedLawId ? highlightRef : undefined}
@@ -224,8 +240,9 @@ export function CongressClient({ game, lawsWithOdds, canUseSenateAbility, canUse
               probability={probability}
               alreadyPassed={alreadyPassed}
               blocked={blocked}
-              canUseSenateAbility={canUseSenateAbility && !alreadyPassed && !blocked}
-              canUseSpeakerAbility={canUseSpeakerAbility && !alreadyPassed && !blocked}
+              locked={locked}
+              canUseSenateAbility={canUseSenateAbility && !alreadyPassed && !blocked && !locked}
+              canUseSpeakerAbility={canUseSpeakerAbility && !alreadyPassed && !blocked && !locked}
               onPropose={handlePropose}
               disabled={submitting}
               pendingProposal={pendingProposal}

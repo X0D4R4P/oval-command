@@ -1,20 +1,15 @@
 'use client'
 
-import Image from 'next/image'
 import { cn, formatDelta, isDeltaGood, getStatLabel } from '@/lib/utils'
-import type { Law, LawCategory, GameStats } from '@/types/game'
-
-const LAW_CATEGORY_ICON: Record<LawCategory, { icon: string; color: string }> = {
-  progressive: { icon: '/icons/cat_social.png',   color: 'var(--color-cat-social)' },
-  conservative: { icon: '/icons/cat_congress.png', color: 'var(--color-cat-congress)' },
-  bipartisan:  { icon: '/icons/cat_diplomacy.png', color: 'var(--color-cat-diplomacy)' },
-}
+import { LAW_SECTOR_META } from '@/lib/law-sectors'
+import type { Law, GameStats } from '@/types/game'
 
 interface LawCardProps {
   law: Law
   probability: number
   alreadyPassed: boolean
   blocked: boolean
+  locked?: boolean
   canUseSenateAbility: boolean
   canUseSpeakerAbility: boolean
   onPropose: (lawId: string, useNpcAbility?: 'senate_leader' | 'speaker') => void
@@ -41,6 +36,7 @@ export function LawCard({
   probability,
   alreadyPassed,
   blocked,
+  locked,
   canUseSenateAbility,
   canUseSpeakerAbility,
   onPropose,
@@ -50,7 +46,8 @@ export function LawCard({
 }: LawCardProps) {
   const onPassEntries = Object.entries(law.effects.onPass).filter(([, v]) => v !== 0) as [keyof GameStats, number][]
   const costInfo = COST_LABEL[law.cost]
-  const catInfo = LAW_CATEGORY_ICON[law.category]
+  const sectorInfo = LAW_SECTOR_META[law.sector]
+  const SectorIcon = sectorInfo.icon
 
   // Each button (plain propose, Senate whip, Speaker fast-track) arms its
   // own confirmation independently — armed(undefined) is the plain button,
@@ -64,12 +61,12 @@ export function LawCard({
     <div className="rounded-sm border border-[var(--color-border)] bg-[var(--color-surface)] p-5 backdrop-blur-sm">
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-start gap-2.5">
-          <Image
-            src={catInfo.icon}
-            alt={law.category}
+          <SectorIcon
+            aria-label={sectorInfo.label}
             width={18}
             height={18}
-            className="mt-0.5 h-4.5 w-4.5 flex-shrink-0 object-contain opacity-80"
+            style={{ color: sectorInfo.color }}
+            className="mt-0.5 h-4.5 w-4.5 flex-shrink-0 opacity-80"
           />
           <div>
             <h3 className="font-[family-name:var(--font-display)] text-base font-semibold text-[var(--color-paper)]">
@@ -118,6 +115,10 @@ export function LawCard({
           <span className="font-mono text-xs text-[var(--color-good)]">✓ Already law</span>
         ) : blocked ? (
           <span className="font-mono text-xs text-[var(--color-paper-faint)]">Blocked by an exclusive law already passed</span>
+        ) : locked ? (
+          <span className="font-mono text-xs text-[var(--color-paper-faint)]">
+            🔒 {law.prereqLabel ?? 'Requires an earlier law to pass first'}
+          </span>
         ) : (
           <div className="flex items-center gap-2">
             <span className="font-mono text-[10px] uppercase tracking-[0.08em] text-[var(--color-paper-faint)]">
@@ -129,7 +130,7 @@ export function LawCard({
           </div>
         )}
 
-        {!alreadyPassed && !blocked && (
+        {!alreadyPassed && !blocked && !locked && (
           <div className="flex gap-2">
             {canUseSenateAbility && (
               <button

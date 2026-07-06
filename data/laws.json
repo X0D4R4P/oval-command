@@ -4,6 +4,7 @@
     "title": "Universal Healthcare Act",
     "shortTitle": "Universal Healthcare",
     "category": "progressive",
+    "sector": "healthcare",
     "description": "Establishes a federal single-payer healthcare system replacing private insurance for all Americans. The most ambitious domestic legislation since Medicare.",
     "flavor": "Every American gets coverage. Every insurance lobbyist gets an enemy.",
     "cost": "high",
@@ -75,6 +76,7 @@
     "title": "Climate Emergency and Clean Energy Transition Act",
     "shortTitle": "Climate Emergency Act",
     "category": "progressive",
+    "sector": "energy_environment",
     "description": "Declares a national climate emergency and commits $2T over 10 years to renewable energy, electric vehicle infrastructure, and carbon capture. Sets binding emissions targets.",
     "flavor": "The planet doesn't negotiate. Neither does this bill.",
     "cost": "high",
@@ -143,6 +145,7 @@
     "title": "Student Debt Relief and Higher Education Reform Act",
     "shortTitle": "Student Debt Relief",
     "category": "progressive",
+    "sector": "education",
     "description": "Cancels up to $30,000 in federal student loan debt per borrower and caps future interest rates at 2%. Establishes income-based repayment as the default option.",
     "flavor": "40 million borrowers. One bill. Every one of them votes.",
     "cost": "high",
@@ -206,6 +209,7 @@
     "title": "Law Enforcement Accountability and Reform Act",
     "shortTitle": "Police Reform Act",
     "category": "progressive",
+    "sector": "justice_civil_rights",
     "description": "Establishes a national use-of-force standard, requires body cameras, bans chokeholds, creates a federal misconduct database, and mandates independent review boards in cities over 100,000.",
     "flavor": "Accountability isn't anti-police. It's pro-justice.",
     "cost": "low",
@@ -256,7 +260,7 @@
     "npc_reactions": {
       "protest_leader": {
         "relationship": 22,
-        "quote": "The protest leader says 'this is a start, not a finish \u2014 but it's a real start.'"
+        "quote": "The protest leader says 'this is a start, not a finish — but it's a real start.'"
       },
       "speaker": {
         "relationship": -12,
@@ -269,6 +273,7 @@
     "title": "Fair Share Corporate Tax Act",
     "shortTitle": "Corporate Tax Hike",
     "category": "progressive",
+    "sector": "economy_finance",
     "description": "Raises the corporate tax rate from 21% to 28%, implements a 15% minimum book tax on corporations with over $1B in profits, and closes major offshore tax loopholes.",
     "flavor": "They made the money here. They can pay taxes here.",
     "cost": "none",
@@ -342,6 +347,7 @@
     "title": "Voting Rights Restoration and Modernization Act",
     "shortTitle": "Voting Rights Act",
     "category": "progressive",
+    "sector": "justice_civil_rights",
     "description": "Restores Section 4 of the Voting Rights Act, requires automatic voter registration, mandates 15 days of early voting, and establishes federal standards for polling place access.",
     "flavor": "The right to vote isn't partisan. Protecting it shouldn't be either.",
     "cost": "low",
@@ -400,6 +406,7 @@
     "title": "Artificial Intelligence Safety and Accountability Act",
     "shortTitle": "AI Regulation Act",
     "category": "progressive",
+    "sector": "technology",
     "description": "Establishes mandatory safety testing for frontier AI systems, creates a National AI Safety Board, requires algorithmic transparency in hiring and lending, and sets liability standards for AI-caused harm.",
     "flavor": "We regulated cars. We regulated planes. Now we regulate the thing smarter than both.",
     "cost": "medium",
@@ -463,6 +470,7 @@
     "title": "Medicare Public Option Expansion Act",
     "shortTitle": "Public Option",
     "category": "progressive",
+    "sector": "healthcare",
     "description": "Creates a Medicare public option available to all Americans under 65, competing with private insurance. Allows Medicare to negotiate drug prices directly with pharmaceutical companies.",
     "flavor": "Competition is good. Unless you're a monopoly. Then it's terrifying.",
     "cost": "medium",
@@ -528,6 +536,7 @@
     "title": "Border Security and Immigration Enforcement Act",
     "shortTitle": "Border Security Act",
     "category": "conservative",
+    "sector": "defense_security",
     "description": "Funds 500 additional miles of border barriers, doubles Border Patrol staffing, implements mandatory E-Verify for all employers, and increases penalties for illegal entry and overstaying visas.",
     "flavor": "Enforcement first. Everything else second.",
     "cost": "medium",
@@ -592,6 +601,7 @@
     "title": "Tax Cuts and Economic Growth Act",
     "shortTitle": "Tax Cuts Act",
     "category": "conservative",
+    "sector": "economy_finance",
     "description": "Cuts the corporate tax rate to 18%, reduces the top individual income tax rate from 37% to 32%, doubles the standard deduction, and creates new investment incentive zones in rural areas.",
     "flavor": "Cut taxes, grow the economy, let the next president deal with the debt.",
     "cost": "high",
@@ -653,10 +663,11 @@
     "title": "National Defense Authorization and Modernization Act",
     "shortTitle": "Military Spending Increase",
     "category": "conservative",
+    "sector": "defense_security",
     "description": "Increases defense spending by $200B annually, funds a 350-ship Navy, accelerates hypersonic weapons development, expands Space Force capabilities, and fully funds military readiness programs.",
     "flavor": "Peace through strength. Strength through investment.",
     "cost": "high",
-    "debtImpact": 2.0,
+    "debtImpact": 2,
     "annualCostBn": 200,
     "passage": {
       "congressMin": 50,
@@ -683,7 +694,7 @@
         "approval": 4,
         "economy": 3,
         "congressSupport": 6,
-        "debt": 2.0,
+        "debt": 2,
         "globalReputation": 4
       },
       "passive": {
@@ -718,6 +729,7 @@
     "title": "American Business Freedom and Deregulation Act",
     "shortTitle": "Deregulation Package",
     "category": "conservative",
+    "sector": "economy_finance",
     "description": "Rolls back 200 federal regulations across energy, finance, agriculture, and manufacturing. Implements a 'one in, two out' rule for new regulations and reduces small business compliance burden by 40%.",
     "flavor": "Government gets out of the way. Business gets to work.",
     "cost": "none",
@@ -781,6 +793,7 @@
     "title": "Education Freedom and School Choice Act",
     "shortTitle": "School Choice Act",
     "category": "conservative",
+    "sector": "education",
     "description": "Creates a $20B federal education savings account program allowing families to use public education funds for private, charter, or homeschool options. Includes teacher merit pay provisions.",
     "flavor": "Parents choose. Children benefit. Competition improves everyone.",
     "cost": "low",
@@ -842,6 +855,7 @@
     "title": "American Energy Dominance and Independence Act",
     "shortTitle": "Energy Independence Act",
     "category": "conservative",
+    "sector": "energy_environment",
     "description": "Opens federal lands and offshore areas to expanded drilling, fast-tracks LNG export terminal permits, streamlines pipeline approvals, and funds nuclear energy modernization.",
     "flavor": "American energy. American jobs. American security.",
     "cost": "medium",
@@ -908,6 +922,7 @@
     "title": "Work Opportunity and Welfare Modernization Act",
     "shortTitle": "Welfare Reform Act",
     "category": "conservative",
+    "sector": "social_services",
     "description": "Implements work requirements for able-bodied adults receiving federal benefits, consolidates 12 welfare programs into 4 block grants to states, and creates pathways from assistance to employment.",
     "flavor": "A hand up. Not just a hand out.",
     "cost": "none",
@@ -971,6 +986,7 @@
     "title": "Rebuild America Infrastructure Investment Act",
     "shortTitle": "Infrastructure Act",
     "category": "bipartisan",
+    "sector": "infrastructure",
     "description": "Invests $1.2T over 8 years in roads, bridges, rail, broadband, water systems, and ports. The largest infrastructure investment since the Interstate Highway System. Funded through user fees and bond financing.",
     "flavor": "Potholes don't have a political party. Neither does this bill.",
     "cost": "high",
@@ -1018,7 +1034,7 @@
     "npc_reactions": {
       "speaker": {
         "relationship": 8,
-        "quote": "The Speaker calls it 'one of the few things we can agree on \u2014 America's roads are terrible.'"
+        "quote": "The Speaker calls it 'one of the few things we can agree on — America's roads are terrible.'"
       },
       "senate_leader": {
         "relationship": 10,
@@ -1035,6 +1051,7 @@
     "title": "National Cybersecurity Resilience and Defense Act",
     "shortTitle": "Cybersecurity Act",
     "category": "bipartisan",
+    "sector": "technology",
     "description": "Mandates security standards for critical infrastructure, creates a public-private Cyber Defense Partnership, establishes a Cyber National Guard, and funds federal agency security modernization.",
     "flavor": "The next Pearl Harbor will come through a keyboard. We need to be ready.",
     "cost": "medium",
@@ -1093,6 +1110,7 @@
     "title": "Prescription Drug Pricing Transparency and Reform Act",
     "shortTitle": "Drug Pricing Reform",
     "category": "bipartisan",
+    "sector": "healthcare",
     "description": "Allows Medicare to directly negotiate drug prices, requires drug companies to disclose pricing methodology, caps out-of-pocket drug costs for seniors at $2,000/year, and penalizes price increases above inflation.",
     "flavor": "Insulin shouldn't cost more than a car payment. This law makes sure it doesn't.",
     "cost": "low",
@@ -1146,7 +1164,7 @@
       },
       "speaker": {
         "relationship": 3,
-        "quote": "The Speaker calls the bill 'imperfect but acceptable \u2014 senior voters are watching.'"
+        "quote": "The Speaker calls the bill 'imperfect but acceptable — senior voters are watching.'"
       }
     }
   },
@@ -1155,6 +1173,7 @@
     "title": "Mental Health and Substance Use Parity Enforcement Act",
     "shortTitle": "Mental Health Act",
     "category": "bipartisan",
+    "sector": "healthcare",
     "description": "Requires insurers to cover mental health and substance use disorder treatment on equal terms with physical health, creates a network of community mental health centers, and funds 25,000 new mental health workers.",
     "flavor": "A broken arm gets treatment. A broken mind should too.",
     "cost": "low",
@@ -1213,6 +1232,7 @@
     "title": "Second Chance and Criminal Justice Reform Act",
     "shortTitle": "Criminal Justice Reform",
     "category": "bipartisan",
+    "sector": "justice_civil_rights",
     "description": "Reduces mandatory minimum sentences for non-violent offenses, expands federal reentry programs, bans private federal prisons, creates expungement pathways for non-violent convictions, and funds community violence interruption programs.",
     "flavor": "Justice means more than punishment. It means a path back.",
     "cost": "low",
@@ -1267,7 +1287,7 @@
       },
       "protest_leader": {
         "relationship": 14,
-        "quote": "Civil rights groups call it 'incomplete but meaningful \u2014 a genuine step forward.'"
+        "quote": "Civil rights groups call it 'incomplete but meaningful — a genuine step forward.'"
       }
     }
   },
@@ -1276,6 +1296,7 @@
     "title": "Veterans First: Comprehensive Care and Benefits Act",
     "shortTitle": "Veterans Care Act",
     "category": "bipartisan",
+    "sector": "social_services",
     "description": "Expands VA hospital capacity, hires 15,000 new VA healthcare workers, increases disability benefits, funds veteran mental health and suicide prevention programs, and creates a veteran small business loan fund.",
     "flavor": "They kept their promise to us. Time to keep ours to them.",
     "cost": "medium",
@@ -1330,6 +1351,7 @@
     "title": "Stop Fentanyl Act: Supply Chain Disruption and Recovery",
     "shortTitle": "Fentanyl Enforcement Act",
     "category": "bipartisan",
+    "sector": "justice_civil_rights",
     "description": "Mandates death penalty for high-quantity fentanyl trafficking, creates a $10B treatment and recovery fund, funds DEA expansion and international interdiction operations, and sanctions foreign precursor chemical manufacturers.",
     "flavor": "120,000 dead last year. This is a war. We need to fight it like one.",
     "cost": "medium",
@@ -1389,6 +1411,7 @@
     "title": "Digital Equity and Rural Broadband Access Act",
     "shortTitle": "Broadband Expansion Act",
     "category": "bipartisan",
+    "sector": "infrastructure",
     "description": "Invests $65B to bring high-speed internet to every American home, prioritizing rural and low-income communities. Requires ISPs to offer $30/month affordable plans and prohibits data throttling for low-income households.",
     "flavor": "You can't do homework, apply for jobs, or see a doctor online without internet. Let's fix that.",
     "cost": "medium",
@@ -1447,6 +1470,7 @@
     "title": "Homes for America: Affordable Housing and Supply Act",
     "shortTitle": "Affordable Housing Act",
     "category": "bipartisan",
+    "sector": "infrastructure",
     "description": "Creates 500,000 affordable housing units through federal land release and construction grants, provides $25,000 in down payment assistance for first-time buyers, and offers tax incentives for developers who build below market-rate units.",
     "flavor": "A home is not a luxury. It's the foundation everything else is built on.",
     "cost": "high",
@@ -1502,6 +1526,358 @@
       "protest_leader": {
         "relationship": 12,
         "quote": "Housing advocates call it 'the most meaningful housing legislation since the Fair Housing Act.'"
+      }
+    }
+  },
+  {
+    "id": "renewable_grid_modernization",
+    "title": "Renewable Grid Modernization Act",
+    "shortTitle": "Renewable Grid Act",
+    "category": "progressive",
+    "sector": "energy_environment",
+    "description": "Invests in modernizing the national power grid for renewable integration, battery storage, and resilience against extreme weather events.",
+    "flavor": "The grid we have was built for a different century. This one has to survive this one.",
+    "cost": "high",
+    "debtImpact": 1.2,
+    "annualCostBn": 90,
+    "passage": {
+      "congressMin": 45,
+      "partyUnityMin": 45,
+      "approvalBonus": {
+        "threshold": 50,
+        "bonus": 9
+      },
+      "approvalPenalty": {
+        "threshold": 36,
+        "penalty": 10
+      },
+      "lobbyOpposition": [
+        {
+          "name": "Fossil Fuel Lobby",
+          "penalty": 14
+        }
+      ],
+      "basePassProbability": 50
+    },
+    "effects": {
+      "onPass": {
+        "economy": 4,
+        "security": 3,
+        "unrest": -2,
+        "globalReputation": 5,
+        "debt": 1.2
+      },
+      "passive": {
+        "economy": 2
+      },
+      "description": "Passive: +2 economy/mo (grid modernization pays off over time)"
+    },
+    "sets_flags": [
+      "passed_renewable_grid"
+    ],
+    "requires_flags": [],
+    "blocks_laws": [],
+    "npc_reactions": {
+      "foreign_ally": {
+        "relationship": 10,
+        "quote": "Chancellor Brandt calls it 'the kind of leadership the climate moment demands.'"
+      },
+      "opposition_leader": {
+        "relationship": -8,
+        "quote": "The opposition leader calls it 'a green boondoggle paid for by ratepayers.'"
+      }
+    }
+  },
+  {
+    "id": "homeland_security_modernization",
+    "title": "Homeland Security Modernization Act",
+    "shortTitle": "Homeland Security Act",
+    "category": "conservative",
+    "sector": "defense_security",
+    "description": "Overhauls domestic security infrastructure — cybersecurity protections for critical infrastructure, expanded counterterrorism funding, and faster interagency intelligence sharing.",
+    "flavor": "The next attack won't look like the last one. This bill assumes that.",
+    "cost": "medium",
+    "debtImpact": 0.5,
+    "annualCostBn": 22,
+    "passage": {
+      "congressMin": 42,
+      "partyUnityMin": 42,
+      "approvalBonus": {
+        "threshold": 50,
+        "bonus": 7
+      },
+      "approvalPenalty": {
+        "threshold": 34,
+        "penalty": 9
+      },
+      "lobbyOpposition": [
+        {
+          "name": "Civil Liberties Union",
+          "penalty": 10
+        }
+      ],
+      "basePassProbability": 55
+    },
+    "effects": {
+      "onPass": {
+        "security": 8,
+        "approval": 3,
+        "globalReputation": 2,
+        "unrest": -2,
+        "debt": 0.5
+      },
+      "passive": {
+        "security": 1
+      },
+      "description": "Passive: +1 security/mo (hardened infrastructure compounds over time)"
+    },
+    "sets_flags": [
+      "passed_homeland_security"
+    ],
+    "requires_flags": [],
+    "blocks_laws": [],
+    "npc_reactions": {
+      "sec_defense": {
+        "relationship": 16,
+        "quote": "The Secretary of Defense calls it 'overdue — our infrastructure has been exposed for years.'"
+      },
+      "protest_leader": {
+        "relationship": -10,
+        "quote": "Civil liberties groups warn it 'trades privacy for a false sense of security.'"
+      }
+    }
+  },
+  {
+    "id": "data_privacy_act",
+    "title": "Data Privacy and Consumer Protection Act",
+    "shortTitle": "Data Privacy Act",
+    "category": "bipartisan",
+    "sector": "technology",
+    "description": "Builds on the AI Safety framework with comprehensive consumer data protections — opt-in data collection, a right to deletion, and steep penalties for breaches.",
+    "flavor": "We taught AI to behave. Now we teach the companies that feed it.",
+    "cost": "medium",
+    "debtImpact": 0.2,
+    "annualCostBn": 10,
+    "passage": {
+      "congressMin": 40,
+      "partyUnityMin": 35,
+      "approvalBonus": {
+        "threshold": 48,
+        "bonus": 8
+      },
+      "approvalPenalty": {
+        "threshold": 32,
+        "penalty": 8
+      },
+      "lobbyOpposition": [
+        {
+          "name": "Big Tech Alliance",
+          "penalty": 16
+        }
+      ],
+      "basePassProbability": 58
+    },
+    "effects": {
+      "onPass": {
+        "approval": 6,
+        "economy": -1,
+        "globalReputation": 4,
+        "unrest": -2
+      },
+      "passive": {
+        "approval": 1
+      },
+      "description": "Passive: +1 approval/mo (public trust in tech slowly recovers)"
+    },
+    "sets_flags": [
+      "passed_data_privacy"
+    ],
+    "requires_flags": [
+      "ai_regulated"
+    ],
+    "prereqLabel": "Requires: AI Regulation Act",
+    "blocks_laws": [],
+    "npc_reactions": {
+      "foreign_ally": {
+        "relationship": 8,
+        "quote": "Chancellor Brandt calls it 'the natural next step after the AI framework.'"
+      },
+      "treasury_secretary": {
+        "relationship": -4,
+        "quote": "The Treasury Secretary warns 'compliance costs will land hardest on smaller firms.'"
+      }
+    }
+  },
+  {
+    "id": "universal_pre_k",
+    "title": "Universal Pre-Kindergarten Act",
+    "shortTitle": "Universal Pre-K Act",
+    "category": "progressive",
+    "sector": "education",
+    "description": "Establishes free, universal pre-kindergarten for all 3- and 4-year-olds nationwide, funded through federal-state partnership grants.",
+    "flavor": "The best return on investment in government is a 4-year-old who can read by kindergarten.",
+    "cost": "high",
+    "debtImpact": 1,
+    "annualCostBn": 60,
+    "passage": {
+      "congressMin": 42,
+      "partyUnityMin": 45,
+      "approvalBonus": {
+        "threshold": 50,
+        "bonus": 10
+      },
+      "approvalPenalty": {
+        "threshold": 34,
+        "penalty": 8
+      },
+      "lobbyOpposition": [
+        {
+          "name": "Fiscal Hawk Coalition",
+          "penalty": 10
+        }
+      ],
+      "basePassProbability": 52
+    },
+    "effects": {
+      "onPass": {
+        "approval": 8,
+        "baseSupport": 4,
+        "economy": 1,
+        "unrest": -2,
+        "debt": 1
+      },
+      "passive": {
+        "approval": 1
+      },
+      "description": "Passive: +1 approval/mo (families feel the relief month over month)"
+    },
+    "sets_flags": [
+      "passed_universal_pre_k"
+    ],
+    "requires_flags": [],
+    "blocks_laws": [],
+    "npc_reactions": {
+      "treasury_secretary": {
+        "relationship": -6,
+        "quote": "The Treasury Secretary calls the price tag 'a permanent new entitlement, not a one-time cost.'"
+      },
+      "media_anchor": {
+        "relationship": 12,
+        "quote": "National Anchor Fontaine calls it 'the most popular thing this administration has done.'"
+      }
+    }
+  },
+  {
+    "id": "disability_rights_expansion",
+    "title": "Disability Rights Expansion Act",
+    "shortTitle": "Disability Rights Act",
+    "category": "bipartisan",
+    "sector": "social_services",
+    "description": "Expands ADA protections to cover digital accessibility, increases funding for home- and community-based care, and raises SSDI benefit caps.",
+    "flavor": "Equal access isn't a favor. It's the law finally catching up to the promise.",
+    "cost": "medium",
+    "debtImpact": 0.4,
+    "annualCostBn": 20,
+    "passage": {
+      "congressMin": 38,
+      "partyUnityMin": 30,
+      "approvalBonus": {
+        "threshold": 46,
+        "bonus": 9
+      },
+      "approvalPenalty": {
+        "threshold": 30,
+        "penalty": 6
+      },
+      "lobbyOpposition": [],
+      "basePassProbability": 64
+    },
+    "effects": {
+      "onPass": {
+        "approval": 7,
+        "unrest": -3,
+        "globalReputation": 2,
+        "debt": 0.4
+      },
+      "passive": {
+        "approval": 1
+      },
+      "description": "Passive: +1 approval/mo (a rare bill with almost no organized opposition)"
+    },
+    "sets_flags": [
+      "passed_disability_rights"
+    ],
+    "requires_flags": [],
+    "blocks_laws": [],
+    "npc_reactions": {
+      "protest_leader": {
+        "relationship": 18,
+        "quote": "Disability advocates call it 'the most consequential civil rights bill in a generation.'"
+      },
+      "speaker": {
+        "relationship": 6,
+        "quote": "The Speaker calls it 'one of the easiest votes I've whipped all year.'"
+      }
+    }
+  },
+  {
+    "id": "immigration_reform",
+    "title": "Comprehensive Immigration Reform Act",
+    "shortTitle": "Immigration Reform Act",
+    "category": "bipartisan",
+    "sector": "justice_civil_rights",
+    "description": "With the border secured, establishes an earned path to legal status for long-term undocumented residents, modernizes the visa backlog system, and expands work-visa caps for high-demand industries.",
+    "flavor": "You secure the border first. Then you fix everything the last thirty years left broken.",
+    "cost": "medium",
+    "debtImpact": 0.3,
+    "annualCostBn": 15,
+    "passage": {
+      "congressMin": 45,
+      "partyUnityMin": 40,
+      "approvalBonus": {
+        "threshold": 50,
+        "bonus": 9
+      },
+      "approvalPenalty": {
+        "threshold": 34,
+        "penalty": 10
+      },
+      "lobbyOpposition": [
+        {
+          "name": "Opposition Base Coalition",
+          "penalty": 12
+        }
+      ],
+      "basePassProbability": 50
+    },
+    "effects": {
+      "onPass": {
+        "approval": 6,
+        "economy": 5,
+        "globalReputation": 6,
+        "unrest": -3
+      },
+      "passive": {
+        "economy": 1
+      },
+      "description": "Passive: +1 economy/mo (labor market gaps close over time)"
+    },
+    "sets_flags": [
+      "passed_immigration_reform"
+    ],
+    "requires_flags": [
+      "border_security_passed"
+    ],
+    "prereqLabel": "Requires: Border Security Act",
+    "blocks_laws": [],
+    "npc_reactions": {
+      "foreign_ally": {
+        "relationship": 12,
+        "quote": "Chancellor Brandt calls it 'proof the border debate could finally move forward.'"
+      },
+      "opposition_leader": {
+        "relationship": -10,
+        "quote": "The opposition leader calls it 'amnesty with extra paperwork.'"
       }
     }
   }

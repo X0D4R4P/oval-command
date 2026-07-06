@@ -26,6 +26,7 @@ export default async function CongressPage({ params }: PageProps) {
     probability: computePassProbability(law, game),
     alreadyPassed: game.passedLaws.includes(law.id),
     blocked: law.blocks_laws.some(id => game.passedLaws.includes(id)),
+    locked: law.requires_flags.some(f => !game.flags[f]),
   }))
 
   const senateAbility = canUseNpcAbility(game, 'senate_leader')

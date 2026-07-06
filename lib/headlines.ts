@@ -8,7 +8,8 @@
  * produce identical wording.
  */
 
-import type { EventCategory, StatDelta, LawCategory, Headline } from '@/types/game'
+import { LAW_SECTOR_META } from '@/lib/law-sectors'
+import type { EventCategory, StatDelta, LawCategory, LawSector, Headline } from '@/types/game'
 
 export type { Headline }
 
@@ -189,36 +190,39 @@ export function generateCrisisHeadline(category: EventCategory, effects: StatDel
 const LAW_PASS_TEMPLATES: Record<LawCategory, string[]> = {
   progressive: [
     '\u201C{title}\u201D signed into law after hard-fought floor vote',
-    'President signs landmark \u201C{title}\u201D, progressives celebrate',
-    '\u201C{title}\u201D clears Congress in major legislative win for the President',
+    'President signs landmark {sector} bill, progressives celebrate',
+    'Historic {sector} reform clears Congress in major win for the President',
   ],
   conservative: [
     '\u201C{title}\u201D signed as President delivers on campaign promise',
-    'Congress passes \u201C{title}\u201D in win for fiscal conservatives',
-    '\u201C{title}\u201D becomes law after party-line vote',
+    'Congress passes {sector} bill in win for fiscal conservatives',
+    '{sector} overhaul becomes law after party-line vote',
   ],
   bipartisan: [
     'Rare bipartisan win: \u201C{title}\u201D signed into law',
-    '\u201C{title}\u201D passes with votes from both parties',
-    'Congress comes together to pass \u201C{title}\u201D',
+    'Congress passes bipartisan {sector} package',
+    'Congress comes together on {sector} reform',
   ],
 }
 
 const LAW_FAIL_TEMPLATES = [
   '\u201C{title}\u201D fails to clear Congress',
-  'White House legislative push on \u201C{title}\u201D falls short',
-  '\u201C{title}\u201D stalls in Congress, President vows to try again',
+  '{sector} initiative stalls in Congress, President vows to try again',
+  'White House {sector} push falls short',
 ]
 
 export function generateLawHeadline(
   lawTitle: string,
   lawCategory: LawCategory,
+  lawSector: LawSector,
   passed: boolean,
   usedAbility?: string | null,
 ): Headline {
+  const sectorLabel = LAW_SECTOR_META[lawSector].label
+
   if (!passed) {
     return {
-      text: pick(LAW_FAIL_TEMPLATES).replace('{title}', lawTitle),
+      text: pick(LAW_FAIL_TEMPLATES).replace('{title}', lawTitle).replace('{sector}', sectorLabel),
       outlet: pickOutlet(),
       tone: 'negative',
     }
@@ -233,7 +237,7 @@ export function generateLawHeadline(
   }
 
   return {
-    text: pick(LAW_PASS_TEMPLATES[lawCategory]).replace('{title}', lawTitle),
+    text: pick(LAW_PASS_TEMPLATES[lawCategory]).replace('{title}', lawTitle).replace('{sector}', sectorLabel),
     outlet: pickOutlet(),
     tone: 'positive',
   }

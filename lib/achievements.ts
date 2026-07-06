@@ -14,7 +14,7 @@
 import { prisma } from '@/lib/prisma'
 import { LAWS, computeLegacyScore } from '@/lib/game-engine'
 import { toJson, toUnlockedAchievements } from '@/lib/db-helpers'
-import type { Game, GameOverReason, LegacyScore, LawCategory, Achievement, UnlockedAchievement } from '@/types/game'
+import type { Game, GameOverReason, LegacyScore, LawCategory, LawSector, Achievement, UnlockedAchievement } from '@/types/game'
 
 export const ACHIEVEMENTS: Achievement[] = [
   {
@@ -94,6 +94,13 @@ export const ACHIEVEMENTS: Achievement[] = [
     icon: '⚖️',
     perk: { id: 'removed_from_office', label: 'Humbled', description: '+3 starting Approval', statBonus: { approval: 3 } },
   },
+  {
+    id: 'renaissance_agenda',
+    title: 'Renaissance Agenda',
+    description: 'Passed laws from 5 or more different sectors in a single term.',
+    icon: '🌐',
+    perk: { id: 'renaissance_agenda', label: 'Broad Coalition', description: '+3 starting Approval', statBonus: { approval: 3 } },
+  },
 ]
 
 export const ALL_PERKS = ACHIEVEMENTS.flatMap(a => (a.perk ? [a.perk] : []))
@@ -116,6 +123,9 @@ export interface AchievementProgress {
  */
 export function computeAchievementProgress(game: Game): Record<string, AchievementProgress> {
   const bipartisanPassed = LAWS.filter(l => game.passedLaws.includes(l.id) && l.category === 'bipartisan').length
+  const distinctSectorsPassed = new Set(
+    LAWS.filter(l => game.passedLaws.includes(l.id)).map(l => l.sector)
+  ).size
 
   return {
     legislative_powerhouse: { current: Math.min(game.passedLaws.length, 8), target: 8 },
@@ -123,6 +133,7 @@ export function computeAchievementProgress(game: Game): Record<string, Achieveme
     boom_economy:           { current: Math.min(Math.round(game.stats.economy), 80), target: 80 },
     fortress:               { current: Math.min(Math.round(game.stats.security), 80), target: 80 },
     full_term_survivor:     { current: game.currentMonth, target: 48 },
+    renaissance_agenda:     { current: Math.min(distinctSectorsPassed, 5), target: 5 },
   }
 }
 
@@ -131,10 +142,11 @@ interface AchievementContext {
   reason:             GameOverReason
   legacy:             LegacyScore
   passedLawCategories: LawCategory[]
+  passedLawSectors:   LawSector[]
 }
 
 export function evaluateAchievements(ctx: AchievementContext): Achievement[] {
-  const { game, reason, legacy, passedLawCategories } = ctx
+  const { game, reason, legacy, passedLawCategories, passedLawSectors } = ctx
   const earnedIds = new Set<string>()
 
   if (legacy.reelected) earnedIds.add('two_term_president')
@@ -148,6 +160,7 @@ export function evaluateAchievements(ctx: AchievementContext): Achievement[] {
   if (reason === 'TERM_COMPLETE') earnedIds.add('full_term_survivor')
   if (game.stats.security >= 80) earnedIds.add('fortress')
   if (reason === 'IMPEACHMENT') earnedIds.add('removed_from_office')
+  if (new Set(passedLawSectors).size >= 5) earnedIds.add('renaissance_agenda')
 
   return ACHIEVEMENTS.filter(a => earnedIds.has(a.id))
 }
@@ -160,8 +173,9 @@ export function evaluateAchievements(ctx: AchievementContext): Achievement[] {
 export async function unlockAchievements(userId: string, game: Game, reason: GameOverReason): Promise<Achievement[]> {
   const legacy = computeLegacyScore(game)
   const passedLawCategories = LAWS.filter(l => game.passedLaws.includes(l.id)).map(l => l.category)
+  const passedLawSectors = LAWS.filter(l => game.passedLaws.includes(l.id)).map(l => l.sector)
 
-  const earned = evaluateAchievements({ game, reason, legacy, passedLawCategories })
+  const earned = evaluateAchievements({ game, reason, legacy, passedLawCategories, passedLawSectors })
   if (earned.length === 0) return []
 
   const user = await prisma.user.findUnique({ where: { id: userId }, select: { unlockedAchievements: true } })

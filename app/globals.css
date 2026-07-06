@@ -38,6 +38,18 @@
   --color-cat-congress:  #A56B3D;
   --color-cat-social:    #A54B7D;
   --color-cat-diplomacy: #3D9E9E;
+
+  /* ── Law sectors (industry/subject-matter, distinct from the category
+     tags above which are ideology-driven) ─────────────────────────── */
+  --color-sector-healthcare:     #C25B5B;
+  --color-sector-economy:        #B89B3D;
+  --color-sector-energy:         #5A9E4A;
+  --color-sector-defense:        #3D5A8A;
+  --color-sector-technology:     #4A9EB8;
+  --color-sector-education:      #C27A3D;
+  --color-sector-justice:        #7A5A9E;
+  --color-sector-infrastructure: #8A7D6B;
+  --color-sector-social:         #B8735A;
 }
 
 @theme inline {
