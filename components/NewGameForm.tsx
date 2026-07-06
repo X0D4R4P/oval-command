@@ -38,21 +38,41 @@ export function NewGameForm({ unlockedPerks }: NewGameFormProps) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  function handleSetupSubmit(e: React.FormEvent) {
-    e.preventDefault()
+  // Shared by both submit paths — skipping still needs a valid name, since
+  // it's part of the election-night seed and the game itself.
+  function validateSetup(): boolean {
     setError(null)
-
     const trimmed = presidentName.trim()
     if (!trimmed) {
       setError('Enter a name for your presidency.')
-      return
+      return false
     }
     if (trimmed.length > 60) {
       setError('Name must be 60 characters or fewer.')
-      return
+      return false
     }
+    return true
+  }
 
+  function handleSetupSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    if (!validateSetup()) return
     setPhase({ step: 'campaign', scenarioIndex: 0, choiceIds: [] })
+  }
+
+  // For repeat players who don't want to replay the campaign every term —
+  // jumps straight to election night with no campaign bonus, same as if
+  // every scenario had been left unanswered.
+  function handleSkipCampaign() {
+    if (!validateSetup()) return
+    setPhase({ step: 'election-night', choiceIds: [] })
+  }
+
+  // Mid-campaign bail-out — keeps whatever scenarios were already
+  // answered, just skips the rest.
+  function handleSkipRemaining() {
+    if (phase.step !== 'campaign') return
+    setPhase({ step: 'election-night', choiceIds: phase.choiceIds })
   }
 
   function handleCampaignChoice(optionId: string) {
@@ -113,13 +133,22 @@ export function NewGameForm({ unlockedPerks }: NewGameFormProps) {
     return (
       <main className="flex min-h-screen items-center justify-center px-6 py-12">
         <div className="w-full max-w-md">
-          <button
-            type="button"
-            onClick={handleBack}
-            className="font-mono text-[10px] uppercase tracking-[0.1em] text-[var(--color-paper-faint)] hover:text-[var(--color-paper)]"
-          >
-            ← Back
-          </button>
+          <div className="flex items-center justify-between">
+            <button
+              type="button"
+              onClick={handleBack}
+              className="font-mono text-[10px] uppercase tracking-[0.1em] text-[var(--color-paper-faint)] hover:text-[var(--color-paper)]"
+            >
+              ← Back
+            </button>
+            <button
+              type="button"
+              onClick={handleSkipRemaining}
+              className="font-mono text-[10px] uppercase tracking-[0.1em] text-[var(--color-paper-faint)] hover:text-[var(--color-paper)]"
+            >
+              Skip Campaign →
+            </button>
+          </div>
 
           <div className="mt-4 text-center">
             <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-brass)]">
@@ -351,6 +380,13 @@ export function NewGameForm({ unlockedPerks }: NewGameFormProps) {
             className="w-full rounded-sm border border-[var(--color-brass-dim)] bg-[var(--color-brass)] py-3 text-sm font-medium text-[var(--color-ink)] transition-opacity hover:opacity-90"
           >
             Continue to the Campaign
+          </button>
+          <button
+            type="button"
+            onClick={handleSkipCampaign}
+            className="w-full text-center font-mono text-[10px] uppercase tracking-[0.1em] text-[var(--color-paper-faint)] hover:text-[var(--color-paper)]"
+          >
+            Skip the Campaign →
           </button>
         </form>
       </div>
