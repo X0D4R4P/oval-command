@@ -144,6 +144,7 @@ export function GameClient({ initialGame, initialEvent, recentLogs: initialRecen
           reason={reason}
           presidentName={game.presidentName}
           archetype={archetype}
+          passedLaws={game.passedLaws}
           onNewGame={() => router.push('/new-game')}
         />
         {view.phase === 'gameover' && (view.result.newAchievements?.length ?? 0) > 0 && (

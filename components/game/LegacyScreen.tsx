@@ -1,6 +1,8 @@
 import { cn } from '@/lib/utils'
 import { Seal } from '@/components/Seal'
 import { ShareButton } from '@/components/ShareButton'
+import { LAWS } from '@/lib/game-engine'
+import { LAW_SECTORS, LAW_SECTOR_META } from '@/lib/law-sectors'
 import type { LegacyScore, GameOverReason } from '@/types/game'
 import type { PresidentialArchetype } from '@/lib/archetype-engine'
 
@@ -9,6 +11,7 @@ interface LegacyScreenProps {
   reason: GameOverReason
   presidentName: string
   archetype?: PresidentialArchetype
+  passedLaws: string[]
   onNewGame: () => void
 }
 
@@ -32,7 +35,13 @@ function sealTone(score: number) {
   return 'text-[var(--color-bad)]'
 }
 
-export function LegacyScreen({ legacy, reason, presidentName, archetype, onNewGame }: LegacyScreenProps) {
+export function LegacyScreen({ legacy, reason, presidentName, archetype, passedLaws, onNewGame }: LegacyScreenProps) {
+  const sectorBreakdown = LAW_SECTORS.map(sector => {
+    const lawsInSector = LAWS.filter(l => l.sector === sector)
+    const passed = lawsInSector.filter(l => passedLaws.includes(l.id)).length
+    return { sector, meta: LAW_SECTOR_META[sector], passed, total: lawsInSector.length }
+  })
+
   const breakdown = [
     { label: 'Approval',         value: legacy.breakdown.approval },
     { label: 'Economy',          value: legacy.breakdown.economy },
@@ -162,6 +171,28 @@ export function LegacyScreen({ legacy, reason, presidentName, archetype, onNewGa
               </span>
             </div>
           )}
+
+          <div className="mt-7 border-t border-[var(--color-border)] pt-5 text-left">
+            <div className="font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--color-paper-faint)]">
+              Legislative Record by Sector
+            </div>
+            <div className="mt-3 space-y-2.5">
+              {sectorBreakdown.map(({ sector, meta, passed, total }) => (
+                <div key={sector}>
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-[var(--color-paper-dim)]">{meta.label}</span>
+                    <span className="font-mono tabular-nums text-[var(--color-paper-faint)]">{passed}/{total}</span>
+                  </div>
+                  <div className="mt-1 h-[3px] w-full rounded-full bg-[var(--color-border)]">
+                    <div
+                      className="h-full rounded-full transition-all duration-500"
+                      style={{ width: `${total > 0 ? (passed / total) * 100 : 0}%`, backgroundColor: meta.color }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
 
           <div className="mt-7 space-y-1.5 border-t border-[var(--color-border)] pt-5 text-left">
             {breakdown.map(item => (
