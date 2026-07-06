@@ -61,6 +61,10 @@ const ROOM_TREATMENTS: Record<string, RoomTreatment> = {
   // rooms — foregroundColor sampled from the podium's dark navy body so
   // the added gradient blends into the photo rather than tinting it.
   '/debate-podium-bg.webp':    { backgroundPosition: 'center center', foregroundStyle: 'desk',    foregroundColor: '#12141a' },
+  // Same podium-edge composition, one per campaign-flow beat.
+  '/campaign-rally-bg.webp':   { backgroundPosition: 'center center', foregroundStyle: 'desk',    foregroundColor: '#3d2b18' },
+  '/victory-night-bg.webp':    { backgroundPosition: 'center center', foregroundStyle: 'desk',    foregroundColor: '#151824' },
+  '/concession-night-bg.webp': { backgroundPosition: 'center center', foregroundStyle: 'desk',    foregroundColor: '#0d0f14' },
 }
 
 export function getRoomTreatment(image: string): RoomTreatment {

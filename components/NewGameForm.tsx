@@ -12,6 +12,16 @@ import { CAMPAIGN_SCENARIOS, resolveCampaignChoices, computeElectionResult } fro
 import type { Party, Difficulty, Perk, CreateGameResponse } from '@/types/game'
 
 const DEBATE_BG = '/debate-podium-bg.webp'
+const VICTORY_BG = '/victory-night-bg.webp'
+const CONCESSION_BG = '/concession-night-bg.webp'
+
+// One backdrop per campaign beat — falls back to the debate stage for any
+// scenario id not listed here.
+const SCENARIO_BACKGROUNDS: Record<string, string> = {
+  final_debate: DEBATE_BG,
+  last_stop: '/campaign-rally-bg.webp',
+  victory_speech: VICTORY_BG,
+}
 
 const PARTIES: { value: Party; label: string; description: string }[] = [
   { value: 'DEMOCRAT', label: 'Democratic', description: 'Stronger starting base support, lower starting congress lean' },
@@ -30,7 +40,7 @@ interface NewGameFormProps {
 type Phase =
   | { step: 'setup' }
   | { step: 'campaign'; scenarioIndex: number; choiceIds: string[] }
-  | { step: 'election-night'; choiceIds: string[] }
+  | { step: 'election-night'; choiceIds: string[]; retryCount: number }
 
 export function NewGameForm({ unlockedPerks }: NewGameFormProps) {
   const router = useRouter()
@@ -69,14 +79,14 @@ export function NewGameForm({ unlockedPerks }: NewGameFormProps) {
   // every scenario had been left unanswered.
   function handleSkipCampaign() {
     if (!validateSetup()) return
-    setPhase({ step: 'election-night', choiceIds: [] })
+    setPhase({ step: 'election-night', choiceIds: [], retryCount: 0 })
   }
 
   // Mid-campaign bail-out — keeps whatever scenarios were already
   // answered, just skips the rest.
   function handleSkipRemaining() {
     if (phase.step !== 'campaign') return
-    setPhase({ step: 'election-night', choiceIds: phase.choiceIds })
+    setPhase({ step: 'election-night', choiceIds: phase.choiceIds, retryCount: 0 })
   }
 
   function handleCampaignChoice(optionId: string) {
@@ -85,7 +95,7 @@ export function NewGameForm({ unlockedPerks }: NewGameFormProps) {
     if (phase.scenarioIndex + 1 < CAMPAIGN_SCENARIOS.length) {
       setPhase({ step: 'campaign', scenarioIndex: phase.scenarioIndex + 1, choiceIds })
     } else {
-      setPhase({ step: 'election-night', choiceIds })
+      setPhase({ step: 'election-night', choiceIds, retryCount: 0 })
     }
   }
 
@@ -99,6 +109,15 @@ export function NewGameForm({ unlockedPerks }: NewGameFormProps) {
     } else if (phase.step === 'election-night') {
       setPhase({ step: 'campaign', scenarioIndex: CAMPAIGN_SCENARIOS.length - 1, choiceIds: phase.choiceIds.slice(0, -1) })
     }
+  }
+
+  // The rare "conceded the race" result isn't a real game-over — it's an
+  // easter egg — so this just rerolls a fresh election-night result
+  // (via retryCount, folded into the seed below) without making the
+  // player redo the campaign scenarios.
+  function handleTryAgain() {
+    if (phase.step !== 'election-night') return
+    setPhase({ step: 'election-night', choiceIds: phase.choiceIds, retryCount: phase.retryCount + 1 })
   }
 
   async function handleTakeOath() {
@@ -134,11 +153,12 @@ export function NewGameForm({ unlockedPerks }: NewGameFormProps) {
 
   if (phase.step === 'campaign') {
     const scenario = CAMPAIGN_SCENARIOS[phase.scenarioIndex]
-    const treatment = getRoomTreatment(DEBATE_BG)
+    const bgImage = SCENARIO_BACKGROUNDS[scenario.id] ?? DEBATE_BG
+    const treatment = getRoomTreatment(bgImage)
     return (
       <main className="flex min-h-screen items-center justify-center px-6 py-12" style={roomAccentStyle('var(--color-brass)')}>
         <RoomBackground
-          image={DEBATE_BG}
+          image={bgImage}
           color="var(--color-brass)"
           backgroundPosition={treatment.backgroundPosition}
           foreground={{ style: treatment.foregroundStyle, color: treatment.foregroundColor }}
@@ -193,19 +213,23 @@ export function NewGameForm({ unlockedPerks }: NewGameFormProps) {
   if (phase.step === 'election-night') {
     // Purely a client-side reveal computed from the same pure functions
     // the server will use to validate/apply the real bonus on submit —
-    // there's nothing to trust here yet since no game exists.
+    // there's nothing to trust here yet since no game exists. retryCount
+    // is folded into the seed so "Try Again" after a rare loss rerolls a
+    // genuinely different result rather than repeating the same one.
     const result = computeElectionResult(
-      `${presidentName.trim()}:${party}:${difficulty}`,
+      `${presidentName.trim()}:${party}:${difficulty}:${phase.retryCount}`,
       difficulty,
       resolveCampaignChoices(phase.choiceIds)
     )
 
-    const treatment = getRoomTreatment(DEBATE_BG)
+    const accent = result.won ? 'var(--color-brass)' : 'var(--color-bad)'
+    const bgImage = result.won ? VICTORY_BG : CONCESSION_BG
+    const treatment = getRoomTreatment(bgImage)
     return (
-      <main className="flex min-h-screen items-center justify-center px-6 py-12" style={roomAccentStyle('var(--color-brass)')}>
+      <main className="flex min-h-screen items-center justify-center px-6 py-12" style={roomAccentStyle(accent)}>
         <RoomBackground
-          image={DEBATE_BG}
-          color="var(--color-brass)"
+          image={bgImage}
+          color={accent}
           backgroundPosition={treatment.backgroundPosition}
           foreground={{ style: treatment.foregroundStyle, color: treatment.foregroundColor }}
         />
@@ -218,7 +242,7 @@ export function NewGameForm({ unlockedPerks }: NewGameFormProps) {
             ← Back
           </button>
 
-          <div className="mt-5 font-mono text-[10px] uppercase tracking-[0.35em] text-[var(--color-brass)]">
+          <div className="mt-5 font-mono text-[10px] uppercase tracking-[0.35em]" style={{ color: accent }}>
             Election Night
           </div>
           <div className="mt-5 flex justify-center">
@@ -227,7 +251,7 @@ export function NewGameForm({ unlockedPerks }: NewGameFormProps) {
           <div className="mt-5 font-mono text-6xl font-semibold tabular-nums text-[var(--color-paper)]">
             {result.votePercent}%
           </div>
-          <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--color-brass)]">
+          <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.12em]" style={{ color: accent }}>
             {result.marginLabel}
           </div>
           <p className="mx-auto mt-5 max-w-sm text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
@@ -243,14 +267,24 @@ export function NewGameForm({ unlockedPerks }: NewGameFormProps) {
             </p>
           )}
 
-          <button
-            type="button"
-            onClick={handleTakeOath}
-            disabled={loading}
-            className="mt-8 w-full rounded-sm border border-[var(--color-brass-dim)] bg-[var(--color-brass)] py-3 text-sm font-medium text-[var(--color-ink)] transition-opacity hover:opacity-90 disabled:opacity-50"
-          >
-            {loading ? 'Preparing the briefing…' : 'Take the Oath of Office'}
-          </button>
+          {result.won ? (
+            <button
+              type="button"
+              onClick={handleTakeOath}
+              disabled={loading}
+              className="mt-8 w-full rounded-sm border border-[var(--color-brass-dim)] bg-[var(--color-brass)] py-3 text-sm font-medium text-[var(--color-ink)] transition-opacity hover:opacity-90 disabled:opacity-50"
+            >
+              {loading ? 'Preparing the briefing…' : 'Take the Oath of Office'}
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={handleTryAgain}
+              className="mt-8 w-full rounded-sm border border-[var(--color-bad)] bg-[var(--color-bad-dim)] py-3 text-sm font-medium text-[var(--color-bad)] transition-opacity hover:opacity-90"
+            >
+              Try Again
+            </button>
+          )}
         </div>
       </main>
     )

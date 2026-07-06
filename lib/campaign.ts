@@ -4,9 +4,10 @@
  * bonus (same clamping pipeline as difficulty mods and perks), then an
  * election-night result is revealed before the oath of office.
  *
- * The player has, by construction, already won — nothing here can lose
- * the election — so computeElectionResult only ever varies HOW big the
- * win was, not whether it happened.
+ * The player wins the overwhelming majority of the time — computeElectionResult
+ * mostly varies HOW big the win was — but there's a ~2% easter-egg chance
+ * of a genuine loss, surfaced via its own concession-night screen with a
+ * reroll rather than a real game-over (see NewGameForm's "Try Again").
  */
 
 import type { StatDelta, Difficulty } from '@/types/game'
@@ -79,6 +80,7 @@ export function resolveCampaignChoices(choiceIds: string[]): StatDelta {
 }
 
 export interface ElectionResult {
+  won:          boolean
   votePercent:  number
   marginLabel:  string
   narrative:    string
@@ -90,13 +92,30 @@ const DIFFICULTY_MARGIN_PENALTY: Record<Difficulty, number> = {
   easy: 4, normal: 0, hard: -4, expert: -8,
 }
 
+// Easter egg, not a real difficulty lever — deliberately independent of
+// difficulty/campaign choices so it can't be farmed or avoided, just an
+// occasional surprise. 1-in-50 (2%).
+const LOSS_CHANCE_DENOMINATOR = 50
+
 /**
  * A deterministic-but-flavorful vote share for election night — same
  * precedent as IntelligenceBriefing's confidence %: seeded pseudo-
- * randomness via hashSeed(), not a real statistical simulation. Floors at
- * 50 since the player has already won by construction.
+ * randomness via hashSeed(), not a real statistical simulation. Almost
+ * always a win (floors at 50%); the rare loss branch uses its own hash
+ * bucket (a different salt) so it's an independent roll from the win
+ * margin, not correlated with how well the campaign went.
  */
 export function computeElectionResult(seed: string, difficulty: Difficulty, campaignBonus: StatDelta): ElectionResult {
+  if (hashSeed(seed, 'loss-roll') % LOSS_CHANCE_DENOMINATOR === 0) {
+    const votePercent = 44 + (hashSeed(seed, 'loss-margin') % 5) // 44–48%, a real if narrow loss
+    return {
+      won: false,
+      votePercent,
+      marginLabel: 'Conceded the Race',
+      narrative: "The math never got there. Not every campaign ends in the Oval Office — this one ends in a ballroom that's already half empty.",
+    }
+  }
+
   const base = 50 + (hashSeed(seed) % 13) // 50–62 deterministic base spread
   const campaignSwing = Math.round(
     Object.values(campaignBonus).reduce((sum: number, v) => sum + (v ?? 0), 0) * 0.4
@@ -105,6 +124,7 @@ export function computeElectionResult(seed: string, difficulty: Difficulty, camp
 
   if (votePercent >= 60) {
     return {
+      won: true,
       votePercent,
       marginLabel: 'Landslide Victory',
       narrative: 'The networks called it before midnight. A mandate, unmistakably.',
@@ -112,12 +132,14 @@ export function computeElectionResult(seed: string, difficulty: Difficulty, camp
   }
   if (votePercent >= 54) {
     return {
+      won: true,
       votePercent,
       marginLabel: 'Comfortable Majority',
       narrative: 'A clear win — enough to govern, not enough to silence the opposition.',
     }
   }
   return {
+    won: true,
     votePercent,
     marginLabel: 'Razor-Thin Mandate',
     narrative: 'It came down to the final precincts. You won — barely. Everyone remembers that.',
