@@ -39,13 +39,13 @@ export default async function PresidenciesPage() {
       <main className="mx-auto max-w-2xl px-6 py-12">
         <div className="mb-8">
           <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-brass)]">
-            Presidential Library
+            National Archives
           </div>
           <h1 className="mt-1 font-[family-name:var(--font-display)] text-2xl font-semibold text-[var(--color-paper)]">
-            Your Presidencies
+            Executive Records
           </h1>
           <p className="mt-2 text-sm text-[var(--color-paper-dim)]">
-            Every completed term, ranked by legacy score.
+            Every completed administration, ranked by legacy score.
           </p>
         </div>
 

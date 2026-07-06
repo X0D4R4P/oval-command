@@ -25,7 +25,7 @@ export function PresidencyCard({ rank, game, legacy, reason, archetype }: Presid
 
   return (
     <div className="rounded-sm border border-[var(--color-border)] bg-[var(--color-surface)] px-5 py-4 backdrop-blur-sm transition-colors hover:border-[var(--color-border-strong)]">
-      <Link href={`/game/${game.id}`} className="block">
+      <Link href={`/archive/${game.id}`} className="block">
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2">

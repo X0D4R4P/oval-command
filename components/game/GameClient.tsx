@@ -240,12 +240,18 @@ export function GameClient({ initialGame, initialEvent, recentLogs: initialRecen
           deltaFromLastMonth={approvalTrend.deltaFromLastMonth}
           topMovers={topMovers}
         />
-        <div className="mt-3 text-center">
+        <div className="mt-3 space-y-1 text-center">
           <Link
             href={`/game/${game.id}/overview`}
-            className="font-mono text-[10px] uppercase tracking-[0.05em] text-[var(--color-paper-faint)] hover:text-[var(--color-brass)]"
+            className="block font-mono text-[10px] uppercase tracking-[0.05em] text-[var(--color-paper-faint)] hover:text-[var(--color-brass)]"
           >
             View Government Overview →
+          </Link>
+          <Link
+            href={`/archive/${game.id}`}
+            className="block font-mono text-[10px] uppercase tracking-[0.05em] text-[var(--color-paper-faint)] hover:text-[var(--color-brass)]"
+          >
+            View National Archives →
           </Link>
         </div>
       </div>

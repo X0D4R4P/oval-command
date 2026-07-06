@@ -1,4 +1,5 @@
 import { HeartPulse, Landmark, Leaf, Shield, Cpu, GraduationCap, Scale, Building2, HandHeart } from 'lucide-react'
+import { LAWS } from '@/lib/game-engine'
 import type { LawSector } from '@/types/game'
 
 export interface LawSectorMeta {
@@ -24,3 +25,19 @@ export const LAW_SECTOR_META: Record<LawSector, LawSectorMeta> = {
 }
 
 export const LAW_SECTORS = Object.keys(LAW_SECTOR_META) as LawSector[]
+
+export interface SectorBreakdownEntry {
+  sector: LawSector
+  meta:   LawSectorMeta
+  passed: number
+  total:  number
+}
+
+/** Passed/available law counts per sector — shared by LegacyScreen and the Archive page. */
+export function computeSectorBreakdown(passedLaws: string[]): SectorBreakdownEntry[] {
+  return LAW_SECTORS.map(sector => {
+    const lawsInSector = LAWS.filter(l => l.sector === sector)
+    const passed = lawsInSector.filter(l => passedLaws.includes(l.id)).length
+    return { sector, meta: LAW_SECTOR_META[sector], passed, total: lawsInSector.length }
+  })
+}

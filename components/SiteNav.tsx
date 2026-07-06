@@ -27,7 +27,7 @@ export function SiteNav({ userName, userImage }: SiteNavProps) {
             href="/presidencies"
             className="font-mono text-[10px] uppercase tracking-[0.05em] text-[var(--color-paper-faint)] transition-colors hover:text-[var(--color-brass)]"
           >
-            Presidencies
+            National Archives
           </Link>
           <Link
             href="/achievements"

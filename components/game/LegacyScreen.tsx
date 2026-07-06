@@ -1,8 +1,7 @@
 import { cn } from '@/lib/utils'
 import { Seal } from '@/components/Seal'
 import { ShareButton } from '@/components/ShareButton'
-import { LAWS } from '@/lib/game-engine'
-import { LAW_SECTORS, LAW_SECTOR_META } from '@/lib/law-sectors'
+import { computeSectorBreakdown } from '@/lib/law-sectors'
 import type { LegacyScore, GameOverReason } from '@/types/game'
 import type { PresidentialArchetype } from '@/lib/archetype-engine'
 
@@ -36,11 +35,7 @@ function sealTone(score: number) {
 }
 
 export function LegacyScreen({ legacy, reason, presidentName, archetype, passedLaws, onNewGame }: LegacyScreenProps) {
-  const sectorBreakdown = LAW_SECTORS.map(sector => {
-    const lawsInSector = LAWS.filter(l => l.sector === sector)
-    const passed = lawsInSector.filter(l => passedLaws.includes(l.id)).length
-    return { sector, meta: LAW_SECTOR_META[sector], passed, total: lawsInSector.length }
-  })
+  const sectorBreakdown = computeSectorBreakdown(passedLaws)
 
   const breakdown = [
     { label: 'Approval',         value: legacy.breakdown.approval },
