@@ -1880,5 +1880,193 @@
         "quote": "The opposition leader calls it 'amnesty with extra paperwork.'"
       }
     }
+  },
+  {
+    "id": "federal_digital_identity_act",
+    "title": "Federal Digital Identity Act",
+    "shortTitle": "Digital Identity Act",
+    "category": "bipartisan",
+    "sector": "technology",
+    "description": "Establishes a secure, opt-in federal digital identity system for accessing government services online, building directly on the data protection standards set by the Data Privacy Act.",
+    "flavor": "One login. Every agency. No more mailing a form to prove you exist.",
+    "cost": "medium",
+    "debtImpact": 0.3,
+    "annualCostBn": 14,
+    "passage": {
+      "congressMin": 42,
+      "partyUnityMin": 35,
+      "approvalBonus": {
+        "threshold": 48,
+        "bonus": 7
+      },
+      "approvalPenalty": {
+        "threshold": 32,
+        "penalty": 7
+      },
+      "lobbyOpposition": [
+        {
+          "name": "Civil Liberties Union",
+          "penalty": 12
+        }
+      ],
+      "basePassProbability": 55
+    },
+    "effects": {
+      "onPass": {
+        "approval": 5,
+        "economy": 2,
+        "congressSupport": 2,
+        "unrest": -1
+      },
+      "passive": {
+        "economy": 1
+      },
+      "description": "Passive: +1 economy/mo (reduced friction in government services)"
+    },
+    "sets_flags": [
+      "passed_digital_identity"
+    ],
+    "requires_flags": [
+      "passed_data_privacy"
+    ],
+    "prereqLabel": "Requires: Data Privacy Act",
+    "blocks_laws": [],
+    "npc_reactions": {
+      "treasury_secretary": {
+        "relationship": 8,
+        "quote": "The Treasury Secretary calls it 'the kind of back-office modernization that actually saves money.'"
+      },
+      "protest_leader": {
+        "relationship": -6,
+        "quote": "Civil liberties groups warn it 'creates a single point of failure for surveillance, opt-in or not.'"
+      }
+    }
+  },
+  {
+    "id": "high_speed_rail_act",
+    "title": "High-Speed Rail Expansion Act",
+    "shortTitle": "High-Speed Rail Act",
+    "category": "progressive",
+    "sector": "infrastructure",
+    "description": "Funds construction of high-speed rail corridors connecting major metro regions, building on the initial infrastructure investment with a signature transportation project.",
+    "flavor": "The interstate highway system of this generation — just faster, and electric.",
+    "cost": "high",
+    "debtImpact": 1.4,
+    "annualCostBn": 110,
+    "passage": {
+      "congressMin": 44,
+      "partyUnityMin": 42,
+      "approvalBonus": {
+        "threshold": 50,
+        "bonus": 9
+      },
+      "approvalPenalty": {
+        "threshold": 35,
+        "penalty": 9
+      },
+      "lobbyOpposition": [
+        {
+          "name": "Airline Industry Coalition",
+          "penalty": 10
+        },
+        {
+          "name": "Fiscal Hawk Coalition",
+          "penalty": 8
+        }
+      ],
+      "basePassProbability": 48
+    },
+    "effects": {
+      "onPass": {
+        "economy": 5,
+        "approval": 6,
+        "congressSupport": 3,
+        "debt": 1.4
+      },
+      "passive": {
+        "economy": 2
+      },
+      "description": "Passive: +2 economy/mo (construction jobs and regional connectivity)"
+    },
+    "sets_flags": [
+      "high_speed_rail_passed"
+    ],
+    "requires_flags": [
+      "infrastructure_passed"
+    ],
+    "prereqLabel": "Requires: Infrastructure Act",
+    "blocks_laws": [],
+    "npc_reactions": {
+      "treasury_secretary": {
+        "relationship": -5,
+        "quote": "The Treasury Secretary warns 'this is the most expensive line item in the budget by a wide margin.'"
+      },
+      "foreign_ally": {
+        "relationship": 6,
+        "quote": "Chancellor Brandt calls it 'the kind of infrastructure ambition Europe stopped expecting from Washington.'"
+      }
+    }
+  },
+  {
+    "id": "national_transit_modernization_act",
+    "title": "National Transit Modernization Act",
+    "shortTitle": "Transit Modernization Act",
+    "category": "bipartisan",
+    "sector": "infrastructure",
+    "description": "Expands the high-speed rail buildout into a full national transit modernization program — regional connectors, urban transit upgrades, and freight rail improvements tied into the same network.",
+    "flavor": "The rail lines aren't the finish line. They're the spine everything else connects to.",
+    "cost": "high",
+    "debtImpact": 1,
+    "annualCostBn": 85,
+    "passage": {
+      "congressMin": 40,
+      "partyUnityMin": 35,
+      "approvalBonus": {
+        "threshold": 48,
+        "bonus": 8
+      },
+      "approvalPenalty": {
+        "threshold": 33,
+        "penalty": 7
+      },
+      "lobbyOpposition": [
+        {
+          "name": "Fiscal Hawk Coalition",
+          "penalty": 8
+        }
+      ],
+      "basePassProbability": 56
+    },
+    "effects": {
+      "onPass": {
+        "economy": 4,
+        "approval": 5,
+        "unrest": -2,
+        "debt": 1
+      },
+      "passive": {
+        "economy": 1,
+        "approval": 1
+      },
+      "description": "Passive: +1 economy/mo, +1 approval/mo (the network keeps paying off)"
+    },
+    "sets_flags": [
+      "passed_transit_modernization"
+    ],
+    "requires_flags": [
+      "high_speed_rail_passed"
+    ],
+    "prereqLabel": "Requires: High-Speed Rail Act",
+    "blocks_laws": [],
+    "npc_reactions": {
+      "speaker": {
+        "relationship": 5,
+        "quote": "The Speaker calls it 'the rare infrastructure bill that keeps every district happy at once.'"
+      },
+      "opposition_leader": {
+        "relationship": -4,
+        "quote": "The opposition leader calls it 'a blank check with a train painted on it.'"
+      }
+    }
   }
 ]
