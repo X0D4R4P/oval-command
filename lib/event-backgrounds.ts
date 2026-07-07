@@ -7,10 +7,10 @@ const CATEGORY_BACKGROUNDS: Record<string, string> = {
   disaster:  '/disaster-response-bg.webp',
   economy:   '/economic-command-bg.webp',
   social:    '/domestic-unrest-bg.webp',
-  scandal:   '/press-room-bg.webp',
+  scandal:   '/scandal-leak-bg.webp',
   media:     '/press-room-bg.webp',
   congress:  '/congress-bg.webp',
-  diplomacy: '/diplomatic-office-bg.webp',
+  diplomacy: '/diplomatic-summit-bg.webp',
   international: '/diplomatic-office-bg.webp',
 }
 
@@ -86,6 +86,8 @@ const ROOM_TREATMENTS: Record<string, RoomTreatment> = {
   '/disaster-response-bg.webp': { backgroundPosition: 'center center', foregroundStyle: 'desk', foregroundColor: '#171008' },
   '/economic-command-bg.webp':  { backgroundPosition: 'center center', foregroundStyle: 'desk', foregroundColor: '#1a130a' },
   '/domestic-unrest-bg.webp':   { backgroundPosition: 'center center', foregroundStyle: 'desk', foregroundColor: '#1a140c' },
+  '/scandal-leak-bg.webp':      { backgroundPosition: 'center center', foregroundStyle: 'desk', foregroundColor: '#170f08' },
+  '/diplomatic-summit-bg.webp': { backgroundPosition: 'center center', foregroundStyle: 'desk', foregroundColor: '#241a10' },
 }
 
 export function getRoomTreatment(image: string): RoomTreatment {
