@@ -43,19 +43,18 @@ export interface RoomTreatment {
 
 // Per-photo composition treatment — keyed by the image path itself (not
 // category) so both the fixed room pages and CrisisCard's dynamic
-// per-category background share one definition. Positions/colors were
-// picked by actually looking at each photo (see the room-composition plan):
-// Oval Office/Cabinet/Situation Room were shot with a desk/table filling the
-// bottom of frame; Diplomatic Office/Congress are symmetric architectural
-// shots with strong bilateral columns; Press Room has chair-backs already
-// close to camera at the bottom.
+// per-category background share one definition. All six room photos are now
+// first-person POV shots (seated at the desk/table, or standing at a podium)
+// with a blurred foreground object — a nameplate, folder, teacup, or the
+// presidential seal — sitting at the bottom of frame, same "desk edge"
+// composition the campaign/debate photos already use.
 const ROOM_TREATMENTS: Record<string, RoomTreatment> = {
-  '/oval-office-bg.webp':      { backgroundPosition: 'center bottom', foregroundStyle: 'desk',    foregroundColor: '#2a1810' },
-  '/cabinet-room-bg.webp':     { backgroundPosition: 'center bottom', foregroundStyle: 'desk',    foregroundColor: '#3d2417' },
-  '/situation-room-bg.webp':   { backgroundPosition: 'center bottom', foregroundStyle: 'desk',    foregroundColor: '#241812' },
-  '/diplomatic-office-bg.webp':{ backgroundPosition: 'center 35%',    foregroundStyle: 'columns', foregroundColor: '#c9a876' },
-  '/congress-bg.webp':         { backgroundPosition: 'center 35%',    foregroundStyle: 'columns', foregroundColor: '#b89a6e' },
-  '/press-room-bg.webp':       { backgroundPosition: 'center center', foregroundStyle: 'chairs',  foregroundColor: '#1a1d24' },
+  '/oval-office-bg.webp':      { backgroundPosition: 'center center', foregroundStyle: 'desk', foregroundColor: '#1c130c' },
+  '/cabinet-room-bg.webp':     { backgroundPosition: 'center center', foregroundStyle: 'desk', foregroundColor: '#1f150d' },
+  '/situation-room-bg.webp':   { backgroundPosition: 'center center', foregroundStyle: 'desk', foregroundColor: '#12141a' },
+  '/diplomatic-office-bg.webp':{ backgroundPosition: 'center center', foregroundStyle: 'desk', foregroundColor: '#3d2417' },
+  '/congress-bg.webp':         { backgroundPosition: 'center center', foregroundStyle: 'desk', foregroundColor: '#3d2b18' },
+  '/press-room-bg.webp':       { backgroundPosition: 'center center', foregroundStyle: 'desk', foregroundColor: '#12141a' },
   // The podium's own curved top edge (with the presidential seal) already
   // sits at the very bottom of frame, same composition as the desk-edge
   // rooms — foregroundColor sampled from the podium's dark navy body so
