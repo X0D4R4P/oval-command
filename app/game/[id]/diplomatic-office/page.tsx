@@ -6,7 +6,7 @@ import { StatCard } from '@/components/game/StatCard'
 import { CabinetCard } from '@/components/game/CabinetCard'
 import { PendingEventBanner } from '@/components/game/PendingEventBanner'
 import { RoomBackground, roomAccentStyle } from '@/components/game/RoomBackground'
-import { getRoomTreatment } from '@/lib/event-backgrounds'
+import { getRoomTreatment, getRoomImage, isTenseMood } from '@/lib/event-backgrounds'
 
 const MATCHING_CATEGORIES = ['diplomacy']
 
@@ -28,12 +28,13 @@ export default async function DiplomaticOfficePage({ params }: PageProps) {
   const pendingEvent = row.currentEventId ? EVENTS.find(e => e.id === row.currentEventId) : undefined
   const showBanner = game.status === 'ACTIVE' && pendingEvent && MATCHING_CATEGORIES.includes(pendingEvent.category)
 
-  const treatment = getRoomTreatment('/diplomatic-office-bg.webp')
+  const roomImage = getRoomImage('/diplomatic-office-bg.webp', isTenseMood(game, pendingEvent))
+  const treatment = getRoomTreatment(roomImage)
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-10" style={roomAccentStyle('var(--color-cat-diplomacy)')}>
       <RoomBackground
-        image="/diplomatic-office-bg.webp"
+        image={roomImage}
         color="var(--color-cat-diplomacy)"
         backgroundPosition={treatment.backgroundPosition}
         foreground={{ style: treatment.foregroundStyle, color: treatment.foregroundColor }}

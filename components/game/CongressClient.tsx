@@ -8,7 +8,7 @@ import { HeadlineTicker } from '@/components/game/HeadlineTicker'
 import { RoomBackground, roomAccentStyle } from '@/components/game/RoomBackground'
 import { AchievementUnlockToast } from '@/components/game/AchievementUnlockToast'
 import { NpcReactionList } from '@/components/game/NpcReactionList'
-import { getRoomTreatment } from '@/lib/event-backgrounds'
+import { getRoomTreatment, getRoomImage, isTenseMood } from '@/lib/event-backgrounds'
 import { LAW_SECTOR_META, LAW_SECTORS } from '@/lib/law-sectors'
 import { cn } from '@/lib/utils'
 import type { Game, Law, Headline, Achievement, LawSector, NpcReactionResult } from '@/types/game'
@@ -65,7 +65,10 @@ export function CongressClient({ game, lawsWithOdds, canUseSenateAbility, canUse
   const highlightRef = useRef<HTMLDivElement>(null)
 
   const filtered = filter === 'all' ? lawsWithOdds : lawsWithOdds.filter(l => l.law.sector === filter)
-  const treatment = getRoomTreatment('/congress-bg.webp')
+  // No specific pending CrisisEvent object on hand here (just its title) —
+  // active conflicts and low approval are still enough to swap the mood.
+  const roomImage = getRoomImage('/congress-bg.webp', isTenseMood(game))
+  const treatment = getRoomTreatment(roomImage)
 
   // Sector momentum — small "N/M passed" badge per tab, purely presentational.
   const sectorCounts: Record<string, { passed: number; total: number }> = {}
@@ -134,7 +137,7 @@ export function CongressClient({ game, lawsWithOdds, canUseSenateAbility, canUse
     return (
       <main className="mx-auto max-w-3xl px-6 py-12" style={roomAccentStyle('var(--color-cat-congress)')}>
         <RoomBackground
-          image="/congress-bg.webp"
+          image={roomImage}
           color="var(--color-cat-congress)"
           backgroundPosition={treatment.backgroundPosition}
           foreground={{ style: treatment.foregroundStyle, color: treatment.foregroundColor }}
@@ -193,7 +196,7 @@ export function CongressClient({ game, lawsWithOdds, canUseSenateAbility, canUse
   return (
     <main className="mx-auto max-w-3xl px-6 py-10" style={roomAccentStyle('var(--color-cat-congress)')}>
       <RoomBackground
-        image="/congress-bg.webp"
+        image={roomImage}
         color="var(--color-cat-congress)"
         backgroundPosition={treatment.backgroundPosition}
         foreground={{ style: treatment.foregroundStyle, color: treatment.foregroundColor }}

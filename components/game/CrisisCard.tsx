@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { cn, formatDelta, isDeltaGood, getStatLabel } from '@/lib/utils'
 import { isBreakingEvent, getEventCallback } from '@/lib/game-engine'
-import { getEventBackground, getEventAccentColor, getRoomTreatment } from '@/lib/event-backgrounds'
+import { getEventBackground, getEventAccentColor, getRoomTreatment, getRoomImage } from '@/lib/event-backgrounds'
 import { RoomBackground, roomAccentStyle } from './RoomBackground'
 import { CategoryTag } from './CategoryTag'
 import { IntelligenceBriefing } from './IntelligenceBriefing'
@@ -16,6 +16,8 @@ interface CrisisCardProps {
   flags: Record<string, boolean>
   onChoose: (choiceIndex: number) => void
   disabled?: boolean
+  /** Whether the room backdrop should show its tense/crisis variant — see lib/event-backgrounds.ts's isTenseMood. */
+  tense?: boolean
 }
 
 function EffectPreview({ effects }: { effects: StatDelta }) {
@@ -42,7 +44,7 @@ function EffectPreview({ effects }: { effects: StatDelta }) {
   )
 }
 
-export function CrisisCard({ event, month, gameId, flags, onChoose, disabled }: CrisisCardProps) {
+export function CrisisCard({ event, month, gameId, flags, onChoose, disabled, tense }: CrisisCardProps) {
   const [selected, setSelected] = useState<number | null>(null)
   const breaking = isBreakingEvent(event)
   const callback = getEventCallback(event, flags)
@@ -53,7 +55,7 @@ export function CrisisCard({ event, month, gameId, flags, onChoose, disabled }: 
     onChoose(index)
   }
 
-  const backgroundImage = getEventBackground(event.category)
+  const backgroundImage = getRoomImage(getEventBackground(event.category), Boolean(tense))
   const accentColor = getEventAccentColor(event.category)
   const treatment = getRoomTreatment(backgroundImage)
 

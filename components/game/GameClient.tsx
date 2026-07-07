@@ -22,7 +22,7 @@ import { DailyBrief } from '@/components/game/DailyBrief'
 import { AnnualReport } from '@/components/game/AnnualReport'
 import { OnboardingWelcome } from '@/components/game/OnboardingWelcome'
 import { GuestExpiryWarning } from '@/components/game/GuestExpiryWarning'
-import { getEventAccentColor, getRoomTreatment } from '@/lib/event-backgrounds'
+import { getEventAccentColor, getRoomTreatment, getRoomImage, isTenseMood } from '@/lib/event-backgrounds'
 import { computeLegacyScore, checkGameOver, isBreakingEvent, computePassProbability, NPCS } from '@/lib/game-engine'
 import { getLegislativeOpportunity } from '@/lib/law-engine'
 import { getAdvisorRecommendations } from '@/lib/advisor-engine'
@@ -133,11 +133,12 @@ export function GameClient({ initialGame, initialEvent, recentLogs: initialRecen
     const legacy = computeLegacyScore(game)
     const reason = view.phase === 'gameover' ? view.result.gameOver! : view.reason
     const archetype = view.phase === 'gameover' ? view.result.archetype : finishedGameArchetype
-    const gameoverTreatment = getRoomTreatment('/oval-office-bg.webp')
+    const gameoverImage = getRoomImage('/oval-office-bg.webp', isTenseMood(game))
+    const gameoverTreatment = getRoomTreatment(gameoverImage)
     return (
       <main className="mx-auto max-w-3xl px-6 py-12" style={roomAccentStyle('var(--color-brass)')}>
         <RoomBackground
-          image="/oval-office-bg.webp"
+          image={gameoverImage}
           color="var(--color-brass)"
           backgroundPosition={gameoverTreatment.backgroundPosition}
           foreground={{ style: gameoverTreatment.foregroundStyle, color: gameoverTreatment.foregroundColor }}
@@ -310,6 +311,7 @@ export function GameClient({ initialGame, initialEvent, recentLogs: initialRecen
                 flags={game.flags}
                 onChoose={handleChoice}
                 disabled={submitting}
+                tense={isTenseMood(game, event)}
               />
             </div>
           )}

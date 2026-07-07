@@ -1,3 +1,6 @@
+import { isBreakingEvent } from '@/lib/game-engine'
+import type { Game, CrisisEvent } from '@/types/game'
+
 const CATEGORY_BACKGROUNDS: Record<string, string> = {
   military:  '/situation-room-bg.webp',
   security:  '/situation-room-bg.webp',
@@ -64,8 +67,51 @@ const ROOM_TREATMENTS: Record<string, RoomTreatment> = {
   '/campaign-rally-bg.webp':   { backgroundPosition: 'center center', foregroundStyle: 'desk',    foregroundColor: '#3d2b18' },
   '/victory-night-bg.webp':    { backgroundPosition: 'center center', foregroundStyle: 'desk',    foregroundColor: '#151824' },
   '/concession-night-bg.webp': { backgroundPosition: 'center center', foregroundStyle: 'desk',    foregroundColor: '#0d0f14' },
+  // Tense-mood counterparts — same composition/foreground object as their
+  // calm version (an "URGENT"-stamped folder standing in for the usual
+  // blotter/nameplate/teacup), just darker and redder.
+  '/oval-office-bg-tense.webp':      { backgroundPosition: 'center center', foregroundStyle: 'desk', foregroundColor: '#170f07' },
+  '/cabinet-room-bg-tense.webp':     { backgroundPosition: 'center center', foregroundStyle: 'desk', foregroundColor: '#170f08' },
+  '/situation-room-bg-tense.webp':   { backgroundPosition: 'center center', foregroundStyle: 'desk', foregroundColor: '#150a0a' },
+  '/diplomatic-office-bg-tense.webp':{ backgroundPosition: 'center center', foregroundStyle: 'desk', foregroundColor: '#241a10' },
+  '/congress-bg-tense.webp':         { backgroundPosition: 'center center', foregroundStyle: 'desk', foregroundColor: '#1c140c' },
+  '/press-room-bg-tense.webp':       { backgroundPosition: 'center center', foregroundStyle: 'desk', foregroundColor: '#0e0e12' },
 }
 
 export function getRoomTreatment(image: string): RoomTreatment {
   return ROOM_TREATMENTS[image] ?? ROOM_TREATMENTS['/oval-office-bg.webp']
+}
+
+// Calm -> tense counterpart for each room photo. Any base image not listed
+// here (campaign/debate/election-night backdrops) has no tense variant and
+// getRoomImage() below just returns it unchanged.
+const TENSE_VARIANTS: Record<string, string> = {
+  '/oval-office-bg.webp':       '/oval-office-bg-tense.webp',
+  '/cabinet-room-bg.webp':      '/cabinet-room-bg-tense.webp',
+  '/situation-room-bg.webp':    '/situation-room-bg-tense.webp',
+  '/diplomatic-office-bg.webp': '/diplomatic-office-bg-tense.webp',
+  '/congress-bg.webp':          '/congress-bg-tense.webp',
+  '/press-room-bg.webp':        '/press-room-bg-tense.webp',
+}
+
+/**
+ * A room reads as "tense" — swapping its calm photo for the matching
+ * URGENT-folder/red-alert variant — the moment any one of three signals is
+ * true: an active conflict is ongoing, the currently-pending event is a
+ * Breaking News-tier event, or approval has fallen below 30. `event` is
+ * optional: pages that don't already have the specific pending CrisisEvent
+ * object on hand (e.g. CongressClient, which only carries its title) just
+ * omit it and fall back to the other two signals.
+ */
+export function isTenseMood(game: Game, event?: CrisisEvent | null): boolean {
+  return (
+    game.activeConflicts.length > 0 ||
+    Boolean(event && isBreakingEvent(event)) ||
+    game.stats.approval < 30
+  )
+}
+
+/** Picks the tense variant of `baseImage` when `tense` is true, else the base image unchanged. */
+export function getRoomImage(baseImage: string, tense: boolean): string {
+  return tense ? (TENSE_VARIANTS[baseImage] ?? baseImage) : baseImage
 }

@@ -9,7 +9,7 @@ import { RoomBackground, roomAccentStyle } from '@/components/game/RoomBackgroun
 import { SocialFeed } from '@/components/game/SocialFeed'
 import { PressConferencePanel } from '@/components/game/PressConferencePanel'
 import { generateSocialFeed } from '@/lib/social-feed'
-import { getRoomTreatment } from '@/lib/event-backgrounds'
+import { getRoomTreatment, getRoomImage, isTenseMood } from '@/lib/event-backgrounds'
 import type { GameStats } from '@/types/game'
 
 const MATCHING_CATEGORIES = ['scandal', 'social']
@@ -50,12 +50,13 @@ export default async function HistoryPage({ params }: PageProps) {
 
   const posts = generateSocialFeed(game.id, game.currentMonth, game.stats)
 
-  const treatment = getRoomTreatment('/press-room-bg.webp')
+  const roomImage = getRoomImage('/press-room-bg.webp', isTenseMood(game, pendingEvent))
+  const treatment = getRoomTreatment(roomImage)
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-10" style={roomAccentStyle('var(--color-cat-scandal)')}>
       <RoomBackground
-        image="/press-room-bg.webp"
+        image={roomImage}
         color="var(--color-cat-scandal)"
         backgroundPosition={treatment.backgroundPosition}
         foreground={{ style: treatment.foregroundStyle, color: treatment.foregroundColor }}

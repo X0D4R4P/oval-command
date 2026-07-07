@@ -7,7 +7,7 @@ import { AdvisorConversationPanel } from '@/components/game/AdvisorConversationP
 import { PendingEventBanner } from '@/components/game/PendingEventBanner'
 import { RoomBackground, roomAccentStyle } from '@/components/game/RoomBackground'
 import { getAdvisorRecommendations } from '@/lib/advisor-engine'
-import { getRoomTreatment } from '@/lib/event-backgrounds'
+import { getRoomTreatment, getRoomImage, isTenseMood } from '@/lib/event-backgrounds'
 import type { MilestoneTier } from '@/lib/npc-milestones'
 
 const MATCHING_CATEGORIES = ['economy']
@@ -44,12 +44,13 @@ export default async function CabinetPage({ params }: PageProps) {
   const pendingEvent = row.currentEventId ? EVENTS.find(e => e.id === row.currentEventId) : undefined
   const showBanner = game.status === 'ACTIVE' && pendingEvent && MATCHING_CATEGORIES.includes(pendingEvent.category)
 
-  const treatment = getRoomTreatment('/cabinet-room-bg.webp')
+  const roomImage = getRoomImage('/cabinet-room-bg.webp', isTenseMood(game, pendingEvent))
+  const treatment = getRoomTreatment(roomImage)
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-10" style={roomAccentStyle('var(--color-brass)')}>
       <RoomBackground
-        image="/cabinet-room-bg.webp"
+        image={roomImage}
         color="var(--color-brass)"
         backgroundPosition={treatment.backgroundPosition}
         foreground={{ style: treatment.foregroundStyle, color: treatment.foregroundColor }}
