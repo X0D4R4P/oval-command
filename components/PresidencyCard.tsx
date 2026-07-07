@@ -12,6 +12,7 @@ interface PresidencyCardProps {
   legacy: LegacyScore
   reason: GameOverReason
   archetype: PresidentialArchetype
+  topPercent?: number
 }
 
 function scoreTone(score: number) {
@@ -20,7 +21,30 @@ function scoreTone(score: number) {
   return 'text-[var(--color-bad)]'
 }
 
-export function PresidencyCard({ rank, game, legacy, reason, archetype }: PresidencyCardProps) {
+// One star per ~15 points, capped at 5 for a 90+ legacy score.
+function legacyToStars(score: number): number {
+  if (score >= 90) return 5
+  if (score >= 75) return 4
+  if (score >= 60) return 3
+  if (score >= 45) return 2
+  if (score >= 30) return 1
+  return 0
+}
+
+function StarRating({ score }: { score: number }) {
+  const filled = legacyToStars(score)
+  return (
+    <div className="flex justify-end gap-0.5" aria-label={`${filled} of 5 stars`}>
+      {Array.from({ length: 5 }, (_, i) => (
+        <span key={i} className={i < filled ? 'text-[var(--color-brass)]' : 'text-[var(--color-border-strong)]'}>
+          ★
+        </span>
+      ))}
+    </div>
+  )
+}
+
+export function PresidencyCard({ rank, game, legacy, reason, archetype, topPercent }: PresidencyCardProps) {
   const shareText = `I was ${archetype.icon} ${archetype.title} as President ${game.presidentName} — Legacy Score ${legacy.total}/100. ${archetype.subtitle}`
 
   return (
@@ -54,6 +78,14 @@ export function PresidencyCard({ rank, game, legacy, reason, archetype }: Presid
             <div className="font-mono text-[9px] uppercase tracking-[0.1em] text-[var(--color-paper-faint)]">
               Legacy
             </div>
+            <div className="mt-1 text-xs">
+              <StarRating score={legacy.total} />
+            </div>
+            {topPercent !== undefined && (
+              <div className="mt-0.5 font-mono text-[9px] uppercase tracking-[0.05em] text-[var(--color-paper-faint)]">
+                Top {topPercent}% of Presidents
+              </div>
+            )}
           </div>
         </div>
 

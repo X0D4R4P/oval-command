@@ -33,6 +33,30 @@ export default async function PresidenciesPage() {
 
   const ranked = [...presidencies].sort((a, b) => b.legacy.total - a.legacy.total)
 
+  // Percentile among every completed presidency ever played (not just this
+  // account's), reusing /leaderboard's query shape — compares against the
+  // persisted Game.legacyScore column rather than recomputing every other
+  // user's archetype/legacy just to rank one card. Uses each game's OWN
+  // stored legacyScore (set once, at completion, by the same
+  // computeLegacyScore formula — see advanceMonth() in game-engine.ts) as
+  // the comparison value rather than a freshly recomputed legacy.total —
+  // otherwise a scoring-formula change since this game completed could put
+  // its fresh recompute out of step with the stored pool it's being ranked
+  // against, occasionally producing a nonsensical >100%.
+  const totalCompletedGames = await prisma.game.count({
+    where: { status: { in: ['COMPLETE', 'GAMEOVER'] }, legacyScore: { not: null } },
+  })
+  const topPercents = await Promise.all(
+    ranked.map(async p => {
+      if (totalCompletedGames === 0) return 100
+      const comparisonScore = p.game.legacyScore ?? p.legacy.total
+      const higherCount = await prisma.game.count({
+        where: { status: { in: ['COMPLETE', 'GAMEOVER'] }, legacyScore: { gt: comparisonScore } },
+      })
+      return Math.max(1, Math.round(((higherCount + 1) / totalCompletedGames) * 100))
+    })
+  )
+
   return (
     <>
       <SiteNav userName={session.user.name} userImage={session.user.image} />
@@ -71,6 +95,7 @@ export default async function PresidenciesPage() {
                 legacy={p.legacy}
                 reason={p.reason}
                 archetype={p.archetype}
+                topPercent={topPercents[i]}
               />
             ))}
           </div>
