@@ -2,11 +2,11 @@ import { isBreakingEvent } from '@/lib/game-engine'
 import type { Game, CrisisEvent } from '@/types/game'
 
 const CATEGORY_BACKGROUNDS: Record<string, string> = {
-  military:  '/situation-room-bg.webp',
-  security:  '/situation-room-bg.webp',
-  disaster:  '/situation-room-bg.webp',
-  economy:   '/cabinet-room-bg.webp',
-  social:    '/cabinet-room-bg.webp',
+  military:  '/military-ops-bg.webp',
+  security:  '/cyber-ops-bg.webp',
+  disaster:  '/disaster-response-bg.webp',
+  economy:   '/economic-command-bg.webp',
+  social:    '/domestic-unrest-bg.webp',
   scandal:   '/press-room-bg.webp',
   media:     '/press-room-bg.webp',
   congress:  '/congress-bg.webp',
@@ -76,6 +76,16 @@ const ROOM_TREATMENTS: Record<string, RoomTreatment> = {
   '/diplomatic-office-bg-tense.webp':{ backgroundPosition: 'center center', foregroundStyle: 'desk', foregroundColor: '#241a10' },
   '/congress-bg-tense.webp':         { backgroundPosition: 'center center', foregroundStyle: 'desk', foregroundColor: '#1c140c' },
   '/press-room-bg-tense.webp':       { backgroundPosition: 'center center', foregroundStyle: 'desk', foregroundColor: '#0e0e12' },
+  // Per-category crisis backdrops — distinct from the six West Wing room
+  // photos above, since these render on CrisisCard specifically and are
+  // already crisis-flavored (stamped folders, alert dashboards) regardless
+  // of the broader isTenseMood() signal, so they have no separate tense
+  // variant of their own.
+  '/military-ops-bg.webp':      { backgroundPosition: 'center center', foregroundStyle: 'desk', foregroundColor: '#1a1108' },
+  '/cyber-ops-bg.webp':         { backgroundPosition: 'center center', foregroundStyle: 'desk', foregroundColor: '#0a0e14' },
+  '/disaster-response-bg.webp': { backgroundPosition: 'center center', foregroundStyle: 'desk', foregroundColor: '#171008' },
+  '/economic-command-bg.webp':  { backgroundPosition: 'center center', foregroundStyle: 'desk', foregroundColor: '#1a130a' },
+  '/domestic-unrest-bg.webp':   { backgroundPosition: 'center center', foregroundStyle: 'desk', foregroundColor: '#1a140c' },
 }
 
 export function getRoomTreatment(image: string): RoomTreatment {
