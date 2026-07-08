@@ -74,16 +74,18 @@ export default async function PresidenciesPage() {
         </div>
 
         {ranked.length === 0 ? (
-          <div className="rounded-sm border border-dashed border-[var(--color-border-strong)] px-6 py-12 text-center">
-            <p className="text-sm text-[var(--color-paper-dim)]">
-              Finish your first term to see it here.
-            </p>
-            <Link
-              href="/dashboard"
-              className="mt-3 inline-block font-mono text-[10px] uppercase tracking-[0.05em] text-[var(--color-brass)] hover:underline"
-            >
-              Back to your administrations
-            </Link>
+          <div className="flex min-h-[50vh] flex-col justify-center">
+            <div className="rounded-sm border border-dashed border-[var(--color-border-strong)] px-6 py-12 text-center">
+              <p className="text-sm text-[var(--color-paper-dim)]">
+                Finish your first term to see it here.
+              </p>
+              <Link
+                href="/dashboard"
+                className="mt-3 inline-block font-mono text-[10px] uppercase tracking-[0.05em] text-[var(--color-brass)] hover:underline"
+              >
+                Back to your administrations
+              </Link>
+            </div>
           </div>
         ) : (
           <div className="space-y-3">

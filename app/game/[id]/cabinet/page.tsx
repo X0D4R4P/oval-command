@@ -44,9 +44,15 @@ export default async function CabinetPage({ params }: PageProps) {
 
   const game = dbToGame(row)
   const roster = resolveRoster(game)
-  const recommendations = getAdvisorRecommendations(game)
+  const isActive = game.status === 'ACTIVE'
+  // Every interactive affordance below (advisor panel, Discuss links, ability
+  // activation) only makes sense mid-term — the personnel API already rejects
+  // these server-side once a game is COMPLETE/GAMEOVER (see personnel/route.ts),
+  // but without this gate a finished presidency viewed via the National
+  // Archives still rendered them as live, clickable prompts.
+  const recommendations = isActive ? getAdvisorRecommendations(game) : []
   const pendingEvent = row.currentEventId ? EVENTS.find(e => e.id === row.currentEventId) : undefined
-  const showBanner = game.status === 'ACTIVE' && pendingEvent && MATCHING_CATEGORIES.includes(pendingEvent.category)
+  const showBanner = isActive && pendingEvent && MATCHING_CATEGORIES.includes(pendingEvent.category)
 
   const roomImage = getRoomImage('/cabinet-room-bg.webp', isTenseMood(game, pendingEvent))
   const treatment = getRoomTreatment(roomImage)
@@ -113,9 +119,9 @@ export default async function CabinetPage({ params }: PageProps) {
                 const candidate = isSelectable
                   ? getCandidatesForSlot(npc.id as SelectableSlotId).find(c => c.candidateId === game.cabinetSelections[npc.id as SelectableSlotId])
                   : undefined
-                const isFireable = isSelectable && npc.id !== 'vice_president'
+                const isFireable = isActive && isSelectable && npc.id !== 'vice_president'
 
-                const activation = isActivatableSlot(npc.id)
+                const activation = isActive && isActivatableSlot(npc.id)
                   ? { gameId: game.id, slotId: npc.id, ...canActivateAbility(game, roster, npc.id) }
                   : undefined
 
