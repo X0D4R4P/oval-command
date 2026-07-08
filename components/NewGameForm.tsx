@@ -327,7 +327,7 @@ export function NewGameForm({ unlockedPerks }: NewGameFormProps) {
           </div>
 
           <h2 className="mt-8 font-[family-name:var(--font-display)] text-xl font-semibold text-[var(--color-paper)]">
-            President {presidentName.trim()}
+            {result.won ? `President ${presidentName.trim()}` : presidentName.trim()}
           </h2>
 
           {error && (
