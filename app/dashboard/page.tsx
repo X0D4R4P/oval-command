@@ -225,7 +225,7 @@ function OvalOfficeEntry() {
           letterSpacing: '0.35em',
           marginBottom: 14,
         }}>
-          January 20th · Inauguration Day
+          Every Presidency Starts Here
         </div>
 
         <h1 style={{
@@ -236,7 +236,7 @@ function OvalOfficeEntry() {
           marginBottom: 14,
           textShadow: '0 2px 20px rgba(0,0,0,0.8)',
         }}>
-          Welcome to the Oval Office,<br />Mr. President.
+          The Oval Office Is Waiting,<br />If You Can Win It.
         </h1>
 
         {/* Brass rule */}
@@ -250,8 +250,8 @@ function OvalOfficeEntry() {
           maxWidth: 420,
           textShadow: '0 1px 8px rgba(0,0,0,0.9)',
         }}>
-          The world is watching. Your cabinet is assembled.<br />
-          The first crisis briefing is already on your desk.
+          Announce your candidacy, survive the campaign trail, and take<br />
+          the oath — then four years of consequences begin.
         </p>
 
         <a
@@ -270,7 +270,7 @@ function OvalOfficeEntry() {
             marginBottom: 14,
           }}
         >
-          Take the Oath of Office
+          Announce Your Candidacy
         </a>
 
         <p style={{
