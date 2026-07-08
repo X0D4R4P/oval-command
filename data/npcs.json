@@ -33,7 +33,7 @@
           "critical": ["I've been asked about a potential primary challenge. I told them no. For now.", "We have a problem. And I'm not sure you see it.", "My advisors are telling me things I don't want to hear about where this is going."]
         },
         "specialAbility": { "name": "Take the Hit", "description": "Once per term, VP can absorb a scandal, reducing its approval impact by 40%. Costs 15 relationship points.", "usesPerTerm": 1, "playerActivated": true },
-        "image": "/npcs/vice_president.png",
+        "image": "/npcs/vice_president_mercer.png",
         "traits": { "loyalty": 65, "ambition": 80, "integrity": 60, "politicalSkill": 85, "stress": 40, "ideology": 50 },
         "goal": "Wants to be the party's next nominee — and wants credit for this administration's wins along the way.",
         "goalTag": "own_ambition",
@@ -69,6 +69,7 @@
           "critical": ["I've spent thirty years building relationships across the aisle. I'm watching them evaporate.", "I didn't sign up to be a partisan weapon. I need you to hear that."]
         },
         "specialAbility": { "name": "Coalition Cover", "description": "Once per term, VP can absorb a scandal, reducing its approval impact by 40%. Costs 15 relationship points.", "usesPerTerm": 1, "playerActivated": true },
+        "image": "/npcs/vice_president_reyes.png",
         "traits": { "loyalty": 78, "ambition": 35, "integrity": 78, "politicalSkill": 72, "stress": 38, "ideology": 45 },
         "goal": "Wants genuine bipartisan wins on the board before anything else.",
         "goalTag": "bipartisan",
@@ -104,6 +105,7 @@
           "critical": ["I didn't take this job to disappear into the background. I need you to see that.", "I said something today you're not going to like. I'd rather you hear it from me first."]
         },
         "specialAbility": { "name": "Retail Politics", "description": "Once per term, VP can absorb a scandal, reducing its approval impact by 40%. Costs 15 relationship points.", "usesPerTerm": 1, "playerActivated": true },
+        "image": "/npcs/vice_president_castillo.png",
         "traits": { "loyalty": 60, "ambition": 65, "integrity": 65, "politicalSkill": 60, "stress": 50, "ideology": 55 },
         "goal": "Wants to be seen — cabinet meetings and photo-ops both count.",
         "goalTag": "own_ambition",
@@ -147,7 +149,7 @@
           "critical": ["I've written a letter. I'd rather not send it. But I need to know you hear me.", "I can't manage what I can't see coming. Right now, I'm blind.", "Whatever I say in here stays in here. You're making mistakes you can't afford."]
         },
         "specialAbility": { "name": "Damage Control", "description": "When a scandal fires, COS can reduce the approval hit by 30% if relationship is above 60.", "passive": true, "requiresRelationship": 60 },
-        "image": "/npcs/chief_of_staff.png",
+        "image": "/npcs/chief_of_staff_okafor.png",
         "traits": { "loyalty": 80, "ambition": 15, "integrity": 85, "politicalSkill": 78, "stress": 55, "ideology": 50 },
         "goal": "Wants this administration to actually function — nothing more, nothing less.",
         "goalTag": "competent_governance",
@@ -183,6 +185,7 @@
           "critical": ["If I'm not running point on this, I can't be held responsible for the outcome.", "I built two winning campaigns. I didn't come here to be overruled in front of the staff."]
         },
         "specialAbility": { "name": "Iron Grip", "description": "When a scandal fires, COS can reduce the approval hit by 30% if relationship is above 60.", "passive": true, "requiresRelationship": 60 },
+        "image": "/npcs/chief_of_staff_delgado.png",
         "traits": { "loyalty": 82, "ambition": 45, "integrity": 55, "politicalSkill": 85, "stress": 60, "ideology": 52 },
         "goal": "Wants total control of message discipline across the building.",
         "goalTag": "administration_reelection",
@@ -218,6 +221,7 @@
           "critical": ["I don't do well with decisions I can't defend on the merits. I need you to know that's where I am.", "I've had a call from a fellowship program. I haven't said yes. I haven't said no."]
         },
         "specialAbility": { "name": "Systems Thinking", "description": "When a scandal fires, COS can reduce the approval hit by 30% if relationship is above 60.", "passive": true, "requiresRelationship": 60 },
+        "image": "/npcs/chief_of_staff_park.png",
         "traits": { "loyalty": 70, "ambition": 30, "integrity": 75, "politicalSkill": 65, "stress": 35, "ideology": 50 },
         "goal": "Wants decisions made on evidence, not vibes.",
         "goalTag": "competent_governance",
@@ -261,7 +265,7 @@
           "critical": ["If we don't act soon, we won't have the option. That's not a threat. That's a fact.", "The Joint Chiefs asked me to convey their concern. Formally.", "I've been a soldier my whole life. This is the most frustrated I've been in 40 years."]
         },
         "specialAbility": { "name": "Military Option", "description": "When relationship is above 70, SecDef provides an exclusive 5th choice on military events with better security outcomes.", "requiresRelationship": 70, "unlocksMilitaryOption": true },
-        "image": "/npcs/sec_defense.png",
+        "image": "/npcs/sec_defense_hargrove.png",
         "traits": { "loyalty": 70, "ambition": 20, "integrity": 80, "politicalSkill": 45, "stress": 50, "ideology": 60 },
         "goal": "Wants the military properly resourced before anything else.",
         "goalTag": "military_budget",
@@ -297,6 +301,7 @@
           "critical": ["I didn't take this job to preside over institutional inertia. I need to know if you're actually behind this.", "I've had a firm offer. Silicon Valley pays better and argues less."]
         },
         "specialAbility": { "name": "Asymmetric Doctrine", "description": "When relationship is above 70, SecDef provides an exclusive 5th choice on military events with better security outcomes.", "requiresRelationship": 70, "unlocksMilitaryOption": true },
+        "image": "/npcs/sec_defense_chen.png",
         "traits": { "loyalty": 55, "ambition": 60, "integrity": 70, "politicalSkill": 35, "stress": 60, "ideology": 40 },
         "goal": "Wants the defense budget shifted toward cyber and unmanned systems.",
         "goalTag": "military_reform",
@@ -332,6 +337,7 @@
           "critical": ["I've commanded troops in wars I came to regret. I won't preside over another one quietly.", "If this becomes about optics instead of restraint, I'm not the right person for this job anymore."]
         },
         "specialAbility": { "name": "Strategic Patience", "description": "When relationship is above 75, SecDef provides an exclusive 5th choice on military events with better diplomatic outcomes.", "requiresRelationship": 75, "unlocksMilitaryOption": true },
+        "image": "/npcs/sec_defense_obi.png",
         "traits": { "loyalty": 68, "ambition": 15, "integrity": 88, "politicalSkill": 40, "stress": 45, "ideology": 35 },
         "goal": "Wants every military option exhausted of alternatives before troops move.",
         "goalTag": "noninterventionist",
@@ -375,7 +381,7 @@
           "critical": ["I gave a speech at Brookings this week. I thought you should hear it from me first.", "The Moody's analyst called me. That's never good news.", "I want to stay. But I need you to hear me on the debt. Actually hear me."]
         },
         "specialAbility": { "name": "Economic Briefing", "description": "Once per term, Treasury Secretary can provide an economic intervention that boosts economy +8 and reduces debt by $200B. Requires relationship above 65.", "usesPerTerm": 1, "requiresRelationship": 65, "playerActivated": true },
-        "image": "/npcs/treasury_secretary.png",
+        "image": "/npcs/treasury_secretary_voss.png",
         "traits": { "loyalty": 60, "ambition": 20, "integrity": 85, "politicalSkill": 50, "stress": 55, "ideology": 55 },
         "goal": "Wants the debt trajectory under control before it becomes unmanageable.",
         "goalTag": "balanced_budget",
@@ -411,6 +417,7 @@
           "critical": ["The story about my old firm is worse than what's public so far. You should hear the rest from me.", "I took a pay cut to do this job. I didn't take it to be a liability."]
         },
         "specialAbility": { "name": "Market Whisperer", "description": "Once per term, Treasury Secretary can provide an economic intervention that boosts economy +8 and reduces debt by $200B. Requires relationship above 60.", "usesPerTerm": 1, "requiresRelationship": 60, "playerActivated": true },
+        "image": "/npcs/treasury_secretary_delacroix.png",
         "traits": { "loyalty": 55, "ambition": 55, "integrity": 50, "politicalSkill": 70, "stress": 40, "ideology": 65 },
         "goal": "Wants sustained economic growth even if it means running hotter deficits.",
         "goalTag": "growth_agenda",
@@ -446,6 +453,7 @@
           "critical": ["I didn't leave Congress to watch us hand out corporate welfare with no strings attached.", "I need to know if this administration still stands for what I signed up for."]
         },
         "specialAbility": { "name": "Worker Confidence", "description": "Once per term, Treasury Secretary can provide an economic intervention that boosts economy +8 and reduces debt by $200B. Requires relationship above 62.", "usesPerTerm": 1, "requiresRelationship": 62, "playerActivated": true },
+        "image": "/npcs/treasury_secretary_nakamura.png",
         "traits": { "loyalty": 65, "ambition": 35, "integrity": 80, "politicalSkill": 55, "stress": 50, "ideology": 30 },
         "goal": "Wants wage growth and labor protections prioritized over corporate tax relief.",
         "goalTag": "labor_agenda",
@@ -489,7 +497,7 @@
           "critical": ["I've prepared a letter of resignation. I hope I don't need to send it.", "I'm telling you as your AG and as someone who respects you: stop.", "If this continues, I won't be able to stay. And how I leave will matter."]
         },
         "specialAbility": { "name": "Legal Shield", "description": "When a scandal fires, if relationship is above 65, AG automatically reduces scandal severity by 25% and speeds resolution.", "passive": true, "requiresRelationship": 65 },
-        "image": "/npcs/attorney_general.png",
+        "image": "/npcs/attorney_general_webb.png",
         "traits": { "loyalty": 65, "ambition": 10, "integrity": 92, "politicalSkill": 40, "stress": 45, "ideology": 50 },
         "goal": "Wants DOJ independence respected, full stop.",
         "goalTag": "judicial_independence",
@@ -525,6 +533,7 @@
           "critical": ["I didn't take this job to be the soft-on-crime administration's AG.", "If we don't back the badge here, I don't know what I'm doing in this job."]
         },
         "specialAbility": { "name": "Public Confidence", "description": "When a scandal fires, if relationship is above 60, AG automatically reduces scandal severity by 25% and speeds resolution.", "passive": true, "requiresRelationship": 60 },
+        "image": "/npcs/attorney_general_torres.png",
         "traits": { "loyalty": 60, "ambition": 50, "integrity": 70, "politicalSkill": 65, "stress": 50, "ideology": 65 },
         "goal": "Wants visible law-and-order wins the public can see.",
         "goalTag": "law_and_order",
@@ -560,6 +569,7 @@
           "critical": ["I've drafted testimony for Congress. I'd rather not deliver it. That's up to what happens next.", "This is the closest I've come to resigning. I need you to actually hear that."]
         },
         "specialAbility": { "name": "Constitutional Firewall", "description": "When a scandal fires, if relationship is above 65, AG automatically reduces scandal severity by 25% and speeds resolution.", "passive": true, "requiresRelationship": 65 },
+        "image": "/npcs/attorney_general_abernathy.png",
         "traits": { "loyalty": 60, "ambition": 10, "integrity": 90, "politicalSkill": 35, "stress": 40, "ideology": 35 },
         "goal": "Wants every executive action to survive real judicial scrutiny.",
         "goalTag": "civil_liberties",
@@ -1198,7 +1208,8 @@
     "specialAbility": {
       "name": "Off the Record",
       "description": "Trusted, unofficial guidance to the press corps — no mechanical effect, just the sense that someone in this building still returns reporters' calls."
-    }
+    },
+    "image": "/npcs/press_secretary.png"
   },
   {
     "id": "first_spouse",
@@ -1269,6 +1280,7 @@
     "specialAbility": {
       "name": "The Home Front",
       "description": "No official portfolio, no mechanical effect — just the one person in the building who remembers who you were before any of this."
-    }
+    },
+    "image": "/npcs/first_spouse.png"
   }
 ]
