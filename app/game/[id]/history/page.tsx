@@ -63,10 +63,10 @@ export default async function HistoryPage({ params }: PageProps) {
       />
       <div>
         <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-cat-scandal)]">
-          Press Room
+          Public Relations
         </div>
         <h1 className="mt-1 font-[family-name:var(--font-display)] text-2xl font-semibold text-[var(--color-paper)]">
-          Presidential History
+          Press Room
         </h1>
       </div>
 
