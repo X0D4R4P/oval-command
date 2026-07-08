@@ -6,7 +6,8 @@ import { getLawById, resolveLawPassage, applyLawPassage, canUseNpcAbility, resol
 import { applyDelta, pickEvent, advanceMonth, computeLegacyScore } from '@/lib/game-engine'
 import { resolveRoster } from '@/lib/cabinet'
 import { driftTraits } from '@/lib/cabinet-traits'
-import { applyCabinetNarrative } from '@/lib/cabinet-narrative'
+import { applyCabinetNarrative, pickAmbientHeadline } from '@/lib/cabinet-narrative'
+import { computeScandalMitigation } from '@/lib/cabinet-abilities'
 import { generateLawHeadline } from '@/lib/headlines'
 import { unlockAchievements } from '@/lib/achievements'
 import { computeSpecialEditionCovers, type CoverContent } from '@/lib/magazine-covers'
@@ -89,16 +90,22 @@ export async function POST(req: NextRequest, { params }: Params) {
     }
 
     const preNarrativeGame = updatedGame
-    const advance = advanceMonth(updatedGame)
+    const roster = resolveRoster(game)
+    const scandalMitigation = computeScandalMitigation(preNarrativeGame, roster)
+    const advance = advanceMonth(updatedGame, [], undefined, scandalMitigation)
     updatedGame = advance.game
     cascadeHeadlines = advance.cascadeHeadlines
     gameOver = advance.gameOver
 
-    const roster = resolveRoster(game)
     const driftedTraits = driftTraits(preNarrativeGame)
     const narrative = applyCabinetNarrative(preNarrativeGame, { ...updatedGame, npcTraits: driftedTraits }, roster)
     updatedGame = narrative.game
     suggestedEvent = narrative.suggestedEvent
+
+    // Ambient tier — same precedent as /turn: only when nothing more
+    // substantial (an initiative-engine scene) is already happening.
+    const ambientHeadline = suggestedEvent ? null : pickAmbientHeadline(roster)
+    if (ambientHeadline) cascadeHeadlines = [...cascadeHeadlines, ambientHeadline]
   } catch (err) {
     const message = safeErrorMessage(err, 'Law could not be processed')
     return NextResponse.json({ error: message }, { status: 400 })

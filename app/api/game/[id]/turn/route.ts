@@ -5,6 +5,8 @@ import { processEventTurn, pickEvent, isEventEligible, EVENTS, computeLegacyScor
 import { resolveRoster } from '@/lib/cabinet'
 import { driftTraits } from '@/lib/cabinet-traits'
 import { applyCabinetNarrative, pickAmbientHeadline } from '@/lib/cabinet-narrative'
+import { computeScandalMitigation } from '@/lib/cabinet-abilities'
+import { isMilitaryOptionUnlocked, getMilitaryOptionChoice } from '@/lib/military-option'
 import { computePresidentialArchetype } from '@/lib/archetype-engine'
 import { unlockAchievements } from '@/lib/achievements'
 import { computeSpecialEditionCovers, type CoverContent } from '@/lib/magazine-covers'
@@ -32,8 +34,11 @@ export async function POST(req: NextRequest, { params }: Params) {
   if (!eventId || typeof eventId !== 'string') {
     return NextResponse.json({ error: 'eventId is required' }, { status: 400 })
   }
-  if (typeof choiceIndex !== 'number' || choiceIndex < 0 || choiceIndex > 3) {
-    return NextResponse.json({ error: 'choiceIndex must be 0–3' }, { status: 400 })
+  // Upper bound depends on the specific event (a military event's SecDef
+  // Military Option adds a 5th, index-4 choice) — full check happens once
+  // submittedEvent is resolved below. This is just the shape check.
+  if (typeof choiceIndex !== 'number' || choiceIndex < 0 || choiceIndex > 4) {
+    return NextResponse.json({ error: 'choiceIndex must be 0–4' }, { status: 400 })
   }
 
   const row = await prisma.game.findUnique({ where: { id } })
@@ -68,10 +73,29 @@ export async function POST(req: NextRequest, { params }: Params) {
   }
 
   const roster = resolveRoster(game)
+  const scandalMitigation = computeScandalMitigation(game, roster)
+
+  // The 5th choice (index === choices.length) only exists when SecDef's
+  // Military Option is actually unlocked for this game right now —
+  // recomputed server-side, never trusted from the client, same posture
+  // as every other "never trust a raw client id/index" boundary in this
+  // codebase.
+  let militaryOptionChoice: ReturnType<typeof getMilitaryOptionChoice> = null
+  if (choiceIndex === submittedEvent.choices.length) {
+    if (!isMilitaryOptionUnlocked(game, roster)) {
+      return NextResponse.json({ error: 'The Military Option is not currently available' }, { status: 400 })
+    }
+    militaryOptionChoice = getMilitaryOptionChoice(submittedEvent, game)
+    if (!militaryOptionChoice) {
+      return NextResponse.json({ error: 'The Military Option is not available for this briefing' }, { status: 400 })
+    }
+  } else if (choiceIndex >= submittedEvent.choices.length) {
+    return NextResponse.json({ error: 'Unknown choice' }, { status: 400 })
+  }
 
   let result: ReturnType<typeof processEventTurn>
   try {
-    result = processEventTurn(game, eventId, choiceIndex, roster)
+    result = processEventTurn(game, eventId, choiceIndex, roster, scandalMitigation, militaryOptionChoice ?? undefined)
   } catch (err) {
     const message = safeErrorMessage(err, 'Decision could not be processed')
     return NextResponse.json({ error: message }, { status: 400 })

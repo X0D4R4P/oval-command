@@ -5,7 +5,8 @@ import { useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { SPEECH_THEMES } from '@/lib/address-nation'
 import { AchievementUnlockToast } from '@/components/game/AchievementUnlockToast'
-import type { SpeechTheme } from '@/lib/headlines'
+import { HeadlineTicker } from '@/components/game/HeadlineTicker'
+import type { SpeechTheme, Headline } from '@/lib/headlines'
 import type { Achievement } from '@/types/game'
 import type { CoverContent } from '@/lib/magazine-covers'
 
@@ -17,7 +18,8 @@ interface PressConferencePanelProps {
 interface SpeechResult {
   effective: boolean
   narrative: string
-  headlineText: string
+  headline: Headline
+  cascadeHeadlines: Headline[]
   newAchievements: Achievement[]
   specialCovers: CoverContent[]
   month: number
@@ -60,7 +62,8 @@ export function PressConferencePanel({ gameId, pendingBriefingTitle }: PressConf
       setResult({
         effective: data.effective,
         narrative: data.narrative,
-        headlineText: data.headline.text,
+        headline: data.headline,
+        cascadeHeadlines: data.cascadeHeadlines ?? [],
         newAchievements: data.newAchievements ?? [],
         specialCovers: data.specialCovers ?? [],
         month: data.game.currentMonth,
@@ -85,7 +88,9 @@ export function PressConferencePanel({ gameId, pendingBriefingTitle }: PressConf
           {result.effective ? 'Speech Landed' : 'Speech Fell Flat'}
         </span>
         <p className="mt-1.5 text-sm text-[var(--color-paper-dim)]">{result.narrative}</p>
-        <p className="mt-2 text-[12px] italic text-[var(--color-paper-faint)]">“{result.headlineText}”</p>
+        <div className="mt-3">
+          <HeadlineTicker headlines={[result.headline, ...result.cascadeHeadlines]} />
+        </div>
         {(result.newAchievements.length > 0 || result.specialCovers.length > 0) && (
           <div className="mt-3">
             <AchievementUnlockToast

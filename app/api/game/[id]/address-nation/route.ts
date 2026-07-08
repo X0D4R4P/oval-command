@@ -6,7 +6,8 @@ import { resolveSpeech, SPEECH_THEMES } from '@/lib/address-nation'
 import { applyDelta, pickEvent, advanceMonth, computeLegacyScore } from '@/lib/game-engine'
 import { resolveRoster } from '@/lib/cabinet'
 import { driftTraits } from '@/lib/cabinet-traits'
-import { applyCabinetNarrative } from '@/lib/cabinet-narrative'
+import { applyCabinetNarrative, pickAmbientHeadline } from '@/lib/cabinet-narrative'
+import { computeScandalMitigation } from '@/lib/cabinet-abilities'
 import { generateSpeechHeadline, type SpeechTheme } from '@/lib/headlines'
 import { unlockAchievements } from '@/lib/achievements'
 import { computeSpecialEditionCovers, type CoverContent } from '@/lib/magazine-covers'
@@ -62,17 +63,22 @@ export async function POST(req: NextRequest, { params }: Params) {
     speechEffects = speechResult.effects
     const statsAfterSpeech = applyDelta(game.stats, speechEffects)
     const preNarrativeGame = { ...game, stats: statsAfterSpeech }
+    const roster = resolveRoster(game)
+    const scandalMitigation = computeScandalMitigation(preNarrativeGame, roster)
 
-    const advance = advanceMonth(preNarrativeGame)
+    const advance = advanceMonth(preNarrativeGame, [], undefined, scandalMitigation)
     updatedGame = advance.game
     cascadeHeadlines = advance.cascadeHeadlines
     gameOver = advance.gameOver
 
-    const roster = resolveRoster(game)
     const driftedTraits = driftTraits(preNarrativeGame)
     const narrative = applyCabinetNarrative(preNarrativeGame, { ...updatedGame, npcTraits: driftedTraits }, roster)
     updatedGame = narrative.game
     suggestedEvent = narrative.suggestedEvent
+
+    // Ambient tier — same precedent as /turn and /law.
+    const ambientHeadline = suggestedEvent ? null : pickAmbientHeadline(roster)
+    if (ambientHeadline) cascadeHeadlines = [...cascadeHeadlines, ambientHeadline]
   } catch (err) {
     const message = safeErrorMessage(err, 'Speech could not be processed')
     return NextResponse.json({ error: message }, { status: 400 })

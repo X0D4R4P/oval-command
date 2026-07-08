@@ -40,6 +40,7 @@ interface ProposeResult {
   probability: number
   usedAbility: string | null
   headline: Headline
+  cascadeHeadlines: Headline[]
   lawTitle: string
   newAchievements: Achievement[]
   npcReactions: NpcReactionResult[]
@@ -119,6 +120,7 @@ export function CongressClient({ game, lawsWithOdds, canUseSenateAbility, canUse
         probability: data.passageResult.probability,
         usedAbility: data.passageResult.usedAbility,
         headline: data.headline,
+        cascadeHeadlines: data.cascadeHeadlines ?? [],
         lawTitle,
         newAchievements: data.newAchievements ?? [],
         npcReactions: data.npcReactions ?? [],
@@ -166,7 +168,7 @@ export function CongressClient({ game, lawsWithOdds, canUseSenateAbility, canUse
             </p>
 
             <div className="mt-5">
-              <HeadlineTicker headlines={[result.headline]} />
+              <HeadlineTicker headlines={[result.headline, ...result.cascadeHeadlines]} />
             </div>
 
             <NpcReactionList reactions={result.npcReactions} />

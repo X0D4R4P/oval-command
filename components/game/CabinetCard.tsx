@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { cn, AVATAR_COLORS } from '@/lib/utils'
 import { MILESTONE_ALLY_THRESHOLD, MILESTONE_ESTRANGED_THRESHOLD, getMilestoneText, type MilestoneTier } from '@/lib/npc-milestones'
+import { ActivateAbilityButton } from '@/components/game/ActivateAbilityButton'
 import type { Npc } from '@/types/game'
 
 interface CabinetCardProps {
@@ -14,6 +15,13 @@ interface CabinetCardProps {
   observations?: string[]
   /** Cabinet Room "Discuss [Role]" link — omitted for non-fireable slots (VP, and every non-selectable NPC). */
   discussHref?: string
+  /** Player-activated ability trigger (Take the Hit / Economic Briefing) — omitted for every NPC without one. */
+  activation?: {
+    gameId:   string
+    slotId:   string
+    eligible: boolean
+    reason?:  string
+  }
 }
 
 function relationshipTone(value: number, min: number, max: number): { label: string; color: string } {
@@ -34,7 +42,7 @@ const FACTION_LABEL: Record<Npc['faction'], string> = {
   civil_society: 'Civil Society',
 }
 
-export function CabinetCard({ npc, relationship, milestoneTier, goal, breakingPoint, observations, discussHref }: CabinetCardProps) {
+export function CabinetCard({ npc, relationship, milestoneTier, goal, breakingPoint, observations, discussHref, activation }: CabinetCardProps) {
   const { min, max } = npc.relationship
   const tone = relationshipTone(relationship, min, max)
   const barPercent = Math.max(2, Math.min(100, ((relationship - min) / (max - min)) * 100))
@@ -138,6 +146,16 @@ export function CabinetCard({ npc, relationship, milestoneTier, goal, breakingPo
         >
           Discuss →
         </Link>
+      )}
+
+      {activation && (
+        <ActivateAbilityButton
+          gameId={activation.gameId}
+          slotId={activation.slotId}
+          eligible={activation.eligible}
+          reason={activation.reason}
+          abilityName={npc.specialAbility.name}
+        />
       )}
     </div>
   )

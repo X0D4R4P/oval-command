@@ -27,6 +27,7 @@ import { GuestExpiryWarning } from '@/components/game/GuestExpiryWarning'
 import { getEventAccentColor, getRoomTreatment, getRoomImage, isTenseMood } from '@/lib/event-backgrounds'
 import { computeLegacyScore, checkGameOver, isBreakingEvent, computePassProbability } from '@/lib/game-engine'
 import { resolveRoster } from '@/lib/cabinet'
+import { isMilitaryOptionUnlocked, getMilitaryOptionChoice } from '@/lib/military-option'
 import { getLegislativeOpportunity } from '@/lib/law-engine'
 import { getAdvisorRecommendations } from '@/lib/advisor-engine'
 import { computeStatTrend, getTopMovers } from '@/lib/stat-trends'
@@ -443,6 +444,11 @@ export function GameClient({ initialGame, initialEvent, recentLogs: initialRecen
                 disabled={submitting}
                 tense={isTenseMood(game, event)}
                 roster={resolveRoster(game)}
+                militaryOptionChoice={
+                  isMilitaryOptionUnlocked(game, resolveRoster(game))
+                    ? getMilitaryOptionChoice(event, game)
+                    : null
+                }
               />
             </div>
           )}

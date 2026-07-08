@@ -538,6 +538,521 @@
   },
 
   {
+    "id": "scene_treasury_austerity_push",
+    "title": "The Number That Won't Move",
+    "category": "personnel",
+    "description": "Your Treasury Secretary wants a hard line on the next spending package, and she's not interested in negotiating the principle, only the details.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 3,
+    "npcId": "treasury_secretary",
+    "personnelMeta": { "tier": "request", "goalTag": "balanced_budget", "traitTag": "integrity" },
+    "dialogueSequence": [
+      { "npcId": "treasury_secretary", "line": "I can support this program. I cannot support it unfunded. Those are different things." },
+      { "npcId": "treasury_secretary", "line": "Tell me where the offset comes from, and I'm with you all the way." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Find the offset — cut somewhere else.",
+        "effects": { "debt": -0.3, "approval": -1 },
+        "relationshipDelta": 8,
+        "sets_flags": ["treasury_austerity_honored"],
+        "outcome": "It's a harder political conversation than the original ask. She notices you had it anyway."
+      },
+      {
+        "index": 1, "text": "Run it unfunded — deal with the debt later.",
+        "effects": { "debt": 0.4, "approval": 1 },
+        "relationshipDelta": -8,
+        "sets_flags": ["treasury_austerity_ignored"],
+        "outcome": "\"Noted,\" she says, in the tone she uses when something is going in a file she keeps."
+      }
+    ]
+  },
+  {
+    "id": "scene_treasury_labor_alliance",
+    "title": "The Labor Meeting",
+    "category": "personnel",
+    "description": "Your Treasury Secretary wants to bring union leadership into the next round of economic planning — not as a courtesy meeting, as actual participants.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 3,
+    "npcId": "treasury_secretary",
+    "personnelMeta": { "tier": "request", "goalTag": "labor_agenda", "traitTag": "loyalty" },
+    "dialogueSequence": [
+      { "npcId": "treasury_secretary", "line": "Every plan that gets made without them in the room ends up needing to be explained to them later. I'd rather skip that step." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Bring them to the table.",
+        "effects": { "approval": 1, "unrest": -1 },
+        "relationshipDelta": 8,
+        "sets_flags": ["labor_included"],
+        "outcome": "The meeting runs long. It also produces the first plan in months nobody immediately hates."
+      },
+      {
+        "index": 1, "text": "Keep planning in-house.",
+        "effects": {},
+        "relationshipDelta": -6,
+        "sets_flags": ["labor_excluded"],
+        "outcome": "\"Your call,\" she says. It is, in fact, not the call she'd have made."
+      }
+    ]
+  },
+  {
+    "id": "scene_defense_modernization_pitch",
+    "title": "The Cyber Budget Line",
+    "category": "personnel",
+    "description": "Your Secretary of Defense wants a chunk of next year's budget redirected from legacy hardware toward cyber and unmanned systems.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 3,
+    "npcId": "sec_defense",
+    "personnelMeta": { "tier": "request", "goalTag": "military_reform", "traitTag": "politicalSkill" },
+    "dialogueSequence": [
+      { "npcId": "sec_defense", "line": "We're buying the last war's hardware to fight the next one. I'd like to stop doing that." },
+      { "npcId": "sec_defense", "line": "The generals who disagree with me are welcome to make their case. I don't think they're right." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Back the reallocation.",
+        "effects": { "security": 2, "globalReputation": 1 },
+        "relationshipDelta": 8,
+        "sets_flags": ["defense_modernized"],
+        "outcome": "It's a fight inside the Pentagon for a month. It's the right fight to have, and she wins it."
+      },
+      {
+        "index": 1, "text": "Keep the legacy programs funded — don't rock the boat.",
+        "effects": { "militaryReadiness": 1 },
+        "relationshipDelta": -6,
+        "sets_flags": ["defense_legacy_kept"],
+        "outcome": "The traditionalists are relieved. She isn't, and doesn't pretend to be."
+      }
+    ]
+  },
+  {
+    "id": "scene_defense_restraint_request",
+    "title": "The Case for Waiting",
+    "category": "personnel",
+    "description": "Your Secretary of Defense wants forty-eight more hours before any response to the latest provocation — long enough for the diplomatic track to actually be tried.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 3,
+    "npcId": "sec_defense",
+    "personnelMeta": { "tier": "conflict", "goalTag": "noninterventionist", "traitTag": "integrity" },
+    "dialogueSequence": [
+      { "npcId": "sec_defense", "line": "I can have options ready in an hour. I'd rather not need them." },
+      { "npcId": "sec_defense", "line": "Give the diplomats their forty-eight hours. If it fails, I promise you I'll be ready." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Give diplomacy the room to work.",
+        "effects": { "globalReputation": 2 },
+        "relationshipDelta": 8,
+        "sets_flags": ["defense_restraint_honored"],
+        "outcome": "It costs you forty-eight hours of looking decisive. It buys something more durable."
+      },
+      {
+        "index": 1, "text": "Move now — don't wait.",
+        "effects": { "security": 1, "globalReputation": -2 },
+        "relationshipDelta": -10,
+        "sets_flags": ["defense_restraint_overridden"],
+        "outcome": "He executes the order without complaint, and without pretending he agrees with it."
+      }
+    ]
+  },
+  {
+    "id": "scene_vp_bipartisan_outreach",
+    "title": "The Other Side of the Aisle",
+    "category": "personnel",
+    "description": "Your Vice President wants to host a small, deliberately off-the-record dinner with three members of the opposition. No cameras, no readout.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 3,
+    "npcId": "vice_president",
+    "personnelMeta": { "tier": "request", "goalTag": "bipartisan", "traitTag": "politicalSkill" },
+    "dialogueSequence": [
+      { "npcId": "vice_president", "line": "Nothing gets negotiated on television. I'd like to actually talk to them, away from the cameras." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Let him run it his way.",
+        "effects": { "congressSupport": 2 },
+        "relationshipDelta": 8,
+        "sets_flags": ["vp_dinner_held"],
+        "outcome": "Nothing is announced. Two votes change quietly the following month, and nobody outside the room knows why."
+      },
+      {
+        "index": 1, "text": "Too risky — pass on it.",
+        "effects": {},
+        "relationshipDelta": -4,
+        "sets_flags": ["vp_dinner_declined"],
+        "outcome": "\"Your call,\" he says. He doesn't offer again for a while."
+      }
+    ]
+  },
+  {
+    "id": "scene_vp_2028_positioning",
+    "title": "The Early Endorsement",
+    "category": "personnel",
+    "description": "A major donor network wants to informally back your Vice President for the next cycle — years early, and everyone in the building already knows about it.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 3,
+    "npcId": "vice_president",
+    "personnelMeta": { "tier": "conflict", "goalTag": "own_ambition", "traitTag": "ambition" },
+    "dialogueSequence": [
+      { "npcId": "vice_president", "line": "I didn't ask for this. I'm also not going to pretend I'm not glad it's happening." },
+      { "npcId": "vice_president", "line": "I'll turn it down publicly if you want. Privately, I'd like your blessing more than your veto." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Give the blessing.",
+        "effects": { "baseSupport": 1 },
+        "relationshipDelta": 8,
+        "traitDeltas": { "ambition": 5 },
+        "sets_flags": ["vp_2028_blessed"],
+        "outcome": "\"That means more than you probably know,\" he says, and you believe him."
+      },
+      {
+        "index": 1, "text": "Ask him to shut it down publicly.",
+        "effects": {},
+        "relationshipDelta": -10,
+        "traitDeltas": { "loyalty": -6 },
+        "sets_flags": ["vp_2028_shut_down"],
+        "outcome": "He does it, on camera, convincingly. You're not entirely sure it was sincere."
+      }
+    ]
+  },
+  {
+    "id": "scene_cos_message_discipline",
+    "title": "The Leak Nobody Will Own",
+    "category": "personnel",
+    "description": "Something small but embarrassing made it to a reporter this week. Your Chief of Staff wants authority to run a real internal investigation.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 3,
+    "npcId": "chief_of_staff",
+    "personnelMeta": { "tier": "request", "goalTag": "administration_reelection", "traitTag": "politicalSkill" },
+    "dialogueSequence": [
+      { "npcId": "chief_of_staff", "line": "Small leaks become big ones if nobody's ever held accountable for them. I want to find out who." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Authorize the investigation.",
+        "effects": {},
+        "relationshipDelta": 8,
+        "sets_flags": ["leak_investigation_authorized"],
+        "outcome": "It takes two weeks and rattles the building more than the original leak did. It also works."
+      },
+      {
+        "index": 1, "text": "Let it go — not worth the disruption.",
+        "effects": { "approval": -1 },
+        "relationshipDelta": -6,
+        "sets_flags": ["leak_investigation_declined"],
+        "outcome": "\"Then it happens again,\" she says. It does, eventually."
+      }
+    ]
+  },
+  {
+    "id": "scene_cos_data_pushback",
+    "title": "The Numbers Don't Support It",
+    "category": "personnel",
+    "description": "Your Chief of Staff has run the numbers on a plan you like politically, and the numbers don't cooperate.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 3,
+    "npcId": "chief_of_staff",
+    "personnelMeta": { "tier": "conflict", "goalTag": "competent_governance", "traitTag": "integrity" },
+    "dialogueSequence": [
+      { "npcId": "chief_of_staff", "line": "I modeled it four different ways. It doesn't work under any of them the way we're hoping." },
+      { "npcId": "chief_of_staff", "line": "I can execute it anyway if you want. I'd rather tell you now than watch it fail in six months." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Trust the model — rework the plan.",
+        "effects": { "economy": 1 },
+        "relationshipDelta": 8,
+        "sets_flags": ["cos_data_heeded"],
+        "outcome": "The reworked version is less exciting and considerably more likely to actually work."
+      },
+      {
+        "index": 1, "text": "Run the original plan anyway.",
+        "effects": { "approval": 2 },
+        "relationshipDelta": -8,
+        "sets_flags": ["cos_data_ignored"],
+        "outcome": "\"I'll have the numbers ready for when this needs explaining,\" is all they say."
+      }
+    ]
+  },
+  {
+    "id": "scene_ag_independence_test",
+    "title": "The Call That Shouldn't Have Happened",
+    "category": "personnel",
+    "description": "A member of your own party asked your Attorney General, informally, how a pending case might go. Your AG wants you to know it happened.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 3,
+    "npcId": "attorney_general",
+    "personnelMeta": { "tier": "conflict", "goalTag": "judicial_independence", "traitTag": "integrity" },
+    "dialogueSequence": [
+      { "npcId": "attorney_general", "line": "Nothing improper was said. I want to be precise about that. But I want you to know it happened." },
+      { "npcId": "attorney_general", "line": "I'd like your public backing that this office doesn't take those calls. Even from our own side." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Publicly reaffirm DOJ independence.",
+        "effects": { "globalReputation": 2 },
+        "relationshipDelta": 10,
+        "sets_flags": ["ag_independence_reaffirmed"],
+        "outcome": "It's an uncomfortable statement for some of your own allies to hear. Your AG relaxes for the first time in the conversation."
+      },
+      {
+        "index": 1, "text": "Handle it quietly instead.",
+        "effects": {},
+        "relationshipDelta": -6,
+        "sets_flags": ["ag_independence_quiet"],
+        "outcome": "\"Understood,\" he says. It's clear he wanted the louder answer."
+      }
+    ]
+  },
+  {
+    "id": "scene_ag_lawandorder_push",
+    "title": "The Press Conference She Wants",
+    "category": "personnel",
+    "description": "Your Attorney General wants to announce a new anti-crime initiative herself, with full visibility — cameras, a podium, her name on it.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 3,
+    "npcId": "attorney_general",
+    "personnelMeta": { "tier": "request", "goalTag": "law_and_order", "traitTag": "politicalSkill" },
+    "dialogueSequence": [
+      { "npcId": "attorney_general", "line": "I want to be the one who announces this. People trust results more when they come from the person who delivered them." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Let her have the spotlight.",
+        "effects": { "approval": 2, "unrest": -1 },
+        "relationshipDelta": 8,
+        "sets_flags": ["ag_spotlight_given"],
+        "outcome": "The announcement lands well. So does the signal that this administration shares credit."
+      },
+      {
+        "index": 1, "text": "Announce it yourself instead.",
+        "effects": { "approval": 1 },
+        "relationshipDelta": -6,
+        "sets_flags": ["ag_spotlight_taken"],
+        "outcome": "She stands behind you at the podium, professionally, and says nothing about it afterward."
+      }
+    ]
+  },
+  {
+    "id": "scene_ag_civil_liberties_review",
+    "title": "The Program He Won't Sign Off On",
+    "category": "personnel",
+    "description": "A surveillance expansion your security team wants is sitting on your Attorney General's desk, unsigned, for the third week running.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 3,
+    "npcId": "attorney_general",
+    "personnelMeta": { "tier": "conflict", "goalTag": "civil_liberties", "traitTag": "integrity" },
+    "dialogueSequence": [
+      { "npcId": "attorney_general", "line": "I've read it three times. I don't think it survives a real court challenge as written." },
+      { "npcId": "attorney_general", "line": "I can narrow the scope and get you eighty percent of what you want, cleanly. Or I can sign the version I don't believe in." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Take the narrower version.",
+        "effects": { "security": 1, "unrest": -1 },
+        "relationshipDelta": 10,
+        "sets_flags": ["ag_narrowed_program"],
+        "outcome": "It's less than security wanted. It's also the version that actually holds up."
+      },
+      {
+        "index": 1, "text": "Insist on the full program.",
+        "effects": { "security": 3 },
+        "relationshipDelta": -14,
+        "crossesBreakingPoint": "civil_rights_violation",
+        "sets_flags": ["ag_full_program_forced"],
+        "outcome": "He signs it. He also starts keeping his own file on how it gets used."
+      }
+    ]
+  },
+  {
+    "id": "scene_treasury_burnout",
+    "title": "Three Markets, One Time Zone Each",
+    "category": "personnel",
+    "description": "Your Treasury Secretary hasn't slept a full night since the last volatility spike. It's starting to show in the briefings.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 2,
+    "npcId": "treasury_secretary",
+    "personnelMeta": { "tier": "conflict", "traitTag": "stress" },
+    "dialogueSequence": [
+      { "npcId": "treasury_secretary", "line": "Asia closes, Europe opens, we're still figuring out what happened overnight. There isn't really an off switch right now." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Bring in a deputy to share the load.",
+        "effects": {},
+        "relationshipDelta": 8,
+        "traitDeltas": { "stress": -15 },
+        "sets_flags": ["treasury_relief_staffed"],
+        "outcome": "She resists delegating at first. By the second week, she admits it was overdue."
+      },
+      {
+        "index": 1, "text": "She can manage — keep going as is.",
+        "effects": {},
+        "relationshipDelta": -3,
+        "traitDeltas": { "stress": 6 },
+        "sets_flags": ["treasury_pushed_through"],
+        "outcome": "She does. The margin for error in her judgment gets a little thinner every week."
+      }
+    ]
+  },
+  {
+    "id": "scene_defense_congratulations",
+    "title": "A Quiet Win at the Pentagon",
+    "category": "personnel",
+    "description": "A joint exercise with allied forces went better than anyone projected. Your Secretary of Defense wants you to know before it's public.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 2,
+    "npcId": "sec_defense",
+    "personnelMeta": { "tier": "request", "traitTag": "politicalSkill" },
+    "dialogueSequence": [
+      { "npcId": "sec_defense", "line": "Interoperability numbers came back better than we've seen in a decade. This is worth knowing about before the briefing." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Highlight it publicly with allies.",
+        "effects": { "globalReputation": 2 },
+        "relationshipDelta": 8,
+        "sets_flags": ["defense_win_shared"],
+        "outcome": "Allied capitals notice. So does the Pentagon press corps, for once favorably."
+      },
+      {
+        "index": 1, "text": "Keep it low-key — no need to boast.",
+        "effects": {},
+        "relationshipDelta": 2,
+        "sets_flags": ["defense_win_quiet"],
+        "outcome": "It stays a building-level win instead of a national one. Still a win."
+      }
+    ]
+  },
+  {
+    "id": "scene_ag_family_leave",
+    "title": "A Request You Didn't Expect",
+    "category": "personnel",
+    "description": "Your Attorney General asks for two weeks away — a family matter he doesn't elaborate on, and doesn't usually ask for anything.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 2,
+    "npcId": "attorney_general",
+    "personnelMeta": { "tier": "conflict", "traitTag": "stress" },
+    "dialogueSequence": [
+      { "npcId": "attorney_general", "line": "It's a family matter. I'd rather not go into it. I wouldn't ask if it weren't necessary." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Grant the leave, no questions asked.",
+        "effects": {},
+        "relationshipDelta": 10,
+        "traitDeltas": { "stress": -10 },
+        "sets_flags": ["ag_leave_granted"],
+        "outcome": "He's back in two weeks exactly, and noticeably steadier than before he left."
+      },
+      {
+        "index": 1, "text": "Ask him to keep it brief — the docket is heavy.",
+        "effects": {},
+        "relationshipDelta": -6,
+        "traitDeltas": { "stress": 5 },
+        "sets_flags": ["ag_leave_shortened"],
+        "outcome": "He cuts it to four days. He doesn't mention what he cut short."
+      }
+    ]
+  },
+  {
+    "id": "scene_cos_family_milestone",
+    "title": "An Invitation",
+    "category": "personnel",
+    "description": "Your Chief of Staff's daughter is graduating the same week as a major legislative push. They haven't asked for time off — they haven't asked for anything.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 2,
+    "npcId": "chief_of_staff",
+    "personnelMeta": { "tier": "request", "traitTag": "loyalty" },
+    "dialogueSequence": [
+      { "npcId": "chief_of_staff", "line": "It's fine, I'll watch the recording later. This week matters more." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Insist they go — the building can run one afternoon without them.",
+        "effects": {},
+        "relationshipDelta": 10,
+        "traitDeltas": { "loyalty": 6 },
+        "sets_flags": ["cos_attended_milestone"],
+        "outcome": "They go. They come back the next morning visibly, quietly, more loyal than a raise would have bought."
+      },
+      {
+        "index": 1, "text": "Let them decide — don't make it a thing.",
+        "effects": {},
+        "relationshipDelta": 0,
+        "sets_flags": ["cos_milestone_deferred"],
+        "outcome": "They stay. Nobody says anything about it again. That doesn't mean nothing was noticed."
+      }
+    ]
+  },
+  {
+    "id": "scene_vp_hedging",
+    "title": "The Interview That Wasn't Quite an Endorsement",
+    "category": "personnel",
+    "description": "Your Vice President gave an interview this week that was technically supportive of your agenda and read, to everyone watching, as anything but.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 2,
+    "npcId": "vice_president",
+    "personnelMeta": { "tier": "conflict", "traitTag": "loyalty" },
+    "dialogueSequence": [
+      { "npcId": "vice_president", "line": "I said I support the policy. I did. I also didn't go out of my way to sound thrilled about it." },
+      { "npcId": "vice_president", "line": "That was a choice. I'll let you draw your own conclusions about why." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Address it directly, privately.",
+        "effects": {},
+        "relationshipDelta": 4,
+        "traitDeltas": { "loyalty": 4 },
+        "sets_flags": ["vp_hedging_addressed"],
+        "outcome": "It's an uncomfortable conversation. It's also the first fully honest one you've had in a while."
+      },
+      {
+        "index": 1, "text": "Let it go and hope it was nothing.",
+        "effects": {},
+        "relationshipDelta": -2,
+        "traitDeltas": { "loyalty": -3 },
+        "sets_flags": ["vp_hedging_ignored"],
+        "outcome": "It happens again, slightly more pointedly, three months later."
+      }
+    ]
+  },
+
+  {
     "id": "priority_neglect_nudge",
     "title": "Your Chief of Staff Has Noticed the Silence",
     "category": "personnel",

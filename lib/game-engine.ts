@@ -182,7 +182,16 @@ function applyMilitaryReadinessCoupling(delta: StatDelta, category: EventCategor
 // PASSIVE DRIFT — applied every turn end
 // ============================================================
 
-export function computePassiveDrift(game: Game): StatDelta {
+/**
+ * `scandalMitigation` — 0-1 fraction of scandal approval drain to cancel,
+ * computed by the caller from Chief of Staff's Damage Control / Attorney
+ * General's Legal Shield (see lib/cabinet-abilities.ts's
+ * computeScandalMitigation) — game-engine.ts can't resolve the roster
+ * itself (would create a circular import with lib/cabinet.ts), so this
+ * stays a plain number handed in, same precedent as advanceMonth's
+ * npcTraitsOverride.
+ */
+export function computePassiveDrift(game: Game, scandalMitigation = 0): StatDelta {
   const { stats, activeConflicts, activeScandals, passedLaws } = game
   const drift: StatDelta = {}
 
@@ -266,7 +275,7 @@ export function computePassiveDrift(game: Game): StatDelta {
       stats.approval >= 45 ? 1.0 :
       stats.approval >= 30 ? 0.8 :
       0.6
-    add('approval', -(baseDrain * expectationMultiplier))
+    add('approval', -(baseDrain * expectationMultiplier * (1 - scandalMitigation)))
   }
 
   // Passive effects from passed laws
@@ -659,8 +668,9 @@ export function advanceMonth(
   game: Game,
   extraPendingConsequences: PendingConsequence[] = [],
   npcTraitsOverride?: Record<string, NpcTraits>,
+  scandalMitigation = 0,
 ): MonthAdvanceResult {
-  const drift = computePassiveDrift(game)
+  const drift = computePassiveDrift(game, scandalMitigation)
   const nextMonthNumber = game.currentMonth + 1
   const { effects: cascadeEffects, headlines: cascadeHeadlines, remaining, newCooldowns } =
     resolveDueConsequences(game.pendingConsequences, nextMonthNumber)
@@ -707,10 +717,16 @@ export function processEventTurn(
   game: Game,
   eventId: string,
   choiceIndex: number,
-  roster: Npc[]
+  roster: Npc[],
+  scandalMitigation = 0,
+  /** SecDef's Military Option synthetic choice — only spliced in when choiceIndex points one past the event's real choices (see lib/military-option.ts). */
+  militaryOptionChoice?: EventChoice,
 ): TurnResult {
-  const event = EVENTS.find(e => e.id === eventId)
-  if (!event) throw new Error(`Event not found: ${eventId}`)
+  const baseEvent = EVENTS.find(e => e.id === eventId)
+  if (!baseEvent) throw new Error(`Event not found: ${eventId}`)
+  const event = militaryOptionChoice && choiceIndex === baseEvent.choices.length
+    ? { ...baseEvent, choices: [...baseEvent.choices, militaryOptionChoice] }
+    : baseEvent
 
   const { newStats, newFlags, scandalDelta, choice } = processChoice(game, event, choiceIndex)
   const newActiveScandals = Math.max(0, game.activeScandals + scandalDelta)
@@ -784,7 +800,7 @@ export function processEventTurn(
   }
 
   const { game: updatedGame, drift, cascadeHeadlines, gameOver } =
-    advanceMonth(preDriftGame, choiceDelayedConsequences)
+    advanceMonth(preDriftGame, choiceDelayedConsequences, undefined, scandalMitigation)
 
   // Headlines: one from the crisis category/effects, plus an optional
   // approval-trend headline if approval moved sharply this turn.

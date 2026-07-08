@@ -9,6 +9,7 @@ import { AdvisorConversationPanel } from '@/components/game/AdvisorConversationP
 import { PendingEventBanner } from '@/components/game/PendingEventBanner'
 import { RoomBackground, roomAccentStyle } from '@/components/game/RoomBackground'
 import { getAdvisorRecommendations } from '@/lib/advisor-engine'
+import { canActivateAbility, isActivatableSlot } from '@/lib/cabinet-abilities'
 import { getRoomTreatment, getRoomImage, isTenseMood } from '@/lib/event-backgrounds'
 import type { MilestoneTier } from '@/lib/npc-milestones'
 
@@ -114,6 +115,10 @@ export default async function CabinetPage({ params }: PageProps) {
                   : undefined
                 const isFireable = isSelectable && npc.id !== 'vice_president'
 
+                const activation = isActivatableSlot(npc.id)
+                  ? { gameId: game.id, slotId: npc.id, ...canActivateAbility(game, roster, npc.id) }
+                  : undefined
+
                 return (
                   <CabinetCard
                     key={npc.id}
@@ -124,6 +129,7 @@ export default async function CabinetPage({ params }: PageProps) {
                     breakingPoint={candidate?.breakingPoint}
                     observations={game.npcObservations[npc.id]}
                     discussHref={isFireable ? `/game/${game.id}?discuss=${npc.id}` : undefined}
+                    activation={activation}
                   />
                 )
               })}

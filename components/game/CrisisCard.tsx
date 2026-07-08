@@ -7,7 +7,7 @@ import { getEventBackground, getEventAccentColor, getRoomTreatment, getRoomImage
 import { RoomBackground, roomAccentStyle } from './RoomBackground'
 import { CategoryTag } from './CategoryTag'
 import { IntelligenceBriefing } from './IntelligenceBriefing'
-import type { CrisisEvent, StatDelta, GameStats, Npc } from '@/types/game'
+import type { CrisisEvent, EventChoice, StatDelta, GameStats, Npc } from '@/types/game'
 
 interface CrisisCardProps {
   event: CrisisEvent
@@ -20,6 +20,8 @@ interface CrisisCardProps {
   tense?: boolean
   /** Resolved roster, only needed to label speaker names on event.dialogueSequence (personnel scenes) — every other event type ignores this. */
   roster?: Npc[]
+  /** SecDef's Military Option — a 5th, exclusive choice on military-category events, only present when unlocked. See lib/military-option.ts. */
+  militaryOptionChoice?: EventChoice | null
 }
 
 function EffectPreview({ effects }: { effects: StatDelta }) {
@@ -46,7 +48,7 @@ function EffectPreview({ effects }: { effects: StatDelta }) {
   )
 }
 
-export function CrisisCard({ event, month, gameId, flags, onChoose, disabled, tense, roster }: CrisisCardProps) {
+export function CrisisCard({ event, month, gameId, flags, onChoose, disabled, tense, roster, militaryOptionChoice }: CrisisCardProps) {
   const [selected, setSelected] = useState<number | null>(null)
   const breaking = isBreakingEvent(event)
   const callback = getEventCallback(event, flags)
@@ -164,6 +166,33 @@ export function CrisisCard({ event, month, gameId, flags, onChoose, disabled, te
               </div>
             </button>
           ))}
+          {militaryOptionChoice && (
+            <button
+              onClick={() => handleChoose(militaryOptionChoice.index)}
+              disabled={disabled}
+              className={cn(
+                'group w-full rounded-sm border-2 border-dashed px-4 py-3.5 text-left transition-colors',
+                'border-[var(--color-bad)]/50 bg-[var(--color-bad)]/[0.06] backdrop-blur-sm',
+                !disabled && 'hover:border-[var(--color-bad)] hover:bg-[var(--color-bad)]/[0.12]',
+                disabled && selected === militaryOptionChoice.index && 'border-[var(--color-bad)]',
+                disabled && selected !== militaryOptionChoice.index && 'opacity-40',
+                disabled && 'cursor-default'
+              )}
+            >
+              <div className="flex gap-3">
+                <span className="mt-0.5 font-mono text-[13px] font-medium text-[var(--color-bad)]">
+                  ⚔
+                </span>
+                <div className="flex-1">
+                  <div className="font-mono text-[9px] uppercase tracking-[0.1em] text-[var(--color-bad)]">
+                    Military Option — Secretary of Defense
+                  </div>
+                  <p className="mt-1 text-sm leading-snug text-[var(--color-paper)]">{militaryOptionChoice.text}</p>
+                  <EffectPreview effects={militaryOptionChoice.effects} />
+                </div>
+              </div>
+            </button>
+          )}
         </div>
       </div>
       </div>
