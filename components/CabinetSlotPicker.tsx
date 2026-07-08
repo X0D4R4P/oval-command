@@ -1,6 +1,7 @@
 'use client'
 
-import { cn, getStatLabel } from '@/lib/utils'
+import Image from 'next/image'
+import { cn, getStatLabel, AVATAR_COLORS } from '@/lib/utils'
 import { getCandidatesForSlot } from '@/lib/cabinet'
 import type { SelectableSlotId, StatDelta } from '@/types/game'
 
@@ -83,13 +84,37 @@ export function CabinetSlotPicker({ slotId, selectedCandidateId, onSelect, exclu
                   : 'border-[var(--color-border-strong)] bg-[var(--color-surface)] hover:border-[var(--color-brass-dim)]'
               )}
             >
-              <div className="flex items-center justify-between gap-2">
-                <span className="text-sm font-medium text-[var(--color-paper)]">{candidate.name}</span>
-                {selected && (
-                  <span className="font-mono text-[10px] uppercase tracking-[0.05em] text-[var(--color-brass)]">Selected</span>
-                )}
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0">
+                  {candidate.image ? (
+                    <Image
+                      src={candidate.image}
+                      alt={candidate.shortName}
+                      width={56}
+                      height={56}
+                      className="h-14 w-14 rounded-sm object-cover"
+                    />
+                  ) : (
+                    <div
+                      className={cn(
+                        'flex h-14 w-14 items-center justify-center rounded-sm font-mono text-sm font-medium',
+                        AVATAR_COLORS[candidate.avatarColor] ?? AVATAR_COLORS.gray
+                      )}
+                    >
+                      {candidate.avatar}
+                    </div>
+                  )}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-sm font-medium text-[var(--color-paper)]">{candidate.name}</span>
+                    {selected && (
+                      <span className="font-mono text-[10px] uppercase tracking-[0.05em] text-[var(--color-brass)]">Selected</span>
+                    )}
+                  </div>
+                  <p className="mt-0.5 text-[13px] italic text-[var(--color-paper-dim)]">{candidate.personality.archetype}</p>
+                </div>
               </div>
-              <p className="mt-0.5 text-[13px] italic text-[var(--color-paper-dim)]">{candidate.personality.archetype}</p>
               <p className="mt-2 text-[13px] leading-relaxed text-[var(--color-paper-dim)]">{candidate.personality.description}</p>
 
               <p className="mt-2.5 text-[12px] text-[var(--color-paper-faint)]">
