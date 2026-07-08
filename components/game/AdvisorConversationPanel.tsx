@@ -4,10 +4,10 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { cn, AVATAR_COLORS } from '@/lib/utils'
-import { NPCS } from '@/lib/game-engine'
 import { getLawById } from '@/lib/law-engine'
 import { buildAdvisorConversation } from '@/lib/advisor-conversation'
 import type { AdvisorRecommendation } from '@/lib/advisor-engine'
+import type { Npc } from '@/types/game'
 
 const SEVERITY_STYLE: Record<AdvisorRecommendation['severity'], { label: string; dot: string; border: string }> = {
   critical:    { label: 'Urgent',         dot: 'bg-[var(--color-bad)]',  border: 'border-l-[var(--color-bad)]' },
@@ -27,9 +27,10 @@ const REPLIES: { key: ReplyKey; label: string }[] = [
 interface AdvisorConversationPanelProps {
   recommendations: AdvisorRecommendation[]
   gameId: string
+  roster: Npc[]
 }
 
-export function AdvisorConversationPanel({ recommendations, gameId }: AdvisorConversationPanelProps) {
+export function AdvisorConversationPanel({ recommendations, gameId, roster }: AdvisorConversationPanelProps) {
   const [revealed, setRevealed] = useState<Record<string, Set<ReplyKey>>>({})
 
   function reveal(recId: string, key: ReplyKey) {
@@ -47,6 +48,7 @@ export function AdvisorConversationPanel({ recommendations, gameId }: AdvisorCon
           key={rec.id}
           rec={rec}
           gameId={gameId}
+          roster={roster}
           revealedKeys={revealed[rec.id] ?? new Set()}
           onReveal={key => reveal(rec.id, key)}
         />
@@ -58,16 +60,18 @@ export function AdvisorConversationPanel({ recommendations, gameId }: AdvisorCon
 function AdvisorConversationCard({
   rec,
   gameId,
+  roster,
   revealedKeys,
   onReveal,
 }: {
   rec: AdvisorRecommendation
   gameId: string
+  roster: Npc[]
   revealedKeys: Set<ReplyKey>
   onReveal: (key: ReplyKey) => void
 }) {
   const router = useRouter()
-  const npc = NPCS.find(n => n.id === rec.npcId)
+  const npc = roster.find(n => n.id === rec.npcId)
   const style = SEVERITY_STYLE[rec.severity]
   const initials = rec.npcName.split(' ').map(w => w[0]).join('').slice(0, 2)
   const law = rec.suggestedAction ? getLawById(rec.suggestedAction.lawId) : undefined

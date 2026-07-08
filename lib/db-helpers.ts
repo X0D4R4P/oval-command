@@ -42,6 +42,10 @@ interface DbGame {
   passedLaws:       unknown
   usedEvents:       unknown
   approvalHistory:  unknown
+  cabinetSelections: unknown
+  npcTraits:        unknown
+  npcObservations:  unknown
+  priorities:       unknown
   legacyScore:      number | null
   createdAt:        Date
   updatedAt:        Date
@@ -81,6 +85,10 @@ export function dbToGame(row: DbGame): Game {
     passedLaws:       (row.passedLaws as string[]) ?? [],
     usedEvents:       (row.usedEvents  as string[]) ?? [],
     approvalHistory:  (row.approvalHistory as number[]) ?? [],
+    cabinetSelections: (row.cabinetSelections as Game['cabinetSelections']) ?? {},
+    npcTraits:        (row.npcTraits as Game['npcTraits']) ?? {},
+    npcObservations:  (row.npcObservations as Game['npcObservations']) ?? {},
+    priorities:       (row.priorities as string[]) ?? [],
     legacyScore:      row.legacyScore ?? undefined,
     createdAt:        row.createdAt.toISOString(),
     updatedAt:        row.updatedAt.toISOString(),
@@ -151,6 +159,10 @@ export function gameToDbUpdate(game: Game) {
     passedLaws:          toJson(game.passedLaws),
     usedEvents:          toJson(game.usedEvents),
     approvalHistory:     toJson(game.approvalHistory),
+    cabinetSelections:   toJson(game.cabinetSelections),
+    npcTraits:           toJson(game.npcTraits),
+    npcObservations:     toJson(game.npcObservations),
+    priorities:          toJson(game.priorities),
     legacyScore:         game.legacyScore ?? null,
   }
 }

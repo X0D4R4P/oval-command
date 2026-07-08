@@ -10,6 +10,8 @@ import { CrisisCard } from '@/components/game/CrisisCard'
 import { OutcomeCard } from '@/components/game/OutcomeCard'
 import { LegacyScreen } from '@/components/game/LegacyScreen'
 import { HeadlineTicker } from '@/components/game/HeadlineTicker'
+import { NpcReactionList } from '@/components/game/NpcReactionList'
+import { CabinetSlotPicker } from '@/components/CabinetSlotPicker'
 import { ApprovalChart } from '@/components/game/ApprovalChart'
 import { ConflictBanner } from '@/components/game/ConflictBanner'
 import { RoomAtmosphere } from '@/components/game/RoomAtmosphere'
@@ -23,7 +25,8 @@ import { AnnualReport } from '@/components/game/AnnualReport'
 import { OnboardingWelcome } from '@/components/game/OnboardingWelcome'
 import { GuestExpiryWarning } from '@/components/game/GuestExpiryWarning'
 import { getEventAccentColor, getRoomTreatment, getRoomImage, isTenseMood } from '@/lib/event-backgrounds'
-import { computeLegacyScore, checkGameOver, isBreakingEvent, computePassProbability, NPCS } from '@/lib/game-engine'
+import { computeLegacyScore, checkGameOver, isBreakingEvent, computePassProbability } from '@/lib/game-engine'
+import { resolveRoster } from '@/lib/cabinet'
 import { getLegislativeOpportunity } from '@/lib/law-engine'
 import { getAdvisorRecommendations } from '@/lib/advisor-engine'
 import { computeStatTrend, getTopMovers } from '@/lib/stat-trends'
@@ -31,7 +34,7 @@ import { cn, monthToDate, AVATAR_COLORS } from '@/lib/utils'
 import type { InactivityWarning } from '@/lib/guest-cleanup'
 import type { PresidentialArchetype } from '@/lib/archetype-engine'
 import type { YearInReview } from '@/lib/year-in-review'
-import type { Game, GameLog, CrisisEvent, TurnResult, ProcessTurnResponse } from '@/types/game'
+import type { Game, GameLog, CrisisEvent, TurnResult, ProcessTurnResponse, Headline, NpcReactionResult, SelectableSlotId } from '@/types/game'
 
 interface GameClientProps {
   initialGame: Game
@@ -49,6 +52,8 @@ type ViewState =
   | { phase: 'outcome'; result: TurnResult; nextEvent: CrisisEvent | null }
   | { phase: 'gameover'; result: TurnResult }
   | { phase: 'loaded-gameover'; reason: import('@/types/game').GameOverReason }
+  | { phase: 'personnel-outcome'; outcome: string; npcReactions: import('@/types/game').NpcReactionResult[] }
+  | { phase: 'replace-cabinet'; slotId: string; resigned: boolean; outcome: string }
 
 const SEVERITY_DOT: Record<string, string> = {
   critical: 'bg-[var(--color-bad)]',
@@ -81,6 +86,7 @@ export function GameClient({ initialGame, initialEvent, recentLogs: initialRecen
   )
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [replacementResult, setReplacementResult] = useState<{ headline: Headline; rippleReactions: NpcReactionResult[] } | null>(null)
 
   // Recomputed live from current game state every render — pure function,
   // no API round-trip needed, same pattern as the legacy score import.
@@ -90,6 +96,40 @@ export function GameClient({ initialGame, initialEvent, recentLogs: initialRecen
     if (!event || submitting) return
     setSubmitting(true)
     setError(null)
+
+    // Personnel scenes are turn-free and resolved through their own route
+    // — no month advance, no next-event pick, no game-over check. Reuses
+    // the same CrisisCard choice UI, just a lighter response handling path.
+    if (event.category === 'personnel') {
+      try {
+        const res = await fetch(`/api/game/${game.id}/personnel`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ eventId: event.id, choiceIndex }),
+        })
+
+        if (!res.ok) {
+          const body = await res.json().catch(() => ({}))
+          throw new Error(body.error ?? 'The decision could not be processed.')
+        }
+
+        const data: { game: Game; npcReactions: import('@/types/game').NpcReactionResult[]; choice: import('@/types/game').EventChoice } = await res.json()
+        setGame(data.game)
+
+        if (data.choice.opensReplacementPicker && event.npcId) {
+          setEvent(null)
+          setView({ phase: 'replace-cabinet', slotId: event.npcId, resigned: event.personnelMeta?.tier === 'resignation', outcome: data.choice.outcome })
+        } else {
+          setEvent(null)
+          setView({ phase: 'personnel-outcome', outcome: data.choice.outcome, npcReactions: data.npcReactions })
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Something went wrong.')
+      } finally {
+        setSubmitting(false)
+      }
+      return
+    }
 
     try {
       const res = await fetch(`/api/game/${game.id}/turn`, {
@@ -129,6 +169,38 @@ export function GameClient({ initialGame, initialEvent, recentLogs: initialRecen
     setView({ phase: 'briefing' })
   }
 
+  async function handlePickReplacement(candidateId: string) {
+    if (view.phase !== 'replace-cabinet' || submitting) return
+    setSubmitting(true)
+    setError(null)
+
+    try {
+      const res = await fetch(`/api/game/${game.id}/cabinet`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slotId: view.slotId, candidateId, resigned: view.resigned }),
+      })
+
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}))
+        throw new Error(body.error ?? 'This Cabinet change could not be made.')
+      }
+
+      const data: { game: Game; headline: Headline; rippleReactions: NpcReactionResult[] } = await res.json()
+      setGame(data.game)
+      setReplacementResult({ headline: data.headline, rippleReactions: data.rippleReactions })
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong.')
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
+  function handleFinishReplacement() {
+    setReplacementResult(null)
+    setView({ phase: 'briefing' })
+  }
+
   if (view.phase === 'gameover' || view.phase === 'loaded-gameover') {
     const legacy = computeLegacyScore(game)
     const reason = view.phase === 'gameover' ? view.result.gameOver! : view.reason
@@ -149,6 +221,8 @@ export function GameClient({ initialGame, initialEvent, recentLogs: initialRecen
           presidentName={game.presidentName}
           archetype={archetype}
           passedLaws={game.passedLaws}
+          cabinetSelections={game.cabinetSelections}
+          npcTraits={game.npcTraits}
           onNewGame={() => router.push('/new-game')}
         />
         {view.phase === 'gameover' && (
@@ -163,6 +237,62 @@ export function GameClient({ initialGame, initialEvent, recentLogs: initialRecen
         {game.approvalHistory.length >= 2 && (
           <div className="mt-4">
             <ApprovalChart approvalHistory={game.approvalHistory} />
+          </div>
+        )}
+      </main>
+    )
+  }
+
+  if (view.phase === 'personnel-outcome') {
+    return (
+      <main className="mx-auto max-w-3xl px-6 py-10" style={roomAccentStyle('var(--color-brass)')}>
+        <RoomAtmosphere color="var(--color-brass)" />
+        <div className="rounded-sm border border-[var(--color-border-strong)] bg-[var(--color-surface)] p-6 backdrop-blur-sm">
+          <div className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--color-brass)]">Outcome</div>
+          <p className="mt-3 text-[15px] leading-relaxed text-[var(--color-paper)]">{view.outcome}</p>
+          <NpcReactionList reactions={view.npcReactions} />
+          <button
+            type="button"
+            onClick={() => setView({ phase: 'briefing' })}
+            className="mt-6 w-full rounded-sm border border-[var(--color-brass-dim)] bg-[var(--color-brass)] py-3 text-sm font-medium text-[var(--color-ink)] transition-opacity hover:opacity-90"
+          >
+            Continue
+          </button>
+        </div>
+      </main>
+    )
+  }
+
+  if (view.phase === 'replace-cabinet') {
+    return (
+      <main className="mx-auto max-w-3xl px-6 py-10" style={roomAccentStyle('var(--color-brass)')}>
+        <RoomAtmosphere color="var(--color-brass)" />
+        {!replacementResult ? (
+          <div className="rounded-sm border border-[var(--color-border-strong)] bg-[var(--color-surface)] p-6 backdrop-blur-sm">
+            <p className="text-[15px] leading-relaxed text-[var(--color-paper)]">{view.outcome}</p>
+            {error && (
+              <p className="mt-3 rounded-sm bg-[var(--color-bad-dim)] px-3.5 py-2.5 text-sm text-[var(--color-bad)]">{error}</p>
+            )}
+            <div className="mt-5">
+              <CabinetSlotPicker
+                slotId={view.slotId as SelectableSlotId}
+                excludeCandidateId={game.cabinetSelections[view.slotId as SelectableSlotId]}
+                onSelect={handlePickReplacement}
+              />
+            </div>
+          </div>
+        ) : (
+          <div className="rounded-sm border border-[var(--color-border-strong)] bg-[var(--color-surface)] p-6 backdrop-blur-sm">
+            <div className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--color-brass)]">Press Coverage</div>
+            <p className="mt-2 text-[15px] leading-relaxed text-[var(--color-paper)]">{replacementResult.headline.text}</p>
+            <NpcReactionList reactions={replacementResult.rippleReactions} />
+            <button
+              type="button"
+              onClick={handleFinishReplacement}
+              className="mt-6 w-full rounded-sm border border-[var(--color-brass-dim)] bg-[var(--color-brass)] py-3 text-sm font-medium text-[var(--color-ink)] transition-opacity hover:opacity-90"
+            >
+              Continue
+            </button>
           </div>
         )}
       </main>
@@ -194,7 +324,7 @@ export function GameClient({ initialGame, initialEvent, recentLogs: initialRecen
   const monthLabel = monthToDate(game.currentMonth)
 
   const topAdvisorRec = advisorRecommendations[0]
-  const topAdvisorNpc = topAdvisorRec ? NPCS.find(n => n.id === topAdvisorRec.npcId) : undefined
+  const topAdvisorNpc = topAdvisorRec ? resolveRoster(game).find(n => n.id === topAdvisorRec.npcId) : undefined
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-10" style={roomAccentStyle(accentColor)}>
@@ -294,7 +424,7 @@ export function GameClient({ initialGame, initialEvent, recentLogs: initialRecen
           <div className="mt-3">
             <ActionCard
               icon={ShieldAlert}
-              title="Respond to Crisis"
+              title={event?.category === 'personnel' ? 'A Personnel Matter' : 'Respond to Crisis'}
               label={event ? event.title : 'No briefing this month'}
               detail={crisisPriority}
               tag={crisisTag}
@@ -312,6 +442,7 @@ export function GameClient({ initialGame, initialEvent, recentLogs: initialRecen
                 onChoose={handleChoice}
                 disabled={submitting}
                 tense={isTenseMood(game, event)}
+                roster={resolveRoster(game)}
               />
             </div>
           )}

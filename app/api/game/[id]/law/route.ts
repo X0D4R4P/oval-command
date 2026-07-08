@@ -4,6 +4,9 @@ import { prisma } from '@/lib/prisma'
 import { dbToGame, gameToDbUpdate, toJson, safeErrorMessage } from '@/lib/db-helpers'
 import { getLawById, resolveLawPassage, applyLawPassage, canUseNpcAbility, resolveLawNpcReactions } from '@/lib/law-engine'
 import { applyDelta, pickEvent, advanceMonth, computeLegacyScore } from '@/lib/game-engine'
+import { resolveRoster } from '@/lib/cabinet'
+import { driftTraits } from '@/lib/cabinet-traits'
+import { applyCabinetNarrative } from '@/lib/cabinet-narrative'
 import { generateLawHeadline } from '@/lib/headlines'
 import { unlockAchievements } from '@/lib/achievements'
 import { computeSpecialEditionCovers, type CoverContent } from '@/lib/magazine-covers'
@@ -70,6 +73,7 @@ export async function POST(req: NextRequest, { params }: Params) {
   let cascadeHeadlines: Headline[]
   let gameOver: GameOverReason | null = null
   let npcReactions: NpcReactionResult[] = []
+  let suggestedEvent: ReturnType<typeof pickEvent> = null
   try {
     passageResult = resolveLawPassage(law, game, { useNpcAbility })
     updatedGame = applyLawPassage(game, law, passageResult)
@@ -84,16 +88,23 @@ export async function POST(req: NextRequest, { params }: Params) {
       updatedGame = { ...updatedGame, npcRelationships: newRelationships }
     }
 
+    const preNarrativeGame = updatedGame
     const advance = advanceMonth(updatedGame)
     updatedGame = advance.game
     cascadeHeadlines = advance.cascadeHeadlines
     gameOver = advance.gameOver
+
+    const roster = resolveRoster(game)
+    const driftedTraits = driftTraits(preNarrativeGame)
+    const narrative = applyCabinetNarrative(preNarrativeGame, { ...updatedGame, npcTraits: driftedTraits }, roster)
+    updatedGame = narrative.game
+    suggestedEvent = narrative.suggestedEvent
   } catch (err) {
     const message = safeErrorMessage(err, 'Law could not be processed')
     return NextResponse.json({ error: message }, { status: 400 })
   }
 
-  const nextEvent = updatedGame.status === 'ACTIVE' ? pickEvent(updatedGame) : null
+  const nextEvent = suggestedEvent ?? (updatedGame.status === 'ACTIVE' ? pickEvent(updatedGame) : null)
 
   const [updateResult] = await prisma.$transaction([
     prisma.game.updateMany({

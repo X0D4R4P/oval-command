@@ -1,0 +1,1011 @@
+[
+  {
+    "id": "discuss_chief_of_staff",
+    "title": "A Word About Your Chief of Staff",
+    "category": "personnel",
+    "description": "Your Chief of Staff asked for five minutes before the morning briefing. That's never just five minutes.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 5,
+    "npcId": "chief_of_staff",
+    "personnelMeta": { "tier": "discuss" },
+    "dialogueSequence": [
+      { "npcId": "chief_of_staff", "line": "You wanted to talk. I'd rather you just say it." },
+      { "npcId": "chief_of_staff", "line": "I know what this looks like from where you're sitting. I don't think it's what it looks like." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "You're out.",
+        "effects": { "approval": -1 },
+        "relationshipDelta": -100,
+        "sets_flags": ["cos_fired"],
+        "opensReplacementPicker": true,
+        "outcome": "It's quiet after they leave the room. Quieter than you expected."
+      },
+      {
+        "index": 1, "text": "Formal warning — this doesn't happen again.",
+        "effects": {},
+        "relationshipDelta": -15,
+        "sets_flags": ["cos_warned"],
+        "outcome": "They nod. Don't say much. That's not nothing, from them."
+      },
+      {
+        "index": 2, "text": "Let it go. I trust you.",
+        "effects": {},
+        "relationshipDelta": 6,
+        "sets_flags": ["cos_kept"],
+        "outcome": "Something in their shoulders relaxes. You'll remember that you gave them this."
+      }
+    ]
+  },
+  {
+    "id": "discuss_sec_defense",
+    "title": "A Word About Your Secretary of Defense",
+    "category": "personnel",
+    "description": "The Pentagon has been quietly pushing back on the last two directives. Your Secretary of Defense wants to explain why, in person.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 5,
+    "npcId": "sec_defense",
+    "personnelMeta": { "tier": "discuss" },
+    "dialogueSequence": [
+      { "npcId": "sec_defense", "line": "I made the call I thought was right with the intelligence I had. I'll stand behind that." },
+      { "npcId": "sec_defense", "line": "If you've lost confidence in my judgment, say so directly. I'd rather hear it from you." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "You're relieved of your post.",
+        "effects": { "security": -1 },
+        "relationshipDelta": -100,
+        "sets_flags": ["sec_defense_fired"],
+        "opensReplacementPicker": true,
+        "outcome": "The building feels colder for a few days. The uniformed staff notice."
+      },
+      {
+        "index": 1, "text": "This is a formal warning.",
+        "effects": {},
+        "relationshipDelta": -15,
+        "sets_flags": ["sec_defense_warned"],
+        "outcome": "They accept it without argument. That's its own kind of statement."
+      },
+      {
+        "index": 2, "text": "I still trust your judgment.",
+        "effects": {},
+        "relationshipDelta": 6,
+        "sets_flags": ["sec_defense_kept"],
+        "outcome": "\"Thank you for hearing me out,\" they say, and mean it."
+      }
+    ]
+  },
+  {
+    "id": "discuss_treasury_secretary",
+    "title": "A Word About Your Treasury Secretary",
+    "category": "personnel",
+    "description": "The last budget fight got personal. Your Treasury Secretary wants a private word before it becomes a public one.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 5,
+    "npcId": "treasury_secretary",
+    "personnelMeta": { "tier": "discuss" },
+    "dialogueSequence": [
+      { "npcId": "treasury_secretary", "line": "I said what I said because it's true, not because I wanted a fight." },
+      { "npcId": "treasury_secretary", "line": "If you want a Treasury Secretary who just agrees with you, I'm not going to be very good at this job." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "This isn't working. You're done.",
+        "effects": { "economy": -1 },
+        "relationshipDelta": -100,
+        "sets_flags": ["treasury_secretary_fired"],
+        "opensReplacementPicker": true,
+        "outcome": "The markets notice within the hour. They always do."
+      },
+      {
+        "index": 1, "text": "Formal warning — watch your public tone.",
+        "effects": {},
+        "relationshipDelta": -15,
+        "sets_flags": ["treasury_secretary_warned"],
+        "outcome": "\"Understood,\" they say, in a tone that suggests it's only partly true."
+      },
+      {
+        "index": 2, "text": "I need you to keep telling me the truth. Stay.",
+        "effects": {},
+        "relationshipDelta": 6,
+        "sets_flags": ["treasury_secretary_kept"],
+        "outcome": "They look almost surprised. Most administrations don't say that part out loud."
+      }
+    ]
+  },
+  {
+    "id": "discuss_attorney_general",
+    "title": "A Word About Your Attorney General",
+    "category": "personnel",
+    "description": "Your Attorney General has been slow-walking something you wanted moved faster. Today, they explain why, to your face.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 5,
+    "npcId": "attorney_general",
+    "personnelMeta": { "tier": "discuss" },
+    "dialogueSequence": [
+      { "npcId": "attorney_general", "line": "I'm not slow-walking anything. I'm making sure it survives the first lawsuit." },
+      { "npcId": "attorney_general", "line": "You can replace me if you want someone faster. I don't think you want someone less careful." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "I need someone faster. You're out.",
+        "effects": { "globalReputation": -1 },
+        "relationshipDelta": -100,
+        "sets_flags": ["attorney_general_fired"],
+        "opensReplacementPicker": true,
+        "outcome": "The legal press notices immediately. They always do with this one."
+      },
+      {
+        "index": 1, "text": "Formal warning — I need more urgency.",
+        "effects": {},
+        "relationshipDelta": -15,
+        "sets_flags": ["attorney_general_warned"],
+        "outcome": "\"Noted,\" they say, and you suspect the pace won't actually change."
+      },
+      {
+        "index": 2, "text": "Careful is what I hired you for. Stay.",
+        "effects": {},
+        "relationshipDelta": 6,
+        "sets_flags": ["attorney_general_kept"],
+        "outcome": "\"That's all I needed to hear,\" they say."
+      }
+    ]
+  },
+
+  {
+    "id": "resignation_vice_president",
+    "title": "The Vice President Wants to Speak With You",
+    "category": "personnel",
+    "description": "Your Chief of Staff looks nervous walking in. \"The Vice President wants a word. Alone.\"",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 4,
+    "npcId": "vice_president",
+    "personnelMeta": { "tier": "resignation" },
+    "dialogueSequence": [
+      { "npcId": "vice_president", "line": "I've thought about this for a while. I don't think I can keep doing this the way things are." },
+      { "npcId": "vice_president", "line": "I'm not looking for a fight on the way out. I just don't think I'm the right partner for where this is headed." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Try to talk them out of it.",
+        "effects": { "approval": 1 },
+        "relationshipDelta": 10,
+        "sets_flags": ["vp_talked_down"],
+        "outcome": "They agree to stay. For now. You both know this conversation isn't really over."
+      },
+      {
+        "index": 1, "text": "Accept the resignation.",
+        "effects": { "approval": -4, "congressSupport": -2 },
+        "relationshipDelta": -100,
+        "sets_flags": ["vp_resigned"],
+        "opensReplacementPicker": true,
+        "outcome": "By evening it's the only story on every network. \"Vice President Steps Down\" is not a headline any administration wants."
+      }
+    ]
+  },
+  {
+    "id": "resignation_chief_of_staff",
+    "title": "Your Chief of Staff Wants to Speak With You",
+    "category": "personnel",
+    "description": "There's a folded letter on the desk before they even sit down. You already know what it is.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 4,
+    "npcId": "chief_of_staff",
+    "personnelMeta": { "tier": "resignation" },
+    "dialogueSequence": [
+      { "npcId": "chief_of_staff", "line": "I've given this everything I have. I'm not sure that's translating into anything anymore." },
+      { "npcId": "chief_of_staff", "line": "I'd rather leave on my own terms than wait for you to decide I'm the problem." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Talk them into staying.",
+        "effects": { "congressSupport": 1 },
+        "relationshipDelta": 10,
+        "sets_flags": ["cos_talked_down"],
+        "outcome": "They take the letter back. You both know this buys time, not certainty."
+      },
+      {
+        "index": 1, "text": "Accept the resignation.",
+        "effects": { "approval": -3, "congressSupport": -3 },
+        "relationshipDelta": -100,
+        "sets_flags": ["cos_resigned"],
+        "opensReplacementPicker": true,
+        "outcome": "The building feels different within the hour. Everyone is quietly recalculating."
+      }
+    ]
+  },
+  {
+    "id": "resignation_sec_defense",
+    "title": "Your Secretary of Defense Wants to Speak With You",
+    "category": "personnel",
+    "description": "The Pentagon car is idling outside earlier than scheduled. That's usually not good news.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 4,
+    "npcId": "sec_defense",
+    "personnelMeta": { "tier": "resignation" },
+    "dialogueSequence": [
+      { "npcId": "sec_defense", "line": "I've spent my whole career following orders I believed in. I'm not sure I can say that right now." },
+      { "npcId": "sec_defense", "line": "I owe you a direct answer, not a quiet resignation letter I hoped you wouldn't notice." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Ask them to stay.",
+        "effects": { "security": 1 },
+        "relationshipDelta": 10,
+        "sets_flags": ["sec_defense_talked_down"],
+        "outcome": "They agree, reluctantly. The Joint Chiefs will be watching closely from here."
+      },
+      {
+        "index": 1, "text": "Accept the resignation.",
+        "effects": { "security": -3, "globalReputation": -2 },
+        "relationshipDelta": -100,
+        "sets_flags": ["sec_defense_resigned"],
+        "opensReplacementPicker": true,
+        "outcome": "\"Secretary of Defense Steps Down Amid Policy Rift\" runs before you've even finished the day's briefing."
+      }
+    ]
+  },
+  {
+    "id": "resignation_treasury_secretary",
+    "title": "Your Treasury Secretary Wants to Speak With You",
+    "category": "personnel",
+    "description": "\"I need fifteen minutes,\" the message says. From your Treasury Secretary, that's never a small request.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 4,
+    "npcId": "treasury_secretary",
+    "personnelMeta": { "tier": "resignation" },
+    "dialogueSequence": [
+      { "npcId": "treasury_secretary", "line": "I took this job to fix things, not to keep signing off on things I've argued against." },
+      { "npcId": "treasury_secretary", "line": "I don't want to make this dramatic. I just don't think I can keep doing it in good conscience." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Ask them to stay.",
+        "effects": { "economy": 1 },
+        "relationshipDelta": 10,
+        "sets_flags": ["treasury_secretary_talked_down"],
+        "outcome": "They agree to stay through the next quarter. The reprieve feels temporary."
+      },
+      {
+        "index": 1, "text": "Accept the resignation.",
+        "effects": { "economy": -3, "approval": -2 },
+        "relationshipDelta": -100,
+        "sets_flags": ["treasury_secretary_resigned"],
+        "opensReplacementPicker": true,
+        "outcome": "Markets dip on the news before recovering by close. The bigger cost is the story it tells."
+      }
+    ]
+  },
+  {
+    "id": "resignation_attorney_general",
+    "title": "Your Attorney General Wants to Speak With You",
+    "category": "personnel",
+    "description": "Your Attorney General rarely asks for unscheduled time. Today, they did.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 4,
+    "npcId": "attorney_general",
+    "personnelMeta": { "tier": "resignation" },
+    "dialogueSequence": [
+      { "npcId": "attorney_general", "line": "I've spent my career believing the law has to mean the same thing regardless of who's asking." },
+      { "npcId": "attorney_general", "line": "I don't think I can keep this job and keep believing that. So I have to choose." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Ask them to stay.",
+        "effects": { "globalReputation": 1 },
+        "relationshipDelta": 10,
+        "sets_flags": ["attorney_general_talked_down"],
+        "outcome": "They agree, on the record, to stay. You both know exactly what that cost them to say."
+      },
+      {
+        "index": 1, "text": "Accept the resignation.",
+        "effects": { "approval": -3, "unrest": 3 },
+        "relationshipDelta": -100,
+        "sets_flags": ["attorney_general_resigned"],
+        "opensReplacementPicker": true,
+        "outcome": "\"AG Resigns Over DOJ Independence Concerns\" leads every broadcast by evening."
+      }
+    ]
+  },
+
+  {
+    "id": "scene_treasury_budget_request",
+    "title": "Forty Billion, If You Can Find It",
+    "category": "personnel",
+    "description": "Your Treasury Secretary slides a folder across the desk before you've finished your coffee.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 3,
+    "npcId": "treasury_secretary",
+    "personnelMeta": { "tier": "request", "goalTag": "growth_agenda", "traitTag": "politicalSkill" },
+    "dialogueSequence": [
+      { "npcId": "treasury_secretary", "line": "I need another forty billion for the growth package. I know how that sounds." },
+      { "npcId": "treasury_secretary", "line": "I wouldn't ask if I didn't think the return justified it." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Approve it.",
+        "effects": { "economy": 3, "debt": 0.4 },
+        "relationshipDelta": 8,
+        "sets_flags": ["treasury_budget_approved"],
+        "outcome": "\"You won't regret this,\" they say. You hope that's true."
+      },
+      {
+        "index": 1, "text": "Meet them halfway.",
+        "effects": { "economy": 1, "debt": 0.15 },
+        "relationshipDelta": 2,
+        "sets_flags": ["treasury_budget_compromise"],
+        "outcome": "Not everything they wanted. Enough to keep working with."
+      },
+      {
+        "index": 2, "text": "Turn it down.",
+        "effects": {},
+        "relationshipDelta": -8,
+        "sets_flags": ["treasury_budget_denied"],
+        "outcome": "They take it well, on the surface. You're not sure it stays that way."
+      }
+    ]
+  },
+  {
+    "id": "scene_defense_budget_push",
+    "title": "The Number the Pentagon Actually Needs",
+    "category": "personnel",
+    "description": "Your Secretary of Defense wants five minutes to make a case you've heard versions of before.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 3,
+    "npcId": "sec_defense",
+    "personnelMeta": { "tier": "request", "goalTag": "military_budget", "traitTag": "ambition" },
+    "dialogueSequence": [
+      { "npcId": "sec_defense", "line": "The readiness numbers aren't where the public briefing says they are. I want you to see the real ones." },
+      { "npcId": "sec_defense", "line": "I'm not asking for a blank check. I'm asking you to actually look at this." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Fund the request.",
+        "effects": { "security": 3, "militaryReadiness": 4, "debt": 0.3 },
+        "relationshipDelta": 8,
+        "sets_flags": ["defense_budget_funded"],
+        "outcome": "\"This actually changes what we can do,\" they say. They mean it as a compliment to you."
+      },
+      {
+        "index": 1, "text": "Partial funding.",
+        "effects": { "militaryReadiness": 1 },
+        "relationshipDelta": 2,
+        "sets_flags": ["defense_budget_partial"],
+        "outcome": "Something is better than nothing. They tell you so, without much warmth."
+      },
+      {
+        "index": 2, "text": "Not this cycle.",
+        "effects": {},
+        "relationshipDelta": -8,
+        "sets_flags": ["defense_budget_denied"],
+        "outcome": "\"On the record, understood,\" they say. Off the record, you're not sure it is."
+      }
+    ]
+  },
+  {
+    "id": "scene_cos_burnout",
+    "title": "Your Chief of Staff Looks Exhausted",
+    "category": "personnel",
+    "description": "It's the third late night in a row you've seen the light on in their office. Today they finally admit it.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 3,
+    "npcId": "chief_of_staff",
+    "personnelMeta": { "tier": "conflict", "traitTag": "stress" },
+    "dialogueSequence": [
+      { "npcId": "chief_of_staff", "line": "I'm fine. I'm just tired in the way that doesn't go away with sleep anymore." },
+      { "npcId": "chief_of_staff", "line": "I don't want to ask for time off. I don't think I know how to, honestly." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Order them to take a week off.",
+        "effects": {},
+        "relationshipDelta": 10,
+        "traitDeltas": { "stress": -20 },
+        "sets_flags": ["cos_took_leave"],
+        "outcome": "They resist, then agree. They come back sharper than they've been in months."
+      },
+      {
+        "index": 1, "text": "Acknowledge it, but keep them working.",
+        "effects": {},
+        "relationshipDelta": -2,
+        "traitDeltas": { "stress": 5 },
+        "sets_flags": ["cos_pushed_through"],
+        "outcome": "\"I understand,\" they say. You're not sure they meant it as agreement."
+      }
+    ]
+  },
+  {
+    "id": "scene_ag_ethics_dilemma",
+    "title": "A Question of What's Actually Legal",
+    "category": "personnel",
+    "description": "Your Attorney General wants a decision before this becomes a bigger problem than it already is.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 3,
+    "npcId": "attorney_general",
+    "personnelMeta": { "tier": "conflict", "traitTag": "integrity" },
+    "dialogueSequence": [
+      { "npcId": "attorney_general", "line": "There's a way to do this that stays inside the lines. It's slower. It's the only version I'll sign off on." },
+      { "npcId": "attorney_general", "line": "I need to know now whether you want it done right or done fast, because I can't do both." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Do it right, however long it takes.",
+        "effects": { "globalReputation": 2 },
+        "relationshipDelta": 10,
+        "traitDeltas": { "integrity": 3 },
+        "sets_flags": ["ag_did_it_right"],
+        "outcome": "It takes three extra weeks. It also holds up when the opposition tries to pick it apart."
+      },
+      {
+        "index": 1, "text": "Push for the faster path anyway.",
+        "effects": { "approval": 1 },
+        "relationshipDelta": -12,
+        "crossesBreakingPoint": "illegal_action",
+        "sets_flags": ["ag_pushed_fast"],
+        "outcome": "They comply, visibly unhappy. You've learned something about where their line actually is."
+      }
+    ]
+  },
+  {
+    "id": "scene_vp_spotlight_tension",
+    "title": "The Vice President Wants the Podium",
+    "category": "personnel",
+    "description": "Your Vice President has been asked to headline a major event solo — no you, no shared stage.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 3,
+    "npcId": "vice_president",
+    "personnelMeta": { "tier": "conflict", "traitTag": "ambition" },
+    "dialogueSequence": [
+      { "npcId": "vice_president", "line": "It's a good opportunity. For the administration, I mean. Obviously." },
+      { "npcId": "vice_president", "line": "I'd like your blessing before I say yes. I'd also like to say yes either way, if I'm honest." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Let them have the spotlight.",
+        "effects": { "approval": 1 },
+        "relationshipDelta": 8,
+        "traitDeltas": { "ambition": 4 },
+        "sets_flags": ["vp_took_spotlight"],
+        "outcome": "The speech goes well. Very well. You notice the coverage calls them \"a rising force.\""
+      },
+      {
+        "index": 1, "text": "Ask them to share the stage with a senior advisor instead.",
+        "effects": {},
+        "relationshipDelta": -8,
+        "sets_flags": ["vp_shared_spotlight"],
+        "outcome": "They agree, professionally. Something about the conversation still feels unresolved."
+      }
+    ]
+  },
+  {
+    "id": "scene_cabinet_congratulations",
+    "title": "A Rare Good Note From the Cabinet Room",
+    "category": "personnel",
+    "description": "For once, someone walks in with good news instead of a problem to manage.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 2,
+    "npcId": "treasury_secretary",
+    "personnelMeta": { "tier": "request", "traitTag": "politicalSkill" },
+    "dialogueSequence": [
+      { "npcId": "treasury_secretary", "line": "I don't usually come in here just to say something's working. This is working." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Credit the whole team publicly.",
+        "effects": { "approval": 1 },
+        "relationshipDelta": 8,
+        "sets_flags": ["treasury_credited_publicly"],
+        "outcome": "The gesture doesn't go unnoticed inside the building."
+      },
+      {
+        "index": 1, "text": "Take the win quietly and move on.",
+        "effects": {},
+        "relationshipDelta": 2,
+        "sets_flags": ["treasury_win_noted"],
+        "outcome": "A small moment. Still, they remember you noticed."
+      }
+    ]
+  },
+
+  {
+    "id": "priority_neglect_nudge",
+    "title": "Your Chief of Staff Has Noticed the Silence",
+    "category": "personnel",
+    "description": "Your Chief of Staff closes the door before speaking, which is usually a sign the next sentence matters.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 3,
+    "npcId": "chief_of_staff",
+    "personnelMeta": { "tier": "neglect" },
+    "dialogueSequence": [
+      { "npcId": "chief_of_staff", "line": "We campaigned on this. We haven't sent a single bill to Congress about it since you took office." },
+      { "npcId": "chief_of_staff", "line": "I'm not telling you what to do. I'm telling you people are starting to ask." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "You're right. Let's prioritize it.",
+        "effects": { "approval": 1 },
+        "relationshipDelta": 6,
+        "sets_flags": ["priority_acknowledged"],
+        "outcome": "\"Good,\" they say. \"I'll start clearing the calendar.\""
+      },
+      {
+        "index": 1, "text": "It'll have to wait — other things are more urgent.",
+        "effects": {},
+        "relationshipDelta": -3,
+        "sets_flags": ["priority_deferred"],
+        "outcome": "They nod, and write something down that you don't get to see."
+      }
+    ]
+  },
+  {
+    "id": "priority_neglect_nudge_press",
+    "title": "The Press Has Started Asking, Too",
+    "category": "personnel",
+    "description": "It's not just your own staff noticing the silence anymore — a reporter asked about it directly at today's gaggle.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 2,
+    "npcId": "chief_of_staff",
+    "personnelMeta": { "tier": "neglect" },
+    "dialogueSequence": [
+      { "npcId": "chief_of_staff", "line": "\"Whatever happened to the promise on this?\" is not a question we want becoming a running bit." },
+      { "npcId": "chief_of_staff", "line": "We can get ahead of it with an actual announcement, or we can keep hoping nobody follows up. I'd rather not gamble on the second one." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Announce a real timeline.",
+        "effects": { "approval": 2 },
+        "relationshipDelta": 6,
+        "sets_flags": ["priority_timeline_announced"],
+        "outcome": "It's a modest announcement. It's still the first real movement in months."
+      },
+      {
+        "index": 1, "text": "Deflect for now.",
+        "effects": { "approval": -1 },
+        "relationshipDelta": -4,
+        "sets_flags": ["priority_deflected"],
+        "outcome": "The follow-up questions don't stop. They rarely do."
+      }
+    ]
+  },
+
+  {
+    "id": "room_war_room_split",
+    "title": "The War Room Splits",
+    "category": "personnel",
+    "description": "Three of your closest advisors disagree in front of you, which is worse than any of them disagreeing with you alone.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 3,
+    "npcId": "sec_defense",
+    "personnelMeta": { "tier": "room" },
+    "dialogueSequence": [
+      { "npcId": "sec_defense", "line": "We have a window. It closes fast. I'm recommending we act now." },
+      { "npcId": "treasury_secretary", "line": "And I'm telling you the markets will not absorb that shock well. Neither will the debt trajectory." },
+      { "npcId": "attorney_general", "line": "Before either of you finish — I need to flag that the legal authority for this is genuinely unsettled." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Side with Defense — act decisively.",
+        "effects": { "security": 3, "economy": -2, "globalReputation": -1 },
+        "relationshipDelta": 6,
+        "sets_flags": ["war_room_sided_defense"],
+        "outcome": "You move fast. The room goes quiet in the specific way it does when people are recalculating who has your ear."
+      },
+      {
+        "index": 1, "text": "Side with Treasury — hold off.",
+        "effects": { "economy": 2, "security": -2 },
+        "relationshipDelta": 6,
+        "sets_flags": ["war_room_sided_treasury"],
+        "outcome": "The markets exhale. The Pentagon does not."
+      },
+      {
+        "index": 2, "text": "Table it until Legal has a real answer.",
+        "effects": {},
+        "relationshipDelta": 3,
+        "sets_flags": ["war_room_tabled"],
+        "outcome": "Nobody's happy. Nobody can say you didn't listen, either."
+      }
+    ]
+  },
+  {
+    "id": "room_budget_table_clash",
+    "title": "The Budget Table Clash",
+    "category": "personnel",
+    "description": "Your Treasury Secretary and Chief of Staff have been circling the same fight for weeks. Today it comes to your desk.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": [],
+    "weight": 3,
+    "npcId": "treasury_secretary",
+    "personnelMeta": { "tier": "room" },
+    "dialogueSequence": [
+      { "npcId": "treasury_secretary", "line": "Every new initiative this building wants costs money we don't currently have." },
+      { "npcId": "chief_of_staff", "line": "And every initiative we don't fund is a promise we made that nobody outside this room remembers we broke." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Prioritize fiscal discipline.",
+        "effects": { "debt": -0.3, "approval": -1 },
+        "relationshipDelta": 6,
+        "sets_flags": ["budget_clash_discipline"],
+        "outcome": "\"Thank you for actually backing this up,\" your Treasury Secretary says."
+      },
+      {
+        "index": 1, "text": "Prioritize keeping promises.",
+        "effects": { "approval": 2, "debt": 0.3 },
+        "relationshipDelta": 6,
+        "sets_flags": ["budget_clash_promises"],
+        "outcome": "\"People will remember that,\" your Chief of Staff says, and you hope they're right."
+      }
+    ]
+  },
+
+  {
+    "id": "storyline_defense_black_tide_1",
+    "title": "Operation Black Tide",
+    "category": "personnel",
+    "description": "A classified operation your Secretary of Defense recommended has gone wrong. Details are still coming in, but Congress already knows enough to be angry.",
+    "archetypeText": {
+      "The Hawk Who Knows the Cost": "You approved this on his recommendation. He's already asking to brief you before anyone else does.",
+      "The Reformer": "The operation relied on legacy doctrine she'd been trying to phase out. She's not saying \"I told you so\" — yet.",
+      "The Reluctant Dove": "This is exactly the kind of operation he argued against. He's not gloating. He looks like he wishes he'd argued harder."
+    },
+    "triggers": { "always_available": true },
+    "sets_flags": ["black_tide_stage1"],
+    "requires_flags": [],
+    "weight": 3,
+    "npcId": "sec_defense",
+    "personnelMeta": { "tier": "storyline" },
+    "choices": [
+      {
+        "index": 0, "text": "Publicly defend the operation and your Secretary of Defense.",
+        "effects": { "approval": -3, "security": 2 },
+        "relationshipDelta": 10,
+        "sets_flags": ["black_tide_defended"],
+        "outcome": "It costs you in the polls. It buys you something with the Pentagon that doesn't show up in polls."
+      },
+      {
+        "index": 1, "text": "Distance yourself and order a full review.",
+        "effects": { "approval": 2, "security": -2 },
+        "relationshipDelta": -12,
+        "sets_flags": ["black_tide_distanced"],
+        "outcome": "The review is thorough. Your Secretary of Defense reads the distancing for exactly what it is."
+      }
+    ]
+  },
+  {
+    "id": "storyline_defense_black_tide_2",
+    "title": "Operation Black Tide: The Leak",
+    "category": "personnel",
+    "description": "Classified details from the operation have surfaced in the press. A congressional investigation is now a certainty, not a threat.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": ["black_tide_stage1"],
+    "weight": 3,
+    "npcId": "sec_defense",
+    "personnelMeta": { "tier": "storyline" },
+    "callbacks": [
+      { "flag": "black_tide_defended", "text": "You stood behind this operation once already. That's on the record now, for better or worse." },
+      { "flag": "black_tide_distanced", "text": "You distanced yourself from this once already. The investigation will notice the pattern." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Cooperate fully and get ahead of the investigation.",
+        "effects": { "approval": -2, "globalReputation": 1 },
+        "relationshipDelta": 6,
+        "sets_flags": ["black_tide_cooperated"],
+        "outcome": "It's a rough news cycle. It's also over faster than it would have been otherwise."
+      },
+      {
+        "index": 1, "text": "Fight the investigation on executive privilege grounds.",
+        "effects": { "approval": -5, "congressSupport": -6 },
+        "relationshipDelta": -6,
+        "crossesBreakingPoint": "abandon_troops",
+        "sets_flags": ["black_tide_fought"],
+        "outcome": "You win the immediate fight. The story doesn't go away — it just gets a longer runway."
+      }
+    ]
+  },
+
+  {
+    "id": "storyline_treasury_market_panic_1",
+    "title": "Market Panic",
+    "category": "personnel",
+    "description": "Markets drop sharply on a rumor your Treasury Secretary says isn't even true. It doesn't matter — the selling has already started.",
+    "archetypeText": {
+      "The Fiscal Realist": "She wants to announce a modest, disciplined stabilization package. Nothing flashy. Her word for flashy is \"reckless.\"",
+      "The Wall Street Dealmaker": "He's already on the phone with three fund managers before he's finished briefing you. He wants a bailout-style intervention, big and fast.",
+      "The Populist Economist": "She wants any stabilization package tied directly to protections for workers, not just markets."
+    },
+    "triggers": { "always_available": true },
+    "sets_flags": ["market_panic_stage1"],
+    "requires_flags": [],
+    "weight": 3,
+    "npcId": "treasury_secretary",
+    "personnelMeta": { "tier": "storyline" },
+    "choices": [
+      {
+        "index": 0, "text": "Announce a large, aggressive stabilization package.",
+        "effects": { "economy": 4, "debt": 0.6 },
+        "relationshipDelta": 4,
+        "sets_flags": ["market_panic_aggressive"],
+        "outcome": "The markets stabilize fast. The debt hawks start writing op-eds within the week."
+      },
+      {
+        "index": 1, "text": "Do nothing and let the market correct on its own.",
+        "effects": { "economy": -3, "approval": -2 },
+        "relationshipDelta": -8,
+        "sets_flags": ["market_panic_nothing"],
+        "outcome": "It does eventually correct. \"Eventually\" costs real people real money in the meantime."
+      }
+    ]
+  },
+  {
+    "id": "storyline_treasury_market_panic_2",
+    "title": "Market Panic: The Aftermath",
+    "category": "personnel",
+    "description": "The dust has settled. Now the actual political reckoning over how you handled it begins.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": ["market_panic_stage1"],
+    "weight": 3,
+    "npcId": "treasury_secretary",
+    "personnelMeta": { "tier": "storyline" },
+    "callbacks": [
+      { "flag": "market_panic_aggressive", "text": "The intervention worked. Now Congress wants to know exactly what it cost." },
+      { "flag": "market_panic_nothing", "text": "You let it ride once already. Your Treasury Secretary isn't sure she can recommend that path again." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Take a full public accounting, mistakes included.",
+        "effects": { "approval": 2 },
+        "relationshipDelta": 8,
+        "sets_flags": ["market_panic_accounted"],
+        "outcome": "It's not a comfortable press conference. It buys you real credibility."
+      },
+      {
+        "index": 1, "text": "Let the Treasury Secretary take the public heat instead.",
+        "effects": { "approval": 1 },
+        "relationshipDelta": -14,
+        "crossesBreakingPoint": "market_confidence",
+        "sets_flags": ["market_panic_scapegoated"],
+        "outcome": "The strategy works, politically. Your Treasury Secretary won't forget who it worked on."
+      }
+    ]
+  },
+
+  {
+    "id": "storyline_ag_special_counsel_1",
+    "title": "Special Counsel Investigation",
+    "category": "personnel",
+    "description": "Someone close to the administration is accused of corruption. Your Attorney General wants direction before this becomes a story about you.",
+    "archetypeText": {
+      "The Rule-of-Law Purist": "He's already made clear he'll appoint a special counsel regardless of what you'd prefer.",
+      "The Prosecutor": "She's ready to move fast and publicly — she thinks getting ahead of it is the only real defense.",
+      "The Civil Libertarian": "He wants to be absolutely certain the process itself can't be challenged later, even if that means it moves slower."
+    },
+    "triggers": { "always_available": true },
+    "sets_flags": ["special_counsel_stage1"],
+    "requires_flags": [],
+    "weight": 3,
+    "npcId": "attorney_general",
+    "personnelMeta": { "tier": "storyline" },
+    "choices": [
+      {
+        "index": 0, "text": "Let the investigation proceed independently.",
+        "effects": { "approval": -2, "globalReputation": 2 },
+        "relationshipDelta": 10,
+        "sets_flags": ["special_counsel_independent"],
+        "outcome": "It's uncomfortable. It's also the version of this story where you come out looking honest."
+      },
+      {
+        "index": 1, "text": "Ask your AG to slow things down quietly.",
+        "effects": { "approval": 1 },
+        "relationshipDelta": -18,
+        "crossesBreakingPoint": "illegal_action",
+        "sets_flags": ["special_counsel_pressured"],
+        "outcome": "They comply, on the record, that nothing improper occurred. You both know exactly what just happened."
+      }
+    ]
+  },
+  {
+    "id": "storyline_ag_special_counsel_2",
+    "title": "Special Counsel: The Findings",
+    "category": "personnel",
+    "description": "The investigation has concluded. Now you have to decide what to do with what it found.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": ["special_counsel_stage1"],
+    "weight": 3,
+    "npcId": "attorney_general",
+    "personnelMeta": { "tier": "storyline" },
+    "callbacks": [
+      { "flag": "special_counsel_independent", "text": "You let this run independently once already. That choice is part of why the findings will actually be believed." },
+      { "flag": "special_counsel_pressured", "text": "You leaned on this process once already. Whatever it finds now will be read through that lens." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Release the findings in full, consequences included.",
+        "effects": { "approval": -1, "globalReputation": 2 },
+        "relationshipDelta": 10,
+        "sets_flags": ["special_counsel_released"],
+        "outcome": "It's a bad week. It's the kind of bad week that ages well in the history books."
+      },
+      {
+        "index": 1, "text": "Release a heavily redacted summary.",
+        "effects": { "approval": 1 },
+        "relationshipDelta": -10,
+        "sets_flags": ["special_counsel_redacted"],
+        "outcome": "The headlines write themselves: \"What Is the White House Hiding?\""
+      }
+    ]
+  },
+
+  {
+    "id": "storyline_cos_leaked_memo_1",
+    "title": "The Leaked Memo",
+    "category": "personnel",
+    "description": "An internal strategy memo — blunt, unflattering about several allies in Congress — has leaked to a reporter. Your Chief of Staff wrote it.",
+    "archetypeText": {
+      "The Honest Operator": "He doesn't deny writing it. \"Everything in it is true. That's probably why it leaked.\"",
+      "The Enforcer": "She's already identified three possible leakers and wants authorization to deal with it her way.",
+      "The Quiet Strategist": "He's more curious about who benefits from the leak than embarrassed by its contents."
+    },
+    "triggers": { "always_available": true },
+    "sets_flags": ["leaked_memo_stage1"],
+    "requires_flags": [],
+    "weight": 3,
+    "npcId": "chief_of_staff",
+    "personnelMeta": { "tier": "storyline" },
+    "choices": [
+      {
+        "index": 0, "text": "Own it publicly — the memo said nothing untrue.",
+        "effects": { "congressSupport": -4, "approval": 1 },
+        "relationshipDelta": 10,
+        "sets_flags": ["leaked_memo_owned"],
+        "outcome": "Congress is furious. Your Chief of Staff has never looked more relieved."
+      },
+      {
+        "index": 1, "text": "Distance yourself from the memo's contents.",
+        "effects": { "congressSupport": 2 },
+        "relationshipDelta": -14,
+        "sets_flags": ["leaked_memo_disowned"],
+        "outcome": "Congress calms down. Your Chief of Staff goes quiet in a way that isn't calm at all."
+      }
+    ]
+  },
+  {
+    "id": "storyline_cos_leaked_memo_2",
+    "title": "The Leaked Memo: Finding the Source",
+    "category": "personnel",
+    "description": "An internal review has identified who likely leaked the memo — someone junior, acting alone, apparently trying to protect a member of Congress the memo criticized.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": ["leaked_memo_stage1"],
+    "weight": 3,
+    "npcId": "chief_of_staff",
+    "personnelMeta": { "tier": "storyline" },
+    "callbacks": [
+      { "flag": "leaked_memo_owned", "text": "You backed this memo publicly already. Firing the leaker now would read as retaliation, not principle." },
+      { "flag": "leaked_memo_disowned", "text": "You distanced yourself from this memo already. Your Chief of Staff is watching to see if you'll protect the staffer, too." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Let it go — no public consequence for the staffer.",
+        "effects": {},
+        "relationshipDelta": 8,
+        "sets_flags": ["leaked_memo_mercy"],
+        "outcome": "\"That was the right call,\" your Chief of Staff says quietly. The building notices the mercy, too."
+      },
+      {
+        "index": 1, "text": "Terminate the staffer to send a message.",
+        "effects": { "congressSupport": 2 },
+        "relationshipDelta": -8,
+        "sets_flags": ["leaked_memo_fired_staffer"],
+        "outcome": "The message lands. So does the reputation it earns you inside the building."
+      }
+    ]
+  },
+
+  {
+    "id": "storyline_vp_speaking_circuit_1",
+    "title": "The Speaking Circuit",
+    "category": "personnel",
+    "description": "Your Vice President has been drawing bigger crowds and better headlines on the road than you have lately. Nobody's said it out loud yet.",
+    "archetypeText": {
+      "The Ambitious Loyalist": "She's careful to credit you in every speech. You still notice the crowd sizes.",
+      "The Bridge Builder": "He's quietly becoming the most trusted figure in the building on both sides of the aisle.",
+      "The Outsider's Insider": "She's blunt about it: \"People like hearing it straight. That's not a knock on you.\""
+    },
+    "triggers": { "always_available": true },
+    "sets_flags": ["vp_circuit_stage1"],
+    "requires_flags": [],
+    "weight": 3,
+    "npcId": "vice_president",
+    "personnelMeta": { "tier": "storyline" },
+    "choices": [
+      {
+        "index": 0, "text": "Give them a bigger national platform.",
+        "effects": { "approval": 2 },
+        "relationshipDelta": 10,
+        "sets_flags": ["vp_circuit_elevated"],
+        "outcome": "The approval bump is real. So is the growing sense that this is becoming their coalition too."
+      },
+      {
+        "index": 1, "text": "Pull back their public role.",
+        "effects": { "approval": -1 },
+        "relationshipDelta": -14,
+        "crossesBreakingPoint": "sidelined",
+        "sets_flags": ["vp_circuit_pulled_back"],
+        "outcome": "The crowds get smaller. So, visibly, does their patience."
+      }
+    ]
+  },
+  {
+    "id": "storyline_vp_speaking_circuit_2",
+    "title": "The Speaking Circuit: The Polling",
+    "category": "personnel",
+    "description": "New internal polling shows your Vice President's personal favorability climbing past your own for the first time.",
+    "triggers": { "always_available": true },
+    "sets_flags": [],
+    "requires_flags": ["vp_circuit_stage1"],
+    "weight": 3,
+    "npcId": "vice_president",
+    "personnelMeta": { "tier": "storyline" },
+    "callbacks": [
+      { "flag": "vp_circuit_elevated", "text": "You gave them the platform that got them here. Whatever happens next, that choice is part of the story." },
+      { "flag": "vp_circuit_pulled_back", "text": "You tried to pull them back once already. The numbers moved anyway." }
+    ],
+    "choices": [
+      {
+        "index": 0, "text": "Lean into it — a popular VP is an asset, not a threat.",
+        "effects": { "approval": 1, "baseSupport": 2 },
+        "relationshipDelta": 10,
+        "sets_flags": ["vp_circuit_embraced"],
+        "outcome": "\"Thank you for not treating this like a competition,\" they say. You mean it when you say it isn't."
+      },
+      {
+        "index": 1, "text": "Quietly start managing their exposure.",
+        "effects": {},
+        "relationshipDelta": -16,
+        "sets_flags": ["vp_circuit_managed"],
+        "outcome": "They notice. Of course they notice. They don't say anything about it — yet."
+      }
+    ]
+  }
+]

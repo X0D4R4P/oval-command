@@ -72,6 +72,10 @@ model Game {
   passedLaws      Json       @default("[]")
   usedEvents      Json       @default("[]")
   approvalHistory Json       @default("[]")
+  cabinetSelections Json     @default("{}")
+  npcTraits       Json       @default("{}")
+  npcObservations Json       @default("{}")
+  priorities      Json       @default("[]")
   legacyScore     Int?
   currentEventId  String?
   createdAt       DateTime   @default(now()) @db.Timestamp(3)
@@ -127,4 +131,5 @@ enum ActionType {
   PRESS_CONFERENCE
   DIPLOMATIC_VISIT
   TURN_END
+  PERSONNEL
 }

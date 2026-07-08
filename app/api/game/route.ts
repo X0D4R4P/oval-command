@@ -5,6 +5,8 @@ import { prisma } from '@/lib/prisma'
 import { createInitialGame, pickEvent } from '@/lib/game-engine'
 import { ALL_PERKS } from '@/lib/achievements'
 import { resolveCampaignChoices } from '@/lib/campaign'
+import { validateCabinetSelections, sumStartingBonuses, seedRosterState } from '@/lib/cabinet'
+import { validatePriorities } from '@/lib/priorities'
 import { dbToGame, toJson, toUnlockedAchievements } from '@/lib/db-helpers'
 import type { CreateGameRequest, StatDelta } from '@/types/game'
 
@@ -34,7 +36,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
   }
 
-  const { presidentName, party, difficulty = 'normal', perkId, campaignChoiceIds } = body
+  const { presidentName, party, difficulty = 'normal', perkId, campaignChoiceIds, cabinetSelections, priorities } = body
 
   if (!presidentName?.trim() || presidentName.trim().length > 60) {
     return NextResponse.json({ error: 'President name must be 1–60 characters' }, { status: 400 })
@@ -63,12 +65,31 @@ export async function POST(req: NextRequest) {
   // Re-derived from the real scenario/option list, never trusted as a raw
   // delta from the client — see lib/campaign.ts.
   const campaignBonus = Array.isArray(campaignChoiceIds) ? resolveCampaignChoices(campaignChoiceIds) : {}
+  // Same "never trust client ids" posture — falls back to each slot's
+  // first candidate for anything missing/invalid, see lib/cabinet.ts.
+  const resolvedCabinetSelections = validateCabinetSelections(cabinetSelections)
+  const cabinetBonus = sumStartingBonuses(resolvedCabinetSelections)
+  const resolvedPriorities = validatePriorities(priorities)
+
   const combinedBonus: StatDelta = { ...perkBonus }
   for (const [key, value] of Object.entries(campaignBonus) as [keyof StatDelta, number][]) {
     combinedBonus[key] = ((combinedBonus[key] ?? 0) as number) + value
   }
+  for (const [key, value] of Object.entries(cabinetBonus) as [keyof StatDelta, number][]) {
+    combinedBonus[key] = ((combinedBonus[key] ?? 0) as number) + value
+  }
 
-  const initial = createInitialGame(session.user.id, presidentName.trim(), party, difficulty, combinedBonus)
+  const rosterState = seedRosterState(resolvedCabinetSelections)
+  const initial = createInitialGame(
+    session.user.id,
+    presidentName.trim(),
+    party,
+    difficulty,
+    combinedBonus,
+    resolvedCabinetSelections,
+    rosterState,
+    resolvedPriorities,
+  )
 
   let dbGame
   try {
@@ -91,6 +112,10 @@ export async function POST(req: NextRequest) {
         passedLaws:          toJson(initial.passedLaws),
         usedEvents:          toJson(initial.usedEvents),
         approvalHistory:     toJson(initial.approvalHistory),
+        cabinetSelections:   toJson(initial.cabinetSelections),
+        npcTraits:           toJson(initial.npcTraits),
+        npcObservations:     toJson(initial.npcObservations),
+        priorities:          toJson(initial.priorities),
       },
     })
   } catch (err) {

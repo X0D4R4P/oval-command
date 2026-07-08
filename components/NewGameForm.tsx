@@ -9,7 +9,11 @@ import { PartyIcon } from '@/components/game/PartyIcon'
 import { RoomBackground, roomAccentStyle } from '@/components/game/RoomBackground'
 import { getRoomTreatment } from '@/lib/event-backgrounds'
 import { CAMPAIGN_SCENARIOS, resolveCampaignChoices, computeElectionResult } from '@/lib/campaign'
-import type { Party, Difficulty, Perk, CreateGameResponse } from '@/types/game'
+import { CabinetSlotPicker } from '@/components/CabinetSlotPicker'
+import { getDefaultCabinetSelections } from '@/lib/cabinet'
+import { PRIORITY_DEFS, MIN_PRIORITIES, MAX_PRIORITIES } from '@/lib/priorities'
+import type { Party, Difficulty, Perk, CreateGameResponse, SelectableSlotId } from '@/types/game'
+import { SELECTABLE_SLOT_IDS } from '@/types/game'
 
 const DEBATE_BG = '/debate-podium-bg.webp'
 const VICTORY_BG = '/victory-night-bg.webp'
@@ -44,6 +48,13 @@ type Phase =
   | { step: 'setup' }
   | { step: 'campaign'; scenarioIndex: number; choiceIds: string[] }
   | { step: 'election-night'; choiceIds: string[]; retryCount: number }
+  | {
+      step: 'cabinet-assembly'
+      choiceIds: string[]
+      slotIndex: number // 0-4 = a Cabinet slot, 5 = priorities screen
+      selections: Partial<Record<SelectableSlotId, string>>
+      priorities: string[]
+    }
 
 export function NewGameForm({ unlockedPerks }: NewGameFormProps) {
   const router = useRouter()
@@ -111,7 +122,44 @@ export function NewGameForm({ unlockedPerks }: NewGameFormProps) {
       }
     } else if (phase.step === 'election-night') {
       setPhase({ step: 'campaign', scenarioIndex: CAMPAIGN_SCENARIOS.length - 1, choiceIds: phase.choiceIds.slice(0, -1) })
+    } else if (phase.step === 'cabinet-assembly') {
+      if (phase.slotIndex === 0) {
+        setPhase({ step: 'election-night', choiceIds: phase.choiceIds, retryCount: 0 })
+      } else {
+        setPhase({ ...phase, slotIndex: phase.slotIndex - 1 })
+      }
     }
+  }
+
+  // Election night's "Take the Oath" doesn't POST immediately anymore —
+  // it walks the player through assembling their administration first.
+  function handleProceedToAssembly() {
+    if (phase.step !== 'election-night') return
+    setPhase({ step: 'cabinet-assembly', choiceIds: phase.choiceIds, slotIndex: 0, selections: {}, priorities: [] })
+  }
+
+  function handleSelectCandidate(candidateId: string) {
+    if (phase.step !== 'cabinet-assembly') return
+    const slotId = SELECTABLE_SLOT_IDS[phase.slotIndex]
+    setPhase({ ...phase, selections: { ...phase.selections, [slotId]: candidateId }, slotIndex: phase.slotIndex + 1 })
+  }
+
+  function handleTogglePriority(id: string) {
+    if (phase.step !== 'cabinet-assembly') return
+    const has = phase.priorities.includes(id)
+    if (has) {
+      setPhase({ ...phase, priorities: phase.priorities.filter(p => p !== id) })
+    } else if (phase.priorities.length < MAX_PRIORITIES) {
+      setPhase({ ...phase, priorities: [...phase.priorities, id] })
+    }
+  }
+
+  // Fills every slot with its default (first) candidate and skips
+  // priorities entirely — for repeat players who don't want to replay
+  // assembly every term, same precedent as handleSkipCampaign.
+  function handleSkipAssembly() {
+    if (phase.step !== 'cabinet-assembly') return
+    void handleTakeOath(getDefaultCabinetSelections(), [])
   }
 
   // The rare "conceded the race" result isn't a real game-over — it's an
@@ -123,8 +171,8 @@ export function NewGameForm({ unlockedPerks }: NewGameFormProps) {
     setPhase({ step: 'election-night', choiceIds: phase.choiceIds, retryCount: phase.retryCount + 1 })
   }
 
-  async function handleTakeOath() {
-    if (phase.step !== 'election-night') return
+  async function handleTakeOath(selections: Partial<Record<SelectableSlotId, string>>, priorities: string[]) {
+    if (phase.step !== 'cabinet-assembly') return
     setLoading(true)
     setError(null)
 
@@ -138,6 +186,8 @@ export function NewGameForm({ unlockedPerks }: NewGameFormProps) {
           difficulty,
           perkId: perkId ?? undefined,
           campaignChoiceIds: phase.choiceIds,
+          cabinetSelections: selections,
+          priorities,
         }),
       })
 
@@ -289,11 +339,10 @@ export function NewGameForm({ unlockedPerks }: NewGameFormProps) {
           {result.won ? (
             <button
               type="button"
-              onClick={handleTakeOath}
-              disabled={loading}
-              className="mt-8 w-full rounded-sm border border-[var(--color-brass-dim)] bg-[var(--color-brass)] py-3 text-sm font-medium text-[var(--color-ink)] transition-opacity hover:opacity-90 disabled:opacity-50"
+              onClick={handleProceedToAssembly}
+              className="mt-8 w-full rounded-sm border border-[var(--color-brass-dim)] bg-[var(--color-brass)] py-3 text-sm font-medium text-[var(--color-ink)] transition-opacity hover:opacity-90"
             >
-              {loading ? 'Preparing the briefing…' : 'Take the Oath of Office'}
+              Assemble Your Administration →
             </button>
           ) : (
             <button
@@ -303,6 +352,107 @@ export function NewGameForm({ unlockedPerks }: NewGameFormProps) {
             >
               Try Again
             </button>
+          )}
+        </div>
+      </main>
+    )
+  }
+
+  if (phase.step === 'cabinet-assembly') {
+    const treatment = getRoomTreatment('/oval-office-bg.webp')
+    const onLastSlot = phase.slotIndex >= SELECTABLE_SLOT_IDS.length
+
+    return (
+      <main className="flex min-h-screen items-center justify-center px-6 py-12" style={roomAccentStyle('var(--color-brass)')}>
+        <RoomBackground
+          image="/oval-office-bg.webp"
+          color="var(--color-brass)"
+          backgroundPosition={treatment.backgroundPosition}
+          foreground={{ style: treatment.foregroundStyle, color: treatment.foregroundColor }}
+        />
+        <div className="w-full max-w-md">
+          <div className="flex items-center justify-between">
+            <button
+              type="button"
+              onClick={handleBack}
+              className="font-mono text-[10px] uppercase tracking-[0.1em] text-[var(--color-paper-faint)] hover:text-[var(--color-paper)]"
+            >
+              ← Back
+            </button>
+            <button
+              type="button"
+              onClick={handleSkipAssembly}
+              disabled={loading}
+              className="font-mono text-[10px] uppercase tracking-[0.1em] text-[var(--color-paper-faint)] hover:text-[var(--color-paper)] disabled:opacity-50"
+            >
+              Skip — use default appointees →
+            </button>
+          </div>
+
+          {!onLastSlot ? (
+            <>
+              <div className="mt-4 text-center font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-brass)]">
+                Cabinet {phase.slotIndex + 1} of {SELECTABLE_SLOT_IDS.length}
+              </div>
+              <div className="mt-4">
+                <CabinetSlotPicker
+                  slotId={SELECTABLE_SLOT_IDS[phase.slotIndex]}
+                  selectedCandidateId={phase.selections[SELECTABLE_SLOT_IDS[phase.slotIndex]]}
+                  onSelect={handleSelectCandidate}
+                />
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="mt-4 text-center">
+                <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-brass)]">
+                  Campaign Priorities
+                </div>
+                <h2 className="mt-2 font-[family-name:var(--font-display)] text-xl font-semibold text-[var(--color-paper)]">
+                  What did you promise voters?
+                </h2>
+                <p className="mt-2 text-sm text-[var(--color-paper-dim)]">
+                  Choose {MIN_PRIORITIES}–{MAX_PRIORITIES}. Neglect one for too long and your own Chief of Staff will let you know.
+                </p>
+              </div>
+
+              <div className="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-2">
+                {PRIORITY_DEFS.map(p => {
+                  const selected = phase.priorities.includes(p.id)
+                  return (
+                    <button
+                      key={p.id}
+                      type="button"
+                      onClick={() => handleTogglePriority(p.id)}
+                      className={cn(
+                        'rounded-sm border px-3.5 py-2.5 text-left transition-colors',
+                        selected
+                          ? 'border-[var(--color-brass)] bg-[var(--color-surface-2)]'
+                          : 'border-[var(--color-border-strong)] bg-[var(--color-surface)] hover:border-[var(--color-brass-dim)]'
+                      )}
+                    >
+                      <div className="text-sm font-medium text-[var(--color-paper)]">{p.label}</div>
+                      <div className="mt-0.5 text-[11px] text-[var(--color-paper-faint)]">{p.description}</div>
+                    </button>
+                  )
+                })}
+              </div>
+
+              {error && (
+                <p className="mt-5 rounded-sm bg-[var(--color-bad-dim)] px-3.5 py-2.5 text-sm text-[var(--color-bad)]">
+                  {error}
+                </p>
+              )}
+
+              <button
+                type="button"
+                onClick={() => handleTakeOath(phase.selections, phase.priorities)}
+                disabled={loading || phase.priorities.length < MIN_PRIORITIES}
+                className="mt-6 w-full rounded-sm border border-[var(--color-brass-dim)] bg-[var(--color-brass)] py-3 text-sm font-medium text-[var(--color-ink)] transition-opacity hover:opacity-90 disabled:opacity-50"
+              >
+                {loading ? 'Preparing the briefing…' : 'Take the Oath of Office'}
+              </button>
+            </>
           )}
         </div>
       </main>

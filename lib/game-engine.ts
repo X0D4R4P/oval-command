@@ -17,6 +17,8 @@ import {
   type Party,
   type PendingConsequence,
   type Headline,
+  type SelectableSlotId,
+  type NpcTraits,
 } from '@/types/game'
 
 import eventsRaw from '@/data/events.json'
@@ -25,13 +27,17 @@ import { updateActiveConflicts } from '@/lib/conflict-engine'
 import { generateCrisisHeadline, maybeApprovalTrendHeadline } from '@/lib/headlines'
 import { checkAndEnqueueChains, resolveDueConsequences } from '@/lib/cascade-engine'
 import { checkNpcMilestones } from '@/lib/npc-milestones'
+import personnelEventsRaw from '@/data/personnel-events.json'
 import lawsRaw   from '@/data/laws.json'
-import npcsRaw   from '@/data/npcs.json'
 
-// Cast once at the boundary — all internal code uses proper types
-export const EVENTS = eventsRaw as unknown as CrisisEvent[]
+// Cast once at the boundary — all internal code uses proper types.
+// NPCS is deliberately NOT exported here — data/npcs.json's 5 selectable
+// slots resolve to a different Npc depending on the game (see
+// lib/cabinet.ts's resolveRoster/FIXED_NPCS). Every function below that
+// used to read a module-level NPCS constant now takes a `roster: Npc[]`
+// parameter from the caller instead.
+export const EVENTS = [...eventsRaw, ...personnelEventsRaw] as unknown as CrisisEvent[]
 export const LAWS   = lawsRaw   as unknown as Law[]
-export const NPCS   = npcsRaw   as unknown as Npc[]
 
 // ============================================================
 // STAT HELPERS
@@ -357,14 +363,19 @@ export function getEventCallback(event: CrisisEvent, flags: Record<string, boole
 }
 
 export function pickEvent(game: Game): CrisisEvent | null {
-  const eligible = EVENTS.filter(event => isEventEligible(event, game))
+  // 'personnel' category events are never part of the ordinary crisis-
+  // briefing pool — they're only ever surfaced explicitly, either by the
+  // player (Cabinet Room "Discuss") or by the NPC Initiative Engine (see
+  // lib/cabinet-narrative.ts), never picked at random for the Oval Office.
+  const nonPersonnel = EVENTS.filter(e => e.category !== 'personnel')
+  const eligible = nonPersonnel.filter(event => isEventEligible(event, game))
 
   if (eligible.length === 0) {
     // Fallback: any always_available event not used in last 4 turns
-    const fallback = EVENTS.filter(
+    const fallback = nonPersonnel.filter(
       e => e.triggers.always_available && !game.usedEvents.slice(-4).includes(e.id)
     )
-    return fallback.length ? weightedRandom(fallback) : EVENTS[0]
+    return fallback.length ? weightedRandom(fallback) : nonPersonnel[0]
   }
 
   return weightedRandom(eligible)
@@ -432,12 +443,13 @@ export function getDialogueTier(val: number): DialogueTier {
 
 export function processNpcReactions(
   game: Game,
-  triggerKeys: string[]
+  triggerKeys: string[],
+  roster: Npc[]
 ): { reactions: NpcReactionResult[]; newRelationships: Record<string, number> } {
   const relationships = { ...game.npcRelationships }
 
   // Seed any missing NPC relationships from their defaults
-  for (const npc of NPCS) {
+  for (const npc of roster) {
     if (relationships[npc.id] === undefined) {
       relationships[npc.id] = npc.relationship.start
     }
@@ -446,7 +458,7 @@ export function processNpcReactions(
   const reactions: NpcReactionResult[] = []
 
   // Only NPCs with a relevant delta react this turn (cap at 3)
-  const reacting = NPCS
+  const reacting = roster
     .filter(npc => triggerKeys.some(k => npc.relationshipDeltas[k] !== undefined))
     .slice(0, 3)
 
@@ -646,6 +658,7 @@ export interface MonthAdvanceResult {
 export function advanceMonth(
   game: Game,
   extraPendingConsequences: PendingConsequence[] = [],
+  npcTraitsOverride?: Record<string, NpcTraits>,
 ): MonthAdvanceResult {
   const drift = computePassiveDrift(game)
   const nextMonthNumber = game.currentMonth + 1
@@ -673,6 +686,7 @@ export function advanceMonth(
     chainCooldowns:      updatedCooldowns,
     currentMonth:        nextMonthNumber,
     approvalHistory:     [...game.approvalHistory, Math.round(driftedStats.approval)],
+    npcTraits:           npcTraitsOverride ?? game.npcTraits,
     updatedAt:           new Date().toISOString(),
   }
 
@@ -692,7 +706,8 @@ export function advanceMonth(
 export function processEventTurn(
   game: Game,
   eventId: string,
-  choiceIndex: number
+  choiceIndex: number,
+  roster: Npc[]
 ): TurnResult {
   const event = EVENTS.find(e => e.id === eventId)
   if (!event) throw new Error(`Event not found: ${eventId}`)
@@ -722,13 +737,14 @@ export function processEventTurn(
 
   const { reactions, newRelationships } = processNpcReactions(
     { ...game, stats: newStats, flags: newFlags },
-    triggerKeys
+    triggerKeys,
+    roster
   )
 
   // One-time flags for relationships that just crossed into the ally or
   // estranged tier this turn — computed from the pre/post relationship
   // values, not part of any earlier this-turn NPC-reaction resolution.
-  const milestoneFlags = checkNpcMilestones(NPCS, game.npcRelationships, newRelationships, newFlags)
+  const milestoneFlags = checkNpcMilestones(roster, game.npcRelationships, newRelationships, newFlags)
 
   // Resolve conflict lifecycle (entry/escalation/de-escalation/resolution)
   // BEFORE computing passive drift, since drift's war-cost loop reads activeConflicts.
@@ -827,11 +843,12 @@ export function createInitialGame(
   presidentName: string,
   party: Party,
   difficulty: import('@/types/game').Difficulty = 'normal',
-  perkBonus?: StatDelta
+  perkBonus: StatDelta | undefined,
+  cabinetSelections: Record<SelectableSlotId, string>,
+  rosterState: { npcRelationships: Record<string, number>; npcTraits: Record<string, NpcTraits> },
+  priorities: string[] = [],
 ): Omit<Game, 'id' | 'createdAt' | 'updatedAt'> {
-  const npcRelationships: Record<string, number> = Object.fromEntries(
-    NPCS.map(npc => [npc.id, npc.relationship.start])
-  )
+  const { npcRelationships, npcTraits } = rosterState
 
   const diffMods = DIFFICULTY_MODS[difficulty] ?? {}
   const baseStats: GameStats = { ...INITIAL_STATS, ...(PARTY_STAT_MODS[party] ?? {}) }
@@ -860,6 +877,10 @@ export function createInitialGame(
     passedLaws:       [],
     usedEvents:       [],
     approvalHistory:  [stats.approval],
+    cabinetSelections,
+    npcTraits,
+    npcObservations:  {},
+    priorities,
     legacyScore:      undefined,
   }
 }

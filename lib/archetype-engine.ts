@@ -11,7 +11,7 @@
  */
 
 import type { Game, GameLog } from '@/types/game'
-import { NPCS } from '@/lib/game-engine'
+import { resolveRoster } from '@/lib/cabinet'
 
 export interface PresidentialArchetype {
   title:                string   // "The Crisis Manager"
@@ -178,7 +178,7 @@ const ARCHETYPES: Array<{
 // comparison is fair across NPCs with very different starting positions
 // (e.g. opposition_leader's 5-70 range vs. chief_of_staff's 15-100).
 function buildRelationshipLegacy(game: Game): string {
-  const scored = NPCS.map(npc => {
+  const scored = resolveRoster(game).map(npc => {
     const value = game.npcRelationships[npc.id] ?? npc.relationship.start
     const { min, max } = npc.relationship
     return { name: npc.shortName, pct: (value - min) / (max - min) }

@@ -75,6 +75,7 @@ export type ActionType  =
   | 'PRESS_CONFERENCE'
   | 'DIPLOMATIC_VISIT'
   | 'TURN_END'
+  | 'PERSONNEL'
 
 export type GameOverReason =
   | 'IMPEACHMENT'          // approval < 10
@@ -93,6 +94,7 @@ export type StatDelta = Partial<Record<keyof GameStats, number>>
 export type EventCategory =
   | 'security' | 'economy' | 'disaster' | 'military'
   | 'scandal'  | 'congress' | 'social'  | 'diplomacy'
+  | 'personnel'
 
 export interface EventTriggers {
   always_available?: boolean
@@ -120,6 +122,25 @@ export interface EventChoice {
     effects:      StatDelta
     headline:     string
   }>
+  /**
+   * Hidden-trait deltas for personnel-category scenes (see NpcTraits) —
+   * parallel to `effects`/`relationshipDeltas` but for the 6 never-shown
+   * character traits. Applied to `event.npcId` (or the scene's acting npc).
+   */
+  traitDeltas?: Partial<Record<keyof NpcTraits, number>>
+  /** Personnel-scene-only: direct relationship change applied to the acting official (event.npcId) — parallel to traitDeltas, since generic trigger-key matching doesn't fit one-off scene dialogue the way it fits recurring law/event flags. */
+  relationshipDelta?: number
+  /**
+   * Marks this choice as crossing the acting official's one hard line
+   * (see CabinetCandidate.breakingPointTag). When set, matches against
+   * that candidate's tag rather than applying a relationship delta — it
+   * permanently flags `{npcId}_broke_trust` instead, which the NPC
+   * Initiative Engine reads to unlock/upweight that official's leak/
+   * resign/distant/publicly-disagree content for the rest of the term.
+   */
+  crossesBreakingPoint?: string
+  /** Personnel-scene-only: this choice ends in firing/losing the acting official — client transitions straight to the candidate-replacement picker (POST /api/game/[id]/cabinet) rather than treating the scene as fully resolved. */
+  opensReplacementPicker?: boolean
 }
 
 export interface CrisisEvent {
@@ -149,6 +170,42 @@ export interface CrisisEvent {
    * "Your history:" line on this briefing. First matching entry wins.
    */
   callbacks?: Array<{ flag: string; text: string }>
+  /**
+   * Personnel-category scenes (category: 'personnel') center on one
+   * specific official — `npcId` is the slot id (e.g. 'treasury_secretary'),
+   * resolved per-game via lib/cabinet.ts's resolveRoster(), NOT a fixed
+   * NPCS lookup, since which candidate fills that slot varies per game.
+   */
+  npcId?: string
+  /**
+   * Per-archetype flavor override for `description` — lets one shared
+   * storyline framework (e.g. "Operation Black Tide") read differently
+   * depending on whether the occupying candidate is hawkish, diplomatic,
+   * etc., without forking the whole event. Falls back to `description`
+   * when the active candidate's archetype has no entry.
+   */
+  archetypeText?: Record<string, string>
+  /**
+   * Ordered multi-speaker exchange rendered before the choices, for the
+   * rare "whole room" personnel scenes (e.g. Defense wants to strike,
+   * Treasury objects, AG raises legality). Most events — personnel or
+   * otherwise — omit this and render as a single `description` block.
+   */
+  dialogueSequence?: Array<{ npcId: string; line: string }>
+  /**
+   * Selection hints read only by the NPC Initiative Engine
+   * (lib/cabinet-narrative.ts) to decide which personnel scene to
+   * surface and how likely it is this month — never used for ordinary
+   * (non-personnel) events.
+   */
+  personnelMeta?: {
+    /** Weighted up when the acting official's `goalTag` matches. */
+    goalTag?: string
+    /** Weighted up the higher the acting official's value on this trait. */
+    traitTag?: keyof NpcTraits
+    /** Coarse content type, used for pacing/priority ordering. */
+    tier?: 'ambient' | 'request' | 'conflict' | 'resignation' | 'neglect' | 'room' | 'storyline' | 'discuss' | 'interview'
+  }
 }
 
 // ============================================================
@@ -311,6 +368,75 @@ export interface Npc {
 }
 
 // ============================================================
+// CABINET (selectable NPCs) — see lib/cabinet.ts
+// ============================================================
+
+/**
+ * Six hidden character traits, never shown as numbers during play (see
+ * lib/cabinet-traits.ts) — only through unlocked `Game.npcObservations`
+ * text and scene behavior. Fully revealed post-game on the Legacy
+ * Intelligence Report. All 0-100; `ideology` is centered at 50.
+ */
+export interface NpcTraits {
+  loyalty:        number
+  ambition:       number
+  integrity:      number
+  politicalSkill: number
+  stress:         number
+  ideology:       number
+}
+
+/** One candidate option for a selectable Cabinet slot — everything a resolved Npc has, plus the extras that make candidates for the same slot meaningfully different. */
+export interface CabinetCandidate {
+  candidateId:  string
+  name:         string
+  shortName:    string
+  avatar:       string
+  avatarColor:  string
+  image?:       string
+  personality: {
+    archetype:   string
+    description: string
+    traits:      string[]
+  }
+  relationship: {
+    start: number
+    min:   number
+    max:   number
+  }
+  triggers: Npc['triggers']
+  relationshipDeltas: Record<string, number>
+  monthlyDialogue: Npc['monthlyDialogue']
+  specialAbility: NpcSpecialAbility
+  traits: NpcTraits
+  /** Short, player-visible personal agenda shown on the dossier — also matched against CrisisEvent.personnelMeta.goalTag by the initiative engine. */
+  goal:    string
+  goalTag: string
+  /** Player-visible line naming the one thing this candidate won't do — matched against EventChoice.crossesBreakingPoint. */
+  breakingPoint:    string
+  breakingPointTag: string
+  /** Small starting-stat bonus applied once, at hire time — same clamped pipeline as perks/campaign bonuses. */
+  startingBonus?: StatDelta
+}
+
+/** A selectable Cabinet position — 3-4 CabinetCandidates, one of which is active per game (see Game.cabinetSelections). */
+export interface CabinetSlot {
+  id:         string
+  faction:    NpcFaction
+  role:       string
+  selectable: true
+  candidates: CabinetCandidate[]
+}
+
+/** data/npcs.json entries are either a fixed Npc or a selectable CabinetSlot. */
+export type NpcEntry = Npc | CabinetSlot
+
+export const SELECTABLE_SLOT_IDS = [
+  'vice_president', 'chief_of_staff', 'sec_defense', 'treasury_secretary', 'attorney_general',
+] as const
+export type SelectableSlotId = typeof SELECTABLE_SLOT_IDS[number]
+
+// ============================================================
 // GAME STATE
 // ============================================================
 
@@ -361,6 +487,14 @@ export interface Game {
   usedEvents:       string[]
   approvalHistory:  number[]
   legacyScore?:     number
+  /** Which candidate currently fills each selectable Cabinet slot — see lib/cabinet.ts's resolveRoster(). Missing/invalid entries fall back to that slot's first candidate. */
+  cabinetSelections: Partial<Record<SelectableSlotId, string>>
+  /** Current, evolving hidden trait values per npc id — seeded from the active candidate's static traits at hire time. */
+  npcTraits: Record<string, NpcTraits>
+  /** Unlocked dossier clue text per npc id (Layer 2 — see lib/cabinet-traits.ts's revealObservation). */
+  npcObservations: Record<string, string[]>
+  /** 3-5 campaign-promised priority ids (see lib/priorities.ts), chosen at cabinet assembly. */
+  priorities: string[]
   createdAt:        string
   updatedAt:        string
   logs?:            GameLog[]
@@ -449,6 +583,8 @@ export interface CreateGameRequest {
   difficulty?:       Difficulty
   perkId?:           string
   campaignChoiceIds?: string[]
+  cabinetSelections?: Partial<Record<string, string>>
+  priorities?:        string[]
 }
 
 export interface CreateGameResponse {

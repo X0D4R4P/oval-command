@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { cn, AVATAR_COLORS } from '@/lib/utils'
 import { MILESTONE_ALLY_THRESHOLD, MILESTONE_ESTRANGED_THRESHOLD, getMilestoneText, type MilestoneTier } from '@/lib/npc-milestones'
 import type { Npc } from '@/types/game'
@@ -7,6 +8,12 @@ interface CabinetCardProps {
   npc: Npc
   relationship: number
   milestoneTier?: MilestoneTier
+  /** Dossier extras — only selectable-slot officials have these (see CabinetCandidate); every other NPC omits them and the dossier section just doesn't render. */
+  goal?: string
+  breakingPoint?: string
+  observations?: string[]
+  /** Cabinet Room "Discuss [Role]" link — omitted for non-fireable slots (VP, and every non-selectable NPC). */
+  discussHref?: string
 }
 
 function relationshipTone(value: number, min: number, max: number): { label: string; color: string } {
@@ -27,7 +34,7 @@ const FACTION_LABEL: Record<Npc['faction'], string> = {
   civil_society: 'Civil Society',
 }
 
-export function CabinetCard({ npc, relationship, milestoneTier }: CabinetCardProps) {
+export function CabinetCard({ npc, relationship, milestoneTier, goal, breakingPoint, observations, discussHref }: CabinetCardProps) {
   const { min, max } = npc.relationship
   const tone = relationshipTone(relationship, min, max)
   const barPercent = Math.max(2, Math.min(100, ((relationship - min) / (max - min)) * 100))
@@ -98,6 +105,39 @@ export function CabinetCard({ npc, relationship, milestoneTier }: CabinetCardPro
             {milestoneText}
           </p>
         </div>
+      )}
+
+      {(goal || breakingPoint || (observations && observations.length > 0)) && (
+        <div className="mt-2.5 space-y-1 border-t border-[var(--color-border)] pt-2.5">
+          {goal && (
+            <p className="text-[12px] text-[var(--color-paper-faint)]">
+              <span className="font-mono uppercase tracking-[0.05em]">Wants:</span> {goal}
+            </p>
+          )}
+          {breakingPoint && (
+            <p className="text-[12px] text-[var(--color-paper-faint)]">
+              <span className="font-mono uppercase tracking-[0.05em]">Won&rsquo;t:</span> {breakingPoint}
+            </p>
+          )}
+          {observations && observations.length > 0 && (
+            <div className="mt-1.5 space-y-1">
+              {observations.map((line, i) => (
+                <p key={i} className="text-[12px] italic leading-snug text-[var(--color-paper-dim)]">
+                  {line}
+                </p>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {discussHref && (
+        <Link
+          href={discussHref}
+          className="mt-3 block rounded-sm border border-[var(--color-border-strong)] px-3 py-1.5 text-center font-mono text-[10px] uppercase tracking-[0.08em] text-[var(--color-paper-dim)] transition-colors hover:border-[var(--color-brass-dim)] hover:text-[var(--color-brass)]"
+        >
+          Discuss →
+        </Link>
       )}
     </div>
   )

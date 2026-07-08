@@ -1,413 +1,573 @@
 [
   {
     "id": "vice_president",
-    "name": "Vice President Dana Mercer",
-    "shortName": "VP Mercer",
-    "role": "Vice President of the United States",
     "faction": "inner_circle",
-    "avatar": "DM",
-    "avatarColor": "blue",
-    "personality": {
-      "archetype": "The Ambitious Loyalist",
-      "description": "A former governor with her own national ambitions. Fiercely loyal when she believes in the mission — calculating when she doesn't. She's watching every decision you make, partly because she cares, partly because she's taking notes for 2028.",
-      "traits": [
-        "politically shrewd",
-        "quietly ambitious",
-        "genuinely competent",
-        "loyal until it costs her too much"
-      ]
-    },
-    "relationship": {
-      "start": 70,
-      "min": 10,
-      "max": 100
-    },
-    "triggers": {
-      "onLowRelationship": {
-        "threshold": 35,
-        "event": "VP begins giving distanced interviews hinting at policy disagreements",
-        "approvalDelta": -4,
-        "unrestDelta": 3
+    "role": "Vice President of the United States",
+    "selectable": true,
+    "candidates": [
+      {
+        "candidateId": "mercer",
+        "name": "Vice President Dana Mercer",
+        "shortName": "VP Mercer",
+        "avatar": "DM",
+        "avatarColor": "blue",
+        "personality": {
+          "archetype": "The Ambitious Loyalist",
+          "description": "A former governor with her own national ambitions. Fiercely loyal when she believes in the mission — calculating when she doesn't. She's watching every decision you make, partly because she cares, partly because she's taking notes for 2028.",
+          "traits": ["politically shrewd", "quietly ambitious", "genuinely competent", "loyal until it costs her too much"]
+        },
+        "relationship": { "start": 70, "min": 10, "max": 100 },
+        "triggers": {
+          "onLowRelationship": { "threshold": 35, "event": "VP begins giving distanced interviews hinting at policy disagreements", "approvalDelta": -4, "unrestDelta": 3 },
+          "onVeryLowRelationship": { "threshold": 20, "event": "Sources close to VP tell press she is 'building her own team' ahead of 2028", "approvalDelta": -8, "baseSupportDelta": -10 },
+          "onHighRelationship": { "threshold": 80, "benefit": "VP takes political hits publicly, shields you from minor scandal damage", "scandalReduction": 0.25 }
+        },
+        "relationshipDeltas": {
+          "passed_major_bill": 5, "approval_above_55": 4, "approval_below_35": -6, "at_war": -8,
+          "active_scandal": -5, "scandal_resolved": 4, "executive_overreach": -6
+        },
+        "monthlyDialogue": {
+          "high": ["We're doing something real here. I want you to know I'm all in.", "The polling looks better than the press is saying. Don't let them rattle you.", "I've been talking to governors. The coalition is holding."],
+          "medium": ["The base needs to hear from you directly. Let me set up a tour.", "I'm hearing concerns from the caucus about where this is headed. Worth a conversation.", "We should talk before the next press conference. I have thoughts."],
+          "low": ["I'm going to need to speak my own mind on this one. I hope you understand.", "My team is handling some of my own commitments this cycle. Necessary.", "I supported this decision. I want that on the record."],
+          "critical": ["I've been asked about a potential primary challenge. I told them no. For now.", "We have a problem. And I'm not sure you see it.", "My advisors are telling me things I don't want to hear about where this is going."]
+        },
+        "specialAbility": { "name": "Take the Hit", "description": "Once per term, VP can absorb a scandal, reducing its approval impact by 40%. Costs 15 relationship points.", "usesPerTerm": 1, "playerActivated": true },
+        "image": "/npcs/vice_president.png",
+        "traits": { "loyalty": 65, "ambition": 80, "integrity": 60, "politicalSkill": 85, "stress": 40, "ideology": 50 },
+        "goal": "Wants to be the party's next nominee — and wants credit for this administration's wins along the way.",
+        "goalTag": "own_ambition",
+        "breakingPoint": "Will not be sidelined from real decision-making, no matter how loyal she's been.",
+        "breakingPointTag": "sidelined",
+        "startingBonus": { "congressSupport": 2, "baseSupport": 1 }
       },
-      "onVeryLowRelationship": {
-        "threshold": 20,
-        "event": "Sources close to VP tell press she is 'building her own team' ahead of 2028",
-        "approvalDelta": -8,
-        "baseSupportDelta": -10
+      {
+        "candidateId": "reyes",
+        "name": "Vice President Senator Daniel Reyes",
+        "shortName": "VP Reyes",
+        "avatar": "DR",
+        "avatarColor": "teal",
+        "personality": {
+          "archetype": "The Bridge Builder",
+          "description": "Three-term senator known for reaching across the aisle on things nobody else could move. He took the VP slot to get more done, not to position for 2028 — a rarer motive in Washington than it should be.",
+          "traits": ["deal-maker", "risk-averse", "genuinely bipartisan", "allergic to conflict"]
+        },
+        "relationship": { "start": 68, "min": 15, "max": 100 },
+        "triggers": {
+          "onLowRelationship": { "threshold": 35, "event": "VP Reyes quietly stops returning calls from the opposition leader's office", "congressSupportDelta": -3, "approvalDelta": -2 },
+          "onVeryLowRelationship": { "threshold": 20, "event": "VP Reyes tells colleagues he's 'reconsidering what this partnership is for'", "congressSupportDelta": -8, "baseSupportDelta": -6 },
+          "onHighRelationship": { "threshold": 80, "benefit": "VP Reyes personally works the Senate cloakroom on your behalf, improving bill passage odds", "billBonus": 6 }
+        },
+        "relationshipDeltas": {
+          "bipartisan_bill_passed": 8, "passed_major_bill": 4, "approval_above_55": 3, "at_war": -4,
+          "active_scandal": -4, "scandal_resolved": 4, "executive_overreach": -8
+        },
+        "monthlyDialogue": {
+          "high": ["I got two members of the other side to say something nice about you today. That's a personal record.", "The Senate actually likes you right now. Rare air. Let's use it."],
+          "medium": ["I can get you votes on this if you give me two weeks and some room to negotiate.", "Careful with the rhetoric on this one — I need the other side calm to make the trade."],
+          "low": ["I'm running out of favors to call in. I need something to bring back to the caucus.", "That last statement made my job a lot harder. I'm not sure you meant it to."],
+          "critical": ["I've spent thirty years building relationships across the aisle. I'm watching them evaporate.", "I didn't sign up to be a partisan weapon. I need you to hear that."]
+        },
+        "specialAbility": { "name": "Coalition Cover", "description": "Once per term, VP can absorb a scandal, reducing its approval impact by 40%. Costs 15 relationship points.", "usesPerTerm": 1, "playerActivated": true },
+        "traits": { "loyalty": 78, "ambition": 35, "integrity": 78, "politicalSkill": 72, "stress": 38, "ideology": 45 },
+        "goal": "Wants genuine bipartisan wins on the board before anything else.",
+        "goalTag": "bipartisan",
+        "breakingPoint": "Will not be used as a partisan attack dog.",
+        "breakingPointTag": "partisan_weaponization",
+        "startingBonus": { "congressSupport": 3 }
       },
-      "onHighRelationship": {
-        "threshold": 80,
-        "benefit": "VP takes political hits publicly, shields you from minor scandal damage",
-        "scandalReduction": 0.25
+      {
+        "candidateId": "castillo",
+        "name": "Vice President Governor Renata Castillo",
+        "shortName": "VP Castillo",
+        "avatar": "RC",
+        "avatarColor": "coral",
+        "personality": {
+          "archetype": "The Outsider's Insider",
+          "description": "Two-term governor of a swing state, plainspoken and popular with voters who don't usually like politicians. She's blunt in meetings and better on television than you are — both useful and occasionally inconvenient.",
+          "traits": ["plainspoken", "popular with independents", "impatient with process", "surprisingly thin-skinned about the polls"]
+        },
+        "relationship": { "start": 60, "min": 10, "max": 100 },
+        "triggers": {
+          "onLowRelationship": { "threshold": 35, "event": "VP Castillo does a round of interviews that are politely, pointedly off-message", "approvalDelta": -3, "baseSupportDelta": -4 },
+          "onVeryLowRelationship": { "threshold": 20, "event": "VP Castillo tells a local reporter 'I say what I think, always have' — clip goes national", "approvalDelta": -7, "unrestDelta": 3 },
+          "onHighRelationship": { "threshold": 80, "benefit": "VP Castillo's retail-politics tours give a real approval bump among independents", "approvalBonus": 4 }
+        },
+        "relationshipDeltas": {
+          "approval_above_55": 5, "approval_below_35": -4, "active_scandal": -3, "scandal_resolved": 3,
+          "executive_overreach": -5, "bipartisan_bill_passed": 3
+        },
+        "monthlyDialogue": {
+          "high": ["Ohio loves you right now. I mean it, I was just there.", "People trust you more when you talk like a person instead of a press release. More of that."],
+          "medium": ["I said what I actually think in that interview. I hope that's still allowed around here.", "The base out there wants to hear more from you directly. I can only do so much of that for you."],
+          "low": ["I'm not going to pretend I agreed with that on camera. I didn't.", "People ask me what's really going on. I'm running out of good answers."],
+          "critical": ["I didn't take this job to disappear into the background. I need you to see that.", "I said something today you're not going to like. I'd rather you hear it from me first."]
+        },
+        "specialAbility": { "name": "Retail Politics", "description": "Once per term, VP can absorb a scandal, reducing its approval impact by 40%. Costs 15 relationship points.", "usesPerTerm": 1, "playerActivated": true },
+        "traits": { "loyalty": 60, "ambition": 65, "integrity": 65, "politicalSkill": 60, "stress": 50, "ideology": 55 },
+        "goal": "Wants to be seen — cabinet meetings and photo-ops both count.",
+        "goalTag": "own_ambition",
+        "breakingPoint": "Will not stay quiet in public about a decision she thinks is a mistake.",
+        "breakingPointTag": "public_humiliation",
+        "startingBonus": { "approval": 2, "baseSupport": 2 }
       }
-    },
-    "relationshipDeltas": {
-      "passed_major_bill": 5,
-      "approval_above_55": 4,
-      "approval_below_35": -6,
-      "at_war": -8,
-      "active_scandal": -5,
-      "scandal_resolved": 4,
-      "executive_overreach": -6
-    },
-    "monthlyDialogue": {
-      "high": [
-        "We're doing something real here. I want you to know I'm all in.",
-        "The polling looks better than the press is saying. Don't let them rattle you.",
-        "I've been talking to governors. The coalition is holding."
-      ],
-      "medium": [
-        "The base needs to hear from you directly. Let me set up a tour.",
-        "I'm hearing concerns from the caucus about where this is headed. Worth a conversation.",
-        "We should talk before the next press conference. I have thoughts."
-      ],
-      "low": [
-        "I'm going to need to speak my own mind on this one. I hope you understand.",
-        "My team is handling some of my own commitments this cycle. Necessary.",
-        "I supported this decision. I want that on the record."
-      ],
-      "critical": [
-        "I've been asked about a potential primary challenge. I told them no. For now.",
-        "We have a problem. And I'm not sure you see it.",
-        "My advisors are telling me things I don't want to hear about where this is going."
-      ]
-    },
-    "specialAbility": {
-      "name": "Take the Hit",
-      "description": "Once per term, VP can absorb a scandal, reducing its approval impact by 40%. Costs 15 relationship points.",
-      "usesPerTerm": 1
-    },
-    "image": "/npcs/vice_president.png"
+    ]
   },
   {
     "id": "chief_of_staff",
-    "name": "Chief of Staff Raymond Okafor",
-    "shortName": "COS Okafor",
-    "role": "White House Chief of Staff",
     "faction": "inner_circle",
-    "avatar": "RO",
-    "avatarColor": "gray",
-    "personality": {
-      "archetype": "The Honest Operator",
-      "description": "Twenty years in Washington. He's seen four administrations from the inside and knows exactly how they all went wrong. He'll tell you the truth even when you don't want to hear it. Especially then. He has no personal agenda beyond making this work — which makes him invaluable and occasionally brutal.",
-      "traits": [
-        "bluntly honest",
-        "operationally brilliant",
-        "zero personal ambition",
-        "occasionally ruthless for the right reasons"
-      ]
-    },
-    "relationship": {
-      "start": 75,
-      "min": 15,
-      "max": 100
-    },
-    "triggers": {
-      "onLowRelationship": {
-        "threshold": 40,
-        "event": "Chief of Staff begins routing fewer options through the Oval Office — decisions slow",
-        "congressSupportDelta": -3,
-        "approvalDelta": -2
+    "role": "White House Chief of Staff",
+    "selectable": true,
+    "candidates": [
+      {
+        "candidateId": "okafor",
+        "name": "Chief of Staff Raymond Okafor",
+        "shortName": "COS Okafor",
+        "avatar": "RO",
+        "avatarColor": "gray",
+        "personality": {
+          "archetype": "The Honest Operator",
+          "description": "Twenty years in Washington. He's seen four administrations from the inside and knows exactly how they all went wrong. He'll tell you the truth even when you don't want to hear it. Especially then. He has no personal agenda beyond making this work — which makes him invaluable and occasionally brutal.",
+          "traits": ["bluntly honest", "operationally brilliant", "zero personal ambition", "occasionally ruthless for the right reasons"]
+        },
+        "relationship": { "start": 75, "min": 15, "max": 100 },
+        "triggers": {
+          "onLowRelationship": { "threshold": 40, "event": "Chief of Staff begins routing fewer options through the Oval Office — decisions slow", "congressSupportDelta": -3, "approvalDelta": -2 },
+          "onVeryLowRelationship": { "threshold": 25, "event": "Chief of Staff submits resignation — you must decide whether to accept", "specialEvent": "cos_resignation" },
+          "onHighRelationship": { "threshold": 80, "benefit": "COS warns you 1 month before a crisis is about to fire, giving response prep time", "earlyWarning": true }
+        },
+        "relationshipDeltas": {
+          "ignored_advice": -8, "scandal_resolved_fast": 5, "approval_above_60": 4, "approval_below_30": -8,
+          "executive_overreach": -10, "bipartisan_bill_passed": 6, "at_war": -4, "active_scandal_unresolved_3mo": -10
+        },
+        "monthlyDialogue": {
+          "high": ["Here's the political capital math. We can afford two more big swings this term.", "The team is performing. Rare thing. Don't change what's working.", "I've been doing this a long time. This is one of the better runs I've seen."],
+          "medium": ["I need five minutes. There's something you need to hear before the briefing.", "That last decision is going to cost us. I want to show you the numbers.", "Congress is getting harder to manage. We need to trade something for something."],
+          "low": ["I'm going to be honest with you because no one else will. We're losing the thread.", "Three things went wrong this month that didn't have to. We need to talk about why.", "The staff is starting to wonder. That's not good for anyone."],
+          "critical": ["I've written a letter. I'd rather not send it. But I need to know you hear me.", "I can't manage what I can't see coming. Right now, I'm blind.", "Whatever I say in here stays in here. You're making mistakes you can't afford."]
+        },
+        "specialAbility": { "name": "Damage Control", "description": "When a scandal fires, COS can reduce the approval hit by 30% if relationship is above 60.", "passive": true, "requiresRelationship": 60 },
+        "image": "/npcs/chief_of_staff.png",
+        "traits": { "loyalty": 80, "ambition": 15, "integrity": 85, "politicalSkill": 78, "stress": 55, "ideology": 50 },
+        "goal": "Wants this administration to actually function — nothing more, nothing less.",
+        "goalTag": "competent_governance",
+        "breakingPoint": "Will not stay if he's cut out of the loop on decisions that blow up later.",
+        "breakingPointTag": "loyalty_test_betrayal",
+        "startingBonus": { "congressSupport": 1, "approval": 1 }
       },
-      "onVeryLowRelationship": {
-        "threshold": 25,
-        "event": "Chief of Staff submits resignation — you must decide whether to accept",
-        "specialEvent": "cos_resignation"
+      {
+        "candidateId": "delgado",
+        "name": "Chief of Staff Victoria Delgado",
+        "shortName": "COS Delgado",
+        "avatar": "VD",
+        "avatarColor": "red",
+        "personality": {
+          "archetype": "The Enforcer",
+          "description": "Ran two winning campaigns and isn't shy about telling you it. She runs a tight building, plays political hardball, and has no patience for staff who leak, dawdle, or freelance. Effective. Feared. Not universally loved.",
+          "traits": ["ruthlessly efficient", "politically aggressive", "short fuse with underperformers", "fiercely protective of you specifically"]
+        },
+        "relationship": { "start": 70, "min": 15, "max": 100 },
+        "triggers": {
+          "onLowRelationship": { "threshold": 40, "event": "COS Delgado starts freezing out staff she suspects are disloyal — building morale drops", "congressSupportDelta": -2, "approvalDelta": -3 },
+          "onVeryLowRelationship": { "threshold": 25, "event": "COS Delgado's management style leaks to the press as 'a building running on fear'", "approvalDelta": -8, "unrestDelta": 3 },
+          "onHighRelationship": { "threshold": 80, "benefit": "Delgado's message discipline keeps the building leak-free, reducing scandal odds", "scandalPrevention": 0.2 }
+        },
+        "relationshipDeltas": {
+          "ignored_advice": -6, "scandal_resolved_fast": 6, "approval_above_60": 4, "approval_below_30": -6,
+          "executive_overreach": -6, "bipartisan_bill_passed": 3, "at_war": -2
+        },
+        "monthlyDialogue": {
+          "high": ["The building runs. Nobody's leaking. That's not luck, that's discipline.", "I fired the guy who was talking to reporters. You're welcome."],
+          "medium": ["I need to reset expectations with two of your senior staff. Give me the room to do it.", "The message is getting muddled. I want final sign-off on anything that goes out this week."],
+          "low": ["I don't like being second-guessed in front of the team. It undercuts everything I'm trying to hold together.", "Somebody in this building is talking to the press. I intend to find out who."],
+          "critical": ["If I'm not running point on this, I can't be held responsible for the outcome.", "I built two winning campaigns. I didn't come here to be overruled in front of the staff."]
+        },
+        "specialAbility": { "name": "Iron Grip", "description": "When a scandal fires, COS can reduce the approval hit by 30% if relationship is above 60.", "passive": true, "requiresRelationship": 60 },
+        "traits": { "loyalty": 82, "ambition": 45, "integrity": 55, "politicalSkill": 85, "stress": 60, "ideology": 52 },
+        "goal": "Wants total control of message discipline across the building.",
+        "goalTag": "administration_reelection",
+        "breakingPoint": "Will not tolerate being publicly overruled in front of staff.",
+        "breakingPointTag": "public_humiliation",
+        "startingBonus": { "congressSupport": 2 }
       },
-      "onHighRelationship": {
-        "threshold": 80,
-        "benefit": "COS warns you 1 month before a crisis is about to fire, giving response prep time",
-        "earlyWarning": true
+      {
+        "candidateId": "park",
+        "name": "Chief of Staff Daniel Park",
+        "shortName": "COS Park",
+        "avatar": "DP",
+        "avatarColor": "blue",
+        "personality": {
+          "archetype": "The Quiet Strategist",
+          "description": "Former management consultant turned political operator. Thinks in systems and second-order effects, rarely raises his voice, and is more comfortable with a whiteboard than a podium. Some read his calm as coldness.",
+          "traits": ["analytically gifted", "unflappable", "poor at reading emotional temperature in the room", "genuinely nonpartisan"]
+        },
+        "relationship": { "start": 65, "min": 15, "max": 100 },
+        "triggers": {
+          "onLowRelationship": { "threshold": 40, "event": "COS Park's memos grow more clinical, more distant — he's checking out emotionally", "congressSupportDelta": -2, "approvalDelta": -2 },
+          "onVeryLowRelationship": { "threshold": 25, "event": "COS Park quietly starts fielding calls from a think tank about a fellowship", "specialEvent": "cos_resignation" },
+          "onHighRelationship": { "threshold": 80, "benefit": "Park's forecasting gives you a 1-month warning before crises fire", "earlyWarning": true }
+        },
+        "relationshipDeltas": {
+          "ignored_advice": -7, "scandal_resolved_fast": 4, "approval_above_60": 3, "approval_below_30": -6,
+          "executive_overreach": -8, "bipartisan_bill_passed": 5, "at_war": -3
+        },
+        "monthlyDialogue": {
+          "high": ["I modeled three paths forward on this. Want to see the whiteboard?", "The systems are working the way they're supposed to. That's rarer than people think."],
+          "medium": ["I want to walk you through the second-order effects of this before you commit.", "The data doesn't support the story we're telling right now. Worth knowing."],
+          "low": ["I flagged this risk two months ago. I want that on the record, not as an accusation — as information.", "I'm not sure the current approach is optimizing for what you actually want."],
+          "critical": ["I don't do well with decisions I can't defend on the merits. I need you to know that's where I am.", "I've had a call from a fellowship program. I haven't said yes. I haven't said no."]
+        },
+        "specialAbility": { "name": "Systems Thinking", "description": "When a scandal fires, COS can reduce the approval hit by 30% if relationship is above 60.", "passive": true, "requiresRelationship": 60 },
+        "traits": { "loyalty": 70, "ambition": 30, "integrity": 75, "politicalSkill": 65, "stress": 35, "ideology": 50 },
+        "goal": "Wants decisions made on evidence, not vibes.",
+        "goalTag": "competent_governance",
+        "breakingPoint": "Will not spin a decision he thinks the data contradicts.",
+        "breakingPointTag": "dishonest_spin",
+        "startingBonus": { "economy": 1, "debt": -0.2 }
       }
-    },
-    "relationshipDeltas": {
-      "ignored_advice": -8,
-      "scandal_resolved_fast": 5,
-      "approval_above_60": 4,
-      "approval_below_30": -8,
-      "executive_overreach": -10,
-      "bipartisan_bill_passed": 6,
-      "at_war": -4,
-      "active_scandal_unresolved_3mo": -10
-    },
-    "monthlyDialogue": {
-      "high": [
-        "Here's the political capital math. We can afford two more big swings this term.",
-        "The team is performing. Rare thing. Don't change what's working.",
-        "I've been doing this a long time. This is one of the better runs I've seen."
-      ],
-      "medium": [
-        "I need five minutes. There's something you need to hear before the briefing.",
-        "That last decision is going to cost us. I want to show you the numbers.",
-        "Congress is getting harder to manage. We need to trade something for something."
-      ],
-      "low": [
-        "I'm going to be honest with you because no one else will. We're losing the thread.",
-        "Three things went wrong this month that didn't have to. We need to talk about why.",
-        "The staff is starting to wonder. That's not good for anyone."
-      ],
-      "critical": [
-        "I've written a letter. I'd rather not send it. But I need to know you hear me.",
-        "I can't manage what I can't see coming. Right now, I'm blind.",
-        "Whatever I say in here stays in here. You're making mistakes you can't afford."
-      ]
-    },
-    "specialAbility": {
-      "name": "Damage Control",
-      "description": "When a scandal fires, COS can reduce the approval hit by 30% if relationship is above 60.",
-      "passive": true,
-      "requiresRelationship": 60
-    },
-    "image": "/npcs/chief_of_staff.png"
+    ]
   },
   {
     "id": "sec_defense",
-    "name": "Secretary of Defense Admiral James Hargrove (Ret.)",
-    "shortName": "SecDef Hargrove",
-    "role": "Secretary of Defense",
     "faction": "cabinet",
-    "avatar": "JH",
-    "avatarColor": "purple",
-    "personality": {
-      "archetype": "The Hawk Who Knows the Cost",
-      "description": "Forty years in uniform. Two wars. He doesn't want conflict — he's seen too much of it. But he believes weakness invites aggression, and he'll push military options when he thinks the alternative is worse. He respects decisiveness above everything. Indecision is the thing he cannot forgive.",
-      "traits": [
-        "decisive",
-        "hawkish but not reckless",
-        "deeply principled",
-        "impatient with politics"
-      ]
-    },
-    "relationship": {
-      "start": 65,
-      "min": 10,
-      "max": 100
-    },
-    "triggers": {
-      "onLowRelationship": {
-        "threshold": 35,
-        "event": "SecDef gives Senate testimony that 'current policy leaves the military under-resourced'",
-        "securityDelta": -3,
-        "congressSupportDelta": -4
+    "role": "Secretary of Defense",
+    "selectable": true,
+    "candidates": [
+      {
+        "candidateId": "hargrove",
+        "name": "Secretary of Defense Admiral James Hargrove (Ret.)",
+        "shortName": "SecDef Hargrove",
+        "avatar": "JH",
+        "avatarColor": "purple",
+        "personality": {
+          "archetype": "The Hawk Who Knows the Cost",
+          "description": "Forty years in uniform. Two wars. He doesn't want conflict — he's seen too much of it. But he believes weakness invites aggression, and he'll push military options when he thinks the alternative is worse. He respects decisiveness above everything. Indecision is the thing he cannot forgive.",
+          "traits": ["decisive", "hawkish but not reckless", "deeply principled", "impatient with politics"]
+        },
+        "relationship": { "start": 65, "min": 10, "max": 100 },
+        "triggers": {
+          "onLowRelationship": { "threshold": 35, "event": "SecDef gives Senate testimony that 'current policy leaves the military under-resourced'", "securityDelta": -3, "congressSupportDelta": -4 },
+          "onVeryLowRelationship": { "threshold": 20, "event": "SecDef resigns and publishes memoir excerpts critical of your foreign policy", "approvalDelta": -8, "globalReputationDelta": -5 },
+          "onHighRelationship": { "threshold": 80, "benefit": "SecDef unlocks classified military options during security events with better outcomes", "militaryOptionBonus": true }
+        },
+        "relationshipDeltas": {
+          "military_expanded": 12, "at_war_decisive": 8, "diplomatic_over_military": -6, "troops_deployed": 5,
+          "military_aid_sent": 4, "ukraine_ceasefire_talks": -8, "security_below_40": -5, "iran_military": 10, "nato_ally_helped": 6
+        },
+        "monthlyDialogue": {
+          "high": ["The military is ready. Whatever you need, we're prepared.", "I want you to see something. Can you come to the Pentagon this week?", "The threat assessment is more serious than what's in the public briefing. You should know."],
+          "medium": ["We're stretched thinner than the public understands. The budget conversation needs to happen.", "I'm hearing from field commanders that things are more volatile than reported.", "The situation overseas needs a decision. A non-decision is a decision."],
+          "low": ["I'll follow your orders. I want that clear. But I have serious reservations.", "The military doesn't make policy. You do. I just need to make sure you understand the risk.", "I've written a memo. It's on your desk. Please read it."],
+          "critical": ["If we don't act soon, we won't have the option. That's not a threat. That's a fact.", "The Joint Chiefs asked me to convey their concern. Formally.", "I've been a soldier my whole life. This is the most frustrated I've been in 40 years."]
+        },
+        "specialAbility": { "name": "Military Option", "description": "When relationship is above 70, SecDef provides an exclusive 5th choice on military events with better security outcomes.", "requiresRelationship": 70, "unlocksMilitaryOption": true },
+        "image": "/npcs/sec_defense.png",
+        "traits": { "loyalty": 70, "ambition": 20, "integrity": 80, "politicalSkill": 45, "stress": 50, "ideology": 60 },
+        "goal": "Wants the military properly resourced before anything else.",
+        "goalTag": "military_budget",
+        "breakingPoint": "Will not abandon deployed troops for a political optic.",
+        "breakingPointTag": "abandon_troops",
+        "startingBonus": { "security": 2, "militaryReadiness": 3 }
       },
-      "onVeryLowRelationship": {
-        "threshold": 20,
-        "event": "SecDef resigns and publishes memoir excerpts critical of your foreign policy",
-        "approvalDelta": -8,
-        "globalReputationDelta": -5
+      {
+        "candidateId": "chen",
+        "name": "Secretary of Defense Dr. Linda Chen",
+        "shortName": "SecDef Chen",
+        "avatar": "LC",
+        "avatarColor": "purple",
+        "personality": {
+          "archetype": "The Reformer",
+          "description": "Former Deputy Secretary and defense-tech entrepreneur before that. She thinks the Pentagon is a generation behind on cyber and drone warfare and says so, loudly, to anyone who'll listen — including reporters. The uniformed brass finds her exhausting and necessary in roughly equal measure.",
+          "traits": ["modernization-obsessed", "comfortable with risk", "politically tone-deaf", "distrusted by military traditionalists"]
+        },
+        "relationship": { "start": 55, "min": 10, "max": 100 },
+        "triggers": {
+          "onLowRelationship": { "threshold": 35, "event": "SecDef Chen's modernization push stalls as Joint Chiefs quietly slow-walk her directives", "securityDelta": -3, "congressSupportDelta": -3 },
+          "onVeryLowRelationship": { "threshold": 20, "event": "SecDef Chen resigns, citing 'institutional resistance to necessary reform'", "approvalDelta": -6, "globalReputationDelta": -3 },
+          "onHighRelationship": { "threshold": 80, "benefit": "Chen's modernization program unlocks better cyber/security event outcomes", "militaryOptionBonus": true }
+        },
+        "relationshipDeltas": {
+          "military_expanded": 6, "at_war_decisive": 3, "diplomatic_over_military": 4, "troops_deployed": -2,
+          "cyber_defense_upgraded": 12, "security_below_40": -4, "nato_ally_helped": 4
+        },
+        "monthlyDialogue": {
+          "high": ["The modernization numbers are finally moving. This is the future of the department.", "I got the drone program funded without a fight for once. Small miracles."],
+          "medium": ["The generals are slow-walking this again. I need your weight behind it publicly.", "We're behind on cyber and everyone in the building knows it but nobody wants to say it."],
+          "low": ["I said something undiplomatic to a reporter. I stand by the substance, not the delivery.", "The traditionalists are organizing against the reform agenda. I could use backup."],
+          "critical": ["I didn't take this job to preside over institutional inertia. I need to know if you're actually behind this.", "I've had a firm offer. Silicon Valley pays better and argues less."]
+        },
+        "specialAbility": { "name": "Asymmetric Doctrine", "description": "When relationship is above 70, SecDef provides an exclusive 5th choice on military events with better security outcomes.", "requiresRelationship": 70, "unlocksMilitaryOption": true },
+        "traits": { "loyalty": 55, "ambition": 60, "integrity": 70, "politicalSkill": 35, "stress": 60, "ideology": 40 },
+        "goal": "Wants the defense budget shifted toward cyber and unmanned systems.",
+        "goalTag": "military_reform",
+        "breakingPoint": "Will not sign off on a conventional-force buildup she thinks is a strategic dead end.",
+        "breakingPointTag": "military_doctrine",
+        "startingBonus": { "security": 1, "globalReputation": 1 }
       },
-      "onHighRelationship": {
-        "threshold": 80,
-        "benefit": "SecDef unlocks classified military options during security events with better outcomes",
-        "militaryOptionBonus": true
+      {
+        "candidateId": "obi",
+        "name": "Secretary of Defense General Marcus Obi (Ret.)",
+        "shortName": "SecDef Obi",
+        "avatar": "MO",
+        "avatarColor": "green",
+        "personality": {
+          "archetype": "The Reluctant Dove",
+          "description": "Commanded troops in three wars he came to believe shouldn't have been fought. He took the job to be the voice in the room arguing for restraint — the general who'd rather not use the military at all if there's any other option.",
+          "traits": ["deeply skeptical of military intervention", "respected by allies", "frustrates hawks in Congress", "will say no to your face"]
+        },
+        "relationship": { "start": 60, "min": 10, "max": 100 },
+        "triggers": {
+          "onLowRelationship": { "threshold": 35, "event": "SecDef Obi's public caution on military options draws open criticism from hawks in Congress", "congressSupportDelta": -3, "securityDelta": -2 },
+          "onVeryLowRelationship": { "threshold": 20, "event": "SecDef Obi resigns rather than continue implementing a posture he calls 'reckless'", "approvalDelta": -7, "globalReputationDelta": -6 },
+          "onHighRelationship": { "threshold": 80, "benefit": "Obi's restraint doctrine improves diplomatic outcomes on security events", "diplomaticBonus": true }
+        },
+        "relationshipDeltas": {
+          "diplomatic_over_military": 10, "military_expanded": -6, "at_war_decisive": -4, "troops_deployed": -6,
+          "ukraine_ceasefire_talks": 8, "nato_ally_helped": 5, "global_reputation_above_70": 4
+        },
+        "monthlyDialogue": {
+          "high": ["We found a way through this without firing a shot. That's the win nobody puts on a poster.", "The allies trust you more when they see restraint. I've heard it directly."],
+          "medium": ["I'd like to exhaust the diplomatic track before we talk about force. It usually works if you let it.", "The hawks in Congress are pushing again. I can hold the line, but you should know it's costing me capital."],
+          "low": ["I said no in that meeting and I meant it. I've buried too many soldiers to say otherwise.", "I'm not going to pretend enthusiasm I don't feel about this posture."],
+          "critical": ["I've commanded troops in wars I came to regret. I won't preside over another one quietly.", "If this becomes about optics instead of restraint, I'm not the right person for this job anymore."]
+        },
+        "specialAbility": { "name": "Strategic Patience", "description": "When relationship is above 75, SecDef provides an exclusive 5th choice on military events with better diplomatic outcomes.", "requiresRelationship": 75, "unlocksMilitaryOption": true },
+        "traits": { "loyalty": 68, "ambition": 15, "integrity": 88, "politicalSkill": 40, "stress": 45, "ideology": 35 },
+        "goal": "Wants every military option exhausted of alternatives before troops move.",
+        "goalTag": "noninterventionist",
+        "breakingPoint": "Will not order an operation he believes is unprovoked aggression.",
+        "breakingPointTag": "unprovoked_war",
+        "startingBonus": { "globalReputation": 2 }
       }
-    },
-    "relationshipDeltas": {
-      "military_expanded": 12,
-      "at_war_decisive": 8,
-      "diplomatic_over_military": -6,
-      "troops_deployed": 5,
-      "military_aid_sent": 4,
-      "ukraine_ceasefire_talks": -8,
-      "security_below_40": -5,
-      "iran_military": 10,
-      "nato_ally_helped": 6
-    },
-    "monthlyDialogue": {
-      "high": [
-        "The military is ready. Whatever you need, we're prepared.",
-        "I want you to see something. Can you come to the Pentagon this week?",
-        "The threat assessment is more serious than what's in the public briefing. You should know."
-      ],
-      "medium": [
-        "We're stretched thinner than the public understands. The budget conversation needs to happen.",
-        "I'm hearing from field commanders that things are more volatile than reported.",
-        "The situation overseas needs a decision. A non-decision is a decision."
-      ],
-      "low": [
-        "I'll follow your orders. I want that clear. But I have serious reservations.",
-        "The military doesn't make policy. You do. I just need to make sure you understand the risk.",
-        "I've written a memo. It's on your desk. Please read it."
-      ],
-      "critical": [
-        "If we don't act soon, we won't have the option. That's not a threat. That's a fact.",
-        "The Joint Chiefs asked me to convey their concern. Formally.",
-        "I've been a soldier my whole life. This is the most frustrated I've been in 40 years."
-      ]
-    },
-    "specialAbility": {
-      "name": "Military Option",
-      "description": "When relationship is above 70, SecDef provides an exclusive 5th choice on military events with better security outcomes.",
-      "requiresRelationship": 70,
-      "unlocksMilitaryOption": true
-    },
-    "image": "/npcs/sec_defense.png"
+    ]
   },
   {
     "id": "treasury_secretary",
-    "name": "Treasury Secretary Eleanor Voss",
-    "shortName": "SecTreas Voss",
-    "role": "Secretary of the Treasury",
     "faction": "cabinet",
-    "avatar": "EV",
-    "avatarColor": "green",
-    "personality": {
-      "archetype": "The Fiscal Realist",
-      "description": "Former Fed governor and Harvard economics professor. She took the job because she believed in the mission — but she has a breaking point around fiscal responsibility and she's not shy about where it is. She's the person in the room most likely to say the unpopular true thing.",
-      "traits": [
-        "analytically rigorous",
-        "politically naive in the best way",
-        "fiscally conservative",
-        "will break publicly if pushed past her limits"
-      ]
-    },
-    "relationship": {
-      "start": 65,
-      "min": 10,
-      "max": 100
-    },
-    "triggers": {
-      "onLowRelationship": {
-        "threshold": 35,
-        "event": "Treasury Secretary gives speech at Brookings warning of 'unsustainable fiscal trajectory'",
-        "economyDelta": -3,
-        "congressSupportDelta": -2
+    "role": "Secretary of the Treasury",
+    "selectable": true,
+    "candidates": [
+      {
+        "candidateId": "voss",
+        "name": "Treasury Secretary Eleanor Voss",
+        "shortName": "SecTreas Voss",
+        "avatar": "EV",
+        "avatarColor": "green",
+        "personality": {
+          "archetype": "The Fiscal Realist",
+          "description": "Former Fed governor and Harvard economics professor. She took the job because she believed in the mission — but she has a breaking point around fiscal responsibility and she's not shy about where it is. She's the person in the room most likely to say the unpopular true thing.",
+          "traits": ["analytically rigorous", "politically naive in the best way", "fiscally conservative", "will break publicly if pushed past her limits"]
+        },
+        "relationship": { "start": 65, "min": 10, "max": 100 },
+        "triggers": {
+          "onLowRelationship": { "threshold": 35, "event": "Treasury Secretary gives speech at Brookings warning of 'unsustainable fiscal trajectory'", "economyDelta": -3, "congressSupportDelta": -2 },
+          "onVeryLowRelationship": { "threshold": 22, "event": "Treasury Secretary publicly breaks with administration on debt ceiling", "approvalDelta": -6, "economyDelta": -5 },
+          "onHighRelationship": { "threshold": 80, "benefit": "Treasury Secretary negotiates better borrowing rates, reducing debt growth by $50B/year", "debtReduction": 0.05 }
+        },
+        "relationshipDeltas": {
+          "debt_above_45t": -8, "debt_above_50t": -15, "stimulus_deployed": -4, "budget_surplus_achieved": 12,
+          "tax_cuts_passed": -6, "corporate_tax_raised": 4, "infrastructure_passed": -3, "recession_handled_well": 8, "debt_deal": 10
+        },
+        "monthlyDialogue": {
+          "high": ["The fundamentals are stronger than the headlines. Here's what the data actually shows.", "I've found some room in the budget. Not much. But some.", "The markets are responding well to your last move. Credit where it's due."],
+          "medium": ["The debt trajectory concerns me. I want to show you a chart before the next decision.", "We can afford this. Once. Not twice. Be clear about that going in.", "The Fed is watching the inflation numbers closely. We should probably be watching them too."],
+          "low": ["I need to be direct. The spending pace is not sustainable. I've been saying this.", "At some point I'm going to have to say this publicly. I don't want to. But I will.", "The numbers don't lie. I do not."],
+          "critical": ["I gave a speech at Brookings this week. I thought you should hear it from me first.", "The Moody's analyst called me. That's never good news.", "I want to stay. But I need you to hear me on the debt. Actually hear me."]
+        },
+        "specialAbility": { "name": "Economic Briefing", "description": "Once per term, Treasury Secretary can provide an economic intervention that boosts economy +8 and reduces debt by $200B. Requires relationship above 65.", "usesPerTerm": 1, "requiresRelationship": 65, "playerActivated": true },
+        "image": "/npcs/treasury_secretary.png",
+        "traits": { "loyalty": 60, "ambition": 20, "integrity": 85, "politicalSkill": 50, "stress": 55, "ideology": 55 },
+        "goal": "Wants the debt trajectory under control before it becomes unmanageable.",
+        "goalTag": "balanced_budget",
+        "breakingPoint": "Will not sign off on deficit spending she considers reckless.",
+        "breakingPointTag": "deficit_spending",
+        "startingBonus": { "economy": 2, "debt": -0.3 }
       },
-      "onVeryLowRelationship": {
-        "threshold": 22,
-        "event": "Treasury Secretary publicly breaks with administration on debt ceiling",
-        "approvalDelta": -6,
-        "economyDelta": -5
+      {
+        "candidateId": "delacroix",
+        "name": "Treasury Secretary Marcus Delacroix",
+        "shortName": "SecTreas Delacroix",
+        "avatar": "MD",
+        "avatarColor": "amber",
+        "personality": {
+          "archetype": "The Wall Street Dealmaker",
+          "description": "Former investment bank CEO who took a fraction of his old salary for the title. He's plugged into every market-moving relationship in the country and he knows exactly how much that's worth — to markets, and to you.",
+          "traits": ["extremely well-connected", "growth-obsessed", "comfortable with debt if it buys growth", "conflict-of-interest questions follow him everywhere"]
+        },
+        "relationship": { "start": 62, "min": 10, "max": 100 },
+        "triggers": {
+          "onLowRelationship": { "threshold": 35, "event": "SecTreas Delacroix's old firm is named in a conflict-of-interest story he can't quite shake", "approvalDelta": -3, "economyDelta": -2 },
+          "onVeryLowRelationship": { "threshold": 22, "event": "SecTreas Delacroix resigns amid mounting conflict-of-interest scrutiny", "approvalDelta": -7, "economyDelta": -4 },
+          "onHighRelationship": { "threshold": 80, "benefit": "Delacroix's market relationships calm investors during rocky stretches, boosting economy", "approvalBonus": 3 }
+        },
+        "relationshipDeltas": {
+          "stimulus_deployed": 4, "budget_surplus_achieved": 4, "tax_cuts_passed": 6, "corporate_tax_raised": -8,
+          "infrastructure_passed": 5, "recession_handled_well": 6, "debt_above_50t": -6
+        },
+        "monthlyDialogue": {
+          "high": ["I had dinner with three fund managers last night. They're bullish on you. That matters more than people think.", "The market read on your last move was better than the press coverage."],
+          "medium": ["I can get you a better rate on the next debt auction if you give me some lead time.", "Wall Street is watching this decision closely. I'd rather you know that going in."],
+          "low": ["The conflict-of-interest story isn't going away on its own. I need help getting ahead of it.", "I disagreed with that move and several of my old colleagues let me hear about it."],
+          "critical": ["The story about my old firm is worse than what's public so far. You should hear the rest from me.", "I took a pay cut to do this job. I didn't take it to be a liability."]
+        },
+        "specialAbility": { "name": "Market Whisperer", "description": "Once per term, Treasury Secretary can provide an economic intervention that boosts economy +8 and reduces debt by $200B. Requires relationship above 60.", "usesPerTerm": 1, "requiresRelationship": 60, "playerActivated": true },
+        "traits": { "loyalty": 55, "ambition": 55, "integrity": 50, "politicalSkill": 70, "stress": 40, "ideology": 65 },
+        "goal": "Wants sustained economic growth even if it means running hotter deficits.",
+        "goalTag": "growth_agenda",
+        "breakingPoint": "Will not defend a policy he thinks tanks market confidence.",
+        "breakingPointTag": "market_confidence",
+        "startingBonus": { "economy": 3 }
       },
-      "onHighRelationship": {
-        "threshold": 80,
-        "benefit": "Treasury Secretary negotiates better borrowing rates, reducing debt growth by $50B/year",
-        "debtReduction": 0.05
+      {
+        "candidateId": "nakamura",
+        "name": "Treasury Secretary Dr. Aiko Nakamura",
+        "shortName": "SecTreas Nakamura",
+        "avatar": "AN",
+        "avatarColor": "green",
+        "personality": {
+          "archetype": "The Populist Economist",
+          "description": "Labor economist who spent her career studying wage stagnation before spending a term in Congress. She took the job to put workers first in a building that usually puts markets first — and she means it, loudly, in every meeting.",
+          "traits": ["workers-first economics", "distrusts Wall Street", "excellent with organized labor", "will pick fights with corporate lobbyists"]
+        },
+        "relationship": { "start": 58, "min": 10, "max": 100 },
+        "triggers": {
+          "onLowRelationship": { "threshold": 35, "event": "SecTreas Nakamura publicly criticizes a corporate-friendly decision as 'a betrayal of working families'", "approvalDelta": -3, "baseSupportDelta": -3 },
+          "onVeryLowRelationship": { "threshold": 22, "event": "SecTreas Nakamura resigns, citing an administration that 'stopped listening to workers'", "approvalDelta": -6, "unrestDelta": 4 },
+          "onHighRelationship": { "threshold": 80, "benefit": "Nakamura's labor relationships deliver a base-support bonus during economic turbulence", "baseSupportBonus": 6 }
+        },
+        "relationshipDeltas": {
+          "corporate_tax_raised": 10, "tax_cuts_passed": -6, "infrastructure_passed": 4, "recession_handled_well": 6,
+          "budget_surplus_achieved": 2, "stimulus_deployed": 6, "debt_above_50t": -4
+        },
+        "monthlyDialogue": {
+          "high": ["Wage growth is finally outpacing inflation. That's the number I actually care about.", "The unions called. They're happy. That doesn't happen often — enjoy it."],
+          "medium": ["I want labor protections attached to this before it goes anywhere near a corporate handout.", "The lobbyists are already circling on this one. I'd like your backing before they get to you first."],
+          "low": ["I said what I thought about that bailout in the meeting and I'll say it again publicly if I have to.", "The workers I represent in this building are starting to wonder whose side we're actually on."],
+          "critical": ["I didn't leave Congress to watch us hand out corporate welfare with no strings attached.", "I need to know if this administration still stands for what I signed up for."]
+        },
+        "specialAbility": { "name": "Worker Confidence", "description": "Once per term, Treasury Secretary can provide an economic intervention that boosts economy +8 and reduces debt by $200B. Requires relationship above 62.", "usesPerTerm": 1, "requiresRelationship": 62, "playerActivated": true },
+        "traits": { "loyalty": 65, "ambition": 35, "integrity": 80, "politicalSkill": 55, "stress": 50, "ideology": 30 },
+        "goal": "Wants wage growth and labor protections prioritized over corporate tax relief.",
+        "goalTag": "labor_agenda",
+        "breakingPoint": "Will not support a corporate bailout without real labor protections attached.",
+        "breakingPointTag": "corporate_bailout_abuse",
+        "startingBonus": { "unemployment": -0.2, "approval": 1 }
       }
-    },
-    "relationshipDeltas": {
-      "debt_above_45t": -8,
-      "debt_above_50t": -15,
-      "stimulus_deployed": -4,
-      "budget_surplus_achieved": 12,
-      "tax_cuts_passed": -6,
-      "corporate_tax_raised": 4,
-      "infrastructure_passed": -3,
-      "recession_handled_well": 8,
-      "debt_deal": 10
-    },
-    "monthlyDialogue": {
-      "high": [
-        "The fundamentals are stronger than the headlines. Here's what the data actually shows.",
-        "I've found some room in the budget. Not much. But some.",
-        "The markets are responding well to your last move. Credit where it's due."
-      ],
-      "medium": [
-        "The debt trajectory concerns me. I want to show you a chart before the next decision.",
-        "We can afford this. Once. Not twice. Be clear about that going in.",
-        "The Fed is watching the inflation numbers closely. We should probably be watching them too."
-      ],
-      "low": [
-        "I need to be direct. The spending pace is not sustainable. I've been saying this.",
-        "At some point I'm going to have to say this publicly. I don't want to. But I will.",
-        "The numbers don't lie. I do not."
-      ],
-      "critical": [
-        "I gave a speech at Brookings this week. I thought you should hear it from me first.",
-        "The Moody's analyst called me. That's never good news.",
-        "I want to stay. But I need you to hear me on the debt. Actually hear me."
-      ]
-    },
-    "specialAbility": {
-      "name": "Economic Briefing",
-      "description": "Once per term, Treasury Secretary can provide an economic intervention that boosts economy +8 and reduces debt by $200B. Requires relationship above 65.",
-      "usesPerTerm": 1,
-      "requiresRelationship": 65
-    },
-    "image": "/npcs/treasury_secretary.png"
+    ]
   },
   {
     "id": "attorney_general",
-    "name": "Attorney General Marcus Webb",
-    "shortName": "AG Webb",
-    "role": "Attorney General",
     "faction": "cabinet",
-    "avatar": "MW",
-    "avatarColor": "coral",
-    "personality": {
-      "archetype": "The Rule-of-Law Purist",
-      "description": "Former federal judge. He took the AG job with one condition: you never ask him to do something that crosses a legal line. He's your firewall against scandal — and also your constraint on things you might want to do. He's not political and has no interest in becoming so.",
-      "traits": [
-        "legally meticulous",
-        "completely apolitical",
-        "will resign before crossing a legal line",
-        "your most valuable scandal protection"
-      ]
-    },
-    "relationship": {
-      "start": 70,
-      "min": 10,
-      "max": 100
-    },
-    "triggers": {
-      "onLowRelationship": {
-        "threshold": 35,
-        "event": "AG refuses to drop investigation into administration allies — public standoff",
-        "approvalDelta": -4,
-        "scandalWorsens": true
+    "role": "Attorney General",
+    "selectable": true,
+    "candidates": [
+      {
+        "candidateId": "webb",
+        "name": "Attorney General Marcus Webb",
+        "shortName": "AG Webb",
+        "avatar": "MW",
+        "avatarColor": "coral",
+        "personality": {
+          "archetype": "The Rule-of-Law Purist",
+          "description": "Former federal judge. He took the AG job with one condition: you never ask him to do something that crosses a legal line. He's your firewall against scandal — and also your constraint on things you might want to do. He's not political and has no interest in becoming so.",
+          "traits": ["legally meticulous", "completely apolitical", "will resign before crossing a legal line", "your most valuable scandal protection"]
+        },
+        "relationship": { "start": 70, "min": 10, "max": 100 },
+        "triggers": {
+          "onLowRelationship": { "threshold": 35, "event": "AG refuses to drop investigation into administration allies — public standoff", "approvalDelta": -4, "scandalWorsens": true },
+          "onVeryLowRelationship": { "threshold": 20, "event": "AG resigns citing 'political interference in DOJ independence' — massive scandal", "approvalDelta": -14, "unrestDelta": 12, "activeScandals": 1 },
+          "onHighRelationship": { "threshold": 80, "benefit": "AG proactively catches legal problems before they become scandals", "scandalPrevention": 0.3 }
+        },
+        "relationshipDeltas": {
+          "scandal_resolved_cooperate": 8, "scandal_covered_up": -15, "whistleblower_attacked": -20, "press_freedom_violated": -10,
+          "surveillance_expanded": -6, "criminal_justice_reformed": 8, "police_reform_passed": 6, "executive_overreach": -12
+        },
+        "monthlyDialogue": {
+          "high": ["The DOJ is operating with full independence. That's how it should be.", "I flagged something in this month's review. Nothing urgent. You'll see my memo.", "The legal framework here is cleaner than your opponents are saying. I can explain why."],
+          "medium": ["I need to be clear about what we can and can't do here, legally.", "There's a legal risk in that approach I want you to understand before you commit.", "The investigation is going where the evidence goes. That's all I can tell you."],
+          "low": ["I'm going to ask you directly: is there anything I should know about?", "What was asked of me last week — I need you to understand I can't do that.", "The DOJ will not be used as a political tool. That's not a negotiation."],
+          "critical": ["I've prepared a letter of resignation. I hope I don't need to send it.", "I'm telling you as your AG and as someone who respects you: stop.", "If this continues, I won't be able to stay. And how I leave will matter."]
+        },
+        "specialAbility": { "name": "Legal Shield", "description": "When a scandal fires, if relationship is above 65, AG automatically reduces scandal severity by 25% and speeds resolution.", "passive": true, "requiresRelationship": 65 },
+        "image": "/npcs/attorney_general.png",
+        "traits": { "loyalty": 65, "ambition": 10, "integrity": 92, "politicalSkill": 40, "stress": 45, "ideology": 50 },
+        "goal": "Wants DOJ independence respected, full stop.",
+        "goalTag": "judicial_independence",
+        "breakingPoint": "Will resign before crossing a clear legal line.",
+        "breakingPointTag": "illegal_action",
+        "startingBonus": { "globalReputation": 1 }
       },
-      "onVeryLowRelationship": {
-        "threshold": 20,
-        "event": "AG resigns citing 'political interference in DOJ independence' — massive scandal",
-        "approvalDelta": -14,
-        "unrestDelta": 12,
-        "activeScandals": 1
+      {
+        "candidateId": "torres",
+        "name": "Attorney General Isabel Torres",
+        "shortName": "AG Torres",
+        "avatar": "IT",
+        "avatarColor": "red",
+        "personality": {
+          "archetype": "The Prosecutor",
+          "description": "Former big-city prosecutor who built a career putting people away and isn't interested in softening that instinct now. She believes in consequences, publicly and often, and she's not particularly worried about being liked.",
+          "traits": ["tough-on-crime instincts", "media-savvy", "occasionally overzealous", "genuinely popular with law enforcement"]
+        },
+        "relationship": { "start": 62, "min": 10, "max": 100 },
+        "triggers": {
+          "onLowRelationship": { "threshold": 35, "event": "AG Torres's aggressive charging decisions draw civil-liberties backlash the administration has to answer for", "approvalDelta": -3, "unrestDelta": 3 },
+          "onVeryLowRelationship": { "threshold": 20, "event": "AG Torres resigns after a public break over 'political softness on crime'", "approvalDelta": -8, "unrestDelta": 6 },
+          "onHighRelationship": { "threshold": 80, "benefit": "Torres's visible law-and-order record boosts approval directly", "approvalBonus": 4 }
+        },
+        "relationshipDeltas": {
+          "scandal_resolved_cooperate": 5, "scandal_covered_up": -12, "police_reform_passed": -6, "criminal_justice_reformed": -5,
+          "gun_legislation_pushed": -4, "surveillance_expanded": 4, "executive_overreach": -8
+        },
+        "monthlyDialogue": {
+          "high": ["We closed three major cases this month. That's the kind of win voters actually notice.", "Law enforcement trusts this office again. That took real work to rebuild."],
+          "medium": ["I want to bring charges on this one publicly. It sends a message.", "The reform crowd is going to push back on this. I think it's the right call anyway."],
+          "low": ["I'm not going to soften a charging decision because it's politically inconvenient.", "Some of my own supporters are asking why we're not moving faster on this."],
+          "critical": ["I didn't take this job to be the soft-on-crime administration's AG.", "If we don't back the badge here, I don't know what I'm doing in this job."]
+        },
+        "specialAbility": { "name": "Public Confidence", "description": "When a scandal fires, if relationship is above 60, AG automatically reduces scandal severity by 25% and speeds resolution.", "passive": true, "requiresRelationship": 60 },
+        "traits": { "loyalty": 60, "ambition": 50, "integrity": 70, "politicalSkill": 65, "stress": 50, "ideology": 65 },
+        "goal": "Wants visible law-and-order wins the public can see.",
+        "goalTag": "law_and_order",
+        "breakingPoint": "Will not go easy on a case for political convenience.",
+        "breakingPointTag": "illegal_action",
+        "startingBonus": { "unrest": -1 }
       },
-      "onHighRelationship": {
-        "threshold": 80,
-        "benefit": "AG proactively catches legal problems before they become scandals",
-        "scandalPrevention": 0.3
+      {
+        "candidateId": "abernathy",
+        "name": "Attorney General Thomas Abernathy",
+        "shortName": "AG Abernathy",
+        "avatar": "TA",
+        "avatarColor": "blue",
+        "personality": {
+          "archetype": "The Civil Libertarian",
+          "description": "Constitutional law professor before this, and it shows — he treats every proposed executive action like a bar exam question about its limits. Slow, careful, occasionally maddening when you're in a hurry. Exactly what you want when you're not.",
+          "traits": ["constitutionally rigorous", "instinctively cautious", "distrusts expanded executive power", "will slow-walk anything he thinks oversteps"]
+        },
+        "relationship": { "start": 68, "min": 10, "max": 100 },
+        "triggers": {
+          "onLowRelationship": { "threshold": 35, "event": "AG Abernathy privately circulates a memo warning staff against a directive he considers overreach", "approvalDelta": -2, "congressSupportDelta": -2 },
+          "onVeryLowRelationship": { "threshold": 20, "event": "AG Abernathy resigns and testifies to Congress about 'a pattern of constitutional overreach'", "approvalDelta": -12, "unrestDelta": 8, "activeScandals": 1 },
+          "onHighRelationship": { "threshold": 80, "benefit": "Abernathy's careful vetting keeps executive actions from ever becoming legal liabilities", "scandalPrevention": 0.35 }
+        },
+        "relationshipDeltas": {
+          "scandal_resolved_cooperate": 6, "surveillance_expanded": -10, "press_freedom_violated": -14, "whistleblower_attacked": -18,
+          "criminal_justice_reformed": 10, "police_reform_passed": 8, "executive_overreach": -16
+        },
+        "monthlyDialogue": {
+          "high": ["Every action this month cleared review clean. That's not nothing in this job.", "I want you to know the legal footing here is genuinely solid. You can move with confidence."],
+          "medium": ["I have real concerns about the constitutional exposure on this one. Let's talk before you announce it.", "This is close to a line. Not over it. But close."],
+          "low": ["I slow-walked that directive on purpose. I think it oversteps and I said so in writing.", "I need you to understand: I will not fast-track something I think a court strikes down."],
+          "critical": ["I've drafted testimony for Congress. I'd rather not deliver it. That's up to what happens next.", "This is the closest I've come to resigning. I need you to actually hear that."]
+        },
+        "specialAbility": { "name": "Constitutional Firewall", "description": "When a scandal fires, if relationship is above 65, AG automatically reduces scandal severity by 25% and speeds resolution.", "passive": true, "requiresRelationship": 65 },
+        "traits": { "loyalty": 60, "ambition": 10, "integrity": 90, "politicalSkill": 35, "stress": 40, "ideology": 35 },
+        "goal": "Wants every executive action to survive real judicial scrutiny.",
+        "goalTag": "civil_liberties",
+        "breakingPoint": "Will not approve surveillance or detention powers he believes are unconstitutional.",
+        "breakingPointTag": "civil_rights_violation",
+        "startingBonus": { "globalReputation": 1, "unrest": -1 }
       }
-    },
-    "relationshipDeltas": {
-      "scandal_resolved_cooperate": 8,
-      "scandal_covered_up": -15,
-      "whistleblower_attacked": -20,
-      "press_freedom_violated": -10,
-      "surveillance_expanded": -6,
-      "criminal_justice_reformed": 8,
-      "police_reform_passed": 6,
-      "executive_overreach": -12
-    },
-    "monthlyDialogue": {
-      "high": [
-        "The DOJ is operating with full independence. That's how it should be.",
-        "I flagged something in this month's review. Nothing urgent. You'll see my memo.",
-        "The legal framework here is cleaner than your opponents are saying. I can explain why."
-      ],
-      "medium": [
-        "I need to be clear about what we can and can't do here, legally.",
-        "There's a legal risk in that approach I want you to understand before you commit.",
-        "The investigation is going where the evidence goes. That's all I can tell you."
-      ],
-      "low": [
-        "I'm going to ask you directly: is there anything I should know about?",
-        "What was asked of me last week — I need you to understand I can't do that.",
-        "The DOJ will not be used as a political tool. That's not a negotiation."
-      ],
-      "critical": [
-        "I've prepared a letter of resignation. I hope I don't need to send it.",
-        "I'm telling you as your AG and as someone who respects you: stop.",
-        "If this continues, I won't be able to stay. And how I leave will matter."
-      ]
-    },
-    "specialAbility": {
-      "name": "Legal Shield",
-      "description": "When a scandal fires, if relationship is above 65, AG automatically reduces scandal severity by 25% and speeds resolution.",
-      "passive": true,
-      "requiresRelationship": 65
-    },
-    "image": "/npcs/attorney_general.png"
+    ]
   },
   {
     "id": "speaker",

@@ -171,6 +171,15 @@ const CRISIS_TEMPLATES: Record<EventCategory, { positive: string[]; negative: st
       'Foreign policy response leaves allies, critics both watching',
     ],
   },
+  // Personnel scenes generate their own headlines directly (see
+  // generateFiringHeadline below) rather than through this generic
+  // category/dominant-delta path \u2014 never actually called for 'personnel',
+  // present only so the Record<EventCategory, ...> type stays total.
+  personnel: {
+    positive: [],
+    negative: [],
+    neutral: [],
+  },
 }
 
 export function generateCrisisHeadline(category: EventCategory, effects: StatDelta): Headline {
@@ -269,6 +278,31 @@ export function maybeApprovalTrendHeadline(
     return { text: pick([...APPROVAL_TREND_TEMPLATES.slump]), outlet: pickOutlet(), tone: 'negative' }
   }
   return null
+}
+
+// ── Cabinet personnel-change headlines ──────────────────────
+
+const FIRING_TEMPLATES = [
+  'President dismisses {role}',
+  '{role} out as President reshuffles Cabinet',
+  'Shakeup: President replaces {role}',
+  '{role} departs administration amid reports of friction with President',
+]
+
+const RESIGNATION_TEMPLATES = [
+  '{role} resigns, citing personal reasons',
+  'President accepts resignation of {role}',
+  '{role} steps down, ending tenure in administration',
+]
+
+/** Fired/resigned Cabinet-change headline — same template/outlet-picking conventions as generateCrisisHeadline/generateLawHeadline. */
+export function generateFiringHeadline(role: string, resigned = false): Headline {
+  const templates = resigned ? RESIGNATION_TEMPLATES : FIRING_TEMPLATES
+  return {
+    text: pick(templates).replace('{role}', role),
+    outlet: pickOutlet(),
+    tone: 'negative',
+  }
 }
 
 // ── Address the Nation headlines ────────────────────────────

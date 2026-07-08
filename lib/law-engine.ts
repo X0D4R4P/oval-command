@@ -16,7 +16,8 @@
  * warnings, etc.) remain data-only for now — see project notes.
  */
 
-import { LAWS, NPCS, computePassProbability, rollLawPassage } from '@/lib/game-engine'
+import { LAWS, computePassProbability, rollLawPassage } from '@/lib/game-engine'
+import { FIXED_NPCS, resolveRoster } from '@/lib/cabinet'
 import type { Game, Law, NpcReactionResult } from '@/types/game'
 
 export interface LawPassageOptions {
@@ -45,7 +46,7 @@ export function canUseNpcAbility(
   npcId: 'senate_leader' | 'speaker',
 ): { eligible: boolean; reason?: string } {
   const config = ABILITY_CONFIG[npcId]
-  const npc = NPCS.find(n => n.id === npcId)
+  const npc = FIXED_NPCS.find(n => n.id === npcId)
   if (!npc) return { eligible: false, reason: 'NPC not found' }
 
   if (game.usedNpcAbilities.includes(npcId)) {
@@ -139,13 +140,14 @@ export function getLawById(lawId: string): Law | undefined {
  */
 export function resolveLawNpcReactions(
   game: Game,
-  law: Law
+  law: Law,
 ): { reactions: NpcReactionResult[]; newRelationships: Record<string, number> } {
   const relationships = { ...game.npcRelationships }
   const reactions: NpcReactionResult[] = []
+  const roster = resolveRoster(game)
 
   for (const [npcId, reaction] of Object.entries(law.npc_reactions ?? {})) {
-    const npc = NPCS.find(n => n.id === npcId)
+    const npc = roster.find(n => n.id === npcId)
     if (!npc) continue
 
     const current = relationships[npcId] ?? npc.relationship.start

@@ -16,7 +16,8 @@
  *              (e.g. high congress support → good moment to push a hard bill).
  */
 
-import { LAWS, NPCS, computePassProbability } from '@/lib/game-engine'
+import { LAWS, computePassProbability } from '@/lib/game-engine'
+import { resolveRoster } from '@/lib/cabinet'
 import type { Game } from '@/types/game'
 
 export type AdvisorSeverity = 'critical' | 'warning' | 'opportunity'
@@ -298,9 +299,10 @@ const SEVERITY_ORDER: Record<AdvisorSeverity, number> = { critical: 0, warning: 
  */
 export function getAdvisorRecommendations(game: Game, limit = 4): AdvisorRecommendation[] {
   const matched = RULES.filter(r => r.condition(game))
+  const roster = resolveRoster(game)
 
   const recommendations = matched.map(rule => {
-    const npc = NPCS.find(n => n.id === rule.npcId)
+    const npc = roster.find(n => n.id === rule.npcId)
     const built = rule.build(game)
     return {
       id:       rule.id,

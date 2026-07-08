@@ -11,10 +11,12 @@ import { GameClient } from '@/components/game/GameClient'
 
 interface PageProps {
   params: Promise<{ id: string }>
+  searchParams: Promise<{ discuss?: string }>
 }
 
-export default async function GamePage({ params }: PageProps) {
+export default async function GamePage({ params, searchParams }: PageProps) {
   const { id } = await params
+  const { discuss } = await searchParams
   const session = await auth()
   if (!session?.user?.id) redirect('/login')
 
@@ -24,13 +26,22 @@ export default async function GamePage({ params }: PageProps) {
 
   const game = dbToGame(row)
 
+  // A Cabinet Room "Discuss [Role]" link lands here as ?discuss=slotId —
+  // shown in place of the normal briefing WITHOUT persisting it as
+  // currentEventId, since it's player-initiated and ad hoc: if they
+  // navigate away without resolving it, nothing is lost, and the real
+  // pending crisis/personnel event (if any) is untouched underneath.
+  const discussEvent = discuss ? EVENTS.find(e => e.id === `discuss_${discuss}` && e.category === 'personnel') : undefined
+
   // Reuse the event already persisted for this turn instead of picking a
   // fresh one on every load — otherwise reloading the page (or navigating
   // back from Cabinet/Congress/History) would swap the briefing out from
   // under the player before they'd even chosen, same fix as the /api route.
   let currentEvent = null
   if (game.status === 'ACTIVE') {
-    if (row.currentEventId) {
+    if (discussEvent) {
+      currentEvent = discussEvent
+    } else if (row.currentEventId) {
       currentEvent = EVENTS.find(e => e.id === row.currentEventId) ?? null
     } else {
       currentEvent = pickEvent(game)

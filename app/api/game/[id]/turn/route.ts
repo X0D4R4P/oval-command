@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { processEventTurn, pickEvent, isEventEligible, EVENTS, computeLegacyScore } from '@/lib/game-engine'
+import { resolveRoster } from '@/lib/cabinet'
+import { driftTraits } from '@/lib/cabinet-traits'
+import { applyCabinetNarrative, pickAmbientHeadline } from '@/lib/cabinet-narrative'
 import { computePresidentialArchetype } from '@/lib/archetype-engine'
 import { unlockAchievements } from '@/lib/achievements'
 import { computeSpecialEditionCovers, type CoverContent } from '@/lib/magazine-covers'
@@ -51,6 +54,12 @@ export async function POST(req: NextRequest, { params }: Params) {
   if (!submittedEvent) {
     return NextResponse.json({ error: 'Unknown event' }, { status: 400 })
   }
+  // Personnel-category scenes are turn-free and resolved through their own
+  // route (POST /api/game/[id]/personnel) — this route is crisis-briefing
+  // only, and always advances the month.
+  if (submittedEvent.category === 'personnel') {
+    return NextResponse.json({ error: 'This is a personnel matter, not a crisis briefing' }, { status: 400 })
+  }
   if (!isEventEligible(submittedEvent, game, { ignoreRecentBlock: true })) {
     return NextResponse.json(
       { error: 'This event is no longer available for the current game state' },
@@ -58,17 +67,38 @@ export async function POST(req: NextRequest, { params }: Params) {
     )
   }
 
+  const roster = resolveRoster(game)
+
   let result: ReturnType<typeof processEventTurn>
   try {
-    result = processEventTurn(game, eventId, choiceIndex)
+    result = processEventTurn(game, eventId, choiceIndex, roster)
   } catch (err) {
     const message = safeErrorMessage(err, 'Decision could not be processed')
     return NextResponse.json({ error: message }, { status: 400 })
   }
 
-  const nextEvent = result.game.status === 'ACTIVE'
-    ? pickEvent(result.game)
-    : null
+  // Drift stress + check for an NPC-initiated scene (resignation/request)
+  // before deciding next month's pending event — a suggested personnel
+  // scene takes priority over the ordinary crisis-briefing pool.
+  const driftedTraits = driftTraits(game)
+  const { game: narrativeGame, suggestedEvent } = applyCabinetNarrative(
+    game,
+    { ...result.game, npcTraits: driftedTraits },
+    roster,
+  )
+  // Ambient tier — a rare, low-key "someone on the team did something
+  // routine" line alongside the real news, no choices/consequences
+  // attached. Only when nothing more substantial (an initiative-engine
+  // scene) is already happening this turn, so it never competes with a
+  // real story beat.
+  const ambientHeadline = suggestedEvent ? null : pickAmbientHeadline(roster)
+  result = {
+    ...result,
+    game: narrativeGame,
+    headlines: ambientHeadline ? [...result.headlines, ambientHeadline] : result.headlines,
+  }
+
+  const nextEvent = suggestedEvent ?? (result.game.status === 'ACTIVE' ? pickEvent(result.game) : null)
 
   const [updateResult] = await prisma.$transaction([
     prisma.game.updateMany({

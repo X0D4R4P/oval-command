@@ -1,7 +1,8 @@
 import { redirect, notFound } from 'next/navigation'
 import { auth } from '@/lib/auth'
 import { dbToGame, getGameRow } from '@/lib/db-helpers'
-import { NPCS, EVENTS } from '@/lib/game-engine'
+import { EVENTS } from '@/lib/game-engine'
+import { resolveRoster } from '@/lib/cabinet'
 import { StatCard } from '@/components/game/StatCard'
 import { ConflictBanner } from '@/components/game/ConflictBanner'
 import { CabinetCard } from '@/components/game/CabinetCard'
@@ -25,7 +26,7 @@ export default async function SituationRoomPage({ params }: PageProps) {
   if (row.userId !== session.user.id) redirect('/dashboard')
 
   const game = dbToGame(row)
-  const secDef = NPCS.find(n => n.id === 'sec_defense')
+  const secDef = resolveRoster(game).find(n => n.id === 'sec_defense')
   const pendingEvent = row.currentEventId ? EVENTS.find(e => e.id === row.currentEventId) : undefined
   const showBanner = game.status === 'ACTIVE' && pendingEvent && MATCHING_CATEGORIES.includes(pendingEvent.category)
 

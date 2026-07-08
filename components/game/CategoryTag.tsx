@@ -11,6 +11,11 @@ const CATEGORY_CONFIG: Record<EventCategory, { label: string; color: string; ico
   congress:  { label: 'Congress',  color: 'var(--color-cat-congress)',  icon: '/icons/cat_congress.png' },
   social:    { label: 'Social',    color: 'var(--color-cat-social)',    icon: '/icons/cat_social.png' },
   diplomacy: { label: 'Diplomacy', color: 'var(--color-cat-diplomacy)', icon: '/icons/cat_diplomacy.png' },
+  // No dedicated icon/color pair exists for personnel scenes yet — reuses
+  // Congress's icon (closest "people/institutions" fit) and the brass
+  // accent already used for inner-circle/administration contexts
+  // elsewhere, rather than blocking on new art.
+  personnel: { label: 'Personnel', color: 'var(--color-brass)', icon: '/icons/cat_congress.png' },
 }
 
 export function CategoryTag({ category, className }: { category: EventCategory; className?: string }) {

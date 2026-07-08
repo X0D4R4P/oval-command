@@ -5,7 +5,8 @@
  * persisted history.
  */
 
-import { EVENTS, LAWS, NPCS, getDialogueTier } from '@/lib/game-engine'
+import { EVENTS, LAWS, getDialogueTier } from '@/lib/game-engine'
+import { resolveRoster } from '@/lib/cabinet'
 import { computeStatTrend } from '@/lib/stat-trends'
 import { hashSeed } from '@/lib/utils'
 import type { Game, GameLog } from '@/types/game'
@@ -85,6 +86,7 @@ function computeYearAhead(game: Game): string[] {
  *   technique as lib/stat-trends.ts.
  */
 export function computeYearInReview(game: Game, allLogsAsc: GameLog[], year: number): YearInReview {
+  const roster = resolveRoster(game)
   const startMonth = (year - 1) * 12 + 1
   const endMonth = year * 12
   const yearLogs = allLogsAsc.filter(l => l.month >= startMonth && l.month <= endMonth)
@@ -120,7 +122,7 @@ export function computeYearInReview(game: Game, allLogsAsc: GameLog[], year: num
   let advisor: YearInReviewAdvisor | null = null
   if (npcEntries.length > 0) {
     const [topNpcId, topRelationship] = npcEntries.reduce((best, entry) => (entry[1] > best[1] ? entry : best))
-    const npc = NPCS.find(n => n.id === topNpcId)
+    const npc = roster.find(n => n.id === topNpcId)
     if (npc) {
       const tier = getDialogueTier(topRelationship)
       const lines = npc.monthlyDialogue[tier]

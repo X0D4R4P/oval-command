@@ -1,7 +1,8 @@
 import { redirect, notFound } from 'next/navigation'
 import { auth } from '@/lib/auth'
 import { dbToGame, getGameRow } from '@/lib/db-helpers'
-import { NPCS, EVENTS } from '@/lib/game-engine'
+import { EVENTS } from '@/lib/game-engine'
+import { resolveRoster } from '@/lib/cabinet'
 import { StatCard } from '@/components/game/StatCard'
 import { CabinetCard } from '@/components/game/CabinetCard'
 import { PendingEventBanner } from '@/components/game/PendingEventBanner'
@@ -24,7 +25,7 @@ export default async function DiplomaticOfficePage({ params }: PageProps) {
   if (row.userId !== session.user.id) redirect('/dashboard')
 
   const game = dbToGame(row)
-  const worldLeaders = NPCS.filter(n => n.faction === 'international')
+  const worldLeaders = resolveRoster(game).filter(n => n.faction === 'international')
   const pendingEvent = row.currentEventId ? EVENTS.find(e => e.id === row.currentEventId) : undefined
   const showBanner = game.status === 'ACTIVE' && pendingEvent && MATCHING_CATEGORIES.includes(pendingEvent.category)
 

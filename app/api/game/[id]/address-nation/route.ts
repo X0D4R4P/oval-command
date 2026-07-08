@@ -4,6 +4,9 @@ import { prisma } from '@/lib/prisma'
 import { dbToGame, gameToDbUpdate, toJson, safeErrorMessage } from '@/lib/db-helpers'
 import { resolveSpeech, SPEECH_THEMES } from '@/lib/address-nation'
 import { applyDelta, pickEvent, advanceMonth, computeLegacyScore } from '@/lib/game-engine'
+import { resolveRoster } from '@/lib/cabinet'
+import { driftTraits } from '@/lib/cabinet-traits'
+import { applyCabinetNarrative } from '@/lib/cabinet-narrative'
 import { generateSpeechHeadline, type SpeechTheme } from '@/lib/headlines'
 import { unlockAchievements } from '@/lib/achievements'
 import { computeSpecialEditionCovers, type CoverContent } from '@/lib/magazine-covers'
@@ -52,22 +55,30 @@ export async function POST(req: NextRequest, { params }: Params) {
   let speechEffects: StatDelta
   let cascadeHeadlines: Headline[]
   let gameOver: GameOverReason | null = null
+  let suggestedEvent: ReturnType<typeof pickEvent> = null
   try {
     const speechResult = resolveSpeech(theme, game)
     effective = speechResult.effective
     speechEffects = speechResult.effects
     const statsAfterSpeech = applyDelta(game.stats, speechEffects)
+    const preNarrativeGame = { ...game, stats: statsAfterSpeech }
 
-    const advance = advanceMonth({ ...game, stats: statsAfterSpeech })
+    const advance = advanceMonth(preNarrativeGame)
     updatedGame = advance.game
     cascadeHeadlines = advance.cascadeHeadlines
     gameOver = advance.gameOver
+
+    const roster = resolveRoster(game)
+    const driftedTraits = driftTraits(preNarrativeGame)
+    const narrative = applyCabinetNarrative(preNarrativeGame, { ...updatedGame, npcTraits: driftedTraits }, roster)
+    updatedGame = narrative.game
+    suggestedEvent = narrative.suggestedEvent
   } catch (err) {
     const message = safeErrorMessage(err, 'Speech could not be processed')
     return NextResponse.json({ error: message }, { status: 400 })
   }
 
-  const nextEvent = updatedGame.status === 'ACTIVE' ? pickEvent(updatedGame) : null
+  const nextEvent = suggestedEvent ?? (updatedGame.status === 'ACTIVE' ? pickEvent(updatedGame) : null)
 
   const narrative = effective
     ? 'The speech lands — the message matched the moment.'

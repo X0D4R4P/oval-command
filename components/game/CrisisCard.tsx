@@ -7,7 +7,7 @@ import { getEventBackground, getEventAccentColor, getRoomTreatment, getRoomImage
 import { RoomBackground, roomAccentStyle } from './RoomBackground'
 import { CategoryTag } from './CategoryTag'
 import { IntelligenceBriefing } from './IntelligenceBriefing'
-import type { CrisisEvent, StatDelta, GameStats } from '@/types/game'
+import type { CrisisEvent, StatDelta, GameStats, Npc } from '@/types/game'
 
 interface CrisisCardProps {
   event: CrisisEvent
@@ -18,6 +18,8 @@ interface CrisisCardProps {
   disabled?: boolean
   /** Whether the room backdrop should show its tense/crisis variant — see lib/event-backgrounds.ts's isTenseMood. */
   tense?: boolean
+  /** Resolved roster, only needed to label speaker names on event.dialogueSequence (personnel scenes) — every other event type ignores this. */
+  roster?: Npc[]
 }
 
 function EffectPreview({ effects }: { effects: StatDelta }) {
@@ -44,7 +46,7 @@ function EffectPreview({ effects }: { effects: StatDelta }) {
   )
 }
 
-export function CrisisCard({ event, month, gameId, flags, onChoose, disabled, tense }: CrisisCardProps) {
+export function CrisisCard({ event, month, gameId, flags, onChoose, disabled, tense, roster }: CrisisCardProps) {
   const [selected, setSelected] = useState<number | null>(null)
   const breaking = isBreakingEvent(event)
   const callback = getEventCallback(event, flags)
@@ -115,6 +117,20 @@ export function CrisisCard({ event, month, gameId, flags, onChoose, disabled, te
           <p className="mt-2 text-[13px] italic leading-snug text-[var(--color-paper-faint)]">
             {callback}
           </p>
+        )}
+
+        {event.dialogueSequence && event.dialogueSequence.length > 0 && (
+          <div className="mt-4 space-y-2.5 border-l-2 border-[var(--color-border)] pl-3">
+            {event.dialogueSequence.map((line, i) => {
+              const speaker = roster?.find(n => n.id === line.npcId)
+              return (
+                <p key={i} className="text-[14px] leading-snug text-[var(--color-paper-dim)]">
+                  <span className="font-medium text-[var(--color-paper)]">{speaker?.shortName ?? line.npcId}:</span>{' '}
+                  <span className="italic">&ldquo;{line.line}&rdquo;</span>
+                </p>
+              )
+            })}
+          </div>
         )}
 
         <IntelligenceBriefing gameId={gameId} event={event} />

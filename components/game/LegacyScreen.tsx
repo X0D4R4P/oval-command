@@ -3,7 +3,8 @@ import { Seal } from '@/components/Seal'
 import { ShareButton } from '@/components/ShareButton'
 import { computeSectorBreakdown } from '@/lib/law-sectors'
 import { getPresidentialQuote } from '@/lib/presidential-quote'
-import type { LegacyScore, GameOverReason } from '@/types/game'
+import { buildLegacyIntelligence } from '@/lib/legacy-intelligence'
+import type { LegacyScore, GameOverReason, Game } from '@/types/game'
 import type { PresidentialArchetype } from '@/lib/archetype-engine'
 
 interface LegacyScreenProps {
@@ -12,7 +13,18 @@ interface LegacyScreenProps {
   presidentName: string
   archetype?: PresidentialArchetype
   passedLaws: string[]
+  cabinetSelections: Game['cabinetSelections']
+  npcTraits: Game['npcTraits']
   onNewGame: () => void
+}
+
+const TRAIT_LABELS: Record<keyof import('@/types/game').NpcTraits, string> = {
+  loyalty: 'Loyalty',
+  ambition: 'Ambition',
+  integrity: 'Integrity',
+  politicalSkill: 'Political Skill',
+  stress: 'Stress',
+  ideology: 'Ideology',
 }
 
 export const REASON_LABEL: Record<GameOverReason, string> = {
@@ -35,8 +47,9 @@ function sealTone(score: number) {
   return 'text-[var(--color-bad)]'
 }
 
-export function LegacyScreen({ legacy, reason, presidentName, archetype, passedLaws, onNewGame }: LegacyScreenProps) {
+export function LegacyScreen({ legacy, reason, presidentName, archetype, passedLaws, cabinetSelections, npcTraits, onNewGame }: LegacyScreenProps) {
   const sectorBreakdown = computeSectorBreakdown(passedLaws)
+  const intelligence = buildLegacyIntelligence(cabinetSelections, npcTraits)
 
   const breakdown = [
     { label: 'Approval',         value: legacy.breakdown.approval },
@@ -214,6 +227,48 @@ export function LegacyScreen({ legacy, reason, presidentName, archetype, passedL
               <p className="mt-2 font-[family-name:var(--font-signature)] text-xl text-[var(--color-brass)]">
                 Respectfully, President {presidentName}
               </p>
+            </div>
+          )}
+
+          {intelligence.length > 0 && (
+            <div className="mt-7 border-t border-[var(--color-border)] pt-5 text-left">
+              <div className="font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--color-paper-faint)]">
+                Legacy Intelligence Report
+              </div>
+              <p className="mt-1.5 text-[12px] leading-snug text-[var(--color-paper-faint)]">
+                What your administration never showed you while you were in office.
+              </p>
+              <div className="mt-4 space-y-5">
+                {intelligence.map(entry => (
+                  <div key={entry.slotId}>
+                    <div className="flex items-baseline justify-between">
+                      <span className="text-sm font-medium text-[var(--color-paper)]">{entry.name}</span>
+                      <span className="font-mono text-[10px] uppercase tracking-[0.05em] text-[var(--color-paper-faint)]">{entry.role}</span>
+                    </div>
+                    <div className="mt-2 space-y-1.5">
+                      {(Object.entries(entry.traits) as [keyof typeof entry.traits, number][]).map(([key, value]) => (
+                        <div key={key} className="flex items-center gap-2">
+                          <span className="w-24 flex-shrink-0 text-[11px] text-[var(--color-paper-faint)]">{TRAIT_LABELS[key]}</span>
+                          <div className="h-[3px] flex-1 rounded-full bg-[var(--color-border)]">
+                            <div
+                              className="h-full rounded-full bg-[var(--color-brass)]"
+                              style={{ width: `${Math.max(2, Math.min(100, value))}%` }}
+                            />
+                          </div>
+                          <span className="w-6 flex-shrink-0 text-right font-mono text-[10px] tabular-nums text-[var(--color-paper-faint)]">
+                            {Math.round(value)}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                    {entry.blurb && (
+                      <p className="mt-2 text-[12px] italic leading-snug text-[var(--color-paper-dim)]">
+                        In hindsight: {entry.name.split(' ').slice(-1)[0]} {entry.blurb}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
           )}
 
