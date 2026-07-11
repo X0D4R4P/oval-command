@@ -4,6 +4,7 @@ import { auth } from '@/lib/auth'
 import { dbToGame, getGameRow } from '@/lib/db-helpers'
 import { ALL_EVENTS } from '@/lib/game-engine'
 import { getLegislativeOpportunity } from '@/lib/law-engine'
+import { getOwnedContent } from '@/lib/entitlements'
 import { hashSeed } from '@/lib/utils'
 import { RoomBackground, roomAccentStyle } from '@/components/game/RoomBackground'
 import { getRoomTreatment, getRoomImage, isTenseMood } from '@/lib/event-backgrounds'
@@ -32,7 +33,8 @@ export default async function SchedulePage({ params }: PageProps) {
   const pendingEvent = row.currentEventId ? ALL_EVENTS.find(e => e.id === row.currentEventId) : undefined
   const roomImage = getRoomImage('/oval-office-bg.webp', isTenseMood(game, pendingEvent))
   const treatment = getRoomTreatment(roomImage)
-  const opportunity = getLegislativeOpportunity(game)
+  const ownedContent = await getOwnedContent(session.user.id)
+  const opportunity = getLegislativeOpportunity(game, ownedContent)
 
   const items: ScheduleItem[] = []
 

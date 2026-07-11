@@ -190,14 +190,19 @@ export interface LegislativeOpportunity {
  * PresidentialInbox and the Propose Legislation action card so both
  * derive the same condition instead of duplicating it.
  */
-export function getLegislativeOpportunity(game: Game): LegislativeOpportunity | null {
+export function getLegislativeOpportunity(game: Game, ownedContent: OwnedContent): LegislativeOpportunity | null {
   const congressFavorable = game.stats.congressSupport > 55
   // Modern games get the free-only suggestion pool (a deliberate
   // limitation — doesn't yet suggest owned Story Pack laws, though they're
   // still fully proposable from the Congress room directly). A non-Modern
-  // game's entire era is already an owned entitlement by the time it
-  // exists (validated at creation), so its full era-scoped pool is used.
-  const availableLaws = (game.campaignEra === 'modern' ? LAWS : getEligibleLaws('all', game.campaignEra))
+  // game's CAMPAIGN is already an owned entitlement by the time it exists
+  // (validated at creation), but era-agnostic sources like Story Packs are
+  // NOT implied by that — getEligibleLaws('all', era) would surface an
+  // unowned Story Pack's law as "Recommended" here even though the actual
+  // Propose Legislation route still correctly blocks proposing it. Passing
+  // the real ownedContent keeps this suggestion consistent with what's
+  // actually proposable.
+  const availableLaws = (game.campaignEra === 'modern' ? LAWS : getEligibleLaws(ownedContent, game.campaignEra))
     .filter(l => !game.passedLaws.includes(l.id))
   const noLawsThisTerm = game.passedLaws.length === 0
   const congressHighlyFavorable = game.stats.congressSupport > 65

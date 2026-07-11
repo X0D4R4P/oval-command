@@ -318,7 +318,7 @@ export function GameClient({ initialGame, initialEvent, recentLogs: initialRecen
     ? (isBreakingEvent(event) || event.category === 'scandal' || event.category === 'security' ? 'High Priority' : 'Standard priority')
     : undefined
 
-  const opportunity = getLegislativeOpportunity(game)
+  const opportunity = getLegislativeOpportunity(game, new Set(ownedContent))
   const lawTag: ActionCardTag | undefined = opportunity ? 'Recommended' : undefined
   const lawDetail = opportunity?.suggested
     ? `${Math.round(computePassProbability(opportunity.suggested, game))}% chance of passage`

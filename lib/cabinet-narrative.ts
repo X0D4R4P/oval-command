@@ -12,7 +12,8 @@
  * cascade-engine chains do.
  */
 
-import { EVENTS, applyDelta } from '@/lib/game-engine'
+import { applyDelta } from '@/lib/game-engine'
+import { getEligibleEvents } from '@/lib/content-sources'
 import { hireCandidate, getCandidatesForSlot } from '@/lib/cabinet'
 import { revealObservations, relationshipSeverity, applyTraitDeltas } from '@/lib/cabinet-traits'
 import { getNeglectedPriorities } from '@/lib/priorities'
@@ -29,14 +30,22 @@ import {
   type NpcReactionResult,
 } from '@/types/game'
 
-const PERSONNEL_EVENTS = EVENTS.filter(e => e.category === 'personnel')
-
 function isSelectableSlot(id: string): id is SelectableSlotId {
   return (SELECTABLE_SLOT_IDS as readonly string[]).includes(id)
 }
 
-function eventsForSlot(slotId: string, tier: string): CrisisEvent[] {
-  return PERSONNEL_EVENTS.filter(e => e.npcId === slotId && e.personnelMeta?.tier === tier)
+// Era-scoped, not a module-level constant — personnel content is currently
+// Modern-only, but resolving it against a fixed 'modern' pool regardless of
+// the calling game's actual era would surface Modern personnel scenes for
+// Cold War cabinet officials (and silently drop any future era-specific
+// personnel content). 'all' for ownedContent since this is resolving what's
+// eligible for an already-existing game's era, not gating a new purchase.
+function personnelEventsForEra(era: string): CrisisEvent[] {
+  return getEligibleEvents('all', era).filter(e => e.category === 'personnel')
+}
+
+function eventsForSlot(slotId: string, tier: string, era: string): CrisisEvent[] {
+  return personnelEventsForEra(era).filter(e => e.npcId === slotId && e.personnelMeta?.tier === tier)
 }
 
 // ── Resignation risk ─────────────────────────────────────────
@@ -60,7 +69,7 @@ export function checkResignationRisk(game: Game): CrisisEvent | null {
     if ((game.chainCooldowns[cooldownKey] ?? 0) > game.currentMonth) continue
     if (Math.random() >= chance) continue
 
-    const candidates = eventsForSlot(slotId, 'resignation')
+    const candidates = eventsForSlot(slotId, 'resignation', game.campaignEra)
     if (candidates.length > 0) return candidates[Math.floor(Math.random() * candidates.length)]
   }
   return null
@@ -75,11 +84,13 @@ function activeGoalTag(game: Game, slotId: SelectableSlotId): string | undefined
 }
 
 export function checkNpcInitiatives(game: Game): CrisisEvent | null {
+  const personnelEvents = personnelEventsForEra(game.campaignEra)
+
   const neglected = getNeglectedPriorities(game)
   if (neglected.length > 0) {
     const cooldownKey = 'priority_neglect_nudge'
     if ((game.chainCooldowns[cooldownKey] ?? 0) <= game.currentMonth && Math.random() < 0.35) {
-      const nudges = PERSONNEL_EVENTS.filter(e => e.personnelMeta?.tier === 'neglect')
+      const nudges = personnelEvents.filter(e => e.personnelMeta?.tier === 'neglect')
       if (nudges.length > 0) return nudges[Math.floor(Math.random() * nudges.length)]
     }
   }
@@ -88,7 +99,7 @@ export function checkNpcInitiatives(game: Game): CrisisEvent | null {
   // reads as occasional, not a scene every single month.
   if (Math.random() > 0.3) return null
 
-  const pool = PERSONNEL_EVENTS.filter(e =>
+  const pool = personnelEvents.filter(e =>
     (e.personnelMeta?.tier === 'request' || e.personnelMeta?.tier === 'conflict' || e.personnelMeta?.tier === 'room') &&
     e.npcId && isSelectableSlot(e.npcId)
   )

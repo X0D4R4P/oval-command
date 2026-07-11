@@ -116,7 +116,11 @@ export function LawCard({
         </p>
       )}
 
-      {contentLocked && product && (
+      {/* A law already passed while its Story Pack was owned stays passed
+          even if that entitlement is later revoked (dev toggle today, a
+          refund path eventually) — contentLocked must never hide that this
+          law is already in effect and re-prompt payment for it. */}
+      {contentLocked && product && !alreadyPassed && (
         <div className="mt-4 flex items-center justify-between border-t border-[var(--color-border)] pt-3.5">
           <span className="font-mono text-xs text-[var(--color-paper-faint)]">
             🔒 {product.description} — requires {product.displayName}
@@ -128,7 +132,7 @@ export function LawCard({
         </div>
       )}
 
-      {!contentLocked && (
+      {(!contentLocked || alreadyPassed) && (
       <div className="mt-4 flex items-center justify-between border-t border-[var(--color-border)] pt-3.5">
         {alreadyPassed ? (
           <span className="font-mono text-xs text-[var(--color-good)]">✓ Already law</span>

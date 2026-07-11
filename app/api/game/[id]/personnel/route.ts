@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
-import { ALL_EVENTS } from '@/lib/game-engine'
+import { getEligibleEvents } from '@/lib/content-sources'
+import { getOwnedContent } from '@/lib/entitlements'
 import { resolveRoster } from '@/lib/cabinet'
 import { resolvePersonnelChoice } from '@/lib/cabinet-narrative'
 import { dbToGame, gameToDbUpdate, toJson, safeErrorMessage } from '@/lib/db-helpers'
@@ -44,7 +45,13 @@ export async function POST(req: NextRequest, { params }: Params) {
   if (row.userId !== session.user.id) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   if (row.status !== 'ACTIVE') return NextResponse.json({ error: 'Game is not active' }, { status: 400 })
 
-  const event = ALL_EVENTS.find(e => e.id === eventId)
+  const game = dbToGame(row)
+  const ownedContent = await getOwnedContent(session.user.id)
+
+  // Same "never trust client ids" posture as /turn — a crafted request for
+  // an event from another era or an unowned content source simply isn't in
+  // the eligible pool, same as an eventId that never existed.
+  const event = getEligibleEvents(ownedContent, game.campaignEra).find(e => e.id === eventId)
   if (!event || event.category !== 'personnel') {
     return NextResponse.json({ error: 'Unknown personnel scene' }, { status: 400 })
   }
@@ -62,7 +69,6 @@ export async function POST(req: NextRequest, { params }: Params) {
     )
   }
 
-  const game = dbToGame(row)
   const roster = resolveRoster(game)
 
   let result: ReturnType<typeof resolvePersonnelChoice>
